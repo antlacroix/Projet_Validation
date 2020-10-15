@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace ModelCinema.Models
 {
-    class DataManager
+    public class DataManager
     {
+        private cinema_dbEntities db = new cinema_dbEntities();
+
+        private List<film> films;
+
+        public DataManager()
+        {
+            films = db.films.ToList();
+        }
     }
 }

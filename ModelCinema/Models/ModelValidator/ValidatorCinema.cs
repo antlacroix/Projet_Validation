@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace ModelCinema.Models.ModelValidator
 {
-    class ValidatorCinema : IValidator
+    static public class ValidatorCinema
     {
-        static public bool IsValide(cinema cinema)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

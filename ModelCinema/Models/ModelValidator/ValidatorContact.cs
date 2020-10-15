@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelCinema.Models.ModelValidator
 {
-    class ValidatorContact : IValidator
+    static public class ValidatorContact
     {
         static public bool IsValide(contact_info contact_info)
         {
@@ -36,15 +36,18 @@ namespace ModelCinema.Models.ModelValidator
             }
         }
 
-        static private bool IsContactTelephoneValide(string telephone)
+        static public bool IsContactTelephoneValide(string telephone)
         {
-            if (telephone.Length == 9)
+            //TO-DO
+            //Vérifier si le telephone ne contient que des chiffres 
+
+            if (telephone.Length == 10)
                 return true;
             else
                 return false;
         }
         
-        static private bool IsContactCodePostalValide(string code_postal)
+        static public bool IsContactCodePostalValide(string code_postal)
         {
             //TO-DO
             //Vérifier si le code postal respecte une RegEx 
@@ -54,7 +57,7 @@ namespace ModelCinema.Models.ModelValidator
                 return false;
         }
 
-        static private bool IsContactAdressValide(string adresse)
+        static public bool IsContactAdressValide(string adresse)
         {
             if (adresse.Length > 0 && adresse.Length < 50)
                 return true;
@@ -62,7 +65,7 @@ namespace ModelCinema.Models.ModelValidator
                 return false;
         }
 
-        static private bool IsContactVilleValide(string ville)
+        static public bool IsContactVilleValide(string ville)
         {
             if (ville.Length > 0 && ville.Length < 50)
                 return true;
@@ -70,7 +73,7 @@ namespace ModelCinema.Models.ModelValidator
                 return false;
         }
         
-        static private bool IsContactProvinceValide(string province)
+        static public bool IsContactProvinceValide(string province)
         {
             if (province.Length > 0 && province.Length < 20)
                 return true;
@@ -78,7 +81,7 @@ namespace ModelCinema.Models.ModelValidator
                 return false;
         }
         
-        static private bool IsContactPaysValide(string pays)
+        static public bool IsContactPaysValide(string pays)
         {
             if (pays.Length > 0 && pays.Length < 15)
                 return true;

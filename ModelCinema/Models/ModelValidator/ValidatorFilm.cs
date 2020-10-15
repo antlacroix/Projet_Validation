@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelCinema.Models.ModelValidator
 {
-    class ValidatorFilm : IValidator
+    static public class ValidatorFilm
     {
         static public bool IsValide(film film)
         {
@@ -37,9 +37,9 @@ namespace ModelCinema.Models.ModelValidator
 
         //TO-DO
         //vérifier si le titre du film existe déjà avec DataManager
-        //static private bool IsFilmTitreExist(string titre) {}
+        //static public bool IsFilmTitreExist(string titre) {}
 
-        static private bool IsFilmTitreValide(string titre)
+        static public bool IsFilmTitreValide(string titre)
         {
             if (titre.Length > 0 && titre.Length < 50)
                 return true;
@@ -47,7 +47,7 @@ namespace ModelCinema.Models.ModelValidator
                 return false;
         }
 
-        static private bool IsFilmDescriptionValide(string description)
+        static public bool IsFilmDescriptionValide(string description)
         {
             if (description.Length > 0 && description.Length < 50)
                 return true;
@@ -55,7 +55,7 @@ namespace ModelCinema.Models.ModelValidator
                 return false;
         }
 
-        static private bool IsFilmAnneeValide(int annee)
+        static public bool IsFilmAnneeValide(int annee)
         {
             if (annee >= 1895)
                 return true;
@@ -63,7 +63,7 @@ namespace ModelCinema.Models.ModelValidator
                 return false;
         }
 
-        static private bool IsFilmRatingValide(double rating)
+        static public bool IsFilmRatingValide(double rating)
         {
             if (rating >= 0)
                 return true;
@@ -71,7 +71,7 @@ namespace ModelCinema.Models.ModelValidator
                 return false;
         }
 
-        static private bool IsFilmRevenuValide(int revenu)
+        static public bool IsFilmRevenuValide(int revenu)
         {
             if (revenu > 0)
                 return true;

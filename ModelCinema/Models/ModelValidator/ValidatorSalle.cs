@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelCinema.Models.ModelValidator
 {
-    class ValidatorSalle : IValidator
+    static public class ValidatorSalle
     {
         static public bool IsValide(salle salle)
         {
@@ -34,7 +34,7 @@ namespace ModelCinema.Models.ModelValidator
             }
         }
 
-        static private bool IsSallePlaceValide(int nbr_place)
+        static public bool IsSallePlaceValide(int nbr_place)
         {
             if (nbr_place > 0)
                 return true;
@@ -46,7 +46,7 @@ namespace ModelCinema.Models.ModelValidator
         //vérifier si numero de salle existe avec DataManager
         //IsSalleNumeroExist(int no_salle){}
 
-        static private bool IsSalleNumeroValide(int no_salle)
+        static public bool IsSalleNumeroValide(int no_salle)
         {
             if (no_salle > 0)
                 return true;
@@ -54,7 +54,7 @@ namespace ModelCinema.Models.ModelValidator
                 return false;
         }
 
-        static private bool IsSalleCommentaire(string commentaire)
+        static public bool IsSalleCommentaire(string commentaire)
         {
             if (commentaire.Length > 0 && commentaire.Length < 250)
                 return true;

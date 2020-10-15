@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelCinema.Models.ModelValidator
 {
-    class ValidatorParticipant : IValidator
+    static public class ValidatorParticipant
     {
         static public bool IsValide(participant participant)
         {
@@ -31,7 +31,7 @@ namespace ModelCinema.Models.ModelValidator
             }
         }
 
-        static private bool IsParticipantNameValide(string name)
+        static public bool IsParticipantNameValide(string name)
         {
             if (name.Length > 0 && name.Length < 50)
                 return true;

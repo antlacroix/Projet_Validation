@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelCinema.Models.ModelValidator
 {
-    class ValidatorUser : IValidator
+    static public class ValidatorUser
     {
         static public bool IsValide(user user)
         {
@@ -35,9 +35,9 @@ namespace ModelCinema.Models.ModelValidator
 
         //TO-DO
         //vérifier si le login exist déjà via DataManager
-        //static private bool IsUserLoginExist(string login){}
+        //static public bool IsUserLoginExist(string login){}
 
-        static private bool IsUserLoginValide(string login)
+        static public bool IsUserLoginValide(string login)
         {
 
             if (login.Length > 0 && login.Length < 15)
@@ -46,7 +46,7 @@ namespace ModelCinema.Models.ModelValidator
                 return false;
         }
 
-        static private bool IsUserPasswordValide(string password)
+        static public bool IsUserPasswordValide(string password)
         {
             //TO-DO
             //vérifier si password contient les charactere nécéssaire
@@ -56,7 +56,7 @@ namespace ModelCinema.Models.ModelValidator
                 return false;
         }
 
-        static private bool IsUserNameValide(string name)
+        static public bool IsUserNameValide(string name)
         {
             //TO-DO
             //vérifier si le name ne contient pas de charactere non valide

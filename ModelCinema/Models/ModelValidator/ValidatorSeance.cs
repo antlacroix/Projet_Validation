@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelCinema.Models.ModelValidator
 {
-    class ValidatorSeance : IValidator
+    static public class ValidatorSeance
     {
         static public bool IsValide(seance seance)
         {
@@ -36,9 +36,9 @@ namespace ModelCinema.Models.ModelValidator
 
         //TO-DO
         //vérifier si la sceance est en conflit avec une autre
-        //static private bool IsSeanceConflict(DateTime date_debut, DateTime date_fin){}
+        //static public bool IsSeanceConflict(DateTime date_debut, DateTime date_fin){}
 
-        static private bool IsSeanceDateDebutValide(DateTime date_debut)
+        static public bool IsSeanceDateDebutValide(DateTime date_debut)
         {
             if (date_debut.CompareTo(DateTime.Now) >= 0)
                 return true;
@@ -46,7 +46,7 @@ namespace ModelCinema.Models.ModelValidator
                 return false;
         }
 
-        static private bool IsSeanceDateFinValide(DateTime date_debut, DateTime date_fin)
+        static public bool IsSeanceDateFinValide(DateTime date_debut, DateTime date_fin)
         {
             if (date_fin.AddMinutes(30).CompareTo(date_debut) >= 0)
                 return true;
@@ -54,7 +54,7 @@ namespace ModelCinema.Models.ModelValidator
                 return false;
         }
 
-        static private bool IsSeanceTitreValide(string titre)
+        static public bool IsSeanceTitreValide(string titre)
         {
             if (titre.Length > 0 && titre.Length < 50)
                 return true;
