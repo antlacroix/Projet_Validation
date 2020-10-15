@@ -82,6 +82,17 @@
     <Compile Include="Models\genre_film.cs">
       <DependentUpon>ModelCinema.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MetaData\contact_info.cs" />
+    <Compile Include="Models\MetaData\film.cs" />
+    <Compile Include="Models\MetaData\genre.cs" />
+    <Compile Include="Models\MetaData\participant.cs" />
+    <Compile Include="Models\MetaData\role_participant.cs" />
+    <Compile Include="Models\MetaData\salle.cs" />
+    <Compile Include="Models\MetaData\salle_status.cs" />
+    <Compile Include="Models\MetaData\seance.cs" />
+    <Compile Include="Models\MetaData\user.cs" />
+    <Compile Include="Models\MetaData\user_status.cs" />
+    <Compile Include="Models\MetaData\user_type.cs" />
     <Compile Include="Models\ModelCinema.Context.cs">
       <DependentUpon>ModelCinema.Context.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -161,9 +172,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\MetaData\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
