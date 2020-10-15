@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4e91f0ce3b6943538fe2b092d4224bb2" Name="Diagram1">
+        <EntityTypeShape EntityType="cinema_dbModel.cinema" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinema_dbModel.contact_info" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinema_dbModel.film" Width="1.5" PointX="3" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinema_dbModel.genre" Width="1.5" PointX="7" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinema_dbModel.genre_film" Width="1.5" PointX="5" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinema_dbModel.participant" Width="1.5" PointX="0.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinema_dbModel.participation" Width="1.5" PointX="0.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinema_dbModel.role_participant" Width="1.5" PointX="0.75" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinema_dbModel.salle" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinema_dbModel.salle_status" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinema_dbModel.seance" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinema_dbModel.user" Width="1.5" PointX="6" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinema_dbModel.user_status" Width="1.5" PointX="8.375" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="cinema_dbModel.user_type" Width="1.5" PointX="6" PointY="11.125" IsExpanded="true" />
+        <AssociationConnector Association="cinema_dbModel.fk_cinema_contactinfo" ManuallyRouted="false" />
+        <AssociationConnector Association="cinema_dbModel.fk_cinema_responsable" ManuallyRouted="false" />
+        <AssociationConnector Association="cinema_dbModel.fk_salle_cinema" ManuallyRouted="false" />
+        <AssociationConnector Association="cinema_dbModel.fk_user_contactinfo" ManuallyRouted="false" />
+        <AssociationConnector Association="cinema_dbModel.fk_genrefilm_film" ManuallyRouted="false" />
+        <AssociationConnector Association="cinema_dbModel.fk_participation_film" ManuallyRouted="false" />
+        <AssociationConnector Association="cinema_dbModel.fk_seance_film" ManuallyRouted="false" />
+        <AssociationConnector Association="cinema_dbModel.fk_genrefilm_genre" ManuallyRouted="false" />
+        <AssociationConnector Association="cinema_dbModel.fk_participation_participant" ManuallyRouted="false" />
+        <AssociationConnector Association="cinema_dbModel.fk_participation_role" ManuallyRouted="false" />
+        <AssociationConnector Association="cinema_dbModel.fk_salle_status" ManuallyRouted="false" />
+        <AssociationConnector Association="cinema_dbModel.fk_seance_salle" ManuallyRouted="false" />
+        <AssociationConnector Association="cinema_dbModel.fk_user_userstatus" ManuallyRouted="false" />
+        <AssociationConnector Association="cinema_dbModel.fk_user_usertype" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,939 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="cinema_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cinema">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="contact_info_id" Type="int" Nullable="false" />
+          <Property Name="responsable_user_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="contact_info">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tel_number" Type="nchar" MaxLength="9" Nullable="false" />
+          <Property Name="code_postal" Type="nchar" MaxLength="6" Nullable="false" />
+          <Property Name="adresse" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ville" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="province" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="pays" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="film">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="titre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="annee_parution" Type="int" Nullable="false" />
+          <Property Name="duree" Type="int" Nullable="false" />
+          <Property Name="rating" Type="float" Nullable="false" />
+          <Property Name="revenu" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="genre">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="genre" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="genre_film">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="genre_id" Type="int" Nullable="false" />
+          <Property Name="film_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="participant">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="participation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="participant_id" Type="int" Nullable="false" />
+          <Property Name="role_id" Type="int" Nullable="false" />
+          <Property Name="film_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="role_participant">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="salle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nbr_place" Type="int" Nullable="false" />
+          <Property Name="numero_salle" Type="int" Nullable="false" />
+          <Property Name="commentaire" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="status_id" Type="int" Nullable="false" />
+          <Property Name="cinema_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="salle_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="seance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date_debut" Type="datetime" Nullable="false" />
+          <Property Name="date_fin" Type="datetime" Nullable="false" />
+          <Property Name="titre_seance" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="salle_id" Type="int" Nullable="false" />
+          <Property Name="film_id" Type="int" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="contact_info_id" Type="int" Nullable="false" />
+          <Property Name="user_status_id" Type="int" Nullable="false" />
+          <Property Name="user_type_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_cinema_contactinfo">
+          <End Role="contact_info" Type="Self.contact_info" Multiplicity="1" />
+          <End Role="cinema" Type="Self.cinema" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contact_info">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="cinema">
+              <PropertyRef Name="contact_info_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cinema_responsable">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="cinema" Type="Self.cinema" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="cinema">
+              <PropertyRef Name="responsable_user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_genrefilm_film">
+          <End Role="film" Type="Self.film" Multiplicity="1" />
+          <End Role="genre_film" Type="Self.genre_film" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="film">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="genre_film">
+              <PropertyRef Name="film_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_genrefilm_genre">
+          <End Role="genre" Type="Self.genre" Multiplicity="1" />
+          <End Role="genre_film" Type="Self.genre_film" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genre">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="genre_film">
+              <PropertyRef Name="genre_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_participation_film">
+          <End Role="film" Type="Self.film" Multiplicity="1" />
+          <End Role="participation" Type="Self.participation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="film">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="participation">
+              <PropertyRef Name="film_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_participation_participant">
+          <End Role="participant" Type="Self.participant" Multiplicity="1" />
+          <End Role="participation" Type="Self.participation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="participant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="participation">
+              <PropertyRef Name="participant_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_participation_role">
+          <End Role="role_participant" Type="Self.role_participant" Multiplicity="1" />
+          <End Role="participation" Type="Self.participation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role_participant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="participation">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_salle_cinema">
+          <End Role="cinema" Type="Self.cinema" Multiplicity="1" />
+          <End Role="salle" Type="Self.salle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cinema">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="salle">
+              <PropertyRef Name="cinema_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_salle_status">
+          <End Role="salle_status" Type="Self.salle_status" Multiplicity="1" />
+          <End Role="salle" Type="Self.salle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="salle_status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="salle">
+              <PropertyRef Name="status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_seance_film">
+          <End Role="film" Type="Self.film" Multiplicity="0..1" />
+          <End Role="seance" Type="Self.seance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="film">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="seance">
+              <PropertyRef Name="film_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_seance_salle">
+          <End Role="salle" Type="Self.salle" Multiplicity="1" />
+          <End Role="seance" Type="Self.seance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="salle">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="seance">
+              <PropertyRef Name="salle_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_contactinfo">
+          <End Role="contact_info" Type="Self.contact_info" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contact_info">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="contact_info_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_userstatus">
+          <End Role="user_status" Type="Self.user_status" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="user_status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_usertype">
+          <End Role="user_type" Type="Self.user_type" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="user_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="cinema_dbModelStoreContainer">
+          <EntitySet Name="cinema" EntityType="Self.cinema" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="contact_info" EntityType="Self.contact_info" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="film" EntityType="Self.film" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="genre" EntityType="Self.genre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="genre_film" EntityType="Self.genre_film" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="participant" EntityType="Self.participant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="participation" EntityType="Self.participation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="role_participant" EntityType="Self.role_participant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="salle" EntityType="Self.salle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="salle_status" EntityType="Self.salle_status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="seance" EntityType="Self.seance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_status" EntityType="Self.user_status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_type" EntityType="Self.user_type" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_cinema_contactinfo" Association="Self.fk_cinema_contactinfo">
+            <End Role="contact_info" EntitySet="contact_info" />
+            <End Role="cinema" EntitySet="cinema" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cinema_responsable" Association="Self.fk_cinema_responsable">
+            <End Role="user" EntitySet="user" />
+            <End Role="cinema" EntitySet="cinema" />
+          </AssociationSet>
+          <AssociationSet Name="fk_genrefilm_film" Association="Self.fk_genrefilm_film">
+            <End Role="film" EntitySet="film" />
+            <End Role="genre_film" EntitySet="genre_film" />
+          </AssociationSet>
+          <AssociationSet Name="fk_genrefilm_genre" Association="Self.fk_genrefilm_genre">
+            <End Role="genre" EntitySet="genre" />
+            <End Role="genre_film" EntitySet="genre_film" />
+          </AssociationSet>
+          <AssociationSet Name="fk_participation_film" Association="Self.fk_participation_film">
+            <End Role="film" EntitySet="film" />
+            <End Role="participation" EntitySet="participation" />
+          </AssociationSet>
+          <AssociationSet Name="fk_participation_participant" Association="Self.fk_participation_participant">
+            <End Role="participant" EntitySet="participant" />
+            <End Role="participation" EntitySet="participation" />
+          </AssociationSet>
+          <AssociationSet Name="fk_participation_role" Association="Self.fk_participation_role">
+            <End Role="role_participant" EntitySet="role_participant" />
+            <End Role="participation" EntitySet="participation" />
+          </AssociationSet>
+          <AssociationSet Name="fk_salle_cinema" Association="Self.fk_salle_cinema">
+            <End Role="cinema" EntitySet="cinema" />
+            <End Role="salle" EntitySet="salle" />
+          </AssociationSet>
+          <AssociationSet Name="fk_salle_status" Association="Self.fk_salle_status">
+            <End Role="salle_status" EntitySet="salle_status" />
+            <End Role="salle" EntitySet="salle" />
+          </AssociationSet>
+          <AssociationSet Name="fk_seance_film" Association="Self.fk_seance_film">
+            <End Role="film" EntitySet="film" />
+            <End Role="seance" EntitySet="seance" />
+          </AssociationSet>
+          <AssociationSet Name="fk_seance_salle" Association="Self.fk_seance_salle">
+            <End Role="salle" EntitySet="salle" />
+            <End Role="seance" EntitySet="seance" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_contactinfo" Association="Self.fk_user_contactinfo">
+            <End Role="contact_info" EntitySet="contact_info" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_userstatus" Association="Self.fk_user_userstatus">
+            <End Role="user_status" EntitySet="user_status" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_usertype" Association="Self.fk_user_usertype">
+            <End Role="user_type" EntitySet="user_type" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="cinema_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cinema">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="contact_info_id" Type="Int32" Nullable="false" />
+          <Property Name="responsable_user_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="contact_info" Relationship="Self.fk_cinema_contactinfo" FromRole="cinema" ToRole="contact_info" />
+          <NavigationProperty Name="user" Relationship="Self.fk_cinema_responsable" FromRole="cinema" ToRole="user" />
+          <NavigationProperty Name="salles" Relationship="Self.fk_salle_cinema" FromRole="cinema" ToRole="salle" />
+        </EntityType>
+        <EntityType Name="contact_info">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tel_number" Type="String" MaxLength="9" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="code_postal" Type="String" MaxLength="6" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="adresse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ville" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="province" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pays" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="cinemas" Relationship="Self.fk_cinema_contactinfo" FromRole="contact_info" ToRole="cinema" />
+          <NavigationProperty Name="users" Relationship="Self.fk_user_contactinfo" FromRole="contact_info" ToRole="user" />
+        </EntityType>
+        <EntityType Name="film">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="titre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="annee_parution" Type="Int32" Nullable="false" />
+          <Property Name="duree" Type="Int32" Nullable="false" />
+          <Property Name="rating" Type="Double" Nullable="false" />
+          <Property Name="revenu" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="genre_film" Relationship="Self.fk_genrefilm_film" FromRole="film" ToRole="genre_film" />
+          <NavigationProperty Name="participations" Relationship="Self.fk_participation_film" FromRole="film" ToRole="participation" />
+          <NavigationProperty Name="seances" Relationship="Self.fk_seance_film" FromRole="film" ToRole="seance" />
+        </EntityType>
+        <EntityType Name="genre">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="genre1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="genre_film" Relationship="Self.fk_genrefilm_genre" FromRole="genre" ToRole="genre_film" />
+        </EntityType>
+        <EntityType Name="genre_film">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="genre_id" Type="Int32" Nullable="false" />
+          <Property Name="film_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="film" Relationship="Self.fk_genrefilm_film" FromRole="genre_film" ToRole="film" />
+          <NavigationProperty Name="genre" Relationship="Self.fk_genrefilm_genre" FromRole="genre_film" ToRole="genre" />
+        </EntityType>
+        <EntityType Name="participant">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="participations" Relationship="Self.fk_participation_participant" FromRole="participant" ToRole="participation" />
+        </EntityType>
+        <EntityType Name="participation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="participant_id" Type="Int32" Nullable="false" />
+          <Property Name="role_id" Type="Int32" Nullable="false" />
+          <Property Name="film_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="film" Relationship="Self.fk_participation_film" FromRole="participation" ToRole="film" />
+          <NavigationProperty Name="participant" Relationship="Self.fk_participation_participant" FromRole="participation" ToRole="participant" />
+          <NavigationProperty Name="role_participant" Relationship="Self.fk_participation_role" FromRole="participation" ToRole="role_participant" />
+        </EntityType>
+        <EntityType Name="role_participant">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="participations" Relationship="Self.fk_participation_role" FromRole="role_participant" ToRole="participation" />
+        </EntityType>
+        <EntityType Name="salle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nbr_place" Type="Int32" Nullable="false" />
+          <Property Name="numero_salle" Type="Int32" Nullable="false" />
+          <Property Name="commentaire" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="status_id" Type="Int32" Nullable="false" />
+          <Property Name="cinema_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cinema" Relationship="Self.fk_salle_cinema" FromRole="salle" ToRole="cinema" />
+          <NavigationProperty Name="salle_status" Relationship="Self.fk_salle_status" FromRole="salle" ToRole="salle_status" />
+          <NavigationProperty Name="seances" Relationship="Self.fk_seance_salle" FromRole="salle" ToRole="seance" />
+        </EntityType>
+        <EntityType Name="salle_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="salles" Relationship="Self.fk_salle_status" FromRole="salle_status" ToRole="salle" />
+        </EntityType>
+        <EntityType Name="seance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date_debut" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="date_fin" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="titre_seance" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="salle_id" Type="Int32" Nullable="false" />
+          <Property Name="film_id" Type="Int32" />
+          <NavigationProperty Name="film" Relationship="Self.fk_seance_film" FromRole="seance" ToRole="film" />
+          <NavigationProperty Name="salle" Relationship="Self.fk_seance_salle" FromRole="seance" ToRole="salle" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="contact_info_id" Type="Int32" Nullable="false" />
+          <Property Name="user_status_id" Type="Int32" Nullable="false" />
+          <Property Name="user_type_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cinemas" Relationship="Self.fk_cinema_responsable" FromRole="user" ToRole="cinema" />
+          <NavigationProperty Name="contact_info" Relationship="Self.fk_user_contactinfo" FromRole="user" ToRole="contact_info" />
+          <NavigationProperty Name="user_status" Relationship="Self.fk_user_userstatus" FromRole="user" ToRole="user_status" />
+          <NavigationProperty Name="user_type" Relationship="Self.fk_user_usertype" FromRole="user" ToRole="user_type" />
+        </EntityType>
+        <EntityType Name="user_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="users" Relationship="Self.fk_user_userstatus" FromRole="user_status" ToRole="user" />
+        </EntityType>
+        <EntityType Name="user_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="users" Relationship="Self.fk_user_usertype" FromRole="user_type" ToRole="user" />
+        </EntityType>
+        <Association Name="fk_cinema_contactinfo">
+          <End Role="contact_info" Type="Self.contact_info" Multiplicity="1" />
+          <End Role="cinema" Type="Self.cinema" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contact_info">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="cinema">
+              <PropertyRef Name="contact_info_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cinema_responsable">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="cinema" Type="Self.cinema" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="cinema">
+              <PropertyRef Name="responsable_user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_salle_cinema">
+          <End Role="cinema" Type="Self.cinema" Multiplicity="1" />
+          <End Role="salle" Type="Self.salle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cinema">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="salle">
+              <PropertyRef Name="cinema_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_contactinfo">
+          <End Role="contact_info" Type="Self.contact_info" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contact_info">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="contact_info_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_genrefilm_film">
+          <End Role="film" Type="Self.film" Multiplicity="1" />
+          <End Role="genre_film" Type="Self.genre_film" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="film">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="genre_film">
+              <PropertyRef Name="film_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_participation_film">
+          <End Role="film" Type="Self.film" Multiplicity="1" />
+          <End Role="participation" Type="Self.participation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="film">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="participation">
+              <PropertyRef Name="film_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_seance_film">
+          <End Role="film" Type="Self.film" Multiplicity="0..1" />
+          <End Role="seance" Type="Self.seance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="film">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="seance">
+              <PropertyRef Name="film_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_genrefilm_genre">
+          <End Role="genre" Type="Self.genre" Multiplicity="1" />
+          <End Role="genre_film" Type="Self.genre_film" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genre">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="genre_film">
+              <PropertyRef Name="genre_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_participation_participant">
+          <End Role="participant" Type="Self.participant" Multiplicity="1" />
+          <End Role="participation" Type="Self.participation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="participant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="participation">
+              <PropertyRef Name="participant_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_participation_role">
+          <End Role="role_participant" Type="Self.role_participant" Multiplicity="1" />
+          <End Role="participation" Type="Self.participation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role_participant">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="participation">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_salle_status">
+          <End Role="salle_status" Type="Self.salle_status" Multiplicity="1" />
+          <End Role="salle" Type="Self.salle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="salle_status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="salle">
+              <PropertyRef Name="status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_seance_salle">
+          <End Role="salle" Type="Self.salle" Multiplicity="1" />
+          <End Role="seance" Type="Self.seance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="salle">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="seance">
+              <PropertyRef Name="salle_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_userstatus">
+          <End Role="user_status" Type="Self.user_status" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="user_status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_usertype">
+          <End Role="user_type" Type="Self.user_type" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="user_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="cinema_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cinemas" EntityType="Self.cinema" />
+          <EntitySet Name="contact_info" EntityType="Self.contact_info" />
+          <EntitySet Name="films" EntityType="Self.film" />
+          <EntitySet Name="genres" EntityType="Self.genre" />
+          <EntitySet Name="genre_film" EntityType="Self.genre_film" />
+          <EntitySet Name="participants" EntityType="Self.participant" />
+          <EntitySet Name="participations" EntityType="Self.participation" />
+          <EntitySet Name="role_participant" EntityType="Self.role_participant" />
+          <EntitySet Name="salles" EntityType="Self.salle" />
+          <EntitySet Name="salle_status" EntityType="Self.salle_status" />
+          <EntitySet Name="seances" EntityType="Self.seance" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <EntitySet Name="user_status" EntityType="Self.user_status" />
+          <EntitySet Name="user_type" EntityType="Self.user_type" />
+          <AssociationSet Name="fk_cinema_contactinfo" Association="Self.fk_cinema_contactinfo">
+            <End Role="contact_info" EntitySet="contact_info" />
+            <End Role="cinema" EntitySet="cinemas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cinema_responsable" Association="Self.fk_cinema_responsable">
+            <End Role="user" EntitySet="users" />
+            <End Role="cinema" EntitySet="cinemas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_salle_cinema" Association="Self.fk_salle_cinema">
+            <End Role="cinema" EntitySet="cinemas" />
+            <End Role="salle" EntitySet="salles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_contactinfo" Association="Self.fk_user_contactinfo">
+            <End Role="contact_info" EntitySet="contact_info" />
+            <End Role="user" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="fk_genrefilm_film" Association="Self.fk_genrefilm_film">
+            <End Role="film" EntitySet="films" />
+            <End Role="genre_film" EntitySet="genre_film" />
+          </AssociationSet>
+          <AssociationSet Name="fk_participation_film" Association="Self.fk_participation_film">
+            <End Role="film" EntitySet="films" />
+            <End Role="participation" EntitySet="participations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_seance_film" Association="Self.fk_seance_film">
+            <End Role="film" EntitySet="films" />
+            <End Role="seance" EntitySet="seances" />
+          </AssociationSet>
+          <AssociationSet Name="fk_genrefilm_genre" Association="Self.fk_genrefilm_genre">
+            <End Role="genre" EntitySet="genres" />
+            <End Role="genre_film" EntitySet="genre_film" />
+          </AssociationSet>
+          <AssociationSet Name="fk_participation_participant" Association="Self.fk_participation_participant">
+            <End Role="participant" EntitySet="participants" />
+            <End Role="participation" EntitySet="participations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_participation_role" Association="Self.fk_participation_role">
+            <End Role="role_participant" EntitySet="role_participant" />
+            <End Role="participation" EntitySet="participations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_salle_status" Association="Self.fk_salle_status">
+            <End Role="salle_status" EntitySet="salle_status" />
+            <End Role="salle" EntitySet="salles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_seance_salle" Association="Self.fk_seance_salle">
+            <End Role="salle" EntitySet="salles" />
+            <End Role="seance" EntitySet="seances" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_userstatus" Association="Self.fk_user_userstatus">
+            <End Role="user_status" EntitySet="user_status" />
+            <End Role="user" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_usertype" Association="Self.fk_user_usertype">
+            <End Role="user_type" EntitySet="user_type" />
+            <End Role="user" EntitySet="users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="cinema_dbModelStoreContainer" CdmEntityContainer="cinema_dbEntities">
+          <EntitySetMapping Name="cinemas">
+            <EntityTypeMapping TypeName="cinema_dbModel.cinema">
+              <MappingFragment StoreEntitySet="cinema">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="contact_info_id" ColumnName="contact_info_id" />
+                <ScalarProperty Name="responsable_user_id" ColumnName="responsable_user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contact_info">
+            <EntityTypeMapping TypeName="cinema_dbModel.contact_info">
+              <MappingFragment StoreEntitySet="contact_info">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tel_number" ColumnName="tel_number" />
+                <ScalarProperty Name="code_postal" ColumnName="code_postal" />
+                <ScalarProperty Name="adresse" ColumnName="adresse" />
+                <ScalarProperty Name="ville" ColumnName="ville" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="pays" ColumnName="pays" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="films">
+            <EntityTypeMapping TypeName="cinema_dbModel.film">
+              <MappingFragment StoreEntitySet="film">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="titre" ColumnName="titre" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="annee_parution" ColumnName="annee_parution" />
+                <ScalarProperty Name="duree" ColumnName="duree" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="revenu" ColumnName="revenu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="genres">
+            <EntityTypeMapping TypeName="cinema_dbModel.genre">
+              <MappingFragment StoreEntitySet="genre">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="genre1" ColumnName="genre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="genre_film">
+            <EntityTypeMapping TypeName="cinema_dbModel.genre_film">
+              <MappingFragment StoreEntitySet="genre_film">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="genre_id" ColumnName="genre_id" />
+                <ScalarProperty Name="film_id" ColumnName="film_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="participants">
+            <EntityTypeMapping TypeName="cinema_dbModel.participant">
+              <MappingFragment StoreEntitySet="participant">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="participations">
+            <EntityTypeMapping TypeName="cinema_dbModel.participation">
+              <MappingFragment StoreEntitySet="participation">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="participant_id" ColumnName="participant_id" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="film_id" ColumnName="film_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="role_participant">
+            <EntityTypeMapping TypeName="cinema_dbModel.role_participant">
+              <MappingFragment StoreEntitySet="role_participant">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="role" ColumnName="role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="salles">
+            <EntityTypeMapping TypeName="cinema_dbModel.salle">
+              <MappingFragment StoreEntitySet="salle">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nbr_place" ColumnName="nbr_place" />
+                <ScalarProperty Name="numero_salle" ColumnName="numero_salle" />
+                <ScalarProperty Name="commentaire" ColumnName="commentaire" />
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="cinema_id" ColumnName="cinema_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="salle_status">
+            <EntityTypeMapping TypeName="cinema_dbModel.salle_status">
+              <MappingFragment StoreEntitySet="salle_status">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="seances">
+            <EntityTypeMapping TypeName="cinema_dbModel.seance">
+              <MappingFragment StoreEntitySet="seance">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date_debut" ColumnName="date_debut" />
+                <ScalarProperty Name="date_fin" ColumnName="date_fin" />
+                <ScalarProperty Name="titre_seance" ColumnName="titre_seance" />
+                <ScalarProperty Name="salle_id" ColumnName="salle_id" />
+                <ScalarProperty Name="film_id" ColumnName="film_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="cinema_dbModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="contact_info_id" ColumnName="contact_info_id" />
+                <ScalarProperty Name="user_status_id" ColumnName="user_status_id" />
+                <ScalarProperty Name="user_type_id" ColumnName="user_type_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_status">
+            <EntityTypeMapping TypeName="cinema_dbModel.user_status">
+              <MappingFragment StoreEntitySet="user_status">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_type">
+            <EntityTypeMapping TypeName="cinema_dbModel.user_type">
+              <MappingFragment StoreEntitySet="user_type">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
