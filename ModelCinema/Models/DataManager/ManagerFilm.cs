@@ -10,9 +10,9 @@ namespace ModelCinema.Models.DataManager
 {
     public class ManagerFilm
     {
-        static private cinema_dbEntities db = new cinema_dbEntities();
+        private cinema_dbEntities db = new cinema_dbEntities();
 
-        public List<film> GetFilms()
+        public List<film> GetAllFilms()
         {
             return db.films.ToList();
         }

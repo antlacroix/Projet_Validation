@@ -93,9 +93,13 @@
     <Compile Include="Models\contact_info.cs">
       <DependentUpon>ModelCinema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataManager\IManager.cs" />
     <Compile Include="Models\DataManager\ManagerContact.cs" />
     <Compile Include="Models\DataManager\ManagerFilm.cs" />
+    <Compile Include="Models\DataManager\ManagerGenre.cs" />
+    <Compile Include="Models\DataManager\ManagerParticipant.cs" />
+    <Compile Include="Models\DataManager\ManagerSalle.cs" />
+    <Compile Include="Models\DataManager\ManagerSeance.cs" />
+    <Compile Include="Models\DataManager\ManagerUser.cs" />
     <Compile Include="Models\DataManager\ManagerUserType.cs" />
     <Compile Include="Models\film.cs">
       <DependentUpon>ModelCinema.tt</DependentUpon>
@@ -132,8 +136,8 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Models\DataManager\DataManager.cs" />
     <Compile Include="Models\ModelValidator\IValidator.cs" />
+    <Compile Include="Models\ModelValidator\Validator.cs" />
     <Compile Include="Models\ModelValidator\ValidatorCinema.cs" />
     <Compile Include="Models\ModelValidator\ValidatorContact.cs" />
     <Compile Include="Models\ModelValidator\ValidatorFilm.cs" />

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelCinema", "ModelCinema\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCinema", "WebCinema\WebCinema.csproj", "{1CD47E5D-7889-4A0A-88F8-2E62F87D8F78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestWebCinema", "UnitTestWebCinema\UnitTestWebCinema.csproj", "{6B2AF619-3BD9-49E4-BAD1-3B3B2412E7DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestModelCinema", "UnitTestModelCinema\UnitTestModelCinema.csproj", "{9766F797-28CF-4770-9E6E-970D80214186}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{1CD47E5D-7889-4A0A-88F8-2E62F87D8F78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CD47E5D-7889-4A0A-88F8-2E62F87D8F78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CD47E5D-7889-4A0A-88F8-2E62F87D8F78}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6B2AF619-3BD9-49E4-BAD1-3B3B2412E7DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6B2AF619-3BD9-49E4-BAD1-3B3B2412E7DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6B2AF619-3BD9-49E4-BAD1-3B3B2412E7DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6B2AF619-3BD9-49E4-BAD1-3B3B2412E7DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9766F797-28CF-4770-9E6E-970D80214186}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9766F797-28CF-4770-9E6E-970D80214186}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9766F797-28CF-4770-9E6E-970D80214186}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9766F797-28CF-4770-9E6E-970D80214186}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

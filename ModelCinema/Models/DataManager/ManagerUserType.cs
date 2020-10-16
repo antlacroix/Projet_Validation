@@ -12,14 +12,14 @@ namespace ModelCinema.Models.DataManager
 {
      public class ManagerUserType
     {
-        static private cinema_dbEntities db = new cinema_dbEntities();
+        private cinema_dbEntities db = new cinema_dbEntities();
 
-         public List<user_type> GetAllUserType()
+        public List<user_type> GetAllUserType()
         {
             return db.user_type.ToList();
         }
 
-         public user_type GetUserType(int? id)
+        public user_type GetUserType(int? id)
         {
             if(id == null)
             {
@@ -28,7 +28,7 @@ namespace ModelCinema.Models.DataManager
             return db.user_type.Find(id);
         }
 
-         public bool PostUserType(user_type type)
+        public bool PostUserType(user_type type)
         {
             if(type.type.Length > 0 && type.type.Length < 11)
             {
@@ -50,7 +50,7 @@ namespace ModelCinema.Models.DataManager
             }
         }
 
-         public bool PutUserType(user_type user_type)
+        public bool PutUserType(user_type user_type)
         {
             if (db.user_type.Find(user_type.id) != null)
             {
@@ -72,7 +72,7 @@ namespace ModelCinema.Models.DataManager
             }
         }
 
-         public bool DeleteUserType(int id)
+        public bool DeleteUserType(int id)
         {
             if (db.user_type.Find(id) != null)
             {
