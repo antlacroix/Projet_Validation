@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelCinema.Models.ModelValidator
 {
-    public class ValidatorContact : Validator
+    public class ValidatorContact
     {
         static public bool IsValide(contact_info contact_info)
         {
