@@ -10,7 +10,7 @@ namespace ModelCinema.Models.DataManager
 {
     class ManagerSeance
     {
-        static private cinema_dbEntities db = new cinema_dbEntities();
+        private cinema_dbEntities db = new cinema_dbEntities();
 
         public List<seance> GetAllSeance()
         {

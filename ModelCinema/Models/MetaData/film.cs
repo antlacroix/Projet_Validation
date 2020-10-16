@@ -6,6 +6,15 @@ namespace ModelCinema.Models
     [MetadataType(typeof(filmMetaData))]
     public partial class film
     {
+        public film(string titre, string description, int annee, int duree, double rating, int revenu)
+        {
+            this.titre = titre;
+            this.description = description;
+            this.annee_parution = annee;
+            this.duree = duree;
+            this.rating = rating;
+            this.revenu = revenu;
+        }
     }
 
     public class filmMetaData
