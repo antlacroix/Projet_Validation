@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ModelCinema.Models.salle>
+
+@{
+    ViewBag.Title = "Index Salles";
+}
+
+    <h2>Salles Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nbr_place)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.numero_salle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.commentaire)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cinema.id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.salle_status.status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nbr_place)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.numero_salle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.commentaire)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cinema.id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.salle_status.status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

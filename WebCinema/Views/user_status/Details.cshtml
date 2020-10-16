@@ -1,0 +1,26 @@
+﻿@model ModelCinema.Models.user_status
+
+@{
+    ViewBag.Title = "Details User Status";
+}
+
+    <h2>User Status Details</h2>
+
+<div>
+    <h4>user_status</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

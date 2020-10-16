@@ -1,20 +1,21 @@
-﻿@model IEnumerable<ModelCinema.Models.user_type>
+﻿@model IEnumerable<ModelCinema.Models.cinema>
 
 @{
-    ViewBag.Title = "Index User Type";
+    ViewBag.Title = "Index Cinema";
 }
 
-    <h2>User Type Index</h2>
-<p>
-    @Html.ActionLink("Back to User Create", "Create", "users")
-</p>
+    <h2>Cinema Index</h2>
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.type)
+            @Html.DisplayNameFor(model => model.contact_info.tel_number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user.login)
         </th>
         <th></th>
     </tr>
@@ -22,7 +23,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.type)
+            @Html.DisplayFor(modelItem => item.contact_info.tel_number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user.login)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |

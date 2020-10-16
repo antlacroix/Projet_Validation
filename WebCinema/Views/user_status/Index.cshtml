@@ -1,10 +1,10 @@
-﻿@model IEnumerable<ModelCinema.Models.user_type>
+﻿@model IEnumerable<ModelCinema.Models.user_status>
 
 @{
-    ViewBag.Title = "Index User Type";
+    ViewBag.Title = "Index User Status";
 }
 
-    <h2>User Type Index</h2>
+    <h2>User Status Index</h2>
 <p>
     @Html.ActionLink("Back to User Create", "Create", "users")
 </p>
@@ -14,7 +14,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.type)
+            @Html.DisplayNameFor(model => model.status)
         </th>
         <th></th>
     </tr>
@@ -22,7 +22,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.type)
+            @Html.DisplayFor(modelItem => item.status)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
