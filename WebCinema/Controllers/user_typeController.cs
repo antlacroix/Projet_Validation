@@ -7,12 +7,20 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ModelCinema.Models;
+using ModelCinema.Models.DataManager;
 
 namespace WebCinema.Controllers
 {
     public class user_typeController : Controller
     {
         private cinema_dbEntities db = new cinema_dbEntities();
+        ManagerUserType manager = new ManagerUserType();
+
+        List<user_type> us;
+        user_type u;
+        bool isPut;
+        bool isPost;
+        bool isDel;
 
         // GET: user_type
         public ActionResult Index()

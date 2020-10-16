@@ -1,0 +1,93 @@
+﻿using ModelCinema.Models.ModelValidator;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace ModelCinema.Models.DataManager
+{
+    class ManagerUser
+    {
+        static private cinema_dbEntities db = new cinema_dbEntities();
+
+        public List<user> GetAllUser()
+        {
+            return db.users.ToList();
+        }
+
+        public user GetUser(int id)
+        {
+            return db.users.Find(id);
+        }
+
+        public bool PostUser(user user)
+        {
+            if (ValidatorUser.IsValide(user))
+            {
+                try
+                {
+                    db.users.Add(user);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool PutUser(user user)
+        {
+            if (db.users.Find(user.id) != null && ValidatorUser.IsValide(user))
+            {
+                try
+                {
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteUser(int id)
+        {
+            if (db.users.Find(id) != null)
+            {
+                try
+                {
+                    user user = db.users.Find(id);
+                    db.users.Remove(user);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+}
