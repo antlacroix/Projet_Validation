@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ModelCinema.Models.seance>
+
+@{
+    ViewBag.Title = "Index Seances";
+}
+
+    <h2>Seances Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.date_debut)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date_fin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.titre_seance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.film.titre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.salle.commentaire)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_debut)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_fin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.titre_seance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.film.titre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.salle.commentaire)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>
