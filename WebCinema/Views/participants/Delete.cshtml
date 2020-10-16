@@ -1,22 +1,22 @@
-﻿@model ModelCinema.Models.user_type
+﻿@model ModelCinema.Models.participant
 
 @{
-    ViewBag.Title = "Delete User Type";
+    ViewBag.Title = "Delete Participants";
 }
 
-    <h2>User Type Delete</h2>
+    <h2>Participants Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>user_type</h4>
+    <h4>participant</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.type)
+            @Html.DisplayNameFor(model => model.name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.type)
+            @Html.DisplayFor(model => model.name)
         </dd>
 
     </dl>

@@ -1,0 +1,42 @@
+﻿@model ModelCinema.Models.participation
+
+@{
+    ViewBag.Title = "Details Participations";
+}
+
+    <h2>Participations Details</h2>
+
+<div>
+    <h4>participation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.film.titre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.film.titre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.participant.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.participant.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.role_participant.role)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.role_participant.role)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
