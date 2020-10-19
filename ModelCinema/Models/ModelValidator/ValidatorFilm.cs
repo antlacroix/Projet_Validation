@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelCinema.Models.DataManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,12 +34,11 @@ namespace ModelCinema.Models.ModelValidator
                     PropretyValidation.IsStringValide(film.description, descriptionMin, descriptionMax) &&
                     PropretyValidation.IsNumberValide(film.annee_parution, anneeParutionMin, anneeParutionMax) &&
                     PropretyValidation.IsNumberValide(film.rating, ratingMin, ratingMax) &&
-                    PropretyValidation.IsNumberValide(film.revenu, revenuMin, revenuMax)
+                    PropretyValidation.IsNumberValide(film.revenu, revenuMin, revenuMax) &&
+                    !IsTitleExist(film)
                     )
                 {
-                    //TO-DO
-                    //vérifier si le titre du film existe déjà avec DataManager
-                    return true;
+                        return true;
                 }
                 else
                 {
@@ -51,6 +51,18 @@ namespace ModelCinema.Models.ModelValidator
             {
                 throw e;
             }
+        }
+
+        static private bool IsTitleExist(film candidate)
+        {
+            ManagerFilm manager = new ManagerFilm();
+
+            List<film> existingOne = manager.GetAllFilms().Where(o => o.titre == candidate.titre).ToList();
+
+            if (existingOne.Count != 0)
+                return true;
+            else
+                return false;
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelCinema.Models.DataManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,8 @@ namespace ModelCinema.Models.ModelValidator
             try
             {
                 if (
-                    PropretyValidation.IsStringValide(genre.genre1, genreMin, genreMax)
+                    PropretyValidation.IsStringValide(genre.genre1, genreMin, genreMax) &&
+                    !IsGenreExist(genre)
                     )
                 {
                     return true;
@@ -38,6 +40,18 @@ namespace ModelCinema.Models.ModelValidator
             {
                 throw e;
             }
+        }
+
+        static private bool IsGenreExist(genre candidate)
+        {
+            ManagerGenre manager = new ManagerGenre();
+
+            List<genre> existingOne = manager.GetAllGenre().Where(o => o.genre1 == candidate.genre1).ToList();
+
+            if (existingOne.Count != 0)
+                return true;
+            else
+                return false;
         }
 
     }

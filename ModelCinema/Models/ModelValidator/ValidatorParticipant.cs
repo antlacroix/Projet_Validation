@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelCinema.Models.DataManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,8 @@ namespace ModelCinema.Models.ModelValidator
             try
             {
                 if (
-                    PropretyValidation.IsStringValide(participant.name, nameMin, nameMax)
+                    PropretyValidation.IsStringValide(participant.name, nameMin, nameMax) &&
+                    !IsParticipantExist(participant)
                     )
                 {
                     return true;
@@ -36,6 +38,18 @@ namespace ModelCinema.Models.ModelValidator
             {
                 throw e;
             }
+        }
+
+        static private bool IsParticipantExist(participant candidate)
+        {
+            ManagerParticipant manager = new ManagerParticipant();
+
+            List<participant> existingOne = manager.GetAllParticipant().Where(o => o.name == candidate.name).ToList();
+
+            if (existingOne.Count != 0)
+                return true;
+            else
+                return false;
         }
     }
 }

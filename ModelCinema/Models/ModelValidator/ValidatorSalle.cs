@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelCinema.Models.DataManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,8 @@ namespace ModelCinema.Models.ModelValidator
                 if (
                     PropretyValidation.IsNumberValide(salle.nbr_place, nbrPlaceMin, nbrPlaceMax) &&
                     PropretyValidation.IsNumberValide(salle.numero_salle, numSalleMin, numSalleMax) &&
-                    PropretyValidation.IsStringValide(salle.commentaire, commentaireMin, commentaireMax)
+                    PropretyValidation.IsStringValide(salle.commentaire, commentaireMin, commentaireMax) &&
+                    !IsSalleExist(salle)
                     )
                 {
                     //TO-DO
@@ -44,6 +46,17 @@ namespace ModelCinema.Models.ModelValidator
             {
                 throw e;
             }
+        }
+        static private bool IsSalleExist(salle candidate)
+        {
+            ManagerSalle manager = new ManagerSalle();
+
+            List<salle> existingOne = manager.GetAllSalle().Where(o => o.cinema_id == candidate.cinema_id && o.numero_salle == candidate.numero_salle).ToList();
+
+            if (existingOne.Count != 0)
+                return true;
+            else
+                return false;
         }
     }
 }

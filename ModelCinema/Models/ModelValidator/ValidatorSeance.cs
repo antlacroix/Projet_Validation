@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelCinema.Models.DataManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -46,6 +47,35 @@ namespace ModelCinema.Models.ModelValidator
             {
                 throw e;
             }
+        }
+
+        static private bool IsSeanceConflict(seance candidate)
+        {
+            ManagerSeance manager = new ManagerSeance();
+
+            List<seance> conflitingOne = manager.GetAllSeance().Where
+                (seance =>
+                    seance.salle_id == candidate.salle_id &&
+                    (
+                        (
+                            candidate.date_debut < seance.date_debut &&
+                            candidate.date_fin > seance.date_debut
+                        ) || 
+                        (
+                            candidate.date_debut < seance.date_fin &&
+                            candidate.date_fin > seance.date_fin 
+                        ) ||
+                        (
+                            candidate.date_debut > seance.date_debut &&
+                            candidate.date_fin < seance.date_fin
+                        ) 
+                    )
+                ).ToList();
+
+            if (conflitingOne.Count != 0)
+                return true;
+            else
+                return false;
         }
     }
 }
