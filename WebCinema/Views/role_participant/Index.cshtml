@@ -5,16 +5,18 @@
 }
 
     <h2>Role Index</h2>
+    <p>
+        @Html.ActionLink("Back to Participations", "index", "participations")
+    </p>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.role)
         </th>
-        <th></th>
+        <th>
+            @Html.ActionLink("New Role", "Create")
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -24,7 +26,6 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.id })
         </td>
     </tr>

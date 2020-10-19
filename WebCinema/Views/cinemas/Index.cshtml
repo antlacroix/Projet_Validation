@@ -6,19 +6,20 @@
 
     <h2>Cinema Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.contact_info.adresse)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.contact_info.tel_number)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.user.login)
+           @* @Html.DisplayNameFor(model => model.user.login)*@
+            Responsable
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.salles)
+            @Html.ActionLink("Create Cinema", "Create")
         </th>
         <th></th>
     </tr>
@@ -26,17 +27,17 @@
 @foreach (var item in Model) {
 <tr>
     <td>
+        @Html.DisplayFor(modelItem => item.contact_info.adresse)
+    </td>
+    <td>
         @Html.DisplayFor(modelItem => item.contact_info.tel_number)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.user.login)
     </td>
     <td>
-        @Html.ActionLink("Salles", "Index", "salles")
-    </td>
-    <td>
         @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-        @Html.ActionLink("Details", "Details", new { id = item.id }) |
+        @Html.ActionLink("Salles", "Index", "salles") |
         @Html.ActionLink("Delete", "Delete", new { id = item.id })
     </td>
 </tr>

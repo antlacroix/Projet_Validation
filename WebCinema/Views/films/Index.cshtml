@@ -15,49 +15,35 @@
             @Html.DisplayNameFor(model => model.titre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.description)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.annee_parution)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.duree)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.rating)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.revenu)
+            @Html.ActionLink("Importé Contenu", "Create") |
+            @Html.ActionLink("Add Contenu", "Create")
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.titre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.annee_parution)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.duree)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.rating)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.revenu)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.titre)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.annee_parution)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.rating)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+    </td>
+</tr>
 }
 
 </table>
