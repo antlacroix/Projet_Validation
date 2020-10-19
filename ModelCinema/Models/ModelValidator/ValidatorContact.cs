@@ -8,17 +8,43 @@ namespace ModelCinema.Models.ModelValidator
 {
     public class ValidatorContact
     {
+        //min Length/Value for contact's proprety
+        static private int
+            telephoneMin = 10,
+            codePostalMin = 6,
+            AdressMin = 5,
+            villeMin = 2,
+            provinceMin = 2,
+            paysMin = 2;
+        //max Length/Value for contact's proprety
+        static private int
+            telephoneMax = 10,
+            codePostalMax = 6,
+            AdressMax = 50,
+            villeMax = 50,
+            provinceMax = 20,
+            paysMax = 15;
+        //regEx string for conctat's proprty
+        static private string
+            telephoneRegEx = "",
+            codePostalRegEx = "";
+
+
         static public bool IsValide(contact_info contact_info)
         {
             try
             {
                 if (
-                    IsContactTelephoneValide(contact_info.tel_number) &&
-                    IsContactCodePostalValide(contact_info.code_postal) &&
-                    IsContactAdressValide(contact_info.adresse) &&
-                    IsContactVilleValide(contact_info.ville) &&
-                    IsContactProvinceValide(contact_info.province) &&
-                    IsContactPaysValide(contact_info.pays)
+                    //TO-DO
+                    //Vérifier si le telephone ne contient que des chiffres 
+                    PropretyValidation.IsStringValide(contact_info.tel_number, telephoneMin, telephoneMax) &&
+                    //TO-DO
+                    //Vérifier si le code postal respecte une RegEx 
+                    PropretyValidation.IsStringValide(contact_info.code_postal, codePostalMin, codePostalMax) &&
+                    PropretyValidation.IsStringValide(contact_info.adresse, AdressMin, AdressMax) &&
+                    PropretyValidation.IsStringValide(contact_info.ville, villeMin, villeMax) &&
+                    PropretyValidation.IsStringValide(contact_info.province, provinceMin, provinceMax) &&
+                    PropretyValidation.IsStringValide(contact_info.pays, paysMin, paysMax)
                     )
                 {
                     return true;
@@ -36,57 +62,5 @@ namespace ModelCinema.Models.ModelValidator
             }
         }
 
-        static public bool IsContactTelephoneValide(string telephone)
-        {
-            //TO-DO
-            //Vérifier si le telephone ne contient que des chiffres 
-
-            if (telephone.Length == 10)
-                return true;
-            else
-                return false;
-        }
-        
-        static public bool IsContactCodePostalValide(string code_postal)
-        {
-            //TO-DO
-            //Vérifier si le code postal respecte une RegEx 
-            if (code_postal.Length == 6)
-                return true;
-            else
-                return false;
-        }
-
-        static public bool IsContactAdressValide(string adresse)
-        {
-            if (adresse.Length > 0 && adresse.Length < 50)
-                return true;
-            else
-                return false;
-        }
-
-        static public bool IsContactVilleValide(string ville)
-        {
-            if (ville.Length > 0 && ville.Length < 50)
-                return true;
-            else
-                return false;
-        }
-        
-        static public bool IsContactProvinceValide(string province)
-        {
-            if (province.Length > 0 && province.Length < 20)
-                return true;
-            else
-                return false;
-        }
-        
-        static public bool IsContactPaysValide(string pays)
-        {
-            if (pays.Length > 0 && pays.Length < 15)
-                return true;
-            else
-                return false;
-        }
     }
 }

@@ -136,6 +136,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Models\ModelValidator\PropretyValidation.cs" />
     <Compile Include="Models\ModelValidator\ValidatorCinema.cs" />
     <Compile Include="Models\ModelValidator\ValidatorContact.cs" />
     <Compile Include="Models\ModelValidator\ValidatorFilm.cs" />

@@ -8,17 +8,33 @@ namespace ModelCinema.Models.ModelValidator
 {
     static public class ValidatorUser
     {
+        //min Length/Value for user's proprety
+        static private int
+            loginMin = 5,
+            passwordMin = 6,
+            nameMin = 3;
+        //max Length/Value for user's proprety
+        static private int
+            loginMax = 15,
+            passwordMax = 25,
+            nameMax = 50;
+
         static public bool IsValide(user user)
         {
             try
             {
                 if (
-                    //IsUserLoginExist(user.login) &&
-                    IsUserLoginValide(user.login) &&
-                    IsUserPasswordValide(user.password) &&
-                    IsUserNameValide(user.name)
+                    PropretyValidation.IsStringValide(user.login, loginMin, loginMax) &&
+                    PropretyValidation.IsStringValide(user.password, passwordMin, passwordMax) &&
+                    PropretyValidation.IsStringValide(user.name, nameMin, nameMax)
                     )
                 {
+                    //TO-DO
+                    //vérifier si le login exist déjà via DataManager
+                    //TO-DO
+                    //vérifier si le name ne contient pas de charactere non valide
+                    //TO-DO
+                    //vérifier si password contient les charactere nécéssaire
                     return true;
                 } else
                 {
@@ -32,39 +48,5 @@ namespace ModelCinema.Models.ModelValidator
                 throw e;
             }
         }
-
-        //TO-DO
-        //vérifier si le login exist déjà via DataManager
-        //static public bool IsUserLoginExist(string login){}
-
-        static public bool IsUserLoginValide(string login)
-        {
-
-            if (login.Length > 0 && login.Length < 15)
-                return true;
-            else
-                return false;
-        }
-
-        static public bool IsUserPasswordValide(string password)
-        {
-            //TO-DO
-            //vérifier si password contient les charactere nécéssaire
-            if (password.Length > 0 && password.Length < 25)
-                return true;
-            else
-                return false;
-        }
-
-        static public bool IsUserNameValide(string name)
-        {
-            //TO-DO
-            //vérifier si le name ne contient pas de charactere non valide
-            if (name.Length > 0 && name.Length < 50)
-                return true;
-            else
-                return false;
-        }
-
     }
 }

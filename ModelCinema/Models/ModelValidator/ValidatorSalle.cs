@@ -8,17 +8,29 @@ namespace ModelCinema.Models.ModelValidator
 {
     static public class ValidatorSalle
     {
+        //min Length/Value for salle's proprety
+        static private int
+            nbrPlaceMin = 1,
+            numSalleMin = 1,
+            commentaireMin = 0;
+        //max Length/Value for salle's proprety
+        static private int
+            nbrPlaceMax = 100,
+            numSalleMax = 100,
+            commentaireMax = 250;
+
         static public bool IsValide(salle salle)
-        {
+        { 
             try
             {
                 if (
-                    IsSallePlaceValide(salle.nbr_place) &&
-                    //IsSalleNumeroExist(salle.numero_salle) &&
-                    IsSalleNumeroValide(salle.numero_salle) &&
-                    IsSalleCommentaire(salle.commentaire)
+                    PropretyValidation.IsNumberValide(salle.nbr_place, nbrPlaceMin, nbrPlaceMax) &&
+                    PropretyValidation.IsNumberValide(salle.numero_salle, numSalleMin, numSalleMax) &&
+                    PropretyValidation.IsStringValide(salle.commentaire, commentaireMin, commentaireMax)
                     )
                 {
+                    //TO-DO
+                    //vérifier si numero de salle existe avec DataManager
                     return true;
                 }
                 else
@@ -32,34 +44,6 @@ namespace ModelCinema.Models.ModelValidator
             {
                 throw e;
             }
-        }
-
-        static public bool IsSallePlaceValide(int nbr_place)
-        {
-            if (nbr_place > 0)
-                return true;
-            else
-                return false;
-        }
-
-        //TO-DO
-        //vérifier si numero de salle existe avec DataManager
-        //IsSalleNumeroExist(int no_salle){}
-
-        static public bool IsSalleNumeroValide(int no_salle)
-        {
-            if (no_salle > 0)
-                return true;
-            else
-                return false;
-        }
-
-        static public bool IsSalleCommentaire(string commentaire)
-        {
-            if (commentaire.Length > 0 && commentaire.Length < 250)
-                return true;
-            else
-                return false;
         }
     }
 }

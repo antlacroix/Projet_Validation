@@ -8,17 +8,31 @@ namespace ModelCinema.Models.ModelValidator
 {
     static public class ValidatorSeance
     {
+        //min Length/Value for seance's proprety
+        static private int
+            titreMin = 1;
+        static private DateTime
+            dateDebutMin = DateTime.Now,
+            dateFinMin = dateDebutMin.AddMinutes(15);
+        //max Length/Value for seance's proprety
+        static private int
+            titreMax = 100;
+        static private DateTime
+            dateDebutMax = DateTime.Now.AddYears(50),
+            dateFinMax = DateTime.Now.AddYears(50);
+
         static public bool IsValide(seance seance)
         {
             try
             {
                 if (
-                    //IsSeanceConflict(seance.date_debut, seance.date_fin) &&
-                    IsSeanceDateDebutValide(seance.date_debut) &&
-                    IsSeanceDateFinValide(seance.date_debut, seance.date_fin) &&
-                    IsSeanceTitreValide(seance.titre_seance)
+                    PropretyValidation.IsDateValide(seance.date_debut, dateDebutMin, dateDebutMax) &&
+                    PropretyValidation.IsDateValide(seance.date_debut, dateFinMin, dateFinMax) &&
+                    PropretyValidation.IsStringValide(seance.titre_seance, titreMin, titreMax)
                     )
                 {
+                    //TO-DO
+                    //vérifier si la sceance est en conflit avec une autre
                     return true;
                 }
                 else
@@ -33,35 +47,5 @@ namespace ModelCinema.Models.ModelValidator
                 throw e;
             }
         }
-
-        //TO-DO
-        //vérifier si la sceance est en conflit avec une autre
-        //static public bool IsSeanceConflict(DateTime date_debut, DateTime date_fin){}
-
-        static public bool IsSeanceDateDebutValide(DateTime date_debut)
-        {
-            if (date_debut.CompareTo(DateTime.Now) >= 0)
-                return true;
-            else
-                return false;
-        }
-
-        static public bool IsSeanceDateFinValide(DateTime date_debut, DateTime date_fin)
-        {
-            if (date_fin.AddMinutes(30).CompareTo(date_debut) >= 0)
-                return true;
-            else
-                return false;
-        }
-
-        static public bool IsSeanceTitreValide(string titre)
-        {
-            if (titre.Length > 0 && titre.Length < 50)
-                return true;
-            else
-                return false;
-        }
-
     }
-
 }

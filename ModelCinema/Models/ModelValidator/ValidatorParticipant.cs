@@ -8,12 +8,19 @@ namespace ModelCinema.Models.ModelValidator
 {
     static public class ValidatorParticipant
     {
+        //min Length/Value for participant's proprety
+        static private int
+            nameMin = 2;
+        //max Length/Value for participant's proprety
+        static private int
+            nameMax = 50;
+
         static public bool IsValide(participant participant)
         {
             try
             {
                 if (
-                    IsParticipantNameValide(participant.name)
+                    PropretyValidation.IsStringValide(participant.name, nameMin, nameMax)
                     )
                 {
                     return true;
@@ -29,14 +36,6 @@ namespace ModelCinema.Models.ModelValidator
             {
                 throw e;
             }
-        }
-
-        static public bool IsParticipantNameValide(string name)
-        {
-            if (name.Length > 0 && name.Length < 50)
-                return true;
-            else
-                return false;
         }
     }
 }
