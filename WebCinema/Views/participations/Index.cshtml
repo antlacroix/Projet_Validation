@@ -7,8 +7,9 @@
     <h2>Participations Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Back to Film Create", "Create", "film")
 </p>
+
 <table class="table">
     <tr>
         <th>
@@ -20,7 +21,11 @@
         <th>
             @Html.DisplayNameFor(model => model.role_participant.role)
         </th>
-        <th></th>
+        <th>
+            @Html.ActionLink("New Participation", "Create") |
+            @Html.ActionLink("Participant list", "Create", "participants") |
+            @Html.ActionLink("Role list", "Index", "role_participant")
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -36,7 +41,6 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.id })
         </td>
     </tr>
