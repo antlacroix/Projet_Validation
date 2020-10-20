@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ModelCinema.Models;
+using ModelCinema.Models.DataManager;
 
 namespace WebCinema.Controllers
 {
@@ -17,17 +18,19 @@ namespace WebCinema.Controllers
         // GET: films
         public ActionResult Index()
         {
-            return View(db.films.ToList());
+            ManagerFilm manager = new ManagerFilm();
+            return View(manager.GetAllFilms());
         }
 
         // GET: films/Details/5
         public ActionResult Details(int? id)
         {
+            ManagerFilm manager = new ManagerFilm();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            film film = db.films.Find(id);
+            film film = manager.GetFilm(id);
             if (film == null)
             {
                 return HttpNotFound();
@@ -48,11 +51,13 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,titre,description,annee_parution,duree,rating,revenu")] film film)
         {
+            ManagerFilm manager = new ManagerFilm();
             if (ModelState.IsValid)
             {
-                db.films.Add(film);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if(manager.PostFilm(film))
+                    return RedirectToAction("Index");
+                // TODO
+                //Implementer un message d'erreur
             }
 
             return View(film);
@@ -61,11 +66,12 @@ namespace WebCinema.Controllers
         // GET: films/Edit/5
         public ActionResult Edit(int? id)
         {
+            ManagerFilm manager = new ManagerFilm();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            film film = db.films.Find(id);
+            film film = manager.GetFilm(id);
             if (film == null)
             {
                 return HttpNotFound();
@@ -80,11 +86,13 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,titre,description,annee_parution,duree,rating,revenu")] film film)
         {
+            ManagerFilm manager = new ManagerFilm();
             if (ModelState.IsValid)
             {
-                db.Entry(film).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (manager.PutFilm(film))
+                    return RedirectToAction("Index");
+                // TODO
+                //Implementer un message d'erreur
             }
             return View(film);
         }
@@ -92,11 +100,12 @@ namespace WebCinema.Controllers
         // GET: films/Delete/5
         public ActionResult Delete(int? id)
         {
+            ManagerFilm manager = new ManagerFilm();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            film film = db.films.Find(id);
+            film film = manager.GetFilm(id);
             if (film == null)
             {
                 return HttpNotFound();
@@ -109,9 +118,11 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            film film = db.films.Find(id);
-            db.films.Remove(film);
-            db.SaveChanges();
+            ManagerFilm manager = new ManagerFilm();
+            if (manager.DeleteFilm(id))
+                return RedirectToAction("Index");
+            // TODO
+            //Implementer un message d'erreur
             return RedirectToAction("Index");
         }
 

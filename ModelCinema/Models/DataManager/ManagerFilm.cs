@@ -17,7 +17,7 @@ namespace ModelCinema.Models.DataManager
             return db.films.ToList();
         }
         
-        public film GetFilm(int id)
+        public film GetFilm(int? id)
         {
             return db.films.Find(id);
         }
