@@ -11,8 +11,8 @@ namespace ModelCinema.Models
     public class user_typeMetaData
     {
         [Required]
-        [DisplayName("Status")]
-        [StringLength(128)]
+        [DisplayName("Type user")]
+        [StringLength(10)]
         public string type { get; set; }
     }
 }

@@ -21,11 +21,12 @@ namespace ModelCinema.Models
     {
         [Required]
         [DisplayName("Titre")]
-        [StringLength(128)]
+        [StringLength(50)]
         public string titre { get; set; }
 
+        [Required]
         [DisplayName("Description")]
-        [StringLength(128)]
+        [StringLength(50)]
         public string description { get; set; }
 
         [Required]

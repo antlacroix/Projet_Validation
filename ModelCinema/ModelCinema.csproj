@@ -110,9 +110,11 @@
     <Compile Include="Models\genre_film.cs">
       <DependentUpon>ModelCinema.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MetaData\cinema.cs" />
     <Compile Include="Models\MetaData\contact_info.cs" />
     <Compile Include="Models\MetaData\film.cs" />
     <Compile Include="Models\MetaData\genre.cs" />
+    <Compile Include="Models\MetaData\genre_film.cs" />
     <Compile Include="Models\MetaData\participant.cs" />
     <Compile Include="Models\MetaData\role_participant.cs" />
     <Compile Include="Models\MetaData\salle.cs" />

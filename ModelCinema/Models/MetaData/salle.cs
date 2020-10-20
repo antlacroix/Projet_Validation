@@ -21,7 +21,13 @@ namespace ModelCinema.Models
         public int numero_salle { get; set; }
 
         [DisplayName("Commentaire")]
-        [StringLength(128)]
+        [StringLength(250)]
         public string commentaire { get; set; }
+
+        [DisplayName("Status de la salle")]
+        public int status_id { get; set; }
+
+        [DisplayName("Cinema")]
+        public int cinema_id { get; set; }
     }
 }

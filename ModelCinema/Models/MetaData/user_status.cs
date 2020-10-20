@@ -11,8 +11,8 @@ namespace ModelCinema.Models
     public class user_statusMetaData
     {
         [Required]
-        [DisplayName("Status")]
-        [StringLength(128)]
+        [DisplayName("Status of user")]
+        [StringLength(10)]
         public string status { get; set; }
     }
 }

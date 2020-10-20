@@ -12,7 +12,7 @@ namespace ModelCinema.Models
     {
         [Required]
         [DisplayName("Genre de Film")]
-        [StringLength(128)]
+        [StringLength(50)]
         public string genre1 { get; set; }
     }
 }
