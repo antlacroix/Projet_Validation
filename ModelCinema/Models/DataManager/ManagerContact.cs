@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ModelCinema.Models.DataManager
 {
-    class ManagerContact
+    public class ManagerContact
     {
         private cinema_dbEntities db = new cinema_dbEntities();
 
@@ -17,12 +17,12 @@ namespace ModelCinema.Models.DataManager
             return db.contact_info.ToList();
         }
 
-        public contact_info GetContact(int id)
+        public contact_info GetContact(int? id)
         {
             return db.contact_info.Find(id);
         }
 
-        public bool PostFilm(contact_info contact_info)
+        public bool PostContact(contact_info contact_info)
         {
             if (ValidatorContact.IsValide(contact_info))
             {

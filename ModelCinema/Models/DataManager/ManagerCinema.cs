@@ -1,34 +1,34 @@
-﻿using ModelCinema.Models.ModelValidator;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Threading.Tasks;
+using ModelCinema.Models.ModelValidator;
+
 namespace ModelCinema.Models.DataManager
 {
-    public class ManagerSalle
+    public class ManagerCinema
     {
         private cinema_dbEntities db = new cinema_dbEntities();
 
-        public List<salle> GetAllSalle()
+        public List<cinema> GetAllCinema()
         {
-            return db.salles.ToList();
+            return db.cinemas.ToList();
         }
 
-        public salle GetSalle(int? id)
+        public cinema GetCinema(int? id)
         {
-            return db.salles.Find(id);
+            return db.cinemas.Find(id);
         }
 
-        public bool PostSalle(salle salle)
+        public bool PostCinema(cinema cinema)
         {
-            if (ValidatorSalle.IsValide(salle))
-            {
+            //if (true)
+            //{
                 try
                 {
-                    db.salles.Add(salle);
+                    db.cinemas.Add(cinema);
                     db.SaveChanges();
                     return true;
                 }
@@ -37,20 +37,20 @@ namespace ModelCinema.Models.DataManager
                     Console.WriteLine(e.Message);
                     return false;
                 }
-            }
-            else
-            {
-                return false;
-            }
+            //}
+            //else
+            //{
+            //    return false;
+            //}
         }
 
-        public bool PutSalle(salle salle)
+        public bool PutCinema(cinema cinema)
         {
-            if (db.salles.Find(salle.id) != null && ValidatorSalle.IsValide(salle))
+            if (db.cinemas.Find(cinema.id) != null)
             {
                 try
                 {
-                    db.Entry(salle).State = EntityState.Modified;
+                    db.Entry(cinema).State = EntityState.Modified;
                     db.SaveChanges();
                     return true;
                 }
@@ -66,14 +66,14 @@ namespace ModelCinema.Models.DataManager
             }
         }
 
-        public bool DeleteSalles(int id)
+        public bool DeleteCinema(int id)
         {
-            if (db.salles.Find(id) != null)
+            if (db.cinemas.Find(id) != null)
             {
                 try
                 {
-                    salle salle = db.salles.Find(id);
-                    db.salles.Remove(salle);
+                    cinema cinema = db.cinemas.Find(id);
+                    db.cinemas.Remove(cinema);
                     db.SaveChanges();
                     return true;
                 }
@@ -88,5 +88,6 @@ namespace ModelCinema.Models.DataManager
                 return false;
             }
         }
+
     }
 }

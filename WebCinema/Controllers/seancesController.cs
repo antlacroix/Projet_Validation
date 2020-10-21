@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ModelCinema.Models;
+using ModelCinema.Models.DataManager;
 
 namespace WebCinema.Controllers
 {
@@ -59,19 +60,21 @@ namespace WebCinema.Controllers
         // GET: seances
         public ActionResult Index()
         {
-            var seances = db.seances.Include(s => s.film).Include(s => s.salle);
-            ViewBag.appointments = GetScheduleData();
-            return View(seances.ToList());
+            ManagerSeance manager = new ManagerSeance();
+			ViewBag.appointments = GetScheduleData();
+            //var seances = db.seances.Include(s => s.film).Include(s => s.salle);
+            return View(manager.GetAllSeance());
         }
 
         // GET: seances/Details/5
         public ActionResult Details(int? id)
         {
+            ManagerSeance manager = new ManagerSeance();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            seance seance = db.seances.Find(id);
+            seance seance = manager.GetSeance(id);
             if (seance == null)
             {
                 return HttpNotFound();
@@ -94,11 +97,13 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,date_debut,date_fin,titre_seance,salle_id,film_id")] seance seance)
         {
+            ManagerSeance manager = new ManagerSeance();
             if (ModelState.IsValid)
             {
-                db.seances.Add(seance);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if(manager.PostSeance(seance))
+                    return RedirectToAction("Index");
+                // TODO
+                //Implementer un message d'erreur
             }
 
             ViewBag.film_id = new SelectList(db.films, "id", "titre", seance.film_id);
@@ -109,11 +114,12 @@ namespace WebCinema.Controllers
         // GET: seances/Edit/5
         public ActionResult Edit(int? id)
         {
+            ManagerSeance manager = new ManagerSeance();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            seance seance = db.seances.Find(id);
+            seance seance = manager.GetSeance(id);
             if (seance == null)
             {
                 return HttpNotFound();
@@ -144,11 +150,12 @@ namespace WebCinema.Controllers
         // GET: seances/Delete/5
         public ActionResult Delete(int? id)
         {
+            ManagerSeance manager = new ManagerSeance();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            seance seance = db.seances.Find(id);
+            seance seance = manager.GetSeance(id);
             if (seance == null)
             {
                 return HttpNotFound();
@@ -161,9 +168,11 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            seance seance = db.seances.Find(id);
-            db.seances.Remove(seance);
-            db.SaveChanges();
+            ManagerSeance manager = new ManagerSeance();
+            if(manager.DeleteSeance(id))
+                return RedirectToAction("Index");
+            // TODO
+            //Implementer un message d'erreur
             return RedirectToAction("Index");
         }
 

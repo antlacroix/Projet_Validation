@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ModelCinema.Models;
+using ModelCinema.Models.DataManager;
 
 namespace WebCinema.Controllers
 {
@@ -17,17 +18,19 @@ namespace WebCinema.Controllers
         // GET: contact_info
         public ActionResult Index()
         {
-            return View(db.contact_info.ToList());
+            ManagerContact manager = new ManagerContact();
+            return View(manager.GetAllContact());
         }
 
         // GET: contact_info/Details/5
         public ActionResult Details(int? id)
         {
+            ManagerContact manager = new ManagerContact();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            contact_info contact_info = db.contact_info.Find(id);
+            contact_info contact_info = manager.GetContact(id);
             if (contact_info == null)
             {
                 return HttpNotFound();
@@ -48,11 +51,13 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,tel_number,code_postal,adresse,ville,province,pays")] contact_info contact_info)
         {
+            ManagerContact manager = new ManagerContact();
             if (ModelState.IsValid)
             {
-                db.contact_info.Add(contact_info);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if(manager.PostContact(contact_info))
+                    return RedirectToAction("Index");
+                // TODO
+                //Implementer un message d'erreur
             }
 
             return View(contact_info);
@@ -61,11 +66,12 @@ namespace WebCinema.Controllers
         // GET: contact_info/Edit/5
         public ActionResult Edit(int? id)
         {
+            ManagerContact manager = new ManagerContact();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            contact_info contact_info = db.contact_info.Find(id);
+            contact_info contact_info = manager.GetContact(id);
             if (contact_info == null)
             {
                 return HttpNotFound();
@@ -92,11 +98,12 @@ namespace WebCinema.Controllers
         // GET: contact_info/Delete/5
         public ActionResult Delete(int? id)
         {
+            ManagerContact manager = new ManagerContact();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            contact_info contact_info = db.contact_info.Find(id);
+            contact_info contact_info = manager.GetContact(id);
             if (contact_info == null)
             {
                 return HttpNotFound();
@@ -109,9 +116,11 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            contact_info contact_info = db.contact_info.Find(id);
-            db.contact_info.Remove(contact_info);
-            db.SaveChanges();
+            ManagerContact manager = new ManagerContact();
+            if (manager.DeleteContact(id))
+                return RedirectToAction("Index");
+            // TODO
+            //Implementer un message d'erreur
             return RedirectToAction("Index");
         }
 

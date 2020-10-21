@@ -22,10 +22,12 @@ namespace ModelCinema.Models
     {
         [Required]
         [DisplayName("Date de debut")]
+        [DataType(DataType.DateTime)]
         public System.DateTime date_debut { get; set; }
 
         [Required]
         [DisplayName("Date de fin")]
+        [DataType(DataType.DateTime)]
         public System.DateTime date_fin { get; set; }
 
         [Required]

@@ -18,6 +18,7 @@ namespace ModelCinema.Models
         [Required]
         [DisplayName("Password")]
         [StringLength(25)]
+        [DataType(DataType.Password)]
         [PasswordPropertyText]
         public string password { get; set; }
 
