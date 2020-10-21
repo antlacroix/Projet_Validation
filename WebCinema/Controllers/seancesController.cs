@@ -14,10 +14,53 @@ namespace WebCinema.Controllers
     {
         private cinema_dbEntities db = new cinema_dbEntities();
 
+        public List<seance> GetScheduleData()
+        {
+            List<seance> appData = new List<seance>();
+            appData.Add(new seance
+            {
+                Id = 1,
+                Subject = "Explosion of Betelgeuse Star",
+                StartTime = new DateTime(2018, 2, 11, 9, 30, 0),
+                EndTime = new DateTime(2018, 2, 11, 11, 0, 0)
+            });
+            appData.Add(new seance
+            {
+                Id = 2,
+                Subject = "Thule Air Crash Report",
+                StartTime = new DateTime(2018, 2, 12, 12, 0, 0),
+                EndTime = new DateTime(2018, 2, 12, 14, 0, 0)
+            });
+            appData.Add(new seance
+            {
+                Id = 3,
+                Subject = "Blue Moon Eclipse",
+                StartTime = new DateTime(2018, 2, 13, 9, 30, 0),
+                EndTime = new DateTime(2018, 2, 13, 11, 0, 0)
+            });
+            appData.Add(new seance
+            {
+                Id = 4,
+                Subject = "Meteor Showers in 2018",
+                StartTime = new DateTime(2018, 2, 14, 13, 0, 0),
+                EndTime = new DateTime(2018, 2, 14, 14, 30, 0)
+            });
+            appData.Add(new seance
+            {
+                Id = 5,
+                Subject = "Milky Way as Melting pot",
+                StartTime = new DateTime(2018, 2, 15, 12, 0, 0),
+                EndTime = new DateTime(2018, 2, 15, 14, 0, 0)
+            });
+            return appData;
+        }
+
+
         // GET: seances
         public ActionResult Index()
         {
             var seances = db.seances.Include(s => s.film).Include(s => s.salle);
+            ViewBag.appointments = GetScheduleData();
             return View(seances.ToList());
         }
 
@@ -132,5 +175,18 @@ namespace WebCinema.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
     }
+
+    //public class AppointmentData
+    //{
+    //    private seance s1 = new seance() { id = 1, date_debut = DateTime.Now, date_fin = DateTime.Now.AddMinutes(30), titre_seance = "test S1" };
+    //    public int Id { get; set; }
+    //    public string Subject { get; set; }
+    //    public DateTime StartTime { get { return s1.date_debut; } set { s1.date_debut = value; } }
+    //    public DateTime EndTime { get { return s1.date_fin; } set { s1.date_fin = value; } }
+
+    //}
 }

@@ -2,17 +2,23 @@
     ViewBag.Title = "DevPage";
 }
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Home Page</h2>
-        @Html.ActionLink("DevPage > User", "Index", "users")
-        <br />
-        @Html.ActionLink("DevPage > Seances", "Index", "seances")
-        <br />
-        @Html.ActionLink("DevPage > Films", "Index", "films")
-        <br />
-        @Html.ActionLink("DevPage > Cinemas", "Index", "cinemas")
-        <br />
-        @Html.ActionLink("DevPage > UserType", "Index", "user_type")
+    
+
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Home Page</h2>
+            @Html.ActionLink("DevPage > User", "Index", "users")
+            <br />
+            @Html.ActionLink("DevPage > Seances", "Index", "seances")
+            <br />
+            @Html.ActionLink("DevPage > Films", "Index", "films")
+            <br />
+            @Html.ActionLink("DevPage > Cinemas", "Index", "cinemas")
+            <br />
+            @Html.ActionLink("DevPage > UserType", "Index", "user_type")
+        </div>
+
+        <div>
+            @Html.EJS().Calendar("calendar").Render()
+        </div>
     </div>
-</div>
