@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ModelCinema.Models.ModelValidator
 {
-    static class PropretyValidation
+    static public class PropretyValidation
     {
 
         static public bool IsStringValide(string candidate, int minLength, int maxLegth)
@@ -24,11 +24,19 @@ namespace ModelCinema.Models.ModelValidator
             {
                 if (regExString != "" && regExString != null)
                 {
-                    var regEx = new Regex(regExString);
-                    if (regEx.IsMatch(candidate))
-                        return true;
-                    else
+                    try
+                    {
+                        var regEx = new Regex(regExString);
+                        if (regEx.IsMatch(candidate))
+                            return true;
+                        else
+                            return false;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
                         return false;
+                    }
                 }
                 else
                     return true;

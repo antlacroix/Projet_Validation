@@ -31,8 +31,6 @@ namespace ModelCinema.Models.ModelValidator
                     !IsSalleExist(salle)
                     )
                 {
-                    //TO-DO
-                    //vérifier si numero de salle existe avec DataManager
                     return true;
                 }
                 else

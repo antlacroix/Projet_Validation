@@ -9,43 +9,71 @@ namespace UnitTestWebCinema
     public class Test_ManagerFilm
     {
         ManagerFilm manager;
+        List<film> originalList;
 
         [TestInitialize]
-        public void Begin()
+        public void Initialize()
         {
             manager = new ManagerFilm();
+
+            originalList = manager.GetAllFilms();
+        }
+
+        //TO-DO
+        [TestCleanup]
+        public void Cleanup()
+        {
         }
 
         [TestMethod]
-        public void Test_PostFilm_isAdded()
+        public void Test_PostFilm_valideFIlm_isAdded()
         {
             //Arrange
-            List<film> films = manager.GetAllFilms();
-            
-            film f1 = new film("Test 1", "film de test 1", 1950, 60, 8.5, 10);
-            film f2 = new film("Test 2", "film de test 2", 1960, 90, 7.3, 254);
-            film f3 = new film("Test 3", "film de test 3", 1940, 99, 4.2, 367);
-            film f4 = new film("Test 4", "film de test 4", 1930, 30, 6.5, 956);
-            film f5 = new film("Test 5", "film de test 5", 1925, 15, 2.9, 1236);
-
-            int originalSize = films.Count;
+            film postedValideFilm = new film("unitTestFilm", "film fait lors du test unitaire", 2010, 90, 5.5, 123);
+            int
+                filmsOriginalCount = originalList.Count,
+                filmsnewCount,
+                countDifference;
 
             //Act
-            manager.PostFilm(f1);
-
-            films = manager.GetAllFilms();
+            bool testResult = manager.PostFilm(postedValideFilm);
+            filmsnewCount = manager.GetAllFilms().Count;
+            countDifference = filmsnewCount - filmsOriginalCount;
 
             //Assert
-            Assert.IsTrue(true);
-            //Assert.IsTrue(originalSize + 1 == films.Count, films.Count.ToString());
-
+            Assert.IsTrue(testResult, "la fonction PostFilm a renvoyer 'False'");
+            Assert.IsTrue(countDifference == 1, "la difference entre la nouvelle liste et l'ancienne n'est 1");
 
         }
 
+        //TO-DO
         [TestMethod]
-        void Test_GetAllFilm()
+        public void Test_PostFilm_invalideFilm_isNotAdded()
         {
+        }
 
+        //TO-DO
+        [TestMethod]
+        public void Test_PutFilm_valideFilm_isChanged()
+        {
+        }
+
+        //TO-DO
+        [TestMethod]
+        public void Test_PutFilm_invalideFilm_isNotChanged()
+        {
+        }
+
+        //TO-DO
+        [TestMethod]
+        public void Test_DeleteFilm_valideFilm_isDeleted()
+        {
+        }
+
+        //TO-DO
+        [TestMethod]
+        public void Test_DeleteFilm_invalideFilm_isNotDeleted()
+        {
         }
     }
 }
