@@ -32,8 +32,6 @@ namespace ModelCinema.Models.ModelValidator
                     PropretyValidation.IsStringValide(seance.titre_seance, titreMin, titreMax)
                     )
                 {
-                    //TO-DO
-                    //vérifier si la sceance est en conflit avec une autre
                     return true;
                 }
                 else
