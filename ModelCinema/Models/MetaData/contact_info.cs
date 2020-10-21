@@ -12,27 +12,32 @@ namespace ModelCinema.Models
     {
         [Required]
         [DisplayName("Phone Number")]
-        [StringLength(12)]
+        [StringLength(10)]
         public string tel_number { get; set; }
 
+        [Required]
         [DisplayName("Postal Code")]
-        [StringLength(7)]
+        [StringLength(6)]
         public string code_postal { get; set; }
 
+        [Required]
         [DisplayName("Address")]
         [StringLength(50)]
         public string adresse { get; set; }
 
+        [Required]
         [DisplayName("City")]
         [StringLength(50)]
         public string ville { get; set; }
 
+        [Required]
         [DisplayName("Province")]
-        [StringLength(25)]
+        [StringLength(20)]
         public string province { get; set; }
 
+        [Required]
         [DisplayName("Country")]
-        [StringLength(25)]
+        [StringLength(15)]
         public string pays { get; set; }
     }
 }

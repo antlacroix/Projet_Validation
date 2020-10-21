@@ -30,7 +30,13 @@ namespace ModelCinema.Models
 
         [Required]
         [DisplayName("Titre de la seance")]
-        [StringLength(128)]
+        [StringLength(50)]
         public string titre_seance { get; set; }
+
+        [DisplayName("Salle")]
+        public int salle_id { get; set; }
+
+        [DisplayName("Film")]
+        public int film_id { get; set; }
     }
 }

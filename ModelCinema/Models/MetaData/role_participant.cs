@@ -12,7 +12,7 @@ namespace ModelCinema.Models
     {
         [Required]
         [DisplayName("Role")]
-        [StringLength(128)]
+        [StringLength(50)]
         public string role { get; set; }
     }
 }
