@@ -1,10 +1,12 @@
-﻿using ModelCinema.Models.ModelValidator;
+﻿using ModelCinema.ModelExeption;
+using ModelCinema.Models.ModelValidator;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ModelCinema.Models.DataManager
 {
@@ -24,7 +26,7 @@ namespace ModelCinema.Models.DataManager
 
         public bool PostGenre(genre genre)
         {
-            if (ValidatorGenre.IsValide(genre))
+            if (ValidatorGenre.IsValide(genre) && !ValidatorGenre.IsGenreExist(genre))
             {
                 try
                 {
@@ -34,14 +36,13 @@ namespace ModelCinema.Models.DataManager
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
-                    return false;
+                    throw e;
                 }
             }
+            else if (ValidatorGenre.IsGenreExist(genre))
+                throw new ExistingItemException("genre");
             else
-            {
-                return false;
-            }
+                throw new InvalidItemException("genre");
         }
 
         public bool PutGenre(genre genre)

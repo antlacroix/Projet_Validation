@@ -34,7 +34,7 @@ namespace ModelCinema.Models.ModelValidator
             }
         }
 
-        static private bool IsSeanceConflict(seance candidate)
+        static public bool IsSeanceConflict(seance candidate)
         {
             ManagerSeance manager = new ManagerSeance();
 

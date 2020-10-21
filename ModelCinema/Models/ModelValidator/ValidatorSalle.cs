@@ -18,8 +18,7 @@ namespace ModelCinema.Models.ModelValidator
                 if (
                     PropretyValidation.IsNumberValide(salle.nbr_place, salle.nbrPlaceMin, salle.nbrPlaceMax) &&
                     PropretyValidation.IsNumberValide(salle.numero_salle, salle.numSalleMin, salle.numSalleMax) &&
-                    PropretyValidation.IsStringValide(salle.commentaire, salle.commentaireMin, salle.commentaireMax) &&
-                    !IsSalleExist(salle)
+                    PropretyValidation.IsStringValide(salle.commentaire, salle.commentaireMin, salle.commentaireMax)
                     )
                 {
                     return true;
@@ -36,7 +35,7 @@ namespace ModelCinema.Models.ModelValidator
                 throw e;
             }
         }
-        static private bool IsSalleExist(salle candidate)
+        static public bool IsSalleExist(salle candidate)
         {
             ManagerSalle manager = new ManagerSalle();
 

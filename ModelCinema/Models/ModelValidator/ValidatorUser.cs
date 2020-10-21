@@ -16,8 +16,7 @@ namespace ModelCinema.Models.ModelValidator
                 if (
                     PropretyValidation.IsStringValide(user.login, user.loginMin, user.loginMax) &&
                     PropretyValidation.IsStringValide(user.password, user.passwordMin, user.passwordMax) &&
-                    PropretyValidation.IsStringValide(user.name, user.nameMin, user.nameMax) &&
-                    !IsUserExist(user)
+                    PropretyValidation.IsStringValide(user.name, user.nameMin, user.nameMax) 
                     )
                 {
                     //TO-DO
@@ -37,7 +36,7 @@ namespace ModelCinema.Models.ModelValidator
                 throw e;
             }
         }
-        static private bool IsUserExist(user candidate)
+        static public bool IsUserExist(user candidate)
         {
             ManagerUser manager = new ManagerUser();
 

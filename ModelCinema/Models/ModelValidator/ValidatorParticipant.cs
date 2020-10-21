@@ -16,8 +16,7 @@ namespace ModelCinema.Models.ModelValidator
             try
             {
                 if (
-                    PropretyValidation.IsStringValide(participant.name, participant.nameMin, participant.nameMax) &&
-                    !IsParticipantExist(participant)
+                    PropretyValidation.IsStringValide(participant.name, participant.nameMin, participant.nameMax)
                     )
                 {
                     return true;
@@ -35,7 +34,7 @@ namespace ModelCinema.Models.ModelValidator
             }
         }
 
-        static private bool IsParticipantExist(participant candidate)
+        static public bool IsParticipantExist(participant candidate)
         {
             ManagerParticipant manager = new ManagerParticipant();
 

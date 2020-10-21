@@ -13,13 +13,10 @@ namespace ModelCinema.Models.ModelValidator
 
         static public bool IsValide(genre genre)
         {
-
-
             try
             {
                 if (
-                    PropretyValidation.IsStringValide(genre.genre1, genre.genreMin, genre.genreMax) &&
-                    !IsGenreExist(genre)
+                    PropretyValidation.IsStringValide(genre.genre1, genre.genreMin, genre.genreMax)
                     )
                 {
                     return true;
@@ -37,7 +34,7 @@ namespace ModelCinema.Models.ModelValidator
             }
         }
 
-        static private bool IsGenreExist(genre candidate)
+        static public bool IsGenreExist(genre candidate)
         {
             ManagerGenre manager = new ManagerGenre();
 

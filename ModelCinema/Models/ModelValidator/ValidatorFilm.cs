@@ -19,8 +19,7 @@ namespace ModelCinema.Models.ModelValidator
                     PropretyValidation.IsNumberValide(film.annee_parution, film.anneeParutionMin, film.anneeParutionMax) &&
                     PropretyValidation.IsNumberValide(film.duree, film.dureeMin, film.dureeMax) &&
                     PropretyValidation.IsNumberValide(film.rating, film.ratingMin, film.ratingMax) &&
-                    PropretyValidation.IsNumberValide(film.revenu, film.revenuMin, film.revenuMax) &&
-                    !IsTitleExist(film)
+                    PropretyValidation.IsNumberValide(film.revenu, film.revenuMin, film.revenuMax)
                     )
                 {
                         return true;
@@ -38,7 +37,7 @@ namespace ModelCinema.Models.ModelValidator
             }
         }
 
-        static private bool IsTitleExist(film candidate)
+        static public bool IsTitleExist(film candidate)
         {
             ManagerFilm manager = new ManagerFilm();
 
