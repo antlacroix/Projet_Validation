@@ -13,12 +13,8 @@ namespace ModelCinema.Models.ModelValidator
             try
             {
                 if (
-                    //TO-DO
-                    //Vérifier si le telephone ne contient que des chiffres 
-                    PropretyValidation.IsStringValide(contact_info.tel_number, contact_info.telephoneMin, contact_info.telephoneMax) &&
-                    //TO-DO
-                    //Vérifier si le code postal respecte une RegEx 
-                    PropretyValidation.IsStringValide(contact_info.code_postal, contact_info.codePostalMin, contact_info.codePostalMax) &&
+                    PropretyValidation.IsStringValide(contact_info.tel_number, contact_info.telephoneMin, contact_info.telephoneMax, contact_info.telephoneRegEx) &&
+                    PropretyValidation.IsStringValide(contact_info.code_postal, contact_info.codePostalMin, contact_info.codePostalMax, contact_info.codePostalRegEx) &&
                     PropretyValidation.IsStringValide(contact_info.adresse, contact_info.AdressMin, contact_info.AdressMax) &&
                     PropretyValidation.IsStringValide(contact_info.ville, contact_info.villeMin, contact_info.villeMax) &&
                     PropretyValidation.IsStringValide(contact_info.province, contact_info.provinceMin, contact_info.provinceMax) &&

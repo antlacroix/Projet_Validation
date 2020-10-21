@@ -24,8 +24,8 @@ namespace ModelCinema.Models
             paysMax = 15;
         //regEx string for conctat's proprty
         public const string
-            telephoneRegEx = "",
-            codePostalRegEx = "";
+            telephoneRegEx = "[0-9]{10}",
+            codePostalRegEx = "[A-Za-z][\\d][A-Za-z][\\d][A-Za-z][\\d]";
     }
 
     public class contact_infoMetaData
