@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ModelCinema.Models;
+using ModelCinema.Models.DataManager;
 
 namespace WebCinema.Controllers
 {
@@ -17,17 +18,19 @@ namespace WebCinema.Controllers
         // GET: genres
         public ActionResult Index()
         {
-            return View(db.genres.ToList());
+            ManagerGenre manager = new ManagerGenre();
+            return View(manager.GetAllGenre());
         }
 
         // GET: genres/Details/5
         public ActionResult Details(int? id)
         {
+            ManagerGenre manager = new ManagerGenre();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            genre genre = db.genres.Find(id);
+            genre genre = manager.GetGenre(id);
             if (genre == null)
             {
                 return HttpNotFound();
@@ -48,11 +51,13 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,genre1")] genre genre)
         {
+            ManagerGenre manager = new ManagerGenre();
             if (ModelState.IsValid)
             {
-                db.genres.Add(genre);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if(manager.PostGenre(genre))
+                    return RedirectToAction("Index");
+                // TODO
+                //Implementer un message d'erreur
             }
 
             return View(genre);
@@ -61,11 +66,12 @@ namespace WebCinema.Controllers
         // GET: genres/Edit/5
         public ActionResult Edit(int? id)
         {
+            ManagerGenre manager = new ManagerGenre();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            genre genre = db.genres.Find(id);
+            genre genre = manager.GetGenre(id);
             if (genre == null)
             {
                 return HttpNotFound();
@@ -92,11 +98,12 @@ namespace WebCinema.Controllers
         // GET: genres/Delete/5
         public ActionResult Delete(int? id)
         {
+            ManagerGenre manager = new ManagerGenre();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            genre genre = db.genres.Find(id);
+            genre genre = manager.GetGenre(id);
             if (genre == null)
             {
                 return HttpNotFound();
@@ -109,9 +116,11 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            genre genre = db.genres.Find(id);
-            db.genres.Remove(genre);
-            db.SaveChanges();
+            ManagerGenre manager = new ManagerGenre();
+            if(manager.DeleteGenre(id))
+                return RedirectToAction("Index");
+            // TODO
+            //Implementer un message d'erreur
             return RedirectToAction("Index");
         }
 

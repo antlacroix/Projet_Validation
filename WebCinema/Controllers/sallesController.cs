@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ModelCinema.Models;
+using ModelCinema.Models.DataManager;
 
 namespace WebCinema.Controllers
 {
@@ -17,18 +18,20 @@ namespace WebCinema.Controllers
         // GET: salles
         public ActionResult Index()
         {
-            var salles = db.salles.Include(s => s.cinema).Include(s => s.salle_status);
-            return View(salles.ToList());
+            ManagerSalle manager = new ManagerSalle();
+           // var salles = db.salles.Include(s => s.cinema).Include(s => s.salle_status);
+            return View(manager.GetAllSalle());
         }
 
         // GET: salles/Details/5
         public ActionResult Details(int? id)
         {
+            ManagerSalle manager = new ManagerSalle();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            salle salle = db.salles.Find(id);
+            salle salle = manager.GetSalle(id);
             if (salle == null)
             {
                 return HttpNotFound();
@@ -51,11 +54,13 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,nbr_place,numero_salle,commentaire,status_id,cinema_id")] salle salle)
         {
+            ManagerSalle manager = new ManagerSalle();
             if (ModelState.IsValid)
             {
-                db.salles.Add(salle);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if(manager.PostSalle(salle))
+                    return RedirectToAction("Index");
+                // TODO
+                //Implementer un message d'erreur
             }
 
             ViewBag.cinema_id = new SelectList(db.cinemas, "id", "id", salle.cinema_id);
@@ -66,11 +71,12 @@ namespace WebCinema.Controllers
         // GET: salles/Edit/5
         public ActionResult Edit(int? id)
         {
+            ManagerSalle manager = new ManagerSalle();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            salle salle = db.salles.Find(id);
+            salle salle = manager.GetSalle(id);
             if (salle == null)
             {
                 return HttpNotFound();
@@ -101,11 +107,12 @@ namespace WebCinema.Controllers
         // GET: salles/Delete/5
         public ActionResult Delete(int? id)
         {
+            ManagerSalle manager = new ManagerSalle();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            salle salle = db.salles.Find(id);
+            salle salle = manager.GetSalle(id);
             if (salle == null)
             {
                 return HttpNotFound();
@@ -118,9 +125,11 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            salle salle = db.salles.Find(id);
-            db.salles.Remove(salle);
-            db.SaveChanges();
+            ManagerSalle manager = new ManagerSalle();
+            if(manager.DeleteSalles(id))
+                return RedirectToAction("Index");
+            // TODO
+            //Implementer un message d'erreur
             return RedirectToAction("Index");
         }
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ModelCinema.Models.DataManager
 {
-    class ManagerGenre
+    public class ManagerGenre
     {
         private cinema_dbEntities db = new cinema_dbEntities();
 
@@ -17,7 +17,7 @@ namespace ModelCinema.Models.DataManager
             return db.genres.ToList();
         }
 
-        public genre GetGenre(int id)
+        public genre GetGenre(int? id)
         {
             return db.genres.Find(id);
         }

@@ -19,6 +19,7 @@ namespace ModelCinema.Models
 
     public class filmMetaData
     {
+       // [RegularExpression(@"^\$?\d+(\.(\d{2}))?$")]
         [Required]
         [DisplayName("Titre")]
         [StringLength(50)]

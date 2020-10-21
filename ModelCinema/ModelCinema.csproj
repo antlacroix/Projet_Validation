@@ -93,6 +93,7 @@
     <Compile Include="Models\contact_info.cs">
       <DependentUpon>ModelCinema.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataManager\ManagerCinema.cs" />
     <Compile Include="Models\DataManager\ManagerContact.cs" />
     <Compile Include="Models\DataManager\ManagerFilm.cs" />
     <Compile Include="Models\DataManager\ManagerGenre.cs" />

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ModelCinema.Models;
+using ModelCinema.Models.DataManager;
 
 namespace WebCinema.Controllers
 {
@@ -17,17 +18,19 @@ namespace WebCinema.Controllers
         // GET: participants
         public ActionResult Index()
         {
-            return View(db.participants.ToList());
+            ManagerParticipant manager = new ManagerParticipant();
+            return View(manager.GetAllParticipant());
         }
 
         // GET: participants/Details/5
         public ActionResult Details(int? id)
         {
+            ManagerParticipant manager = new ManagerParticipant();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            participant participant = db.participants.Find(id);
+            participant participant = manager.GetParticipant(id);
             if (participant == null)
             {
                 return HttpNotFound();
@@ -48,11 +51,13 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,name")] participant participant)
         {
+            ManagerParticipant manager = new ManagerParticipant();
             if (ModelState.IsValid)
             {
-                db.participants.Add(participant);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if(manager.PostParticipant(participant))
+                    return RedirectToAction("Index");
+                // TODO
+                //Implementer un message d'erreur
             }
 
             return View(participant);
@@ -61,11 +66,12 @@ namespace WebCinema.Controllers
         // GET: participants/Edit/5
         public ActionResult Edit(int? id)
         {
+            ManagerParticipant manager = new ManagerParticipant();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            participant participant = db.participants.Find(id);
+            participant participant = manager.GetParticipant(id);
             if (participant == null)
             {
                 return HttpNotFound();
@@ -92,11 +98,12 @@ namespace WebCinema.Controllers
         // GET: participants/Delete/5
         public ActionResult Delete(int? id)
         {
+            ManagerParticipant manager = new ManagerParticipant();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            participant participant = db.participants.Find(id);
+            participant participant = manager.GetParticipant(id);
             if (participant == null)
             {
                 return HttpNotFound();
@@ -109,9 +116,11 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            participant participant = db.participants.Find(id);
-            db.participants.Remove(participant);
-            db.SaveChanges();
+            ManagerParticipant manager = new ManagerParticipant();
+            if(manager.DeleteParticipant(id))
+                return RedirectToAction("Index");
+            // TODO
+            //Implementer un message d'erreur
             return RedirectToAction("Index");
         }
 

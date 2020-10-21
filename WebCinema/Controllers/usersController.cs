@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ModelCinema.Models;
+using ModelCinema.Models.DataManager;
 
 namespace WebCinema.Controllers
 {
@@ -17,18 +18,20 @@ namespace WebCinema.Controllers
         // GET: users
         public ActionResult Index()
         {
-            var users = db.users.Include(u => u.contact_info).Include(u => u.user_status).Include(u => u.user_type);
-            return View(users.ToList());
+            ManagerUser manager = new ManagerUser();
+            //var users = db.users.Include(u => u.contact_info).Include(u => u.user_status).Include(u => u.user_type);
+            return View(manager.GetAllUser());
         }
 
         // GET: users/Details/5
         public ActionResult Details(int? id)
         {
+            ManagerUser manager = new ManagerUser();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user user = db.users.Find(id);
+            user user = manager.GetUser(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -52,11 +55,13 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,login,password,name,contact_info_id,user_status_id,user_type_id")] user user)
         {
+            ManagerUser manager = new ManagerUser();
             if (ModelState.IsValid)
             {
-                db.users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if(manager.PostUser(user))
+                    return RedirectToAction("Index");
+                // TODO
+                //Implementer un message d'erreur
             }
 
             ViewBag.contact_info_id = new SelectList(db.contact_info, "id", "tel_number", user.contact_info_id);
@@ -68,11 +73,12 @@ namespace WebCinema.Controllers
         // GET: users/Edit/5
         public ActionResult Edit(int? id)
         {
+            ManagerUser manager = new ManagerUser();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user user = db.users.Find(id);
+            user user = manager.GetUser(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -105,11 +111,12 @@ namespace WebCinema.Controllers
         // GET: users/Delete/5
         public ActionResult Delete(int? id)
         {
+            ManagerUser manager = new ManagerUser();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user user = db.users.Find(id);
+            user user = manager.GetUser(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -122,9 +129,11 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            user user = db.users.Find(id);
-            db.users.Remove(user);
-            db.SaveChanges();
+            ManagerUser manager = new ManagerUser();
+            if(manager.DeleteUser(id))
+                return RedirectToAction("Index");
+            // TODO
+            //Implementer un message d'erreur
             return RedirectToAction("Index");
         }
 

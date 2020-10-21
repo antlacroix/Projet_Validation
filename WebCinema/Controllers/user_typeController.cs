@@ -18,7 +18,8 @@ namespace WebCinema.Controllers
         // GET: user_type
         public ActionResult Index()
         {
-            return View(db.user_type.ToList());
+            ManagerUserType manager = new ManagerUserType();
+            return View(manager.GetAllUserType());
         }
 
         // GET: user_type/Details/5
@@ -28,7 +29,8 @@ namespace WebCinema.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user_type user_type = db.user_type.Find(id);
+            ManagerUserType manager = new ManagerUserType();
+            user_type user_type = manager.GetUserType(id);
             if (user_type == null)
             {
                 return HttpNotFound();
@@ -49,11 +51,13 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,type")] user_type user_type)
         {
+            ManagerUserType manager = new ManagerUserType();
             if (ModelState.IsValid)
             {
-                db.user_type.Add(user_type);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if(manager.PostUserType(user_type))
+                    return RedirectToAction("Index");
+                // TODO
+                //Implementer un message d'erreur
             }
 
             return View(user_type);
@@ -66,7 +70,8 @@ namespace WebCinema.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user_type user_type = db.user_type.Find(id);
+            ManagerUserType manager = new ManagerUserType();
+            user_type user_type = manager.GetUserType(id);
             if (user_type == null)
             {
                 return HttpNotFound();
@@ -93,11 +98,12 @@ namespace WebCinema.Controllers
         // GET: user_type/Delete/5
         public ActionResult Delete(int? id)
         {
+            ManagerUserType manager = new ManagerUserType();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user_type user_type = db.user_type.Find(id);
+            user_type user_type = manager.GetUserType(id);
             if (user_type == null)
             {
                 return HttpNotFound();
@@ -110,9 +116,11 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            user_type user_type = db.user_type.Find(id);
-            db.user_type.Remove(user_type);
-            db.SaveChanges();
+            ManagerUserType manager = new ManagerUserType();
+            if(manager.DeleteUserType(id))
+                return RedirectToAction("Index");
+            // TODO
+            //Implementer un message d'erreur
             return RedirectToAction("Index");
         }
 

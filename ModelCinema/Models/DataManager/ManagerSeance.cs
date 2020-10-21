@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ModelCinema.Models.DataManager
 {
-    class ManagerSeance
+    public class ManagerSeance
     {
         private cinema_dbEntities db = new cinema_dbEntities();
 
@@ -17,7 +17,7 @@ namespace ModelCinema.Models.DataManager
             return db.seances.ToList();
         }
 
-        public seance GetSeance(int id)
+        public seance GetSeance(int? id)
         {
             return db.seances.Find(id);
         }

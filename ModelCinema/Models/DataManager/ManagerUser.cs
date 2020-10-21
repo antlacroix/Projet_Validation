@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ModelCinema.Models.DataManager
 {
-    class ManagerUser
+    public class ManagerUser
     {
         private cinema_dbEntities db = new cinema_dbEntities();
 
@@ -18,7 +18,7 @@ namespace ModelCinema.Models.DataManager
             return db.users.ToList();
         }
 
-        public user GetUser(int id)
+        public user GetUser(int? id)
         {
             return db.users.Find(id);
         }
