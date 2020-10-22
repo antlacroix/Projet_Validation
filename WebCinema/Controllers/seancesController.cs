@@ -15,6 +15,11 @@ namespace WebCinema.Controllers
     {
         private cinema_dbEntities db = new cinema_dbEntities();
 
+        protected void btnSave(object sender, EventArgs e)
+        {
+            // Sauvgardé les modif et nouveau séence
+        }
+
         public List<seance> GetScheduleData()
         {
             List<seance> appData = new List<seance>();
@@ -80,27 +85,38 @@ namespace WebCinema.Controllers
         public ActionResult Index()
         {
             //ManagerSeance manager = new ManagerSeance();
-            //ViewBag.appointments = GetScheduleData();
+            ViewBag.appointments = GetScheduleData();
             //var seances = db.seances.Include(s => s.film).Include(s => s.salle);
-            //return View(manager.GetAllSeance());
+            ManagerFilm managerFilm = new ManagerFilm();
+            List<film> films = managerFilm.GetAllFilms();
+            ViewBag.Film = films;
 
-            ViewBag.datasource = GetScheduleData();
-            // datasource for room resources
-            List<cinema> Cinemas = new List<cinema>();
-            Cinemas.Add(new cinema { CinemaText = "Cineplex Odeon", Id = 1, CinemaColor = "#cb6bb2" });
-            Cinemas.Add(new cinema { CinemaText = "Cinema le Clap", Id = 2, CinemaColor = "#56ca85" });
-            ViewBag.Cinema = Cinemas;
-            // datasource for owner resources
-            List<salle> Salles = new List<salle>();
-            Salles.Add(new salle { SalleText = "#1 Odeon UltraAVX", Id = 1, SalleGroupId = 1, SalleColor = "#ffaa00" });
-            Salles.Add(new salle { SalleText = "#2 Odeon DolbySono", Id = 2, SalleGroupId = 1, SalleColor = "#f8a398" });
-            Salles.Add(new salle { SalleText = "#3 Odeon 3D", Id = 3, SalleGroupId = 1, SalleColor = "#7499e1" });
-            Salles.Add(new salle { SalleText = "#1 Clap UltraAVX", Id = 1, SalleGroupId = 2, SalleColor = "#ffaa00" });
-            Salles.Add(new salle { SalleText = "#2 Clap DolbySono", Id = 2, SalleGroupId = 2, SalleColor = "#f8a398" });
-            Salles.Add(new salle { SalleText = "#3 Clap 3D", Id = 3, SalleGroupId = 2, SalleColor = "#7499e1" });
-            ViewBag.Salles = Salles;
-            
-            ViewBag.Resources = new string[] { "Cinemas", "Salles" };
+
+            //List<seance> resourceData = GetScheduleData();
+            ////List<seance> resourceData = GetResourceData();
+            ////List<seance> timelineResourceData = GetTimelineResourceData();
+            ////ViewBag.datasource = resourceData.Concat(resourceData);
+
+
+            //ViewBag.datasource = resourceData;
+            //// datasource for room resources
+            List<cinema> cinemas = new List<cinema>();
+            cinemas.Add(new cinema { CinemaText = "Cineplex Odeon", Id = 1, CinemaColor = "#cb6bb2" });
+            cinemas.Add(new cinema { CinemaText = "Cinema le Clap", Id = 2, CinemaColor = "#56ca85" });
+            ViewBag.Cinema = cinemas;
+            //// datasource for owner resources
+            List<salle> salles = new List<salle>();
+            salles.Add(new salle { SalleText = "#1 Odeon UltraAVX", Id = 1, SalleGroupId = 1, SalleColor = "#ffaa00" });
+            salles.Add(new salle { SalleText = "#2 Odeon DolbySono", Id = 2, SalleGroupId = 1, SalleColor = "#f8a398" });
+            salles.Add(new salle { SalleText = "#3 Odeon 3D", Id = 3, SalleGroupId = 1, SalleColor = "#7499e1" });
+            salles.Add(new salle { SalleText = "#1 Clap UltraAVX", Id = 4, SalleGroupId = 2, SalleColor = "#ffaa00" });
+            salles.Add(new salle { SalleText = "#2 Clap DolbySono", Id = 5, SalleGroupId = 2, SalleColor = "#f8a398" });
+            salles.Add(new salle { SalleText = "#3 Clap 3D", Id = 6, SalleGroupId = 2, SalleColor = "#7499e1" });
+            ViewBag.Salle = salles;
+
+            ViewBag.Resources = new string[] { "Cinema", "Salle" };
+            //return View();
+
             return View();
 
         }
