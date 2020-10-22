@@ -11,15 +11,52 @@
 
 @(Html.EJS().Schedule("schedule")
     .Height("550px")
-    .CurrentView(View.TimelineMonth)
-    .Views(view => { 
-        view.Option(View.TimelineDay).Add(); 
-        view.Option(View.TimelineMonth).Add(); 
+    .CurrentView(View.TimelineDay)
+    .Views(view => {
+        view.Option(View.TimelineDay).Add();
+        view.Option(View.TimelineMonth).Add();
+        view.Option(View.TimelineYear).Add();
     })
     .EventSettings(new ScheduleEventSettings { DataSource = ViewBag.appointments })
-    .SelectedDate(new DateTime(2018, 2, 15))
+    .SelectedDate(DateTime.Now)
     .Render()
 )
+
+@section ControlsSection{
+    <div class="control-section">
+        <div class="content-wrapper">
+            @(Html.EJS().Schedule("schedule")
+    .Width("100%")
+    .Height("550px")
+    .Group(group => group.Resources(ViewBag.Resources))
+    .Resources(res => {
+        res.AllowMultiple(false).DataSource(ViewBag.Cinemas).Field("CinemaId").Title("Cinemas").Name("cinema").TextField("CinemaText").IdField("Id").ColorField("CinemaColor").Add();
+        res.AllowMultiple(true).DataSource(ViewBag.Salles).Field("SalleId").Title("Salles").Name("salle").TextField("SalleText").IdField("Id").GroupIDField("SalleGroupId").ColorField("SalleColor").Add();
+    })
+    .Views(view => {
+        view.Option(View.TimelineWeek).Add();
+        view.Option(View.TimelineMonth).Add();
+        view.Option(View.Agenda).Add();
+    })
+    .EventSettings(e => e.DataSource(ViewBag.datasource))
+    .SelectedDate(new DateTime(2018, 4, 1))
+    .Render()
+)
+
+        </div>
+    </div>
+    <style type="text/css">
+        .e-schedule:not(.e-device) .e-agenda-view .e-content-wrap table td:first-child {
+            width: 90px;
+        }
+
+        .e-schedule .e-agenda-view .e-resource-column {
+            width: 100px;
+        }
+    </style>
+}
+
+
 
 @*<p>
         @Html.ActionLink("Create New", "Create")
