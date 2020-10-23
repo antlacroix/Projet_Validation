@@ -176,46 +176,44 @@ namespace ModelCinema.Models
         // [RegularExpression(@"^\$?\d+(\.(\d{2}))?$")]
         [Required]
         [DisplayName("Titre")]
-        [StringLength(film.titreMax)]
+        [StringLength(film.titreMax, ErrorMessage = "titre")]
         public string Title { get; set; }
 
         [Required]
         [DisplayName("Classement")]
-        [Range(1, 1001)]
+        [Range(1, 1001, ErrorMessage ="Ranking")]
         [Column("ranking")]
         public int Ranking { get; set; }
 
         [DisplayName("Description")]
-
-        [StringLength(film.descriptionMax)]
+        [StringLength(film.descriptionMax, ErrorMessage = "description")]
         public string Description { get; set; }
 
         [Required]
         [DisplayName("Annee")]
-        [Range(film.anneeParutionMin, film.anneeParutionMax)]
+        [Range(film.anneeParutionMin, film.anneeParutionMax, ErrorMessage = "annee")]
         public int Year { get; set; }
 
         [Required]
         [DisplayName("Duree")]
-        [Range(film.dureeMin, film.dureeMax)]
+        [Range(film.dureeMin, film.dureeMax, ErrorMessage = "duration")]
         public int Duration { get; set; }
 
         [Required]
         [DisplayName("Rating")]
-        [Range(film.ratingMin, film.ratingMax)]
+        [Range(film.ratingMin, film.ratingMax, ErrorMessage ="rating")]
         public double Rating { get; set; }
 
-        [Required]
         [DisplayName("Revenue")]
-        [Range(film.revenuMin, film.revenuMax)]
+        [Range(film.revenuMin, film.revenuMax, ErrorMessage ="revenue")]
         public double? Revenue { get; set; }
 
         [DisplayName("Votes")]
-        [Range(0, 10000000)]
+        [Range(0, 10000000, ErrorMessage = "votes")]
         public int? Votes { get; set; }
 
         [DisplayName("Metascore")]
-        [Range(0, 100)]
+        [Range(0, 100, ErrorMessage = "metascore")]
         public int? Metascore { get; set; }
     }
 }
