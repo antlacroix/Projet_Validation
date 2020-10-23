@@ -11,32 +11,32 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.film.titre)
+            @Html.DisplayNameFor(model => model.Movie.Title)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.film.titre)
+            @Html.DisplayFor(model => model.Movie.Title)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.participant.name)
+            @Html.DisplayNameFor(model => model.Participant.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.participant.name)
+            @Html.DisplayFor(model => model.Participant.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.role_participant.role)
+            @Html.DisplayNameFor(model => model.Role.Role)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.role_participant.role)
+            @Html.DisplayFor(model => model.Role.Role)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
