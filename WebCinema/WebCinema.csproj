@@ -147,6 +147,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\cinema_db.mdf" />
+    <Content Include="App_Data\cinema_db_log.ldf">
+      <DependentUpon>cinema_db.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -252,8 +256,10 @@
     <Content Include="Views\user_status\Details.cshtml" />
     <Content Include="Views\user_status\Edit.cshtml" />
     <Content Include="Views\user_status\Index.cshtml" />
+    <Content Include="Views\films\UploadMovies.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\UploadedFiles\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

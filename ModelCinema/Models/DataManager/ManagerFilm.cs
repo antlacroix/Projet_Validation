@@ -46,7 +46,7 @@ namespace ModelCinema.Models.DataManager
 
         public bool PutFilm(film film)
         {
-            if (db.films.Find(film.id) != null && ValidatorFilm.IsValide(film))
+            if (db.films.Find(film.Id) != null && ValidatorFilm.IsValide(film))
             {
                 try
                 {

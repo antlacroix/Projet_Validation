@@ -21,7 +21,7 @@ namespace ModelCinema.Models.ModelValidator
             try
             {
                 if (
-                    PropretyValidation.IsStringValide(participant.name, nameMin, nameMax) &&
+                    PropretyValidation.IsStringValide(participant.Name, nameMin, nameMax) &&
                     !IsParticipantExist(participant)
                     )
                 {
@@ -44,7 +44,7 @@ namespace ModelCinema.Models.ModelValidator
         {
             ManagerParticipant manager = new ManagerParticipant();
 
-            List<participant> existingOne = manager.GetAllParticipant().Where(o => o.name == candidate.name).ToList();
+            List<participant> existingOne = manager.GetAllParticipant().Where(o => o.Name == candidate.Name).ToList();
 
             if (existingOne.Count != 0)
                 return true;

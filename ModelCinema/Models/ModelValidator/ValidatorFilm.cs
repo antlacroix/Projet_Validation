@@ -10,16 +10,16 @@ namespace ModelCinema.Models.ModelValidator
     static public class ValidatorFilm
     {
         //min Length/Value for film proprety
-        static private int 
+        static private int
             titreMin = 0,
             descriptionMin = 0,
             anneeParutionMin = 1895,
             ratingMin = 0,
-            revenuMin =0;
+            revenuMin = 0;
         //max Length/Value for film proprety
         static private int
             titreMax = 50,
-            descriptionMax = 50,
+            descriptionMax = 500,
             anneeParutionMax = DateTime.Now.Year + 50,
             ratingMax = 10,
             revenuMax = 1000000;
@@ -30,15 +30,15 @@ namespace ModelCinema.Models.ModelValidator
             try
             {
                 if (
-                    PropretyValidation.IsStringValide(film.titre, titreMin, titreMax) &&
-                    PropretyValidation.IsStringValide(film.description, descriptionMin, descriptionMax) &&
-                    PropretyValidation.IsNumberValide(film.annee_parution, anneeParutionMin, anneeParutionMax) &&
-                    PropretyValidation.IsNumberValide(film.rating, ratingMin, ratingMax) &&
-                    PropretyValidation.IsNumberValide(film.revenu, revenuMin, revenuMax) &&
-                    !IsTitleExist(film)
+                    PropretyValidation.IsStringValide(film.Title, titreMin, titreMax) &&
+                    PropretyValidation.IsStringValide(film.Description, descriptionMin, descriptionMax) &&
+                    PropretyValidation.IsNumberValide(film.Year, anneeParutionMin, anneeParutionMax) &&
+                    PropretyValidation.IsNumberValide(film.Rating, ratingMin, ratingMax) &&
+                    PropretyValidation.IsNumberValide(film.Revenue, revenuMin, revenuMax)
+                    //&& !IsTitleExist(film)
                     )
                 {
-                        return true;
+                    return true;
                 }
                 else
                 {
@@ -57,7 +57,7 @@ namespace ModelCinema.Models.ModelValidator
         {
             ManagerFilm manager = new ManagerFilm();
 
-            List<film> existingOne = manager.GetAllFilms().Where(o => o.titre == candidate.titre).ToList();
+            List<film> existingOne = manager.GetAllFilms().Where(o => o.Title == candidate.Title).ToList();
 
             if (existingOne.Count != 0)
                 return true;

@@ -17,7 +17,7 @@ namespace WebCinema.Controllers
         // GET: participations
         public ActionResult Index()
         {
-            var participations = db.participations.Include(p => p.film).Include(p => p.participant).Include(p => p.role_participant);
+            var participations = db.participations.Include(p => p.Movie).Include(p => p.Participant).Include(p => p.Role);
             return View(participations.ToList());
         }
 
@@ -59,9 +59,9 @@ namespace WebCinema.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.film_id = new SelectList(db.films, "id", "titre", participation.film_id);
-            ViewBag.participant_id = new SelectList(db.participants, "id", "name", participation.participant_id);
-            ViewBag.role_id = new SelectList(db.role_participant, "id", "role", participation.role_id);
+            ViewBag.film_id = new SelectList(db.films, "id", "titre", participation.Movie);
+            ViewBag.participant_id = new SelectList(db.participants, "id", "name", participation.Participant);
+            ViewBag.role_id = new SelectList(db.role_participant, "id", "role", participation.Role);
             return View(participation);
         }
 
@@ -77,9 +77,9 @@ namespace WebCinema.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.film_id = new SelectList(db.films, "id", "titre", participation.film_id);
-            ViewBag.participant_id = new SelectList(db.participants, "id", "name", participation.participant_id);
-            ViewBag.role_id = new SelectList(db.role_participant, "id", "role", participation.role_id);
+            ViewBag.film_id = new SelectList(db.films, "id", "titre", participation.Movie);
+            ViewBag.participant_id = new SelectList(db.participants, "id", "name", participation.Participant);
+            ViewBag.role_id = new SelectList(db.role_participant, "id", "role", participation.Role);
             return View(participation);
         }
 
@@ -96,9 +96,9 @@ namespace WebCinema.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.film_id = new SelectList(db.films, "id", "titre", participation.film_id);
-            ViewBag.participant_id = new SelectList(db.participants, "id", "name", participation.participant_id);
-            ViewBag.role_id = new SelectList(db.role_participant, "id", "role", participation.role_id);
+            ViewBag.film_id = new SelectList(db.films, "id", "titre", participation.Movie);
+            ViewBag.participant_id = new SelectList(db.participants, "id", "name", participation.Participant);
+            ViewBag.role_id = new SelectList(db.role_participant, "id", "role", participation.Role);
             return View(participation);
         }
 

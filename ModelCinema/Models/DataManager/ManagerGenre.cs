@@ -46,7 +46,7 @@ namespace ModelCinema.Models.DataManager
 
         public bool PutGenre(genre genre)
         {
-            if (db.genres.Find(genre.id) != null && ValidatorGenre.IsValide(genre))
+            if (db.genres.Find(genre.Id) != null && ValidatorGenre.IsValide(genre))
             {
                 try
                 {

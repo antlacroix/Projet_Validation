@@ -37,7 +37,7 @@ namespace ModelCinema.Models.ModelValidator
                 return false;
         }
 
-        static public bool IsNumberValide(double candidate, double minVal, double maxVal)
+        static public bool IsNumberValide(double? candidate, double minVal, double maxVal)
         {
             if (candidate >= minVal && candidate <= maxVal)
                 return true;
