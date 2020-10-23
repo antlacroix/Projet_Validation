@@ -1,49 +1,165 @@
-﻿@model IEnumerable<ModelCinema.Models.film>
-
+﻿
+@model IEnumerable<ModelCinema.Models.film>
 @{
     ViewBag.Title = "Index Films";
 }
 
-    <h2>Films Index</h2>
+<h2>Films Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<p>
+    @Html.ActionLink("DEV- Importer un fichier csv", "UploadMovies")
+</p>
+<p>
+    @Html.ActionLink("DEV- Supprimer tous les films de la bd", "FlushMovies")
+</p>
+
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.titre)
+            @Html.DisplayNameFor(model => model.Ranking)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.annee_parution)
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.MovieGenres)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.Director)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Actors)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Year)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.rating)
+            @Html.DisplayNameFor(model => model.Duration)
         </th>
         <th>
-            @Html.ActionLink("Importé Contenu", "Create") |
-            @Html.ActionLink("Add Contenu", "Create")
+            @Html.DisplayNameFor(model => model.Rating)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Votes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Revenue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Metascore)
+        </th>
+
         <th></th>
     </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ranking)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.titre)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.annee_parution)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.rating)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-        @Html.ActionLink("Details", "Details", new { id = item.id }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.id })
-    </td>
-</tr>
-}
+            @*<td>
+                    @foreach (var child in item.MovieGenres)
+                    {
+                        @Html.DisplayFor(genre => child.Genre)<br />
+                    }
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Director.Name)
+                </td>*@
+            @*<td>
+                    @foreach (var child in item.Actors)
+                    {
+                        @Html.DisplayFor(actor => child.Name)<br />
+                    }
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Votes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Revenue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Metascore)
+            </td>
 
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) <br />
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) <br />
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })<br />
+            </td>
+        </tr>
+    }
 </table>
+
+@*@model IEnumerable<ModelCinema.Models.film>
+
+    @{
+        ViewBag.Title = "Index Films";
+    }
+
+        <h2>Films Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.titre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.annee_parution)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.rating)
+            </th>
+            <th>
+                @Html.ActionLink("Importé Contenu", "Create") |
+                @Html.ActionLink("Add Contenu", "Create")
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.titre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.annee_parution)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.rating)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+        </td>
+    </tr>
+    }
+
+    </table>*@

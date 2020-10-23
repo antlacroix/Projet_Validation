@@ -14,15 +14,15 @@ namespace ModelCinema.Models.ModelValidator
             try
             {
                 if (
-                    PropretyValidation.IsStringValide(film.titre, film.titreMin, film.titreMax) &&
-                    PropretyValidation.IsStringValide(film.description, film.descriptionMin, film.descriptionMax) &&
-                    PropretyValidation.IsNumberValide(film.annee_parution, film.anneeParutionMin, film.anneeParutionMax) &&
-                    PropretyValidation.IsNumberValide(film.duree, film.dureeMin, film.dureeMax) &&
-                    PropretyValidation.IsNumberValide(film.rating, film.ratingMin, film.ratingMax) &&
-                    PropretyValidation.IsNumberValide(film.revenu, film.revenuMin, film.revenuMax)
+                    PropretyValidation.IsStringValide(film.Title, film.titreMin, film.titreMax) &&
+                    PropretyValidation.IsStringValide(film.Description, film.descriptionMin, film.descriptionMax) &&
+                    PropretyValidation.IsNumberValide(film.Year, film.anneeParutionMin, film.anneeParutionMax) &&
+                    PropretyValidation.IsNumberValide(film.Duration, film.dureeMin, film.dureeMax) &&
+                    PropretyValidation.IsNumberValide(film.Rating, film.ratingMin, film.ratingMax) &&
+                    PropretyValidation.IsNumberValide(film.Revenue, film.revenuMin, film.revenuMax)
                     )
                 {
-                        return true;
+                    return true;
                 }
                 else
                 {
@@ -41,7 +41,7 @@ namespace ModelCinema.Models.ModelValidator
         {
             ManagerFilm manager = new ManagerFilm();
 
-            List<film> existingOne = manager.GetAllFilms().Where(o => o.titre == candidate.titre).ToList();
+            List<film> existingOne = manager.GetAllFilms().Where(o => o.Title == candidate.Title).ToList();
 
             if (existingOne.Count != 0)
                 return true;
@@ -60,6 +60,5 @@ namespace ModelCinema.Models.ModelValidator
             else
                 return false;
         }
-
     }
 }

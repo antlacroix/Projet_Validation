@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "ImportMovies";
+}
+
+<h2>ImportMovies</h2>
+
+@using (Html.BeginForm("UploadMovies", "films", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div>
+        @Html.TextBox("file", "", new { type = "file" }) <br />
+
+        <input type="submit" value="Upload" />
+
+        @ViewBag.Message
+
+    </div>
+
+
+}  

@@ -22,19 +22,22 @@ namespace ModelCinema.Models
             this.seances = new HashSet<seance>();
         }
     
-        public int id { get; set; }
-        public string titre { get; set; }
-        public string description { get; set; }
-        public int annee_parution { get; set; }
-        public int duree { get; set; }
-        public double rating { get; set; }
-        public int revenu { get; set; }
+        private int id { get; set; }
+        private string titre { get; set; }
+        private int ranking { get; set; }
+        private string description { get; set; }
+        private int annee_parution { get; set; }
+        private int duree { get; set; }
+        private double rating { get; set; }
+        private Nullable<double> revenu { get; set; }
+        private Nullable<int> votes { get; set; }
+        private Nullable<int> metascore { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<genre_film> genre_film { get; set; }
+        private ICollection<genre_film> genre_film { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<participation> participations { get; set; }
+        private ICollection<participation> participations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<seance> seances { get; set; }
+        private ICollection<seance> seances { get; set; }
     }
 }
