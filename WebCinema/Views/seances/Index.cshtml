@@ -37,15 +37,6 @@
             .GroupIDField("SalleGroupId")
             .Add();
 
-            res
-            .AllowMultiple(true)
-            .DataSource(ViewBag.Film)
-            .Field("film_id")
-            .Title("Owner1")
-            .Name("Film")
-            .TextField("titre")
-            .IdField("id")
-            .Add();
         })
         .Views(view =>
         {
