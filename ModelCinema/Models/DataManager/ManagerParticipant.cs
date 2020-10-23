@@ -1,10 +1,12 @@
-﻿using ModelCinema.Models.ModelValidator;
+﻿using ModelCinema.ModelExeption;
+using ModelCinema.Models.ModelValidator;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ModelCinema.Models.DataManager
 {
@@ -24,7 +26,7 @@ namespace ModelCinema.Models.DataManager
 
         public bool PostParticipant(participant participant)
         {
-            if (ValidatorParticipant.IsValide(participant))
+            if (ValidatorParticipant.IsValide(participant) && !ValidatorParticipant.IsParticipantExist(participant))
             {
                 try
                 {
@@ -34,14 +36,13 @@ namespace ModelCinema.Models.DataManager
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
-                    return false;
+                    throw e;
                 }
             }
+            else if(ValidatorParticipant.IsParticipantExist(participant))
+                throw new ExistingItemException("participant");
             else
-            {
-                return false;
-            }
+                throw new InvalidItemException("participant");
         }
 
         public bool PutParticipant(participant participant)

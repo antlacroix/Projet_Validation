@@ -9,22 +9,14 @@ namespace ModelCinema.Models.ModelValidator
 {
     static public class ValidatorGenre
     {
-        //min Length/Value for genre's proprety
-        static private int
-            genreMin = 2;
-        //max Length/Value for genre's proprety
-        static private int
-            genreMax = 25;
+        
 
         static public bool IsValide(genre genre)
         {
-
-
             try
             {
                 if (
-                    PropretyValidation.IsStringValide(genre.genre1, genreMin, genreMax) &&
-                    !IsGenreExist(genre)
+                    PropretyValidation.IsStringValide(genre.genre1, genre.genreMin, genre.genreMax)
                     )
                 {
                     return true;
@@ -42,7 +34,7 @@ namespace ModelCinema.Models.ModelValidator
             }
         }
 
-        static private bool IsGenreExist(genre candidate)
+        static public bool IsGenreExist(genre candidate)
         {
             ManagerGenre manager = new ManagerGenre();
 

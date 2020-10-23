@@ -4,7 +4,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ModelCinema.ModelExeption;
 using ModelCinema.Models.ModelValidator;
+using Xceed.Wpf.Toolkit;
 
 namespace ModelCinema.Models.DataManager
 {
@@ -16,7 +18,7 @@ namespace ModelCinema.Models.DataManager
         {
             return db.films.ToList();
         }
-        
+
         public film GetFilm(int? id)
         {
             return db.films.Find(id);
@@ -24,7 +26,7 @@ namespace ModelCinema.Models.DataManager
 
         public bool PostFilm(film film)
         {
-            if (ValidatorFilm.IsValide(film))
+            if (ValidatorFilm.IsValide(film) && !ValidatorFilm.IsTitleExist(film))
             {
                 try
                 {
@@ -34,14 +36,14 @@ namespace ModelCinema.Models.DataManager
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
-                    return false;
+                    throw e;
                 }
             }
+            else if (ValidatorFilm.IsTitleExist(film))
+                throw new ExistingItemException("film");
             else
-            {
-                return false;
-            }
+                throw new InvalidItemException("film");
+
         }
 
         public bool PutFilm(film film)
@@ -54,7 +56,7 @@ namespace ModelCinema.Models.DataManager
                     db.SaveChanges();
                     return true;
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.WriteLine(e);
                     return false;
@@ -68,7 +70,7 @@ namespace ModelCinema.Models.DataManager
 
         public bool DeleteFilm(int id)
         {
-            if(db.films.Find(id) != null)
+            if (db.films.Find(id) != null)
             {
                 try
                 {

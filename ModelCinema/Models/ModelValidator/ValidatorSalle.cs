@@ -9,26 +9,16 @@ namespace ModelCinema.Models.ModelValidator
 {
     static public class ValidatorSalle
     {
-        //min Length/Value for salle's proprety
-        static private int
-            nbrPlaceMin = 1,
-            numSalleMin = 1,
-            commentaireMin = 0;
-        //max Length/Value for salle's proprety
-        static private int
-            nbrPlaceMax = 100,
-            numSalleMax = 100,
-            commentaireMax = 250;
+        
 
         static public bool IsValide(salle salle)
         { 
             try
             {
                 if (
-                    PropretyValidation.IsNumberValide(salle.nbr_place, nbrPlaceMin, nbrPlaceMax) &&
-                    PropretyValidation.IsNumberValide(salle.numero_salle, numSalleMin, numSalleMax) &&
-                    PropretyValidation.IsStringValide(salle.commentaire, commentaireMin, commentaireMax) &&
-                    !IsSalleExist(salle)
+                    PropretyValidation.IsNumberValide(salle.nbr_place, salle.nbrPlaceMin, salle.nbrPlaceMax) &&
+                    PropretyValidation.IsNumberValide(salle.numero_salle, salle.numSalleMin, salle.numSalleMax) &&
+                    PropretyValidation.IsStringValide(salle.commentaire, salle.commentaireMin, salle.commentaireMax)
                     )
                 {
                     return true;
@@ -45,7 +35,7 @@ namespace ModelCinema.Models.ModelValidator
                 throw e;
             }
         }
-        static private bool IsSalleExist(salle candidate)
+        static public bool IsSalleExist(salle candidate)
         {
             ManagerSalle manager = new ManagerSalle();
 

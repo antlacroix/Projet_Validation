@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
+using System.Windows;
 using ModelCinema.Models;
 using ModelCinema.Models.DataManager;
 
@@ -54,10 +56,15 @@ namespace WebCinema.Controllers
             ManagerFilm manager = new ManagerFilm();
             if (ModelState.IsValid)
             {
-                if(manager.PostFilm(film))
-                    return RedirectToAction("Index");
-                // TODO
-                //Implementer un message d'erreur
+                try
+                {
+                    if (manager.PostFilm(film))
+                        return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
 
             return View(film);

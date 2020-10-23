@@ -10,22 +10,33 @@ namespace ModelCinema.Models
         public int Id { set; get; }
         public string SalleColor { set; get; }
         public int SalleGroupId { set; get; }
+
+        //min Length/Value for salle's proprety
+        public const int
+            nbrPlaceMin = 1,
+            numSalleMin = 1,
+            commentaireMin = 0;
+        //max Length/Value for salle's proprety
+        public const int
+            nbrPlaceMax = 100,
+            numSalleMax = 100,
+            commentaireMax = 250;
     }
 
     public class salleMetaData
     {
         [Required]
         [DisplayName("Nombre de place")]
-        [Range(0,500)]
+        [Range(salle.nbrPlaceMin, salle.nbrPlaceMax)]
         public int nbr_place { get; set; }
 
         [Required]
         [DisplayName("Numero de la salle")]
-        [Range(0, 500)]
+        [Range(salle.numSalleMin, salle.numSalleMax)]
         public int numero_salle { get; set; }
 
         [DisplayName("Commentaire")]
-        [StringLength(250)]
+        [StringLength(salle.commentaireMax)]
         public string commentaire { get; set; }
 
         [DisplayName("Status de la salle")]

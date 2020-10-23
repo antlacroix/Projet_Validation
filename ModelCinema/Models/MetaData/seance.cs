@@ -7,6 +7,19 @@ namespace ModelCinema.Models
     [MetadataType(typeof(seanceMetaData))]
     public partial class seance
     {
+        //min Length/Value for seance's proprety
+        public const int
+            titreMin = 1;
+        public DateTime
+            dateDebutMin = DateTime.Now,
+            dateFinMin = DateTime.Now.AddMinutes(15);
+        //max Length/Value for seance's proprety
+        public const int
+            titreMax = 50;
+        public  DateTime
+            dateDebutMax = DateTime.Now.AddYears(50),
+            dateFinMax = DateTime.Now.AddYears(50);
+
         public int Id { get { return this.id ; } set { this.id = value; } }
         public string Subject { get { return this.titre_seance; } set { this.titre_seance = value; } }
         public DateTime StartTime { 
@@ -46,7 +59,7 @@ namespace ModelCinema.Models
 
         [Required]
         [DisplayName("Titre de la seance")]
-        [StringLength(50)]
+        [StringLength(seance.titreMax)]
         public string titre_seance { get; set; }
 
         [DisplayName("Salle")]
