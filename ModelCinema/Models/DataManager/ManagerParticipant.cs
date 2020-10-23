@@ -47,7 +47,7 @@ namespace ModelCinema.Models.DataManager
 
         public bool PutParticipant(participant participant)
         {
-            if (db.participants.Find(participant.id) != null && ValidatorParticipant.IsValide(participant))
+            if (db.participants.Find(participant.Id) != null && ValidatorParticipant.IsValide(participant))
             {
                 try
                 {

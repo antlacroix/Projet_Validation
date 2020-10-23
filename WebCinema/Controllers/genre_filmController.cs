@@ -17,7 +17,7 @@ namespace WebCinema.Controllers
         // GET: genre_film
         public ActionResult Index()
         {
-            var genre_film = db.genre_film.Include(g => g.film).Include(g => g.genre);
+            var genre_film = db.genre_film.Include(g => g.Movie).Include(g => g.Genre);
             return View(genre_film.ToList());
         }
 
@@ -58,8 +58,8 @@ namespace WebCinema.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.film_id = new SelectList(db.films, "id", "titre", genre_film.film_id);
-            ViewBag.genre_id = new SelectList(db.genres, "id", "genre1", genre_film.genre_id);
+            ViewBag.film_id = new SelectList(db.films, "id", "titre", genre_film.Movie);
+            ViewBag.genre_id = new SelectList(db.genres, "id", "genre1", genre_film.Genre);
             return View(genre_film);
         }
 
@@ -75,8 +75,8 @@ namespace WebCinema.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.film_id = new SelectList(db.films, "id", "titre", genre_film.film_id);
-            ViewBag.genre_id = new SelectList(db.genres, "id", "genre1", genre_film.genre_id);
+            ViewBag.film_id = new SelectList(db.films, "id", "titre", genre_film.Movie);
+            ViewBag.genre_id = new SelectList(db.genres, "id", "genre1", genre_film.Genre);
             return View(genre_film);
         }
 
@@ -93,8 +93,8 @@ namespace WebCinema.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.film_id = new SelectList(db.films, "id", "titre", genre_film.film_id);
-            ViewBag.genre_id = new SelectList(db.genres, "id", "genre1", genre_film.genre_id);
+            ViewBag.film_id = new SelectList(db.films, "id", "titre", genre_film.Movie);
+            ViewBag.genre_id = new SelectList(db.genres, "id", "genre1", genre_film.Genre);
             return View(genre_film);
         }
 
