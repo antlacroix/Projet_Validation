@@ -14,12 +14,12 @@ namespace ModelCinema.Models.ModelValidator
             try
             {
                 if (
-                    PropretyValidation.IsStringValide(film.Title, titreMin, titreMax) &&
-                    PropretyValidation.IsStringValide(film.Description, descriptionMin, descriptionMax) &&
-                    PropretyValidation.IsNumberValide(film.Year, anneeParutionMin, anneeParutionMax) &&
+                    PropretyValidation.IsStringValide(film.Title, film.titreMin, film.titreMax) &&
+                    PropretyValidation.IsStringValide(film.Description, film.descriptionMin, film.descriptionMax) &&
+                    PropretyValidation.IsNumberValide(film.Year, film.anneeParutionMin, film.anneeParutionMax) &&
                     PropretyValidation.IsNumberValide(film.Duration, film.dureeMin, film.dureeMax) &&
-                    PropretyValidation.IsNumberValide(film.Rating, ratingMin, ratingMax) &&
-                    PropretyValidation.IsNumberValide(film.Revenue, revenuMin, revenuMax)
+                    PropretyValidation.IsNumberValide(film.Rating, film.ratingMin, film.ratingMax) &&
+                    PropretyValidation.IsNumberValide(film.Revenue, film.revenuMin, film.revenuMax)
                     )
                 {
                     return true;
