@@ -18,7 +18,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="tel_number" Type="nchar" MaxLength="9" Nullable="false" />
+          <Property Name="tel_number" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="code_postal" Type="nchar" MaxLength="6" Nullable="false" />
           <Property Name="adresse" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ville" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -31,12 +31,12 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="titre" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="ranking" Type="int" Nullable="false" />
           <Property Name="description" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="annee_parution" Type="int" Nullable="false" />
           <Property Name="duree" Type="int" Nullable="false" />
           <Property Name="rating" Type="float" Nullable="false" />
           <Property Name="revenu" Type="float" />
+          <Property Name="ranking" Type="int" Nullable="false" />
           <Property Name="votes" Type="int" />
           <Property Name="metascore" Type="int" />
         </EntityType>
@@ -45,7 +45,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="genre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="genre1" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="genre_film">
           <Key>
@@ -85,7 +85,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nbr_place" Type="int" Nullable="false" />
           <Property Name="numero_salle" Type="int" Nullable="false" />
-          <Property Name="commentaire" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="commentaire" Type="nvarchar" MaxLength="250" />
           <Property Name="status_id" Type="int" Nullable="false" />
           <Property Name="cinema_id" Type="int" Nullable="false" />
         </EntityType>
@@ -393,7 +393,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="tel_number" Type="String" MaxLength="9" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="tel_number" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="code_postal" Type="String" MaxLength="6" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="adresse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ville" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -473,7 +473,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nbr_place" Type="Int32" Nullable="false" />
           <Property Name="numero_salle" Type="Int32" Nullable="false" />
-          <Property Name="commentaire" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="commentaire" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="status_id" Type="Int32" Nullable="false" />
           <Property Name="cinema_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="cinema" Relationship="Self.fk_salle_cinema" FromRole="salle" ToRole="cinema" />
@@ -820,8 +820,8 @@
           <EntitySetMapping Name="genres">
             <EntityTypeMapping TypeName="cinema_dbModel.genre">
               <MappingFragment StoreEntitySet="genre">
+                <ScalarProperty Name="genre1" ColumnName="genre1" />
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="genre1" ColumnName="genre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

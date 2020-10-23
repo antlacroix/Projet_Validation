@@ -3,7 +3,7 @@ using ModelCinema.Models;
 using ModelCinema.Models.UnitOfWork;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
+using System.Data.Entity.Core;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -27,53 +27,61 @@ namespace ModelCinema.Service
                 csv.ReadHeader();
                 while (csv.Read())
                 {
+
+                    var movie = new film
+                    {
+                        Ranking = csv.GetField<int>("Rank"),
+                        Title = csv.GetField<String>("Title"),
+                        Description = csv.GetField("Description"),
+                        Year = csv.GetField<int>("Year"),
+                        Duration = csv.GetField<int>("Runtime (Minutes)"),
+                        Rating = csv.GetField<float>("Rating"),
+                        Votes = csv.GetField<int>("Votes"),
+                        Revenue = csv.GetField("Revenue (Millions)") == "" ? null : csv.GetField<float?>("Revenue (Millions)"),
+                        Metascore = csv.GetField("Metascore") == "" ? null : csv.GetField<int?>("Metascore")
+                    };
+
+                    uow.MovieRepo.InsertIfNotExists(movie);
+                    InsertGenresIfNotExists(SplitFieldContent(csv.GetField("Genre")));
+                    InsertParticipantIfNotExists(SplitFieldContent(csv.GetField("Director")));
+                    InsertParticipantIfNotExists(SplitFieldContent(csv.GetField("Actors")));
+                    InsertRoleIfNotExists("Director");
+                    InsertRoleIfNotExists("Actor");
                     try
                     {
-                        var movie = new film
-                        {
-                            Ranking = csv.GetField<int>("Rank"),
-                            Title = csv.GetField<String>("Title"),
-                            Description = csv.GetField("Description"),
-                            Year = csv.GetField<int>("Year"),
-                            Duration = csv.GetField<int>("Runtime (Minutes)"),
-                            Rating = csv.GetField<float>("Rating"),
-                            Votes = csv.GetField<int>("Votes"),
-                            Revenue = csv.GetField("Revenue (Millions)") == "" ? null : csv.GetField<float?>("Revenue (Millions)"),
-                            Metascore = csv.GetField("Metascore") == "" ? null : csv.GetField<int?>("Metascore")
-                        };
-
-                        uow.MovieRepo.InsertIfNotExists(movie);
-                        InsertGenresIfNotExists(SplitFieldContent(csv.GetField("Genre")));
-                        InsertParticipantIfNotExists(SplitFieldContent(csv.GetField("Director")));
-                        InsertParticipantIfNotExists(SplitFieldContent(csv.GetField("Actors")));
-                        InsertRoleIfNotExists("Director");
-                        InsertRoleIfNotExists("Actor");
-
                         uow.Save();
+                   
+                    var director = uow.RoleParticipantRepo.Find(new role_participant { Role = "Director" });
+                    var actor = uow.RoleParticipantRepo.Find(new role_participant { Role = "Actor" });
+                    InsertMovieGenresIfNotExists(SplitFieldContent(csv.GetField("Genre")), movie);
+                    InsertParticipationIfNotExists(SplitFieldContent(csv.GetField("Director")), director, movie);
+                    InsertParticipationIfNotExists(SplitFieldContent(csv.GetField("Actors")), actor, movie);
 
-                        var director = uow.RoleParticipantRepo.Find(new role_participant { Role = "Director" });
-                        var actor = uow.RoleParticipantRepo.Find(new role_participant { Role = "Actor" });
-                        InsertMovieGenresIfNotExists(SplitFieldContent(csv.GetField("Genre")), movie);
-                        InsertParticipationIfNotExists(SplitFieldContent(csv.GetField("Director")), director, movie);
-                        InsertParticipationIfNotExists(SplitFieldContent(csv.GetField("Actors")), actor, movie);
+                    uow.Save();
 
-                        uow.Save();
-                        //Debug.WriteLine(uow.MovieRepo.Find(movie).Title);
+
                     }
-                    catch (DbEntityValidationException e)
+                    catch (EntityCommandExecutionException ex)
                     {
-                        foreach (var eve in e.EntityValidationErrors)
-                        {
-                            Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                                eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                            foreach (var ve in eve.ValidationErrors)
-                            {
-                                Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                    ve.PropertyName, ve.ErrorMessage);
-                            }
-                        }
-                        throw;
+                        //Debug.WriteLine(ex.InnerException.ToString());
+                        throw ex;
                     }
+                    
+                    //}
+                    //catch (DbEntityValidationException e)
+                    //{
+                    //    foreach (var eve in e.EntityValidationErrors)
+                    //    {
+                    //        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                    //            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    //        foreach (var ve in eve.ValidationErrors)
+                    //        {
+                    //            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                    //                ve.PropertyName, ve.ErrorMessage);
+                    //        }
+                    //    }
+                    //    throw;
+                    //}
                 }
             }
         }

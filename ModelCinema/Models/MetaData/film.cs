@@ -182,7 +182,7 @@ namespace ModelCinema.Models
         [Required]
         [DisplayName("Classement")]
         [Range(1, 1001, ErrorMessage ="Ranking")]
-        [Column("ranking")]
+        //[Column("ranking")]
         public int Ranking { get; set; }
 
         [DisplayName("Description")]
