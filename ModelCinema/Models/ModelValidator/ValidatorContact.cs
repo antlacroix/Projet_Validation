@@ -41,7 +41,7 @@ namespace ModelCinema.Models.ModelValidator
         {
             ManagerContact manager = new ManagerContact();
 
-            List<contact_info> existingOne = manager.GetAllContact().Where(o => o.id == candidate.id || ()).ToList();
+            List<contact_info> existingOne = manager.GetAllContact().Where(o => o.id == candidate.id).ToList();
 
             if (existingOne.Count != 0)
                 return true;
