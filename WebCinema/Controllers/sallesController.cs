@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Windows;
 using ModelCinema.Models;
 using ModelCinema.Models.DataManager;
 
@@ -19,7 +20,7 @@ namespace WebCinema.Controllers
         public ActionResult Index()
         {
             ManagerSalle manager = new ManagerSalle();
-           // var salles = db.salles.Include(s => s.cinema).Include(s => s.salle_status);
+            // var salles = db.salles.Include(s => s.cinema).Include(s => s.salle_status);
             return View(manager.GetAllSalle());
         }
 
@@ -57,14 +58,20 @@ namespace WebCinema.Controllers
             ManagerSalle manager = new ManagerSalle();
             if (ModelState.IsValid)
             {
-                if(manager.PostSalle(salle))
-                    return RedirectToAction("Index");
-                // TODO
-                //Implementer un message d'erreur
+                try
+                {
+                    if (manager.PostSalle(salle))
+                        return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
 
             ViewBag.cinema_id = new SelectList(db.cinemas, "id", "id", salle.cinema_id);
             ViewBag.status_id = new SelectList(db.salle_status, "id", "status", salle.status_id);
+
             return View(salle);
         }
 
@@ -93,14 +100,23 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,nbr_place,numero_salle,commentaire,status_id,cinema_id")] salle salle)
         {
+            ManagerSalle manager = new ManagerSalle();
             if (ModelState.IsValid)
             {
-                db.Entry(salle).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    manager.PutSalle(salle);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
+            
             ViewBag.cinema_id = new SelectList(db.cinemas, "id", "id", salle.cinema_id);
             ViewBag.status_id = new SelectList(db.salle_status, "id", "status", salle.status_id);
+
             return View(salle);
         }
 
@@ -126,7 +142,7 @@ namespace WebCinema.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ManagerSalle manager = new ManagerSalle();
-            if(manager.DeleteSalles(id))
+            if (manager.DeleteSalles(id))
                 return RedirectToAction("Index");
             // TODO
             //Implementer un message d'erreur

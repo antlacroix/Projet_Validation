@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 
 namespace ModelCinema.Models.ModelValidator
 {
-    static public class ValidatorParticipant
+    class ValidatorUserType
     {
-        static public bool IsValide(participant participant)
+        static public bool IsValide(user_type candidate)
         {
             try
             {
-                if (PropretyValidation.IsStringValide(participant.Name, participant.nameMin, participant.nameMax))
+                if (
+                    PropretyValidation.IsStringValide(candidate.type, user_type.typeMin, user_type.typeMax)
+                    )
                 {
                     return true;
                 }
@@ -28,11 +30,11 @@ namespace ModelCinema.Models.ModelValidator
             }
         }
 
-        static public bool IsParticipantExist(participant candidate)
+        static public bool IsUSerTypeExist(user_type candidate)
         {
-            ManagerParticipant manager = new ManagerParticipant();
+            ManagerUserType manager = new ManagerUserType();
 
-            List<participant> existingOne = manager.GetAllParticipant().Where(o => o.Name == candidate.Name).ToList();
+            List<user_type> existingOne = manager.GetAllUserType().Where(o => o.type == candidate.type).ToList();
 
             if (existingOne.Count != 0)
                 return true;

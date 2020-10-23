@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Windows;
 using ModelCinema.Models;
 using ModelCinema.Models.DataManager;
 
@@ -57,10 +58,15 @@ namespace WebCinema.Controllers
             ManagerCinema manager = new ManagerCinema();
             if (ModelState.IsValid)
             {
+                try
+                {
                 if(manager.PostCinema(cinema))
                     return RedirectToAction("Index");
-                // TODO
-                //Implementer un message d'erreur
+                }
+                catch(Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
 
             ViewBag.contact_info_id = new SelectList(db.contact_info, "id", "tel_number", cinema.contact_info_id);
@@ -93,14 +99,23 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,contact_info_id,responsable_user_id")] cinema cinema)
         {
+            ManagerCinema manager = new ManagerCinema();
             if (ModelState.IsValid)
             {
-                db.Entry(cinema).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    if (manager.PutCinema(cinema))
+                        return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
+
             ViewBag.contact_info_id = new SelectList(db.contact_info, "id", "tel_number", cinema.contact_info_id);
             ViewBag.responsable_user_id = new SelectList(db.users, "id", "login", cinema.responsable_user_id);
+
             return View(cinema);
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelCinema.Models.DataManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +35,18 @@ namespace ModelCinema.Models.ModelValidator
             {
                 throw e;
             }
+        }
+
+        static public bool IsContactExist(contact_info candidate)
+        {
+            ManagerContact manager = new ManagerContact();
+
+            List<contact_info> existingOne = manager.GetAllContact().Where(o => o.id == candidate.id || ()).ToList();
+
+            if (existingOne.Count != 0)
+                return true;
+            else
+                return false;
         }
 
     }

@@ -47,7 +47,7 @@ namespace ModelCinema.Models.DataManager
 
         public bool PutUser(user user)
         {
-            if (db.users.Find(user.id) != null && ValidatorUser.IsValide(user))
+            if (ValidatorUser.IsUserExist(user) && ValidatorUser.IsValide(user))
             {
                 try
                 {
@@ -57,14 +57,13 @@ namespace ModelCinema.Models.DataManager
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
-                    return false;
+                    throw e;
                 }
             }
+            else if (!ValidatorUser.IsUserExist(user))
+                throw new ItemNotExistException("user");
             else
-            {
-                return false;
-            }
+                throw new InvalidItemException("user");
         }
 
         public bool DeleteUser(int id)

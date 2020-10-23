@@ -48,7 +48,7 @@ namespace ModelCinema.Models.DataManager
 
         public bool PutSalle(salle salle)
         {
-            if (db.salles.Find(salle.id) != null && ValidatorSalle.IsValide(salle))
+            if (ValidatorSalle.IsSalleExist(salle) && ValidatorSalle.IsValide(salle))
             {
                 try
                 {
@@ -58,14 +58,13 @@ namespace ModelCinema.Models.DataManager
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
-                    return false;
+                    throw e;
                 }
             }
+            else if (!ValidatorSalle.IsSalleExist(salle))
+                throw new ItemNotExistException("salle");
             else
-            {
-                return false;
-            }
+                throw new InvalidItemException("salle");
         }
 
         public bool DeleteSalles(int id)

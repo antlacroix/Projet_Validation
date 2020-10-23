@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
+using System.Windows;
 using ModelCinema.Models;
 using ModelCinema.Models.DataManager;
 
@@ -19,7 +21,6 @@ namespace WebCinema.Controllers
         public ActionResult Index()
         {
             ManagerUser manager = new ManagerUser();
-            //var users = db.users.Include(u => u.contact_info).Include(u => u.user_status).Include(u => u.user_type);
             return View(manager.GetAllUser());
         }
 
@@ -58,15 +59,21 @@ namespace WebCinema.Controllers
             ManagerUser manager = new ManagerUser();
             if (ModelState.IsValid)
             {
-                if(manager.PostUser(user))
-                    return RedirectToAction("Index");
-                // TODO
-                //Implementer un message d'erreur
+                try
+                {
+                    if (manager.PostUser(user))
+                        return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
 
             ViewBag.contact_info_id = new SelectList(db.contact_info, "id", "tel_number", user.contact_info_id);
             ViewBag.user_status_id = new SelectList(db.user_status, "id", "status", user.user_status_id);
             ViewBag.user_type_id = new SelectList(db.user_type, "id", "type", user.user_type_id);
+
             return View(user);
         }
 
@@ -83,9 +90,11 @@ namespace WebCinema.Controllers
             {
                 return HttpNotFound();
             }
+
             ViewBag.contact_info_id = new SelectList(db.contact_info, "id", "tel_number", user.contact_info_id);
             ViewBag.user_status_id = new SelectList(db.user_status, "id", "status", user.user_status_id);
             ViewBag.user_type_id = new SelectList(db.user_type, "id", "type", user.user_type_id);
+
             return View(user);
         }
 
@@ -96,15 +105,24 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,login,password,name,contact_info_id,user_status_id,user_type_id")] user user)
         {
+            ManagerUser manager = new ManagerUser();
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    manager.PutUser(user);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
+
             ViewBag.contact_info_id = new SelectList(db.contact_info, "id", "tel_number", user.contact_info_id);
             ViewBag.user_status_id = new SelectList(db.user_status, "id", "status", user.user_status_id);
             ViewBag.user_type_id = new SelectList(db.user_type, "id", "type", user.user_type_id);
+
             return View(user);
         }
 
@@ -130,7 +148,7 @@ namespace WebCinema.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ManagerUser manager = new ManagerUser();
-            if(manager.DeleteUser(id))
+            if (manager.DeleteUser(id))
                 return RedirectToAction("Index");
             // TODO
             //Implementer un message d'erreur

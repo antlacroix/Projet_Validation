@@ -1,4 +1,5 @@
-﻿using ModelCinema.Models.ModelValidator;
+﻿using ModelCinema.ModelExeption;
+using ModelCinema.Models.ModelValidator;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -34,19 +35,18 @@ namespace ModelCinema.Models.DataManager
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
-                    return false;
+                    throw e;
                 }
             }
             else
             {
-                return false;
+                throw new InvalidItemException("contact");
             }
         }
 
         public bool PutContact(contact_info contact_info)
         {
-            if (db.contact_info.Find(contact_info.id) != null && ValidatorContact.IsValide(contact_info))
+            if (ValidatorContact.IsContactExist(contact_info) && ValidatorContact.IsValide(contact_info))
             {
                 try
                 {
@@ -56,14 +56,13 @@ namespace ModelCinema.Models.DataManager
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
-                    return false;
+                    throw e;
                 }
             }
+            else if (!ValidatorContact.IsContactExist(contact_info))
+                throw new ItemNotExistException("contact");
             else
-            {
-                return false;
-            }
+                throw new InvalidItemException("contact");
         }
 
         public bool DeleteContact(int id)

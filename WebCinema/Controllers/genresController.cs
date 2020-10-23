@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
+using System.Windows;
 using ModelCinema.Models;
 using ModelCinema.Models.DataManager;
 
@@ -54,10 +56,15 @@ namespace WebCinema.Controllers
             ManagerGenre manager = new ManagerGenre();
             if (ModelState.IsValid)
             {
-                if(manager.PostGenre(genre))
-                    return RedirectToAction("Index");
-                // TODO
-                //Implementer un message d'erreur
+                try
+                {
+                    if (manager.PostGenre(genre))
+                        return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
 
             return View(genre);
@@ -86,11 +93,18 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,genre1")] genre genre)
         {
+            ManagerGenre manager = new ManagerGenre();
             if (ModelState.IsValid)
             {
-                db.Entry(genre).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    manager.PutGenre(genre);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
             return View(genre);
         }
@@ -117,7 +131,7 @@ namespace WebCinema.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ManagerGenre manager = new ManagerGenre();
-            if(manager.DeleteGenre(id))
+            if (manager.DeleteGenre(id))
                 return RedirectToAction("Index");
             // TODO
             //Implementer un message d'erreur

@@ -7,10 +7,12 @@ using System.Web.Mvc;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ModelCinema.Models.ModelValidator;
+using ModelCinema.ModelExeption;
 
 namespace ModelCinema.Models.DataManager
 {
-     public class ManagerUserType
+    public class ManagerUserType
     {
         private cinema_dbEntities db = new cinema_dbEntities();
 
@@ -21,7 +23,7 @@ namespace ModelCinema.Models.DataManager
 
         public user_type GetUserType(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return null;
             }
@@ -30,7 +32,7 @@ namespace ModelCinema.Models.DataManager
 
         public bool PostUserType(user_type type)
         {
-            if(type.type.Length > 0 && type.type.Length < 11)
+            if (type.type.Length > 0 && type.type.Length < 11)
             {
                 try
                 {
@@ -40,19 +42,18 @@ namespace ModelCinema.Models.DataManager
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
-                    return false;
+                    throw e;
                 }
             }
+            else if (ValidatorUserType.IsUSerTypeExist(type))
+                throw new ExistingItemException("user_type");
             else
-            {
-                return false;
-            }
+                throw new InvalidItemException("user_type");
         }
 
         public bool PutUserType(user_type user_type)
         {
-            if (db.user_type.Find(user_type.id) != null)
+            if (ValidatorUserType.IsUSerTypeExist(user_type))
             {
                 try
                 {
@@ -62,14 +63,13 @@ namespace ModelCinema.Models.DataManager
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
-                    return false;
+                    throw e;
                 }
             }
+            else if (!ValidatorUserType.IsUSerTypeExist(user_type))
+                throw new ItemNotExistException("user_type");
             else
-            {
-                return false;
-            }
+                throw new InvalidItemException("user_type");
         }
 
         public bool DeleteUserType(int id)

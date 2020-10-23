@@ -47,7 +47,7 @@ namespace ModelCinema.Models.DataManager
 
         public bool PutGenre(genre genre)
         {
-            if (db.genres.Find(genre.Id) != null && ValidatorGenre.IsValide(genre))
+            if (ValidatorGenre.IsGenreExist(genre) && ValidatorGenre.IsValide(genre))
             {
                 try
                 {
@@ -57,14 +57,13 @@ namespace ModelCinema.Models.DataManager
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
-                    return false;
+                    throw e;
                 }
             }
+            else if (!ValidatorGenre.IsGenreExist(genre))
+                throw new ItemNotExistException("genre");
             else
-            {
-                return false;
-            }
+                throw new InvalidItemException("genre");
         }
 
         public bool DeleteGenre(int id)

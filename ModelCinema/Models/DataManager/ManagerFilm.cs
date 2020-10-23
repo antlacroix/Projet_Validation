@@ -48,7 +48,7 @@ namespace ModelCinema.Models.DataManager
 
         public bool PutFilm(film film)
         {
-            if (db.films.Find(film.Id) != null && ValidatorFilm.IsValide(film))
+            if (ValidatorFilm.IsFilmExist(film) && ValidatorFilm.IsValide(film))
             {
                 try
                 {
@@ -58,13 +58,12 @@ namespace ModelCinema.Models.DataManager
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
-                    return false;
+                    throw e;
                 }
             }
             else
             {
-                return false;
+                throw new InvalidItemException("film");
             }
         }
 
