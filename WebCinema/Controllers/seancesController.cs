@@ -15,6 +15,11 @@ namespace WebCinema.Controllers
     {
         private cinema_dbEntities db = new cinema_dbEntities();
 
+        protected void btnSave(object sender, EventArgs e)
+        {
+            // Sauvgardé les modif et nouveau séence
+        }
+
         public List<seance> GetScheduleData()
         {
             List<seance> appData = new List<seance>();
@@ -22,48 +27,98 @@ namespace WebCinema.Controllers
             {
                 Id = 1,
                 Subject = "Explosion of Betelgeuse Star",
-                StartTime = new DateTime(2018, 2, 11, 9, 30, 0),
-                EndTime = new DateTime(2018, 2, 11, 11, 0, 0)
-            });
+                StartTime = new DateTime(2020, 2, 11, 9, 30, 0),
+                EndTime = new DateTime(2020, 2, 11, 11, 0, 0),
+
+                IsAllDay = false,
+                CinemaId = 1,
+                SalleId = 1
+            }) ;
             appData.Add(new seance
             {
                 Id = 2,
                 Subject = "Thule Air Crash Report",
-                StartTime = new DateTime(2018, 2, 12, 12, 0, 0),
-                EndTime = new DateTime(2018, 2, 12, 14, 0, 0)
+                StartTime = new DateTime(2020, 2, 12, 12, 0, 0),
+                EndTime = new DateTime(2020, 2, 12, 14, 0, 0),
+
+                IsAllDay = false,
+                CinemaId = 1,
+                SalleId = 2
             });
             appData.Add(new seance
             {
                 Id = 3,
                 Subject = "Blue Moon Eclipse",
-                StartTime = new DateTime(2018, 2, 13, 9, 30, 0),
-                EndTime = new DateTime(2018, 2, 13, 11, 0, 0)
+                StartTime = new DateTime(2020, 2, 13, 9, 30, 0),
+                EndTime = new DateTime(2020, 2, 13, 11, 0, 0),
+
+                IsAllDay = false,
+                CinemaId = 2,
+                SalleId = 1
             });
             appData.Add(new seance
             {
                 Id = 4,
                 Subject = "Meteor Showers in 2018",
-                StartTime = new DateTime(2018, 2, 14, 13, 0, 0),
-                EndTime = new DateTime(2018, 2, 14, 14, 30, 0)
+                StartTime = new DateTime(2020, 2, 14, 13, 0, 0),
+                EndTime = new DateTime(2020, 2, 14, 14, 30, 0),
+
+                IsAllDay = false,
+                CinemaId = 2,
+                SalleId = 2
             });
             appData.Add(new seance
             {
                 Id = 5,
                 Subject = "Milky Way as Melting pot",
-                StartTime = new DateTime(2018, 2, 15, 12, 0, 0),
-                EndTime = new DateTime(2018, 2, 15, 14, 0, 0)
+                StartTime = new DateTime(2020, 2, 15, 12, 0, 0),
+                EndTime = new DateTime(2020, 2, 15, 14, 0, 0),
+
+                IsAllDay = false,
+                CinemaId = 2,
+                SalleId = 1
             });
             return appData;
         }
 
-
         // GET: seances
         public ActionResult Index()
         {
-            ManagerSeance manager = new ManagerSeance();
-			ViewBag.appointments = GetScheduleData();
+            //ManagerSeance manager = new ManagerSeance();
+            ViewBag.appointments = GetScheduleData();
             //var seances = db.seances.Include(s => s.film).Include(s => s.salle);
-            return View(manager.GetAllSeance());
+            ManagerFilm managerFilm = new ManagerFilm();
+            List<film> films = managerFilm.GetAllFilms();
+            ViewBag.Film = films;
+
+
+            //List<seance> resourceData = GetScheduleData();
+            ////List<seance> resourceData = GetResourceData();
+            ////List<seance> timelineResourceData = GetTimelineResourceData();
+            ////ViewBag.datasource = resourceData.Concat(resourceData);
+
+
+            //ViewBag.datasource = resourceData;
+            //// datasource for room resources
+            List<cinema> cinemas = new List<cinema>();
+            cinemas.Add(new cinema { CinemaText = "Cineplex Odeon", Id = 1, CinemaColor = "#cb6bb2" });
+            cinemas.Add(new cinema { CinemaText = "Cinema le Clap", Id = 2, CinemaColor = "#56ca85" });
+            ViewBag.Cinema = cinemas;
+            //// datasource for owner resources
+            List<salle> salles = new List<salle>();
+            salles.Add(new salle { SalleText = "#1 Odeon UltraAVX", Id = 1, SalleGroupId = 1, SalleColor = "#ffaa00" });
+            salles.Add(new salle { SalleText = "#2 Odeon DolbySono", Id = 2, SalleGroupId = 1, SalleColor = "#f8a398" });
+            salles.Add(new salle { SalleText = "#3 Odeon 3D", Id = 3, SalleGroupId = 1, SalleColor = "#7499e1" });
+            salles.Add(new salle { SalleText = "#1 Clap UltraAVX", Id = 4, SalleGroupId = 2, SalleColor = "#ffaa00" });
+            salles.Add(new salle { SalleText = "#2 Clap DolbySono", Id = 5, SalleGroupId = 2, SalleColor = "#f8a398" });
+            salles.Add(new salle { SalleText = "#3 Clap 3D", Id = 6, SalleGroupId = 2, SalleColor = "#7499e1" });
+            ViewBag.Salle = salles;
+
+            ViewBag.Resources = new string[] { "Cinema", "Salle" };
+            //return View();
+
+            return View();
+
         }
 
         // GET: seances/Details/5

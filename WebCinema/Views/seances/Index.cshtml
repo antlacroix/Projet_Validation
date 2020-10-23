@@ -8,66 +8,92 @@
 
 <h2>Seances Index</h2>
 
+<asp:Button runat="server" id="btnSave" Text=" « SAVE » " OnClick="btnSave" />
 
 @(Html.EJS().Schedule("schedule")
-    .Height("550px")
-    .CurrentView(View.TimelineMonth)
-    .Views(view => { 
-        view.Option(View.TimelineDay).Add(); 
-        view.Option(View.TimelineMonth).Add(); 
-    })
-    .EventSettings(new ScheduleEventSettings { DataSource = ViewBag.appointments })
-    .SelectedDate(new DateTime(2018, 2, 15))
-    .Render()
-)
+        .Height("550px")
+        .Group(group => group.Resources(ViewBag.Resources))
+        .Resources(res => {
+            res
+            .AllowMultiple(true)
+            .DataSource(ViewBag.Cinema)
+            .Field("CinemaId")
+            .Title("Owner")
+            .Name("Cinema")
+            .TextField("CinemaText")
+            .IdField("Id")
+            .ColorField("CinemaColor")
+            .Add();
 
-@*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.date_debut)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.date_fin)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.titre_seance)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.film.titre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.salle.commentaire)
-            </th>
-            <th></th>
-        </tr>
+            res
+            .AllowMultiple(true)
+            .DataSource(ViewBag.Salle)
+            .Field("SalleId")
+            .Title("Owner1")
+            .Name("Salle")
+            .TextField("SalleText")
+            .IdField("Id")
+            .ColorField("SalleColor")
+            .GroupIDField("SalleGroupId")
+            .Add();
 
-        @foreach (var item in Model)
+            res
+            .AllowMultiple(true)
+            .DataSource(ViewBag.Film)
+            .Field("film_id")
+            .Title("Owner1")
+            .Name("Film")
+            .TextField("titre")
+            .IdField("id")
+            .Add();
+        })
+        .Views(view =>
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.date_debut)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.date_fin)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.titre_seance)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.film.titre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.salle.commentaire)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                </td>
-            </tr>
-        }
+            view.Option(View.TimelineWeek).Add();
+            view.Option(View.TimelineMonth).Add();
+            view.Option(View.Agenda).Add();
+        })
+        .EventSettings(new ScheduleEventSettings { DataSource = ViewBag.appointments })
+        .SelectedDate(new DateTime(2020, 2, 15))
+        .Render()
+)
+@*@section ControlsSection{
+    <div class="control-section">
+        <div class="content-wrapper">*@
 
-    </table>*@
+@*@(Html.EJS().Schedule("schedule")
+    .Width("100%")
+    .Height("550px")
+    .Group(group => group.Resources(ViewBag.Resources))
+    .Resources(res => {
+        res.AllowMultiple(false).DataSource(ViewBag.Cinema).Field("CinemaId").Title("Cinema").Name("Cinemas").TextField("CinemaText").IdField("Id").ColorField("CinemaColor").Add();
+        res.AllowMultiple(true).DataSource(ViewBag.Salle).Field("SalleId").Title("Salle").Name("Salles").TextField("SalleText").IdField("Id").GroupIDField("SalleGroupId").ColorField("SalleColor").Add();
+    })
+    .Views(view => {
+        view.Option(View.TimelineWeek).Add();
+        view.Option(View.TimelineMonth).Add();
+        view.Option(View.Agenda).Add();
+    })
+    //.EventSettings(e => e.Fields(f => f.Subject(sub => sub.Name("Subject").Title("Summary"))
+    //.Description(des => des.Name("Description")
+    //.Title("Comments"))).DataSource(ViewBag.datasource))
+    //.SelectedDate(new DateTime(2020, 2, 14)).Render()
+
+    .EventSettings(e => e.DataSource(ViewBag.datasource))
+    .SelectedDate(new DateTime(2020, 2, 14))
+    .Render()
+    )*@
+
+@*</div>
+        </div>
+        <style type="text/css">
+            .e-schedule:not(.e-device) .e-agenda-view .e-content-wrap table td:first-child {
+                width: 90px;
+            }
+
+            .e-schedule .e-agenda-view .e-resource-column {
+                width: 100px;
+            }
+        </style>
+    }*@
+

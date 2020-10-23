@@ -6,6 +6,11 @@ namespace ModelCinema.Models
     [MetadataType(typeof(salleMetaData))]
     public partial class salle
     {
+        public string SalleText { set; get; }
+        public int Id { set; get; }
+        public string SalleColor { set; get; }
+        public int SalleGroupId { set; get; }
+
         //min Length/Value for salle's proprety
         public const int
             nbrPlaceMin = 1,

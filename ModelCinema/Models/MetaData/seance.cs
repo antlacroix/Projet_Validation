@@ -29,6 +29,20 @@ namespace ModelCinema.Models
             get { return this.date_fin; } 
             set { this.date_fin = value; } }
 
+        public bool IsAllDay = false;
+
+        public int cinema_id; //J'ai besoin du id de cinéma
+        public int CinemaId
+        {
+            get { return this.cinema_id; }
+            set { this.cinema_id = value; }
+        }
+
+        public int SalleId
+        {
+            get { return this.salle_id; }
+            set { this.salle_id = value; }
+        }
     }
 
     public class seanceMetaData
