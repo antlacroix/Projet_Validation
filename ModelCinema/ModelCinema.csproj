@@ -185,6 +185,7 @@
     <Compile Include="Models\ModelValidator\ValidatorSalle.cs" />
     <Compile Include="Models\ModelValidator\ValidatorSeance.cs" />
     <Compile Include="Models\ModelValidator\ValidatorUser.cs" />
+    <Compile Include="Models\ModelValidator\ValidatorUserType.cs" />
     <Compile Include="Models\participant.cs">
       <DependentUpon>ModelCinema.tt</DependentUpon>
     </Compile>

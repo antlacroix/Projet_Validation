@@ -53,7 +53,7 @@ namespace ModelCinema.Models.ModelValidator
         {
             ManagerFilm manager = new ManagerFilm();
 
-            List<film> existingOne = manager.GetAllFilms().Where(o => o.id == candidate.id).ToList();
+            List<film> existingOne = manager.GetAllFilms().Where(o => o.Id == candidate.Id).ToList();
 
             if (existingOne.Count != 0)
                 return true;
