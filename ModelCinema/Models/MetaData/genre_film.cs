@@ -39,8 +39,8 @@ namespace ModelCinema.Models
 
         public override int GetHashCode()
         {
-            int hashGenre = Genre.GetHashCode();
-            int hashMovie = Movie.GetHashCode();
+            int hashGenre = Genre == null ? 0 : Genre.GetHashCode();
+            int hashMovie = Movie == null ? 0 : Movie.GetHashCode();
 
             return hashGenre ^ hashMovie;
         }

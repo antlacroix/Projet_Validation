@@ -46,7 +46,7 @@ namespace ModelCinema.Models
 
         public override int GetHashCode()
         {
-            return Genre.GetHashCode();
+            return Genre == null ? 0 : Genre.GetHashCode();
         }
     }
 
