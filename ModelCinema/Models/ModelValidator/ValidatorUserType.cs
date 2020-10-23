@@ -7,16 +7,14 @@ using System.Threading.Tasks;
 
 namespace ModelCinema.Models.ModelValidator
 {
-    static public class ValidatorGenre
+    class ValidatorUserType
     {
-        
-
-        static public bool IsValide(genre genre)
+        static public bool IsValide(user_type candidate)
         {
             try
             {
                 if (
-                    PropretyValidation.IsStringValide(genre.genre1, genre.genreMin, genre.genreMax)
+                    PropretyValidation.IsStringValide(candidate.type, user_type.typeMin, user_type.typeMax)
                     )
                 {
                     return true;
@@ -32,17 +30,16 @@ namespace ModelCinema.Models.ModelValidator
             }
         }
 
-        static public bool IsGenreExist(genre candidate)
+        static public bool IsUSerTypeExist(user_type candidate)
         {
-            ManagerGenre manager = new ManagerGenre();
+            ManagerUserType manager = new ManagerUserType();
 
-            List<genre> existingOne = manager.GetAllGenre().Where(o => o.genre1 == candidate.genre1).ToList();
+            List<user_type> existingOne = manager.GetAllUserType().Where(o => o.type == candidate.type).ToList();
 
             if (existingOne.Count != 0)
                 return true;
             else
                 return false;
         }
-
     }
 }

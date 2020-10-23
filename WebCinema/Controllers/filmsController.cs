@@ -96,10 +96,15 @@ namespace WebCinema.Controllers
             ManagerFilm manager = new ManagerFilm();
             if (ModelState.IsValid)
             {
-                if (manager.PutFilm(film))
-                    return RedirectToAction("Index");
-                // TODO
-                //Implementer un message d'erreur
+                try
+                {
+                    if (manager.PutFilm(film))
+                        return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
             return View(film);
         }

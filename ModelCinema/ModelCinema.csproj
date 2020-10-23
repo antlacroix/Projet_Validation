@@ -110,6 +110,7 @@
     <Compile Include="ModelExeption\ConflictiongSeanceException.cs" />
     <Compile Include="ModelExeption\ExistingItemException.cs" />
     <Compile Include="ModelExeption\InvalidItemException.cs" />
+    <Compile Include="ModelExeption\ItemNotExistException.cs" />
     <Compile Include="Models\cinema.cs">
       <DependentUpon>ModelCinema.tt</DependentUpon>
     </Compile>

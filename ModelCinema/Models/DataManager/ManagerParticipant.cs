@@ -47,7 +47,7 @@ namespace ModelCinema.Models.DataManager
 
         public bool PutParticipant(participant participant)
         {
-            if (db.participants.Find(participant.id) != null && ValidatorParticipant.IsValide(participant))
+            if (ValidatorParticipant.IsParticipantExist(participant) && ValidatorParticipant.IsValide(participant))
             {
                 try
                 {
@@ -57,14 +57,13 @@ namespace ModelCinema.Models.DataManager
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
-                    return false;
+                    throw e;
                 }
             }
+            else if (!ValidatorParticipant.IsParticipantExist(participant))
+                throw new ItemNotExistException("participant");
             else
-            {
-                return false;
-            }
+                throw new InvalidItemException("participant");
         }
 
         public bool DeleteParticipant(int id)

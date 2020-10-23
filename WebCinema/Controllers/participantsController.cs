@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Windows;
 using ModelCinema.Models;
 using ModelCinema.Models.DataManager;
 
@@ -54,12 +55,16 @@ namespace WebCinema.Controllers
             ManagerParticipant manager = new ManagerParticipant();
             if (ModelState.IsValid)
             {
-                if(manager.PostParticipant(participant))
-                    return RedirectToAction("Index");
-                // TODO
-                //Implementer un message d'erreur
+                try
+                {
+                    if (manager.PostParticipant(participant))
+                        return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
-
             return View(participant);
         }
 
@@ -86,11 +91,18 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,name")] participant participant)
         {
+            ManagerParticipant manager = new ManagerParticipant();
             if (ModelState.IsValid)
             {
-                db.Entry(participant).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    manager.PutParticipant(participant);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
             return View(participant);
         }
@@ -117,7 +129,7 @@ namespace WebCinema.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ManagerParticipant manager = new ManagerParticipant();
-            if(manager.DeleteParticipant(id))
+            if (manager.DeleteParticipant(id))
                 return RedirectToAction("Index");
             // TODO
             //Implementer un message d'erreur

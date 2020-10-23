@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Windows;
 using ModelCinema.Models;
 using ModelCinema.Models.DataManager;
 
@@ -54,10 +55,15 @@ namespace WebCinema.Controllers
             ManagerContact manager = new ManagerContact();
             if (ModelState.IsValid)
             {
-                if(manager.PostContact(contact_info))
-                    return RedirectToAction("Index");
-                // TODO
-                //Implementer un message d'erreur
+                try
+                {
+                    if (manager.PostContact(contact_info))
+                        return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
 
             return View(contact_info);
@@ -86,11 +92,18 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,tel_number,code_postal,adresse,ville,province,pays")] contact_info contact_info)
         {
+            ManagerContact manager = new ManagerContact();
             if (ModelState.IsValid)
             {
-                db.Entry(contact_info).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    manager.PutContact(contact_info);
+                    return RedirectToAction("Index");
+                }
+                catch(Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
             return View(contact_info);
         }

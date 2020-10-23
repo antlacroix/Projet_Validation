@@ -49,5 +49,17 @@ namespace ModelCinema.Models.ModelValidator
                 return false;
         }
 
+        static public bool IsFilmExist(film candidate)
+        {
+            ManagerFilm manager = new ManagerFilm();
+
+            List<film> existingOne = manager.GetAllFilms().Where(o => o.id == candidate.id).ToList();
+
+            if (existingOne.Count != 0)
+                return true;
+            else
+                return false;
+        }
+
     }
 }
