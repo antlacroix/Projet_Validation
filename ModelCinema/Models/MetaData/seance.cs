@@ -20,29 +20,28 @@ namespace ModelCinema.Models
             dateDebutMax = DateTime.Now.AddYears(50),
             dateFinMax = DateTime.Now.AddYears(50);
 
-        public int Id { get { return this.id ; } set { this.id = value; } }
-        public string Subject { get { return this.titre_seance; } set { this.titre_seance = value; } }
-        public DateTime StartTime { 
-            get { return this.date_debut; } 
-            set { this.date_debut = value; } }
-        public DateTime EndTime { 
-            get { return this.date_fin; } 
-            set { this.date_fin = value; } }
+        //public int Id { get { return this.id ; } set { this.id = value; } }
+        //public string Subject { get { return this.titre_seance; } set { this.titre_seance = value; } }
+        //public DateTime StartTime { 
+        //    get { return this.date_debut; } 
+        //    set { this.date_debut = value; } }
+        //public DateTime EndTime { 
+        //    get { return this.date_fin; } 
+        //    set { this.date_fin = value; } }
 
-        public bool IsAllDay = false;
+        //public bool IsAllDay = false;
 
-        public int cinema_id; //J'ai besoin du id de cinéma
-        public int CinemaId
-        {
-            get { return this.cinema_id; }
-            set { this.cinema_id = value; }
-        }
+        //public int CinemaId
+        //{
+        //    get { return this.salle.cinema_id; }
+        //    set { this.salle.cinema_id = value; }
+        //}
 
-        public int SalleId
-        {
-            get { return this.salle_id; }
-            set { this.salle_id = value; }
-        }
+        //public int SalleId
+        //{
+        //    get { return this.salle_id; }
+        //    set { this.salle_id = value; }
+        //}
     }
 
     public class seanceMetaData

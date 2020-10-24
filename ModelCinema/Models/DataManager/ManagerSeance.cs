@@ -47,18 +47,17 @@ namespace ModelCinema.Models.DataManager
 
         public bool PutSeance(seance seance)
         {
-            if (db.seances.Find(seance.id) != null && ValidatorSeance.IsValide(seance))
+            if (ValidatorSeance.IsSeanceExiste(seance) && ValidatorSeance.IsValide(seance))
             {
                 try
                 {
                     db.Entry(seance).State = EntityState.Modified;
-                    db.SaveChanges();
+                    db.SaveChanges(); // cA BRISE ICI
                     return true;
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
-                    return false;
+                    throw e;
                 }
             }
             else

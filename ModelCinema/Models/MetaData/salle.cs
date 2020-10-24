@@ -7,7 +7,10 @@ namespace ModelCinema.Models
     public partial class salle
     {
         public string SalleText { set; get; }
-        public int Id { set; get; }
+        public int Id {
+            get {return this.id; }
+            set { this.id = value; } }
+
         public string SalleColor { set; get; }
         public int SalleGroupId { set; get; }
 

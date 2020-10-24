@@ -6,10 +6,6 @@
 
 <h2>Salles Index</h2>
 
-@Html.ActionLink("Retour aux cinema", "Index", "cinemas")
-<br/>
-@Html.ActionLink("Create New", "Create")
-
 <table class="table">
     <tr>
         <th>
@@ -27,7 +23,9 @@
         <th>
             @Html.DisplayNameFor(model => model.salle_status.status)
         </th>
-        <th></th>
+        <th>
+            @Html.ActionLink("Create New", "Create")
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -57,3 +55,7 @@
     }
 
 </table>
+
+<p>
+    @Html.ActionLink("Retour aux cinema", "Index", "cinemas")
+</p>
