@@ -133,10 +133,15 @@
     <Compile Include="Models\DataManager\ManagerContact.cs" />
     <Compile Include="Models\DataManager\ManagerFilm.cs" />
     <Compile Include="Models\DataManager\ManagerGenre.cs" />
+    <Compile Include="Models\DataManager\ManagerGenreFilm.cs" />
     <Compile Include="Models\DataManager\ManagerParticipant.cs" />
+    <Compile Include="Models\DataManager\ManagerParticipation.cs" />
+    <Compile Include="Models\DataManager\ManagerParticipationRole.cs" />
     <Compile Include="Models\DataManager\ManagerSalle.cs" />
+    <Compile Include="Models\DataManager\ManagerSalleStatus.cs" />
     <Compile Include="Models\DataManager\ManagerSeance.cs" />
     <Compile Include="Models\DataManager\ManagerUser.cs" />
+    <Compile Include="Models\DataManager\ManagerUserStatus.cs" />
     <Compile Include="Models\DataManager\ManagerUserType.cs" />
     <Compile Include="Models\film.cs">
       <DependentUpon>ModelCinema.tt</DependentUpon>
