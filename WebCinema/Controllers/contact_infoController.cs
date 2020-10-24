@@ -14,7 +14,7 @@ namespace WebCinema.Controllers
 {
     public class contact_infoController : Controller
     {
-        private cinema_dbEntities db = new cinema_dbEntities();
+        //private cinema_dbEntities db = new cinema_dbEntities();
 
         // GET: contact_info
         public ActionResult Index()
@@ -141,7 +141,7 @@ namespace WebCinema.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -15,7 +15,7 @@ namespace WebCinema.Controllers
 {
     public class genresController : Controller
     {
-        private cinema_dbEntities db = new cinema_dbEntities();
+        //private cinema_dbEntities db = new cinema_dbEntities();
 
         // GET: genres
         public ActionResult Index()
@@ -142,7 +142,7 @@ namespace WebCinema.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.Dispose();
             }
             base.Dispose(disposing);
         }

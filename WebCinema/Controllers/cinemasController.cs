@@ -14,7 +14,7 @@ namespace WebCinema.Controllers
 {
     public class cinemasController : Controller
     {
-        private cinema_dbEntities db = new cinema_dbEntities();
+        //private cinema_dbEntities db = new cinema_dbEntities();
 
         // GET: cinemas
         public ActionResult Index()
@@ -148,7 +148,9 @@ namespace WebCinema.Controllers
         protected override void Dispose(bool disposing)
         {
             if (disposing) 
-            { db.Dispose(); }
+            { 
+                //db.Dispose(); 
+            }
             base.Dispose(disposing);
         }
 
@@ -213,7 +215,7 @@ namespace WebCinema.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.status_id = new SelectList(db.salle_status, "id", "status", salle.status_id);
+            ViewBag.status_id = new SelectList(new ManagerSalleStatus().GetAllSalleStatus(), "id", "status", salle.status_id);
             return View(salle);
         }
 
@@ -235,8 +237,7 @@ namespace WebCinema.Controllers
                     MessageBox.Show(e.Message);
                 }
             }
-            ViewBag.status_id = new SelectList(db.salle_status, "id", "status", salle.status_id);
-
+            ViewBag.status_id = new SelectList(new ManagerSalleStatus().GetAllSalleStatus(), "id", "status", salle.status_id);
             return View(salle);
         }
 

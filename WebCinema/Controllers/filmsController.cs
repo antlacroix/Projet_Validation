@@ -17,7 +17,7 @@ namespace WebCinema.Controllers
 {
     public class filmsController : Controller
     {
-        private cinema_dbEntities db = new cinema_dbEntities();
+        //private cinema_dbEntities db = new cinema_dbEntities();
 
         public ActionResult Index()
         {
@@ -200,7 +200,7 @@ namespace WebCinema.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.Dispose();
             }
             base.Dispose(disposing);
         }
