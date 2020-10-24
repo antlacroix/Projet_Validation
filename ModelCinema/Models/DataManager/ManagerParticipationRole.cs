@@ -10,19 +10,18 @@ using System.Windows;
 
 namespace ModelCinema.Models.DataManager
 {
-    public class ManagerSalleStatus
+    public class ManagerParticipationRole
     {
         private cinema_dbEntities db = new cinema_dbEntities();
 
-        public List<salle_status> GetAllSalleStatus()
+        public List<role_participant> GetAllParticipationRole()
         {
-            return db.salle_status.ToList();
+            return db.role_participant.ToList();
         }
 
-        public salle_status GetSalleStatus(int? id)
+        public role_participant GetParticipationRole(int? id)
         {
-            return db.salle_status.Find(id);
+            return db.role_participant.Find(id);
         }
     }
 }
-
