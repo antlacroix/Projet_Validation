@@ -6,9 +6,9 @@ namespace ModelCinema.Models
     [MetadataType(typeof(cinemaMetaData))]
     public partial class cinema
     {
-        public string CinemaText { 
-            get { return this.contact_info.adresse;} 
-            set { this.contact_info.adresse = value; }
+        public string CinemaText {
+            get;
+            set;
         }
         //public int Id { set; get; }
         public string CinemaColor { set; get; }

@@ -23,7 +23,7 @@ namespace ModelCinema.Models
         }
     
         private int id { get; set; }
-        private string titre { get; set; }
+        public string titre { get; set; }
         private int ranking { get; set; }
         private string description { get; set; }
         private int annee_parution { get; set; }
