@@ -142,7 +142,7 @@ namespace WebCinema.Controllers
                 return RedirectToAction("Index");
             // TODO
             //Implementer un message d'erreur
-            return RedirectToAction("Index");
+            return View(id);
         }
 
         protected override void Dispose(bool disposing)
@@ -152,9 +152,122 @@ namespace WebCinema.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult AfficherSalle(int id)
+        //GET: cinemas/CreateSalle
+        public ActionResult CreateSalle(int id)
         {
-            return View("~Views/Index");
+            ManagerSalleStatus manager = new ManagerSalleStatus();
+            Session["cineId"] = id;
+            ViewBag.status_id = new SelectList(manager.GetAllSalleStatus(), "id", "status", manager.GetSalleStatus(2));
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateSalle([Bind(Include = "id, nbr_place, numero_salle, commentaire, status_id, cinema_id")] salle salle)
+        {
+            ManagerSalle manager = new ManagerSalle();
+            salle.cinema_id = int.Parse(Session["cineId"].ToString());
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (manager.PostSalle(salle))
+                        return RedirectToAction("Details", new { id = salle.cinema_id });
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
+            return View(salle);
+        }
+
+        //GET: cinemas/DetailsSalle/5
+        public ActionResult DetailsSalle(int? id)
+        {
+            ManagerSalle manager = new ManagerSalle();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            salle salle = manager.GetSalle(id);
+            if (salle == null)
+            {
+                return HttpNotFound();
+            }
+            return View(salle);
+        }
+
+        //Get: cinemas/EditSalle/5
+        public ActionResult EditSalle(int? id)
+        {
+            ManagerSalle manager = new ManagerSalle();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            salle salle = manager.GetSalle(id);
+            if (salle == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.status_id = new SelectList(db.salle_status, "id", "status", salle.status_id);
+            return View(salle);
+        }
+
+        //Post cinemas/EditSalle5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditSalle([Bind(Include = "id,nbr_place,numero_salle,commentaire,status_id,cinema_id")] salle salle)
+        {
+            ManagerSalle manager = new ManagerSalle();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    manager.PutSalle(salle);
+                    return RedirectToAction("Details", new { id = salle.cinema_id });
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
+            ViewBag.status_id = new SelectList(db.salle_status, "id", "status", salle.status_id);
+
+            return View(salle);
+        }
+
+        //Get: cinemas/DeleteSalle/5
+        public ActionResult DeleteSalle(int? id)
+        {
+            ManagerSalle manager = new ManagerSalle();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            salle salle = manager.GetSalle(id);
+            if (salle == null)
+            {
+                return HttpNotFound();
+            }
+            return View(salle);
+        }
+
+        //POST: cinemas/DeleteSalle/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteSalle(int id)
+        {
+            ManagerSalle manager = new ManagerSalle();
+            int cineId = manager.GetSalle(id).cinema_id;
+            if (manager.DeleteSalles(id))
+                return RedirectToAction("Details", new { id = cineId });
+            // TODO
+            //Implementer un message d'erreur
+            return View(id);
         }
     }
 }

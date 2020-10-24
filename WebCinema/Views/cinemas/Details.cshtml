@@ -4,7 +4,7 @@
     ViewBag.Title = "Details Cinema";
 }
 
-    <h2>Cinema Details</h2>
+<h2>Cinema Details</h2>
 
 <div>
     <h4>cinema</h4>
@@ -25,8 +25,53 @@
         <dd>
             @Html.DisplayFor(model => model.user.login)
         </dd>
-
     </dl>
+
+    <table class="table">
+        <tr>
+            <th>
+                Nbr place
+            </th>
+            <th>
+                #
+            </th>
+            <th>
+                commentaire
+            </th>
+            <th>
+                status
+            </th>
+            <th>
+                @Html.ActionLink("Create Salle", "CreateSalle", new { id = Model.id })
+            </th>
+        </tr>
+
+        @foreach (var item in Model.salles)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nbr_place)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.numero_salle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.commentaire)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.salle_status.status)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditSalle", new { id = item.id }) |
+                    @Html.ActionLink("Details", "DetailsSalle", new { id = item.id }) |
+                    @Html.ActionLink("Delete", "DeleteSalle", new { id = item.id })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |

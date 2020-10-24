@@ -49,12 +49,8 @@ namespace WebCinema.Controllers
         // GET: salles/Create
         public ActionResult Create()
         {
-            int cinemaId;
-            if(int.TryParse(Session["salle"].ToString(), out cinemaId))
-                ViewBag.cinema_id = new SelectList(new ManagerCinema().GetAllCinema().Where(c => c.id == cinemaId), "id", "id");
-            else
-                ViewBag.cinema_id = new SelectList(new ManagerCinema().GetAllCinema(), "id", "id");
-            ViewBag.status_id = new SelectList(db.salle_status, "id", "status");
+            ViewBag.cinema_id = new SelectList(new ManagerCinema().GetAllCinema(), "id", "id");
+            ViewBag.status_id = new SelectList(new ManagerSalleStatus().GetAllSalleStatus(), "id", "id");
             return View();
         }
 
@@ -123,7 +119,7 @@ namespace WebCinema.Controllers
                     MessageBox.Show(e.Message);
                 }
             }
-            
+
             ViewBag.cinema_id = new SelectList(db.cinemas, "id", "id", salle.cinema_id);
             ViewBag.status_id = new SelectList(db.salle_status, "id", "status", salle.status_id);
 

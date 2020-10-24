@@ -10,7 +10,7 @@ using ModelCinema.Models.ModelValidator;
 
 namespace ModelCinema.Models.DataManager
 {
-    public class ManagerCinema : Controller
+    public class ManagerCinema
     {
         private cinema_dbEntities db = new cinema_dbEntities();
 
@@ -87,12 +87,6 @@ namespace ModelCinema.Models.DataManager
             {
                 return false;
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing) { db.Dispose(); }
-            base.Dispose(disposing);
         }
     }
 }
