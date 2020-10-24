@@ -134,6 +134,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\cinemas1Controller.cs" />
     <Compile Include="Controllers\cinemasController.cs" />
     <Compile Include="Controllers\contact_infoController.cs" />
     <Compile Include="Controllers\filmsController.cs" />
@@ -145,7 +146,6 @@
     <Compile Include="Controllers\role_participantController.cs" />
     <Compile Include="Controllers\sallesController.cs" />
     <Compile Include="Controllers\salle_statusController.cs" />
-    <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\seancesController.cs" />
     <Compile Include="Controllers\usersController.cs" />
     <Compile Include="Controllers\user_statusController.cs" />
@@ -309,7 +309,6 @@
     <Content Include="Views\user_type\Details.cshtml" />
     <Content Include="Views\user_type\Edit.cshtml" />
     <Content Include="Views\user_type\Index.cshtml" />
-    <Content Include="Views\cinemas\Create.cshtml" />
     <Content Include="Views\cinemas\Delete.cshtml" />
     <Content Include="Views\cinemas\Details.cshtml" />
     <Content Include="Views\cinemas\Edit.cshtml" />
@@ -387,11 +386,16 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\cinemas\Create.cshtml" />
+    <Content Include="Views\cinemas1\Create.cshtml" />
+    <Content Include="Views\cinemas1\Delete.cshtml" />
+    <Content Include="Views\cinemas1\Details.cshtml" />
+    <Content Include="Views\cinemas1\Edit.cshtml" />
+    <Content Include="Views\cinemas1\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\UploadedFiles\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Schedule\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

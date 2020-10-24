@@ -20,8 +20,14 @@ namespace WebCinema.Controllers
         public ActionResult Index()
         {
             ManagerSalle manager = new ManagerSalle();
-            // var salles = db.salles.Include(s => s.cinema).Include(s => s.salle_status);
             return View(manager.GetAllSalle());
+        }
+
+        public ActionResult SalleCine(int id)
+        {
+            ManagerSalle manager = new ManagerSalle();
+            Session["salle"] = id;
+            return View("Index", manager.GetAllSalle().Where(s => s.cinema_id == id));
         }
 
         // GET: salles/Details/5
@@ -43,7 +49,11 @@ namespace WebCinema.Controllers
         // GET: salles/Create
         public ActionResult Create()
         {
-            ViewBag.cinema_id = new SelectList(db.cinemas, "id", "id");
+            int cinemaId;
+            if(int.TryParse(Session["salle"].ToString(), out cinemaId))
+                ViewBag.cinema_id = new SelectList(new ManagerCinema().GetAllCinema().Where(c => c.id == cinemaId), "id", "id");
+            else
+                ViewBag.cinema_id = new SelectList(new ManagerCinema().GetAllCinema(), "id", "id");
             ViewBag.status_id = new SelectList(db.salle_status, "id", "status");
             return View();
         }
@@ -143,10 +153,10 @@ namespace WebCinema.Controllers
         {
             ManagerSalle manager = new ManagerSalle();
             if (manager.DeleteSalles(id))
-                return RedirectToAction("Index");
+                return RedirectToAction("SalleCine");
             // TODO
             //Implementer un message d'erreur
-            return RedirectToAction("Index");
+            return RedirectToAction("SalleCine");
         }
 
         protected override void Dispose(bool disposing)

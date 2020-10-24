@@ -67,40 +67,37 @@
     </table>
     <hr />
 
+    @*
     <table class="table">
         <tr>
             <th>
                 @Html.LabelFor(model => model.Participations, htmlAttributes: new { @class = "control-label col-md-2" })
             </th>
             <th>
-                @*@Html.LabelFor(model => model.participations, htmlAttributes: new { @class = "control-label col-md-2" })*@
                 Role
             </th>
             <th>
                 @Html.ActionLink("Add Participation", "Index", "participations")
             </th>
         </tr>
-        @*@foreach (var item in Model.participations)
-        {*@
+        @foreach (var modelItem in Model.Participations)
+        {
             <tr>
                 <td>
-                    @*@Html.DisplayFor(modelItem => item.participant)*@
+                    @Html.DisplayFor(modelItem => modelItem.Participation)
                 </td>
                 <td>
-                    @*@Html.DisplayFor(modelItem => item.role_participant)*@
+                    @Html.DisplayFor(modelItem => item.role_participant)
                 </td>
                 <td>
-                    @*@Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id })*@
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
                 </td>
             </tr>
 
-        @*}*@
-
-        
-
-
+        }
     </table>
+    *@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

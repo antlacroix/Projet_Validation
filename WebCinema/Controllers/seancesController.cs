@@ -101,17 +101,17 @@ namespace WebCinema.Controllers
             //ViewBag.datasource = resourceData;
             //// datasource for room resources
             List<cinema> cinemas = new List<cinema>();
-            cinemas.Add(new cinema { CinemaText = "Cineplex Odeon", Id = 1, CinemaColor = "#cb6bb2" });
-            cinemas.Add(new cinema { CinemaText = "Cinema le Clap", Id = 2, CinemaColor = "#56ca85" });
+            cinemas.Add(new cinema { CinemaText = "Cineplex Odeon", id = 1, CinemaColor = "#cb6bb2" });
+            cinemas.Add(new cinema { CinemaText = "Cinema le Clap", id = 2, CinemaColor = "#56ca85" });
             ViewBag.Cinema = cinemas;
             //// datasource for owner resources
             List<salle> salles = new List<salle>();
-            salles.Add(new salle { SalleText = "#1 Odeon UltraAVX", Id = 1, SalleGroupId = 1, SalleColor = "#ffaa00" });
-            salles.Add(new salle { SalleText = "#2 Odeon DolbySono", Id = 2, SalleGroupId = 1, SalleColor = "#f8a398" });
-            salles.Add(new salle { SalleText = "#3 Odeon 3D", Id = 3, SalleGroupId = 1, SalleColor = "#7499e1" });
-            salles.Add(new salle { SalleText = "#1 Clap UltraAVX", Id = 4, SalleGroupId = 2, SalleColor = "#ffaa00" });
-            salles.Add(new salle { SalleText = "#2 Clap DolbySono", Id = 5, SalleGroupId = 2, SalleColor = "#f8a398" });
-            salles.Add(new salle { SalleText = "#3 Clap 3D", Id = 6, SalleGroupId = 2, SalleColor = "#7499e1" });
+            salles.Add(new salle { SalleText = "#1 Odeon UltraAVX", id = 1, SalleGroupId = 1, SalleColor = "#ffaa00" });
+            salles.Add(new salle { SalleText = "#2 Odeon DolbySono", id = 2, SalleGroupId = 1, SalleColor = "#f8a398" });
+            salles.Add(new salle { SalleText = "#3 Odeon 3D", id = 3, SalleGroupId = 1, SalleColor = "#7499e1" });
+            salles.Add(new salle { SalleText = "#1 Clap UltraAVX", id = 4, SalleGroupId = 2, SalleColor = "#ffaa00" });
+            salles.Add(new salle { SalleText = "#2 Clap DolbySono", id = 5, SalleGroupId = 2, SalleColor = "#f8a398" });
+            salles.Add(new salle { SalleText = "#3 Clap 3D", id = 6, SalleGroupId = 2, SalleColor = "#7499e1" });
             ViewBag.Salle = salles;
 
             ViewBag.Resources = new string[] { "Cinema", "Salle" };

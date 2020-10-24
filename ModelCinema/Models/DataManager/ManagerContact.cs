@@ -13,7 +13,7 @@ namespace ModelCinema.Models.DataManager
     {
         private cinema_dbEntities db = new cinema_dbEntities();
 
-        public List<contact_info> GetAllContact ()
+        public List<contact_info> GetAllContact()
         {
             return db.contact_info.ToList();
         }

@@ -177,7 +177,7 @@ namespace ModelCinema.Models
         [Required]
         [DisplayName("Titre")]
         [StringLength(film.titreMax, ErrorMessage = "titre")]
-        public string Title { get; set; }
+        public string titre { get; set; }
 
         [Required]
         [DisplayName("Classement")]

@@ -20,7 +20,6 @@ namespace WebCinema.Controllers
         public ActionResult Index()
         {
             ManagerCinema manager = new ManagerCinema();
-            //var cinemas = db.cinemas.Include(c => c.contact_info).Include(c => c.user);
             return View(manager.GetAllCinema());
         }
 
@@ -43,8 +42,8 @@ namespace WebCinema.Controllers
         // GET: cinemas/Create
         public ActionResult Create()
         {
-            ViewBag.contact_info_id = new SelectList(db.contact_info, "id", "tel_number");
-            ViewBag.responsable_user_id = new SelectList(db.users, "id", "login");
+            ViewBag.contact_info_id = new SelectList(new ManagerContact().GetAllContact(), "id", "adresse");
+            ViewBag.responsable_user_id = new SelectList(new ManagerUser().GetAllUser(), "id", "login");
             return View();
         }
 
@@ -68,9 +67,8 @@ namespace WebCinema.Controllers
                     MessageBox.Show(e.Message);
                 }
             }
-
-            ViewBag.contact_info_id = new SelectList(db.contact_info, "id", "tel_number", cinema.contact_info_id);
-            ViewBag.responsable_user_id = new SelectList(db.users, "id", "login", cinema.responsable_user_id);
+            //ViewBag.contact_info_id = new SelectList(new ManagerContact().GetAllContact(), "id", "adresse");
+            //ViewBag.responsable_user_id = new SelectList(new ManagerUser().GetAllUser(), "id", "login");
             return View(cinema);
         }
 
@@ -87,8 +85,8 @@ namespace WebCinema.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.contact_info_id = new SelectList(db.contact_info, "id", "tel_number", cinema.contact_info_id);
-            ViewBag.responsable_user_id = new SelectList(db.users, "id", "login", cinema.responsable_user_id);
+            ViewBag.contact_info_id = new SelectList(new ManagerContact().GetAllContact(), "id", "adresse");
+            ViewBag.responsable_user_id = new SelectList(new ManagerUser().GetAllUser(), "id", "login");
             return View(cinema);
         }
 
@@ -112,9 +110,8 @@ namespace WebCinema.Controllers
                     MessageBox.Show(e.Message);
                 }
             }
-
-            ViewBag.contact_info_id = new SelectList(db.contact_info, "id", "tel_number", cinema.contact_info_id);
-            ViewBag.responsable_user_id = new SelectList(db.users, "id", "login", cinema.responsable_user_id);
+            ViewBag.contact_info_id = new SelectList(new ManagerContact().GetAllContact(), "id", "adresse");
+            ViewBag.responsable_user_id = new SelectList(new ManagerUser().GetAllUser(), "id", "login");
 
             return View(cinema);
         }
@@ -150,11 +147,14 @@ namespace WebCinema.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
+            if (disposing) 
+            { db.Dispose(); }
             base.Dispose(disposing);
+        }
+
+        public ActionResult AfficherSalle(int id)
+        {
+            return View("~Views/Index");
         }
     }
 }

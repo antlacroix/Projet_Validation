@@ -1,13 +1,13 @@
 ﻿@model ModelCinema.Models.cinema
 
 @{
-    ViewBag.Title = "Edit Cinema";
+    ViewBag.Title = "Edit";
 }
 
-    <h2>Cinema Edit</h2>
+<h2>Edit</h2>
 
 
-@using (Html.BeginForm("Edit", "cinemas", FormMethod.Post))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     

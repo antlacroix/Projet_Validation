@@ -4,12 +4,13 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using ModelCinema.ModelExeption;
 using ModelCinema.Models.ModelValidator;
 
 namespace ModelCinema.Models.DataManager
 {
-    public class ManagerCinema
+    public class ManagerCinema : Controller
     {
         private cinema_dbEntities db = new cinema_dbEntities();
 
@@ -88,5 +89,10 @@ namespace ModelCinema.Models.DataManager
             }
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing) { db.Dispose(); }
+            base.Dispose(disposing);
+        }
     }
 }
