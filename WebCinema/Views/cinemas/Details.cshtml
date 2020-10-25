@@ -16,6 +16,9 @@
                 Responsable
             </th>
             <th>
+                Titre
+            </th>
+            <th>
                 Responsable @Html.DisplayNameFor(model => model.contact_info.tel_number)
             </th>
         </tr>
@@ -23,6 +26,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(model => model.user.login)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.user.user_type.type)
             </td>
             <td>
                 @Html.DisplayFor(model => model.contact_info.tel_number)
