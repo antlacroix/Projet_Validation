@@ -6,7 +6,7 @@
     ViewBag.Title = "Index Seances";
 }
 
-<h2>Seances Index</h2>
+<h2>Seances</h2>
 
 @*<asp:Button runat="server" id="btnSave" Text=" « SAVE » " OnClick="btnSave" />
 
@@ -51,9 +51,12 @@
 
 <table class="table">
     <tr>
-        @*<th>
-            @Html.DisplayNameFor(model => model.salle.cinema.CinemaText)
-        </th>*@
+        <th>
+            Cinema
+        </th>
+        <th>
+            Salle Number
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.titre_seance)
         </th>
@@ -74,9 +77,12 @@
     @foreach (var item in Model)
     {
         <tr>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.salle.cinema.CinemaText)
-            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.salle.cinema.contact_info.adresse)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.salle.numero_salle)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.titre_seance)
             </td>
