@@ -14,8 +14,6 @@ namespace WebCinema.Controllers
 {
     public class cinemasController : Controller
     {
-        private cinema_dbEntities db = new cinema_dbEntities();
-
         // GET: cinemas
         public ActionResult Index()
         {
@@ -147,9 +145,9 @@ namespace WebCinema.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing) 
-            { db.Dispose(); }
-            base.Dispose(disposing);
+            //if (disposing) 
+            //{ db.Dispose(); }
+            //base.Dispose(disposing);
         }
 
         public ActionResult AfficherSalle(int id)

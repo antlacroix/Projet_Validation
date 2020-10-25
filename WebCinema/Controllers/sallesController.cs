@@ -14,7 +14,7 @@ namespace WebCinema.Controllers
 {
     public class sallesController : Controller
     {
-        private cinema_dbEntities db = new cinema_dbEntities();
+        //private cinema_dbEntities db = new cinema_dbEntities();
 
         // GET: salles
         public ActionResult Index()
@@ -54,7 +54,7 @@ namespace WebCinema.Controllers
                 ViewBag.cinema_id = new SelectList(new ManagerCinema().GetAllCinema().Where(c => c.id == cinemaId), "id", "id");
             else
                 ViewBag.cinema_id = new SelectList(new ManagerCinema().GetAllCinema(), "id", "id");
-            ViewBag.status_id = new SelectList(db.salle_status, "id", "status");
+            ViewBag.status_id = new SelectList(new ManagerSalleStatus().GetAllSalleStatus(), "id", "status");
             return View();
         }
 
@@ -78,9 +78,8 @@ namespace WebCinema.Controllers
                     MessageBox.Show(e.Message);
                 }
             }
-
-            ViewBag.cinema_id = new SelectList(db.cinemas, "id", "id", salle.cinema_id);
-            ViewBag.status_id = new SelectList(db.salle_status, "id", "status", salle.status_id);
+            ViewBag.cinema_id = new SelectList(new ManagerCinema().GetAllCinema(), "id", "id", salle.cinema_id);
+            ViewBag.status_id = new SelectList(new ManagerSalleStatus().GetAllSalleStatus(), "id", "status", salle.status_id);
 
             return View(salle);
         }
@@ -98,8 +97,8 @@ namespace WebCinema.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.cinema_id = new SelectList(db.cinemas, "id", "id", salle.cinema_id);
-            ViewBag.status_id = new SelectList(db.salle_status, "id", "status", salle.status_id);
+            ViewBag.cinema_id = new SelectList(new ManagerCinema().GetAllCinema(), "id", "id", salle.cinema_id);
+            ViewBag.status_id = new SelectList(new ManagerSalleStatus().GetAllSalleStatus(), "id", "status", salle.status_id);
             return View(salle);
         }
 
@@ -123,9 +122,9 @@ namespace WebCinema.Controllers
                     MessageBox.Show(e.Message);
                 }
             }
-            
-            ViewBag.cinema_id = new SelectList(db.cinemas, "id", "id", salle.cinema_id);
-            ViewBag.status_id = new SelectList(db.salle_status, "id", "status", salle.status_id);
+
+            ViewBag.cinema_id = new SelectList(new ManagerCinema().GetAllCinema(), "id", "id", salle.cinema_id);
+            ViewBag.status_id = new SelectList(new ManagerSalleStatus().GetAllSalleStatus(), "id", "status", salle.status_id);
 
             return View(salle);
         }
@@ -161,11 +160,11 @@ namespace WebCinema.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            //if (disposing)
+            //{
+            //    db.Dispose();
+            //}
+            //base.Dispose(disposing);
         }
     }
 }

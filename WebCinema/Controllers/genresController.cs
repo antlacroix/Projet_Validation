@@ -15,8 +15,6 @@ namespace WebCinema.Controllers
 {
     public class genresController : Controller
     {
-        private cinema_dbEntities db = new cinema_dbEntities();
-
         // GET: genres
         public ActionResult Index()
         {
@@ -140,11 +138,19 @@ namespace WebCinema.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            //if (disposing)
+            //{
+            //ManagerGenre manager = new ManagerGenre();
+            //manager.Dispose();
+            //}
+
+            ////base.Dispose(disposing);
+
+            ////if (disposing)
+            ////{
+            ////    db.Dispose();
+            ////}
+            ////base.Dispose(disposing);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace WebCinema.Controllers
 {
     public class seancesController : Controller
     {
-        private cinema_dbEntities db = new cinema_dbEntities();
+        //private cinema_dbEntities db = new cinema_dbEntities();
 
         protected void btnSave(object sender, EventArgs e)
         {
@@ -164,10 +164,9 @@ namespace WebCinema.Controllers
             {
                 return HttpNotFound();
             }
-            ManagerSalle managerSalle = new ManagerSalle();
 
-            ViewBag.film_id = new SelectList(db.films, "id", "titre", seance.film_id);
-            ViewBag.salle_id = new SelectList(managerSalle.GetAllSalle(), "id", "id", seance.salle_id);
+            ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre", seance.film_id);
+            ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle(), "id", "id", seance.salle_id);
             return View(seance);
         }
 
@@ -193,8 +192,9 @@ namespace WebCinema.Controllers
                 }
                 
             }
-            ViewBag.film_id = new SelectList(db.films, "id", "titre", seance.film_id);
-            ViewBag.salle_id = new SelectList(db.salles, "id", "commentaire", seance.salle_id);
+
+            ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre", seance.film_id);
+            ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle(), "id", "id", seance.salle_id);
             return View(seance);
         }
 
@@ -229,24 +229,19 @@ namespace WebCinema.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            //if (disposing)
+            //{
+            //ManagerSeance manager = new ManagerSeance();
+            //manager.Dispose();
+            //}
+
+            ////base.Dispose(disposing);
+
+            ////if (disposing)
+            ////{
+            ////    db.Dispose();
+            ////}
+            ////base.Dispose(disposing);
         }
-
-
-
     }
-
-    //public class AppointmentData
-    //{
-    //    private seance s1 = new seance() { id = 1, date_debut = DateTime.Now, date_fin = DateTime.Now.AddMinutes(30), titre_seance = "test S1" };
-    //    public int Id { get; set; }
-    //    public string Subject { get; set; }
-    //    public DateTime StartTime { get { return s1.date_debut; } set { s1.date_debut = value; } }
-    //    public DateTime EndTime { get { return s1.date_fin; } set { s1.date_fin = value; } }
-
-    //}
 }

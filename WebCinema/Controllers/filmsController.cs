@@ -17,8 +17,6 @@ namespace WebCinema.Controllers
 {
     public class filmsController : Controller
     {
-        private cinema_dbEntities db = new cinema_dbEntities();
-
         public ActionResult Index()
         {
             MovieService movieService = new MovieService();
@@ -35,7 +33,6 @@ namespace WebCinema.Controllers
         {
             return View();
         }
-
 
         [HttpPost]
         public ActionResult UploadMovies(HttpPostedFileBase file)
@@ -70,9 +67,6 @@ namespace WebCinema.Controllers
                 return View();
             }
         }
-
-
-
 
 
         // GET: films
@@ -198,11 +192,19 @@ namespace WebCinema.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            //if (disposing)
+            //{
+            //ManagerFilm manager = new ManagerFilm();
+            //manager.Dispose();
+            //}
+
+            ////base.Dispose(disposing);
+
+            ////if (disposing)
+            ////{
+            ////    db.Dispose();
+            ////}
+            ////base.Dispose(disposing);
         }
     }
 }

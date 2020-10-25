@@ -13,7 +13,7 @@ namespace WebCinema.Controllers
 {
     public class user_typeController : Controller
     {
-        private cinema_dbEntities db = new cinema_dbEntities();
+        //private cinema_dbEntities db = new cinema_dbEntities();
 
         // GET: user_type
         public ActionResult Index()
@@ -88,8 +88,7 @@ namespace WebCinema.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user_type).State = EntityState.Modified;
-                db.SaveChanges();
+                new ManagerUserType().PostUserType(user_type);
                 return RedirectToAction("Index");
             }
             return View(user_type);
@@ -126,11 +125,19 @@ namespace WebCinema.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            //base.Dispose(disposing);
+            //if (disposing)
+            //{
+            //new ManagerUserType().Dispose();
+            //}
+
+            ////base.Dispose(disposing);
+
+            ////if (disposing)
+            ////{
+            ////    db.Dispose();
+            ////}
+            ////base.Dispose(disposing);
         }
     }
 }

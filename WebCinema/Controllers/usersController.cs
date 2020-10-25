@@ -15,7 +15,7 @@ namespace WebCinema.Controllers
 {
     public class usersController : Controller
     {
-        private cinema_dbEntities db = new cinema_dbEntities();
+        //private cinema_dbEntities db = new cinema_dbEntities();
 
         // GET: users
         public ActionResult Index()
@@ -43,9 +43,9 @@ namespace WebCinema.Controllers
         // GET: users/Create
         public ActionResult Create()
         {
-            ViewBag.contact_info_id = new SelectList(db.contact_info, "id", "tel_number");
-            ViewBag.user_status_id = new SelectList(db.user_status, "id", "status");
-            ViewBag.user_type_id = new SelectList(db.user_type, "id", "type");
+            ViewBag.contact_info_id = new SelectList(new ManagerContact().GetAllContact(), "id", "tel_number");
+            ViewBag.user_status_id = new SelectList(new ManagerUserStatus().GetAllUserStatus(), "id", "status");
+            ViewBag.user_type_id = new SelectList(new ManagerUserType().GetAllUserType(), "id", "type");
             return View();
         }
 
@@ -70,9 +70,9 @@ namespace WebCinema.Controllers
                 }
             }
 
-            ViewBag.contact_info_id = new SelectList(db.contact_info, "id", "tel_number", user.contact_info_id);
-            ViewBag.user_status_id = new SelectList(db.user_status, "id", "status", user.user_status_id);
-            ViewBag.user_type_id = new SelectList(db.user_type, "id", "type", user.user_type_id);
+            ViewBag.contact_info_id = new SelectList(new ManagerContact().GetAllContact(), "id", "tel_number");
+            ViewBag.user_status_id = new SelectList(new ManagerUserStatus().GetAllUserStatus(), "id", "status");
+            ViewBag.user_type_id = new SelectList(new ManagerUserType().GetAllUserType(), "id", "type");
 
             return View(user);
         }
@@ -91,9 +91,9 @@ namespace WebCinema.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.contact_info_id = new SelectList(db.contact_info, "id", "tel_number", user.contact_info_id);
-            ViewBag.user_status_id = new SelectList(db.user_status, "id", "status", user.user_status_id);
-            ViewBag.user_type_id = new SelectList(db.user_type, "id", "type", user.user_type_id);
+            ViewBag.contact_info_id = new SelectList(new ManagerContact().GetAllContact(), "id", "tel_number");
+            ViewBag.user_status_id = new SelectList(new ManagerUserStatus().GetAllUserStatus(), "id", "status");
+            ViewBag.user_type_id = new SelectList(new ManagerUserType().GetAllUserType(), "id", "type");
 
             return View(user);
         }
@@ -119,9 +119,9 @@ namespace WebCinema.Controllers
                 }
             }
 
-            ViewBag.contact_info_id = new SelectList(db.contact_info, "id", "tel_number", user.contact_info_id);
-            ViewBag.user_status_id = new SelectList(db.user_status, "id", "status", user.user_status_id);
-            ViewBag.user_type_id = new SelectList(db.user_type, "id", "type", user.user_type_id);
+            ViewBag.contact_info_id = new SelectList(new ManagerContact().GetAllContact(), "id", "tel_number");
+            ViewBag.user_status_id = new SelectList(new ManagerUserStatus().GetAllUserStatus(), "id", "status");
+            ViewBag.user_type_id = new SelectList(new ManagerUserType().GetAllUserType(), "id", "type");
 
             return View(user);
         }
@@ -157,11 +157,18 @@ namespace WebCinema.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            //if (disposing)
+            //{
+            //new ManagerSeance().Dispose();
+            //}
+
+            ////base.Dispose(disposing);
+
+            ////if (disposing)
+            ////{
+            ////    db.Dispose();
+            ////}
+            ////base.Dispose(disposing);
         }
     }
 }

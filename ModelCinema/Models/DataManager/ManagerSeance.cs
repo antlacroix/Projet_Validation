@@ -52,7 +52,7 @@ namespace ModelCinema.Models.DataManager
                 try
                 {
                     db.Entry(seance).State = EntityState.Modified;
-                    db.SaveChanges(); // cA BRISE ICI
+                    db.SaveChanges();
                     return true;
                 }
                 catch (Exception e)
