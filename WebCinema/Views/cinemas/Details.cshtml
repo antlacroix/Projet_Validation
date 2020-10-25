@@ -9,31 +9,34 @@
 <div>
     <h4>cinema</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.contact_info.tel_number)
-        </dt>
+   
+    <table class="table">
+        <tr>
+            <th>
+                Responsable
+            </th>
+            <th>
+                Responsable @Html.DisplayNameFor(model => model.contact_info.tel_number)
+            </th>
+        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.contact_info.tel_number)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user.login)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user.login)
-        </dd>
-    </dl>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.user.login)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.contact_info.tel_number)
+            </td>
+        </tr>
+    </table>
 
     <table class="table">
         <tr>
             <th>
-                Nbr place
+                #
             </th>
             <th>
-                #
+                Nbr place
             </th>
             <th>
                 commentaire
@@ -48,25 +51,25 @@
 
         @foreach (var item in Model.salles)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nbr_place)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.numero_salle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.commentaire)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.salle_status.status)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "EditSalle", new { id = item.id }) |
-                    @Html.ActionLink("Details", "DetailsSalle", new { id = item.id }) |
-                    @Html.ActionLink("Delete", "DeleteSalle", new { id = item.id })
-                </td>
-            </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.numero_salle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nbr_place)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.commentaire)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.salle_status.status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditSalle", new { id = item.id }) |
+            @Html.ActionLink("Details", "DetailsSalle", new { id = item.id }) |
+            @Html.ActionLink("Delete", "DeleteSalle", new { id = item.id })
+        </td>
+    </tr>
         }
 
     </table>
