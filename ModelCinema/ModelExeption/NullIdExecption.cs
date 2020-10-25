@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 namespace ModelCinema.ModelExeption
 {
     class NullIdExecption : Exception
-        where T : class
     {
         public NullIdExecption(string objetType)
             : base (string.Format("aucune {0} avec cette ID existe", objetType))
