@@ -7,7 +7,6 @@
 <h2>Cinema Details</h2>
 
 <div>
-    <h4>cinema</h4>
     <hr />
    
     <table class="table">
@@ -19,13 +18,13 @@
                 Titre
             </th>
             <th>
-                Responsable @Html.DisplayNameFor(model => model.contact_info.tel_number)
+                @Html.DisplayNameFor(model => model.contact_info.tel_number)
             </th>
         </tr>
 
         <tr>
             <td>
-                @Html.DisplayFor(model => model.user.login)
+                @Html.DisplayFor(model => model.user.name)
             </td>
             <td>
                 @Html.DisplayFor(model => model.user.user_type.type)
@@ -39,7 +38,7 @@
     <table class="table">
         <tr>
             <th>
-                #
+                Numero de Salle
             </th>
             <th>
                 Nbr place
@@ -59,7 +58,7 @@
         {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.numero_salle)
+           # @Html.DisplayFor(modelItem => item.numero_salle)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.nbr_place)
@@ -72,17 +71,12 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "EditSalle", new { id = item.id }) |
-            @Html.ActionLink("Details", "DetailsSalle", new { id = item.id }) |
             @Html.ActionLink("Delete", "DeleteSalle", new { id = item.id })
         </td>
     </tr>
         }
-
     </table>
-
-
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

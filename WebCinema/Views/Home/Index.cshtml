@@ -6,8 +6,8 @@
 
     <div class="row">
         <div class="col-md-4">
-            <h2>Home Page</h2>
-            @Html.ActionLink("User", "Index", "users")
+            <h2>Acceuil</h2>
+            @*@Html.ActionLink("User", "Index", "users")*@
             <br />
             @Html.ActionLink("Seances", "Index", "seances")
             <br />
@@ -15,10 +15,10 @@
             <br />
             @Html.ActionLink("Cinemas", "Index", "cinemas")
             <br />
-            @Html.ActionLink("UserType", "Index", "user_type")
+            @*@Html.ActionLink("UserType", "Index", "user_type")*@
         </div>
 
-        <div>
+        @*<div>
             @Html.EJS().Calendar("calendar").Render()
-        </div>
+        </div>*@
     </div>
