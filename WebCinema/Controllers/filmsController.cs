@@ -25,7 +25,7 @@ namespace WebCinema.Controllers
                 //MovieService movieService = new MovieService();
                 //return View(movieService.GetMovies());
                 ManagerFilm manager = new ManagerFilm();
-                return View(manager.GetAllFilms());
+                return View(manager.GetAllFilmsFrom(DateTime.Now.Year -10));
             }
             catch (Exception e)
             {

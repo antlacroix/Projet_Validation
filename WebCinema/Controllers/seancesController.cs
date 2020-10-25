@@ -84,7 +84,7 @@ namespace WebCinema.Controllers
         #endregion
 
         // GET: seances
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
             #region
             //ManagerCinema managerCinema = new ManagerCinema();
@@ -110,9 +110,9 @@ namespace WebCinema.Controllers
                     cinemas.Add(new SelectListItem() { Text = item.id.ToString(), Value = item.id.ToString() });
                 }
 
-                ViewBag.cinemas = new SelectList(cinemas,"Value", "Text");
+                ViewBag.cinemas = new SelectList(cinemas, "Value", "Text");
                 ManagerSeance managerSeance = new ManagerSeance();
-                return View(managerSeance.GetAllSeance());
+                return View(managerSeance.GetAllSeanceFromCinema(id));
             }
             catch (Exception e)
             {
@@ -143,7 +143,7 @@ namespace WebCinema.Controllers
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -152,7 +152,7 @@ namespace WebCinema.Controllers
         {
             try
             {
-                if(id != null)
+                if (id != null)
                     ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle().Where(S => S.cinema_id == id), "id", "commentaire");
                 else
                     ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle(), "id", "commentaire");
@@ -162,7 +162,7 @@ namespace WebCinema.Controllers
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = id });
             }
 
         }
@@ -180,16 +180,17 @@ namespace WebCinema.Controllers
                 if (ModelState.IsValid)
                 {
                     if (manager.PostSeance(seance))
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Index", new { id = seance.salle.cinema_id });
                 }
                 ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
                 ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle(), "id", "commentaire");
+                return View(seance);
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
+                return RedirectToAction("Index", "seance", new { id = seance.salle.cinema_id });
             }
-            return View(seance);
         }
 
         // GET: seances/Edit/5
@@ -206,7 +207,7 @@ namespace WebCinema.Controllers
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -224,16 +225,17 @@ namespace WebCinema.Controllers
                 if (ModelState.IsValid)
                 {
                     if (managerSeance.PutSeance(seance))
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Index", new { id = seance.salle.cinema_id });
                 }
                 ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre", seance.film_id);
                 ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle(), "id", "commentaire", seance.salle_id);
+                return View(seance);
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
+                return RedirectToAction("Index", new { id = seance.salle.cinema_id });
             }
-            return View(seance);
         }
 
         // GET: seances/Delete/5
@@ -248,7 +250,7 @@ namespace WebCinema.Controllers
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -260,14 +262,15 @@ namespace WebCinema.Controllers
             try
             {
                 ManagerSeance manager = new ManagerSeance();
+                seance seance = manager.GetSeance(id);
                 if (manager.DeleteSeance(id))
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", new { id =seance.salle.cinema_id });
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)

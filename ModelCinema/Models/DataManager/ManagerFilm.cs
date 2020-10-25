@@ -26,6 +26,38 @@ namespace ModelCinema.Models.DataManager
             }
         }
 
+        public List<film> GetAllFilmsFrom(int? year)
+        {
+            if (year == null)
+                year = DateTime.Now.Year - 10;
+            try
+            {
+                return db.films.Where(f => f.annee_parution >= year).ToList();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public List<film> GetAllFilmsFromTo(int? yearMin, int? yearMax)
+        {
+            if (yearMin == null)
+                yearMin = DateTime.Now.Year - 10;
+            if (yearMax == null)
+                yearMax = DateTime.Now.Year + 10;
+
+            try
+            {
+                return db.films.Where(f => f.annee_parution >= yearMin && f.annee_parution <= yearMax).ToList();
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+
         public film GetFilm(int? id)
         {
             if (id != null)

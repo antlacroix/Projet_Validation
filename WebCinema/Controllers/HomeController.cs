@@ -1,8 +1,11 @@
-﻿using System;
+﻿using ModelCinema.Models;
+using ModelCinema.Models.DataManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Windows;
 
 namespace WebCinema.Controllers
 {
@@ -10,7 +13,33 @@ namespace WebCinema.Controllers
     {
         public ActionResult Index()
         {
+            try
+            {
+                List<cinema> tempCinema = new ManagerCinema().GetAllCinema();
+                List<SelectListItem> cinemas = new List<SelectListItem>();
+                foreach (cinema item in tempCinema)
+                {
+                    cinemas.Add(new SelectListItem() { Text = item.id.ToString(), Value = item.id.ToString() });
+                }
+
+                ViewBag.cinemas = new SelectList(cinemas, "Value", "Text");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return RedirectToAction("Index", "Home");
+            }
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(FormCollection form)
+        {
+
+            int id = int.Parse(form["cinemas"].ToString());
+            return RedirectToAction("Index", "seances", new { id = id });
+
         }
 
         public ActionResult About()

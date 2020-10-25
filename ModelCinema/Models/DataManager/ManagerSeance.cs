@@ -26,6 +26,41 @@ namespace ModelCinema.Models.DataManager
             }
         }
 
+        public List<seance> GetAllSeanceFromCinema(int cinemaId)
+        {
+            try
+            {
+                return db.seances.Where(s => s.salle.cinema_id == cinemaId).ToList();
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+
+        public List<seance> GetAllSeanceFromCinemaDate(int cinemaId, DateTime? date)
+        {
+            if (date == null)
+                date = DateTime.Now.AddDays(-10);
+            try
+            {
+                return db.seances.Where(s => 
+                    s.salle.cinema_id == cinemaId &&
+                    (
+                        s.date_debut >= date ||
+                        s.date_fin >= date
+                    )).ToList();
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+
+
+
         public seance GetSeance(int? id)
         {
             if (id != null)
