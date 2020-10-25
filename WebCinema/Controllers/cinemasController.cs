@@ -51,7 +51,7 @@ namespace WebCinema.Controllers
             try
             {
                 ViewBag.contact_info_id = new SelectList(new ManagerContact().GetAllContact(), "id", "adresse");
-                ViewBag.responsable_user_id = new SelectList(new ManagerUser().GetAllUser(), "id", "login");
+                ViewBag.responsable_user_id = new SelectList(new ManagerUser().GetAllUser(), "id", "name");
                 return View();
             }
             catch (Exception e)
@@ -78,7 +78,7 @@ namespace WebCinema.Controllers
                 }
 
                 ViewBag.contact_info_id = new SelectList(new ManagerContact().GetAllContact(), "id", "adresse");
-                ViewBag.responsable_user_id = new SelectList(new ManagerUser().GetAllUser(), "id", "login");
+                ViewBag.responsable_user_id = new SelectList(new ManagerUser().GetAllUser(), "id", "name");
             }
             catch (Exception e)
             {
@@ -97,7 +97,7 @@ namespace WebCinema.Controllers
                 cinema cinema = manager.GetCinema(id);
 
                 ViewBag.contact_info_id = new SelectList(new ManagerContact().GetAllContact(), "id", "adresse");
-                ViewBag.responsable_user_id = new SelectList(new ManagerUser().GetAllUser(), "id", "login");
+                ViewBag.responsable_user_id = new SelectList(new ManagerUser().GetAllUser(), "id", "name");
 
                 return View(cinema);
             }
@@ -125,7 +125,7 @@ namespace WebCinema.Controllers
                         return RedirectToAction("Index");
                 }
                 ViewBag.contact_info_id = new SelectList(new ManagerContact().GetAllContact(), "id", "adresse");
-                ViewBag.responsable_user_id = new SelectList(new ManagerUser().GetAllUser(), "id", "login");
+                ViewBag.responsable_user_id = new SelectList(new ManagerUser().GetAllUser(), "id", "name");
 
                 return View(cinema);
             }

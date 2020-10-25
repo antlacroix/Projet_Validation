@@ -1,13 +1,13 @@
 ﻿@{
-    ViewBag.Title = "DevPage";
+    ViewBag.Title = "Page";
 }
 
     
 
     <div class="row">
         <div class="col-md-4">
-            <h2>Home Page</h2>
-            @Html.ActionLink("DevPage > User", "Index", "users")
+            <h2>Acceuil</h2>
+            @*@Html.ActionLink("User", "Index", "users")*@
             <br />
             @using (Html.BeginForm())
             {
@@ -16,14 +16,14 @@
                 @Html.DropDownList("cinemas", null, htmlAttributes: new { @class = "form-control" })
             }
             <br />
-            @Html.ActionLink("DevPage > Films", "Index", "films")
+            @Html.ActionLink("Films", "Index", "films")
             <br />
-            @Html.ActionLink("DevPage > Cinemas", "Index", "cinemas")
+            @Html.ActionLink("Cinemas", "Index", "cinemas")
             <br />
-            @Html.ActionLink("DevPage > UserType", "Index", "user_type")
+            @*@Html.ActionLink("UserType", "Index", "user_type")*@
         </div>
 
-        <div>
+        @*<div>
             @Html.EJS().Calendar("calendar").Render()
-        </div>
+        </div>*@
     </div>

@@ -12,24 +12,29 @@
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <h4>film</h4>
+    @*<h4>film</h4>*@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.titre, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.titre, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.titre, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.titre, htmlAttributes: new { @class = "control-label col-md-2" })
+            </th>
+            <th>
+                @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
+            </th>
+        </tr>
+        <tr>
+            <td>
+                @Html.EditorFor(model => model.titre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.titre, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+    </table>
 
     <table class="table">
         <tr>
@@ -66,41 +71,41 @@
 
         </tr>
     </table>
-            @Html.HiddenFor(model => model.ranking)
-            @Html.HiddenFor(model => model.metascore)
-            @Html.HiddenFor(model => model.votes)
+    @Html.HiddenFor(model => model.ranking)
+    @Html.HiddenFor(model => model.metascore)
+    @Html.HiddenFor(model => model.votes)
     <hr />
 
     @*
-    <table class="table">
-        <tr>
-            <th>
-                @Html.LabelFor(model => model.Participations, htmlAttributes: new { @class = "control-label col-md-2" })
-            </th>
-            <th>
-                Role
-            </th>
-            <th>
-                @Html.ActionLink("Add Participation", "Index", "participations")
-            </th>
-        </tr>
-        @foreach (var modelItem in Model.Participations)
-        {
+        <table class="table">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => modelItem.Participation)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.role_participant)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                </td>
+                <th>
+                    @Html.LabelFor(model => model.Participations, htmlAttributes: new { @class = "control-label col-md-2" })
+                </th>
+                <th>
+                    Role
+                </th>
+                <th>
+                    @Html.ActionLink("Add Participation", "Index", "participations")
+                </th>
             </tr>
+            @foreach (var modelItem in Model.Participations)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.Participation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.role_participant)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                    </td>
+                </tr>
 
-        }
-    </table>
+            }
+        </table>
     *@
 
     <div class="form-group">

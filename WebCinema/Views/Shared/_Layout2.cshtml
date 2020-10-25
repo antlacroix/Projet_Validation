@@ -1,18 +1,12 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Cinema Pro </title>
+    <title>@ViewBag.Title - Mon application ASP.NET</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
-    <!-- Syncfusion Essential JS 2 Styles -->
-    <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/material.css" />
-
-    <!-- Syncfusion Essential JS 2 Scripts -->
-    <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>
-
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -23,13 +17,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Cinema Pro", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Nom d'application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Seances", "Index", "seances")</li>
-                    <li>@Html.ActionLink("Films", "Index", "films")</li>
-                    <li>@Html.ActionLink("Cinemas", "Index", "cinemas")</li>
+                    <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
+                    <li>@Html.ActionLink("À propos de", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
             </div>
         </div>
@@ -38,15 +32,14 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Cinema Pro </p>
+            <p>&copy; @DateTime.Now.Year - Mon application ASP.NET</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-
-    <!-- Syncfusion Essential JS 2 ScriptManager -->
-    @Html.EJS().ScriptManager()
 </body>
 </html>
+
+
