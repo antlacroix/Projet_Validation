@@ -64,24 +64,22 @@ namespace ModelCinema.Models.DataManager
 
         public bool PutSalle(salle salle)
         {
-            if (ValidatorSalle.IsSalleExist(salle) && ValidatorSalle.IsValide(salle))
+            if (ValidatorSalle.IsSalleExist(salle) && ValidatorSalle.IsValide(salle) && !ValidatorSalle.IsSalleContainSeance(salle))
             {
-                if (new ManagerSalle().GetSalle(salle.id).salle_status != salle.salle_status && ValidatorSalle.IsSalleContainSeance(salle))
+
+                try
                 {
-                    try
-                    {
-                        db.Entry(salle).State = EntityState.Modified;
-                        db.SaveChanges();
-                        return true;
-                    }
-                    catch (Exception e)
-                    {
-                        throw e;
-                    }
+                    db.Entry(salle).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return true;
                 }
-                else
-                    throw new SalleHaveSeanceException();
+                catch (Exception e)
+                {
+                    throw e;
+                }
             }
+            else if (ValidatorSalle.IsSalleContainSeance(salle))
+                throw new SalleHaveSeanceException();
             else if (!ValidatorSalle.IsSalleExist(salle))
                 throw new ItemNotExistException("salle");
             else
