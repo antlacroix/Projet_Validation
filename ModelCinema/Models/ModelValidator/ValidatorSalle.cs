@@ -46,5 +46,21 @@ namespace ModelCinema.Models.ModelValidator
             else
                 return false;
         }
+
+        static public bool IsSalleContainSeance(salle candidate)
+        {
+            if (candidate.seances.Count > 0)
+                return true;
+            else
+                return false;
+        }
+
+        static public bool IsSalleActive(salle candidate)
+        {
+            if (candidate.salle_status.status.ToUpper() == "ACTIVE")
+                return true;
+            else
+                return false;
+        }
     }
 }

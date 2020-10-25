@@ -16,17 +16,33 @@ namespace ModelCinema.Models.DataManager
 
         public List<seance> GetAllSeance()
         {
-            return db.seances.ToList();
+            try
+            {
+                return db.seances.ToList();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public seance GetSeance(int? id)
         {
-            return db.seances.Find(id);
+            if (id != null)
+            {
+                seance seance = db.seances.Find(id);
+                if (seance != null)
+                    return seance;
+                else
+                    throw new ItemNotExistException("seance");
+            }
+            else
+                throw new NullIdExecption("seance");
         }
 
         public bool PostSeance(seance seance)
         {
-            if (ValidatorSeance.IsValide(seance) && !ValidatorSeance.IsSeanceConflict(seance))
+            if (ValidatorSeance.IsValide(seance) && !ValidatorSeance.IsSeanceConflict(seance) && !ValidatorSeance.IsSeanceExiste(seance))
             {
                 try
                 {
@@ -41,18 +57,45 @@ namespace ModelCinema.Models.DataManager
             }
             else if (ValidatorSeance.IsSeanceConflict(seance))
                 throw new ConflictiongSeanceException();
+            else if (ValidatorSeance.IsSeanceExiste(seance))
+                throw new ExistingItemException("seance");
             else
                 throw new InvalidItemException("seance");
         }
 
         public bool PutSeance(seance seance)
         {
-            if (ValidatorSeance.IsSeanceExiste(seance) && ValidatorSeance.IsValide(seance))
+            if (ValidatorSeance.IsSeanceExiste(seance) && ValidatorSeance.IsValide(seance) && !ValidatorSeance.IsSeanceConflict(seance))
             {
                 try
                 {
                     db.Entry(seance).State = EntityState.Modified;
-                    db.SaveChanges(); // cA BRISE ICI
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+            else if (ValidatorSeance.IsSeanceConflict(seance))
+                throw new ConflictiongSeanceException();
+            else if (!ValidatorSeance.IsSeanceExiste(seance))
+                throw new ItemNotExistException("seance");
+            else
+                throw new InvalidItemException("seance");
+        }
+
+        public bool DeleteSeance(int id)
+        {
+
+            if (db.seances.Find(id) != null)
+            {
+                seance seance = db.seances.Find(id);
+                try
+                {
+                    db.seances.Remove(seance);
+                    db.SaveChanges();
                     return true;
                 }
                 catch (Exception e)
@@ -61,32 +104,7 @@ namespace ModelCinema.Models.DataManager
                 }
             }
             else
-            {
-                return false;
-            }
-        }
-
-        public bool DeleteSeance(int id)
-        {
-            if (db.seances.Find(id) != null)
-            {
-                try
-                {
-                    seance seance = db.seances.Find(id);
-                    db.seances.Remove(seance);
-                    db.SaveChanges();
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
+                throw new InvalidItemException("seance");
         }
     }
 }
