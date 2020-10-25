@@ -16,12 +16,28 @@ namespace ModelCinema.Models.DataManager
 
         public List<film> GetAllFilms()
         {
-            return db.films.ToList();
+            try
+            {
+                return db.films.ToList();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public film GetFilm(int? id)
         {
-            return db.films.Find(id);
+            if (id != null)
+            {
+                film film = db.films.Find(id);
+                if (film != null)
+                    return film;
+                else
+                    throw new ItemNotExistException("film");
+            }
+            else
+                throw new NullIdExecption("cinema");
         }
 
         public bool PostFilm(film film)
@@ -61,32 +77,29 @@ namespace ModelCinema.Models.DataManager
                     throw e;
                 }
             }
+            else if (!ValidatorFilm.IsFilmExist(film))
+                throw new ItemNotExistException("film");
             else
-            {
                 throw new InvalidItemException("film");
-            }
         }
 
         public bool DeleteFilm(int id)
         {
-            if (db.films.Find(id) != null)
+            try
             {
-                try
+                if (db.films.Find(id) != null)
                 {
                     film film = db.films.Find(id);
                     db.films.Remove(film);
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                    return false;
-                }
+                else
+                    throw new InvalidItemException("film");
             }
-            else
+            catch (Exception e)
             {
-                return false;
+                throw e;
             }
         }
 

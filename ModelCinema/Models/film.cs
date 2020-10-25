@@ -21,17 +21,17 @@ namespace ModelCinema.Models
             this.participations = new HashSet<participation>();
             this.seances = new HashSet<seance>();
         }
-    
-        private int id { get; set; }
+
+        public int id { get; set; }
         public string titre { get; set; }
-        private int ranking { get; set; }
-        private string description { get; set; }
-        private int annee_parution { get; set; }
-        private int duree { get; set; }
-        private double rating { get; set; }
-        private Nullable<double> revenu { get; set; }
-        private Nullable<int> votes { get; set; }
-        private Nullable<int> metascore { get; set; }
+        public Nullable<int> ranking { get; set; }
+        public string description { get; set; }
+        public int annee_parution { get; set; }
+        public int duree { get; set; }
+        public double rating { get; set; }
+        public Nullable<double> revenu { get; set; }
+        public Nullable<int> votes { get; set; }
+        public Nullable<int> metascore { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         private ICollection<genre_film> genre_film { get; set; }

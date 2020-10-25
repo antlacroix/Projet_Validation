@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Description;
 using System.Windows;
+using ModelCinema.ModelExeption;
 using ModelCinema.Models;
 using ModelCinema.Models.DataManager;
 using ModelCinema.Service;
@@ -19,8 +20,18 @@ namespace WebCinema.Controllers
     {
         public ActionResult Index()
         {
-            MovieService movieService = new MovieService();
-            return View(movieService.GetMovies());
+            try
+            {
+                //MovieService movieService = new MovieService();
+                //return View(movieService.GetMovies());
+                ManagerFilm manager = new ManagerFilm();
+                return View(manager.GetAllFilms());
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return RedirectToAction("Index", "Home");
+            }
         }
         public ActionResult FlushMovies()
         {
@@ -69,33 +80,35 @@ namespace WebCinema.Controllers
         }
 
 
-        // GET: films
-        //public ActionResult Index()
-        //{
-        //    ManagerFilm manager = new ManagerFilm();
-        //    return View(manager.GetAllFilms());
-        //}
-
         // GET: films/Details/5
         public ActionResult Details(int? id)
         {
-            ManagerFilm manager = new ManagerFilm();
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ManagerFilm manager = new ManagerFilm();
+                film film = manager.GetFilm(id);
+                return View(film);
+
             }
-            film film = manager.GetFilm(id);
-            if (film == null)
+            catch (Exception e)
             {
-                return HttpNotFound();
+                MessageBox.Show(e.Message);
+                return RedirectToAction("Index");
             }
-            return View(film);
         }
 
         // GET: films/Create
         public ActionResult Create()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return RedirectToAction("Index");
+            }
         }
 
         // POST: films/Create
@@ -103,39 +116,40 @@ namespace WebCinema.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,titre,description,annee_parution,duree,rating,revenu")] film film)
+        public ActionResult Create([Bind(Include = "id,titre,description,annee_parution,duree,rating,revenu,ranking,votes,metascore")] film film)
         {
-            ManagerFilm manager = new ManagerFilm();
-            if (ModelState.IsValid)
+            try
             {
-                try
+                ManagerFilm manager = new ManagerFilm();
+                if (ModelState.IsValid)
                 {
                     if (manager.PostFilm(film))
                         return RedirectToAction("Index");
                 }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
+                else
+                    throw new InvalidItemException("film");
             }
-
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
             return View(film);
         }
 
         // GET: films/Edit/5
         public ActionResult Edit(int? id)
         {
-            ManagerFilm manager = new ManagerFilm();
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ManagerFilm manager = new ManagerFilm();
+                film film = manager.GetFilm(id);
+                return View(film);
             }
-            film film = manager.GetFilm(id);
-            if (film == null)
+            catch (Exception e)
             {
-                return HttpNotFound();
+                MessageBox.Show(e.Message);
+                return RedirectToAction("Index");
             }
-            return View(film);
         }
 
         // POST: films/Edit/5
@@ -143,20 +157,23 @@ namespace WebCinema.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,titre,description,annee_parution,duree,rating,revenu")] film film)
+        public ActionResult Edit([Bind(Include = "id,titre,description,annee_parution,duree,rating,revenu,ranking,votes,metascore")] film film)
         {
-            ManagerFilm manager = new ManagerFilm();
-            if (ModelState.IsValid)
+            try
             {
-                try
+                ManagerFilm manager = new ManagerFilm();
+
+                if (ModelState.IsValid)
                 {
                     if (manager.PutFilm(film))
                         return RedirectToAction("Index");
                 }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
+                else
+                    throw new InvalidItemException("film");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
             return View(film);
         }
@@ -164,17 +181,17 @@ namespace WebCinema.Controllers
         // GET: films/Delete/5
         public ActionResult Delete(int? id)
         {
-            ManagerFilm manager = new ManagerFilm();
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ManagerFilm manager = new ManagerFilm();
+                film film = manager.GetFilm(id);
+                return View(film);
             }
-            film film = manager.GetFilm(id);
-            if (film == null)
+            catch (Exception e)
             {
-                return HttpNotFound();
+                MessageBox.Show(e.Message);
+                return RedirectToAction("Index");
             }
-            return View(film);
         }
 
         // POST: films/Delete/5
@@ -182,11 +199,16 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ManagerFilm manager = new ManagerFilm();
-            if (manager.DeleteFilm(id))
-                return RedirectToAction("Index");
-            // TODO
-            //Implementer un message d'erreur
+            try
+            {
+                ManagerFilm manager = new ManagerFilm();
+                if (manager.DeleteFilm(id))
+                    return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
             return RedirectToAction("Index");
         }
 

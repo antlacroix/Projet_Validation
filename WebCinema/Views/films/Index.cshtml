@@ -20,16 +20,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Ranking)
+            @Html.DisplayNameFor(model => model.ranking)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.titre)
         </th>
         @*<th>
                 @Html.DisplayNameFor(model => model.MovieGenres)
             </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.description)
         </th>
         @*<th>
                 @Html.DisplayNameFor(model => model.Director)
@@ -38,22 +38,22 @@
                 @Html.DisplayNameFor(model => model.Actors)
             </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.Year)
+            @Html.DisplayNameFor(model => model.annee_parution)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Duration)
+            @Html.DisplayNameFor(model => model.duree)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Rating)
+            @Html.DisplayNameFor(model => model.rating)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Votes)
+            @Html.DisplayNameFor(model => model.votes)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Revenue)
+            @Html.DisplayNameFor(model => model.revenu)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Metascore)
+            @Html.DisplayNameFor(model => model.metascore)
         </th>
 
         <th></th>
@@ -62,10 +62,10 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Ranking)
+                @Html.DisplayFor(modelItem => item.ranking)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @Html.DisplayFor(modelItem => item.titre)
             </td>
 
             @*<td>
@@ -75,7 +75,7 @@
                     }
                 </td>*@
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.description)
             </td>
             @*<td>
                     @Html.DisplayFor(modelItem => item.Director.Name)
@@ -87,28 +87,28 @@
                     }
                 </td>*@
             <td>
-                @Html.DisplayFor(modelItem => item.Year)
+                @Html.DisplayFor(modelItem => item.annee_parution)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Duration)
+                @Html.DisplayFor(modelItem => item.duree)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rating)
+                @Html.DisplayFor(modelItem => item.rating)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Votes)
+                @Html.DisplayFor(modelItem => item.votes)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Revenue)
+                @Html.DisplayFor(modelItem => item.revenu)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Metascore)
+                @Html.DisplayFor(modelItem => item.metascore)
             </td>
 
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.Id }) <br />
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) <br />
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })<br />
+                @Html.ActionLink("Edit", "Edit", new {  id=item.id }) <br />
+                @Html.ActionLink("Details", "Details", new { id = item.id }) <br />
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })<br />
             </td>
         </tr>
     }

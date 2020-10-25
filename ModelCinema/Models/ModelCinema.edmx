@@ -36,7 +36,7 @@
           <Property Name="duree" Type="int" Nullable="false" />
           <Property Name="rating" Type="float" Nullable="false" />
           <Property Name="revenu" Type="float" />
-          <Property Name="ranking" Type="int" Nullable="false" />
+          <Property Name="ranking" Type="int"/>
           <Property Name="votes" Type="int" />
           <Property Name="metascore" Type="int" />
         </EntityType>
@@ -408,7 +408,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="titre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="ranking" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="ranking" Type="Int32" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="annee_parution" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <Property Name="duree" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />

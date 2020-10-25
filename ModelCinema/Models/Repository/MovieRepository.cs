@@ -15,7 +15,7 @@ namespace ModelCinema.Models.Repository
 
         public IEnumerable<film> GetByTitle(string title)
         {
-            return dbSet.ToList().Where(movie => movie.Title.Contains(title)).ToList(); ;
+            return dbSet.ToList().Where(movie => movie.titre.Contains(title)).ToList(); ;
         }
     }
 }

@@ -159,18 +159,14 @@ namespace WebCinema.Controllers
                     if (manager.PostSeance(seance))
                         return RedirectToAction("Index");
                 }
-
                 ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
                 ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle(), "id", "commentaire");
-
-                return View(seance);
-
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                return View(seance);
             }
+            return View(seance);
         }
 
         // GET: seances/Edit/5
@@ -204,20 +200,17 @@ namespace WebCinema.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    managerSeance.PutSeance(seance);
-                    return RedirectToAction("Index");
+                    if (managerSeance.PutSeance(seance))
+                        return RedirectToAction("Index");
                 }
-
                 ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre", seance.film_id);
                 ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle(), "id", "commentaire", seance.salle_id);
-
-                return View(seance);
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                return View(seance);
             }
+            return View(seance);
         }
 
         // GET: seances/Delete/5

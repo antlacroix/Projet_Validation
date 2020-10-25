@@ -66,7 +66,6 @@ namespace ModelCinema.Models.DataManager
         {
             if (ValidatorSalle.IsSalleExist(salle) && ValidatorSalle.IsValide(salle) && !ValidatorSalle.IsSalleContainSeance(salle))
             {
-
                 try
                 {
                     db.Entry(salle).State = EntityState.Modified;
@@ -88,29 +87,32 @@ namespace ModelCinema.Models.DataManager
 
         public bool DeleteSalles(int id)
         {
-            if (db.salles.Find(id) != null)
+            try
             {
-                salle salle = db.salles.Find(id);
-                if (!ValidatorSalle.IsSalleActive(salle) && !ValidatorSalle.IsSalleContainSeance(salle))
+                if (db.salles.Find(id) != null)
                 {
-                    try
+                    salle salle = db.salles.Find(id);
+                    if (!ValidatorSalle.IsSalleActive(salle) && !ValidatorSalle.IsSalleContainSeance(salle))
                     {
                         db.salles.Remove(salle);
                         db.SaveChanges();
                         return true;
+
+
                     }
-                    catch (Exception e)
-                    {
-                        throw e;
-                    }
+                    else if (ValidatorSalle.IsSalleActive(salle))
+                        throw new SalleActiveException();
+                    else
+                        throw new SalleHaveSeanceException();
                 }
-                else if (ValidatorSalle.IsSalleActive(salle))
-                    throw new SalleActiveException();
                 else
-                    throw new SalleHaveSeanceException();
+                    throw new InvalidItemException("salle");
             }
-            else
-                throw new InvalidItemException("salle");
+            catch (Exception e)
+            {
+                throw e;
+            }
+
         }
     }
 }

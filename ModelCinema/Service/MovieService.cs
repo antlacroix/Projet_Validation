@@ -30,15 +30,15 @@ namespace ModelCinema.Service
 
                     var movie = new film
                     {
-                        Ranking = csv.GetField<int>("Rank"),
-                        Title = csv.GetField<String>("Title"),
-                        Description = csv.GetField("Description"),
-                        Year = csv.GetField<int>("Year"),
-                        Duration = csv.GetField<int>("Runtime (Minutes)"),
-                        Rating = csv.GetField<float>("Rating"),
-                        Votes = csv.GetField<int>("Votes"),
-                        Revenue = csv.GetField("Revenue (Millions)") == "" ? null : csv.GetField<float?>("Revenue (Millions)"),
-                        Metascore = csv.GetField("Metascore") == "" ? null : csv.GetField<int?>("Metascore")
+                        ranking = csv.GetField<int>("Rank"),
+                        titre = csv.GetField<String>("Title"),
+                        description = csv.GetField("Description"),
+                        annee_parution = csv.GetField<int>("Year"),
+                        duree = csv.GetField<int>("Runtime (Minutes)"),
+                        rating = csv.GetField<float>("Rating"),
+                        votes = csv.GetField<int>("Votes"),
+                        revenu = csv.GetField("Revenue (Millions)") == "" ? null : csv.GetField<float?>("Revenue (Millions)"),
+                        metascore = csv.GetField("Metascore") == "" ? null : csv.GetField<int?>("Metascore")
                     };
 
                     uow.MovieRepo.InsertIfNotExists(movie);

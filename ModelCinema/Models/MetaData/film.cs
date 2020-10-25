@@ -38,137 +38,138 @@ namespace ModelCinema.Models
             this.revenu = revenu;
         }
 
-        public int Id
-        {
-            get { return id; }
-        }
-        public string Title
-        {
-            get { return titre; }
-            set
-            {
-                titre = value;
-            }
-        }
+        //public int Id
+        //{
+        //    get { return id; }
+        //}
 
-        public int Ranking
-        {
-            get { return ranking; }
-            set
-            {
-                ranking = value;
-            }
-        }
+        //public string Title
+        //{
+        //    get { return titre; }
+        //    set
+        //    {
+        //        titre = value;
+        //    }
+        //}
 
-        public string Description
-        {
-            get { return description; }
-            set
-            {
-                description = value;
-            }
-        }
+        //public int Ranking
+        //{
+        //    get { return ranking; }
+        //    set
+        //    {
+        //        ranking = value;
+        //    }
+        //}
 
-        public int Year
-        {
-            get { return annee_parution; }
-            set
-            {
-                annee_parution = value;
-            }
-        }
+        //public string Description
+        //{
+        //    get { return description; }
+        //    set
+        //    {
+        //        description = value;
+        //    }
+        //}
 
-        public int Duration
-        {
-            get { return duree; }
-            set
-            {
-                duree = value;
-            }
-        }
+        //public int Year
+        //{
+        //    get { return annee_parution; }
+        //    set
+        //    {
+        //        annee_parution = value;
+        //    }
+        //}
 
-        public double Rating
-        {
-            get { return rating; }
-            set
-            {
-                rating = value;
-            }
-        }
+        //public int Duration
+        //{
+        //    get { return duree; }
+        //    set
+        //    {
+        //        duree = value;
+        //    }
+        //}
 
-        public double? Revenue
-        {
-            get { return revenu; }
-            set
-            {
-                revenu = value;
-            }
-        }
+        //public double Rating
+        //{
+        //    get { return rating; }
+        //    set
+        //    {
+        //        rating = value;
+        //    }
+        //}
 
-        public int? Votes
-        {
-            get { return votes; }
-            set
-            {
-                votes = value;
-            }
-        }
+        //public double? Revenue
+        //{
+        //    get { return revenu; }
+        //    set
+        //    {
+        //        revenu = value;
+        //    }
+        //}
 
-        public int? Metascore
-        {
-            get { return metascore; }
-            set
-            {
-                metascore = value;
-            }
-        }
+        //public int? Votes
+        //{
+        //    get { return votes; }
+        //    set
+        //    {
+        //        votes = value;
+        //    }
+        //}
 
-        public ICollection<genre_film> Genres
-        {
-            get { return genre_film; }
-            set
-            {
-                genre_film = value;
-            }
-        }
+        //public int? Metascore
+        //{
+        //    get { return metascore; }
+        //    set
+        //    {
+        //        metascore = value;
+        //    }
+        //}
 
-        public ICollection<participation> Participations
-        {
-            get { return participations; }
-            set
-            {
-                participations = value;
-            }
-        }
+        //public ICollection<genre_film> Genres
+        //{
+        //    get { return genre_film; }
+        //    set
+        //    {
+        //        genre_film = value;
+        //    }
+        //}
 
-        public ICollection<seance> Seances
-        {
-            get { return seances; }
-            set
-            {
-                seances = value;
-            }
-        }
+        //public ICollection<participation> Participations
+        //{
+        //    get { return participations; }
+        //    set
+        //    {
+        //        participations = value;
+        //    }
+        //}
 
-        public override bool Equals(object obj)
-        {
-            var movie = obj as film;
+        //public ICollection<seance> Seances
+        //{
+        //    get { return seances; }
+        //    set
+        //    {
+        //        seances = value;
+        //    }
+        //}
 
-            return Title.Equals(movie.Title) &&
-                 Description.Equals(movie.Description) &&
-                 Year.Equals(movie.Year) &&
-                 Duration.Equals(movie.Duration);
-        }
+        //public override bool Equals(object obj)
+        //{
+        //    var movie = obj as film;
 
-        public override int GetHashCode()
-        {
-            int hashTitle = Title == null ? 0 : Title.GetHashCode();
-            int hashDescription = Description == null ? 0 : Description.GetHashCode();
-            int hashYear = Year.GetHashCode();
-            int hashDuration = Duration.GetHashCode();
+        //    return Title.Equals(movie.Title) &&
+        //         Description.Equals(movie.Description) &&
+        //         Year.Equals(movie.Year) &&
+        //         Duration.Equals(movie.Duration);
+        //}
 
-            return hashTitle ^ hashDescription ^ hashYear ^ hashDuration;
-        }
+        //public override int GetHashCode()
+        //{
+        //    int hashTitle = Title == null ? 0 : Title.GetHashCode();
+        //    int hashDescription = Description == null ? 0 : Description.GetHashCode();
+        //    int hashYear = Year.GetHashCode();
+        //    int hashDuration = Duration.GetHashCode();
+
+        //    return hashTitle ^ hashDescription ^ hashYear ^ hashDuration;
+        //}
     }
 
     public class filmMetadata
@@ -179,41 +180,39 @@ namespace ModelCinema.Models
         [StringLength(film.titreMax, ErrorMessage = "titre")]
         public string titre { get; set; }
 
-        [Required]
         [DisplayName("Classement")]
-        [Range(1, 1001, ErrorMessage ="Ranking")]
-        //[Column("ranking")]
-        public int Ranking { get; set; }
+        [Range(1, 1001, ErrorMessage = "Ranking")]
+        public int ranking { get; set; }
 
         [DisplayName("Description")]
         [StringLength(film.descriptionMax, ErrorMessage = "description")]
-        public string Description { get; set; }
+        public string description { get; set; }
 
         [Required]
         [DisplayName("Annee")]
         [Range(film.anneeParutionMin, film.anneeParutionMax, ErrorMessage = "annee")]
-        public int Year { get; set; }
+        public int annee_parution { get; set; }
 
         [Required]
         [DisplayName("Duree")]
         [Range(film.dureeMin, film.dureeMax, ErrorMessage = "duration")]
-        public int Duration { get; set; }
+        public int duree { get; set; }
 
         [Required]
         [DisplayName("Rating")]
-        [Range(film.ratingMin, film.ratingMax, ErrorMessage ="rating")]
-        public double Rating { get; set; }
+        [Range(film.ratingMin, film.ratingMax, ErrorMessage = "rating")]
+        public double rating { get; set; }
 
         [DisplayName("Revenue")]
-        [Range(film.revenuMin, film.revenuMax, ErrorMessage ="revenue")]
-        public double? Revenue { get; set; }
+        [Range(film.revenuMin, film.revenuMax, ErrorMessage = "revenue")]
+        public double? revenu { get; set; }
 
         [DisplayName("Votes")]
         [Range(0, 10000000, ErrorMessage = "votes")]
-        public int? Votes { get; set; }
+        public int? votes { get; set; }
 
         [DisplayName("Metascore")]
         [Range(0, 100, ErrorMessage = "metascore")]
-        public int? Metascore { get; set; }
+        public int? metascore { get; set; }
     }
 }

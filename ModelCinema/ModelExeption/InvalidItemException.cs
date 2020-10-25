@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelCinema.ModelExeption
 {
-    class InvalidItemException : Exception
+    public class InvalidItemException : Exception
     {
         public InvalidItemException(string objectType) 
             : base(String.Format("l'objet '{0}' contient une information invalide", objectType))
