@@ -14,8 +14,6 @@ namespace WebCinema.Controllers
 {
     public class participantsController : Controller
     {
-        //private cinema_dbEntities db = new cinema_dbEntities();
-
         // GET: participants
         public ActionResult Index()
         {
@@ -138,11 +136,7 @@ namespace WebCinema.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            //if (disposing)
-            //{
-            //    db.Dispose();
-            //}
-            //base.Dispose(disposing);
+
         }
     }
 }

@@ -192,19 +192,7 @@ namespace WebCinema.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            //if (disposing)
-            //{
-            //ManagerFilm manager = new ManagerFilm();
-            //manager.Dispose();
-            //}
 
-            ////base.Dispose(disposing);
-
-            ////if (disposing)
-            ////{
-            ////    db.Dispose();
-            ////}
-            ////base.Dispose(disposing);
         }
     }
 }

@@ -25,3 +25,4 @@ namespace ModelCinema.Models.DataManager
         }
     }
 }
+

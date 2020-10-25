@@ -14,8 +14,6 @@ namespace WebCinema.Controllers
 {
     public class sallesController : Controller
     {
-        //private cinema_dbEntities db = new cinema_dbEntities();
-
         // GET: salles
         public ActionResult Index()
         {
@@ -122,10 +120,8 @@ namespace WebCinema.Controllers
                     MessageBox.Show(e.Message);
                 }
             }
-
             ViewBag.cinema_id = new SelectList(new ManagerCinema().GetAllCinema(), "id", "id", salle.cinema_id);
             ViewBag.status_id = new SelectList(new ManagerSalleStatus().GetAllSalleStatus(), "id", "status", salle.status_id);
-
             return View(salle);
         }
 
@@ -160,11 +156,7 @@ namespace WebCinema.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            //if (disposing)
-            //{
-            //    db.Dispose();
-            //}
-            //base.Dispose(disposing);
+			
         }
     }
 }

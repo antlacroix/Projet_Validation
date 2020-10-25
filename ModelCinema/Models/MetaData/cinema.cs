@@ -6,12 +6,18 @@ namespace ModelCinema.Models
     [MetadataType(typeof(cinemaMetaData))]
     public partial class cinema
     {
-        public string CinemaText {
-            get;
-            set;
-        }
+        //public int Id
+        //{
+        //    get { return this.id; }
+        //    set { this.id = value; }
+        //}
+        //public string CinemaText
+        //{
+        //    get;
+        //    set;
+        //}
         //public int Id { set; get; }
-        public string CinemaColor { set; get; }
+        //public string CinemaColor { set; get; }
     }
     public class cinemaMetaData
     {
