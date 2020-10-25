@@ -20,7 +20,7 @@ namespace WebCinema.Controllers
         {
             // Sauvgardé les modif et nouveau séence
         }
-
+        #region
         //public List<seance> GetScheduleData()
         //{
         //    List<seance> appData = new List<seance>();
@@ -81,10 +81,12 @@ namespace WebCinema.Controllers
         //    });
         //    return appData;
         //}
+        #endregion
 
         // GET: seances
         public ActionResult Index()
         {
+            #region
             //ManagerCinema managerCinema = new ManagerCinema();
             //ManagerSalle managerSalle = new ManagerSalle();
             //ManagerFilm managerFilm = new ManagerFilm();
@@ -98,8 +100,17 @@ namespace WebCinema.Controllers
             //ViewBag.Salle = managerSalle.GetAllSalle();
 
             //ViewBag.Resources = new string[] { "Cinema", "Salle" };
+            #endregion
             try
             {
+                List<cinema> tempCinema = new ManagerCinema().GetAllCinema();
+                List<SelectListItem> cinemas = new List<SelectListItem>();
+                foreach (cinema item in tempCinema)
+                {
+                    cinemas.Add(new SelectListItem() { Text = item.id.ToString(), Value = item.id.ToString() });
+                }
+
+                ViewBag.cinemas = new SelectList(cinemas,"Value", "Text");
                 ManagerSeance managerSeance = new ManagerSeance();
                 return View(managerSeance.GetAllSeance());
             }
@@ -108,6 +119,15 @@ namespace WebCinema.Controllers
                 MessageBox.Show(e.Message);
                 return RedirectToAction("Index", "Home");
             }
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(FormCollection form)
+        {
+
+            int id = int.Parse(form["cinemas"].ToString());
+            return RedirectToAction("Create", new { id = id });
 
         }
 
@@ -128,12 +148,15 @@ namespace WebCinema.Controllers
         }
 
         // GET: seances/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
             try
             {
+                if(id != null)
+                    ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle().Where(S => S.cinema_id == id), "id", "commentaire");
+                else
+                    ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle(), "id", "commentaire");
                 ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
-                ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle(), "id", "commentaire");
                 return View();
             }
             catch (Exception e)

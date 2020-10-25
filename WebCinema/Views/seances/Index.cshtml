@@ -7,7 +7,6 @@
 }
 
 <h2>Seances Index</h2>
-
 @*<asp:Button runat="server" id="btnSave" Text=" « SAVE » " OnClick="btnSave" />
 
     @(Html.EJS().Schedule("schedule")
@@ -51,9 +50,9 @@
 
 <table class="table">
     <tr>
-        @*<th>
-            @Html.DisplayNameFor(model => model.salle.cinema.CinemaText)
-        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.salle.cinema.id)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.titre_seance)
         </th>
@@ -67,16 +66,22 @@
             @Html.DisplayNameFor(model => model.film_id)
         </th>
         <th>
-            @Html.ActionLink("Create New", "Create")
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <input type="submit" value="Create New" class="btn btn-default" />
+                @*@Html.ActionLink("Create New", "Create")*@
+                @Html.DropDownList("cinemas", null, htmlAttributes: new { @class = "form-control" })
+            }
         </th>
     </tr>
-    
+
     @foreach (var item in Model)
     {
         <tr>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.salle.cinema.CinemaText)
-            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.salle.cinema.id)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.titre_seance)
             </td>
