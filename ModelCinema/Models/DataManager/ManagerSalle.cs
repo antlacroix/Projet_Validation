@@ -17,12 +17,28 @@ namespace ModelCinema.Models.DataManager
 
         public List<salle> GetAllSalle()
         {
-            return db.salles.ToList();
+            try
+            {
+                return db.salles.ToList();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public salle GetSalle(int? id)
         {
-            return db.salles.Find(id);
+            if (id != null)
+            {
+                salle salle = db.salles.Find(id);
+                if (salle != null)
+                    return salle;
+                else
+                    throw new ItemNotExistException("cinema");
+            }
+            else
+                throw new NullIdExecption("cinema");
         }
 
         public bool PostSalle(salle salle)
@@ -40,7 +56,7 @@ namespace ModelCinema.Models.DataManager
                     throw e;
                 }
             }
-            else if(ValidatorSalle.IsSalleExist(salle))
+            else if (ValidatorSalle.IsSalleExist(salle))
                 throw new ExistingItemException("salle");
             else
                 throw new InvalidItemException("salle");
@@ -71,23 +87,27 @@ namespace ModelCinema.Models.DataManager
         {
             if (db.salles.Find(id) != null)
             {
-                try
+                salle salle = db.salles.Find(id);
+                if (!ValidatorSalle.IsSalleActive(salle) && !ValidatorSalle.IsSalleContainSeance(salle))
                 {
-                    salle salle = db.salles.Find(id);
-                    db.salles.Remove(salle);
-                    db.SaveChanges();
-                    return true;
+                    try
+                    {
+                        db.salles.Remove(salle);
+                        db.SaveChanges();
+                        return true;
+                    }
+                    catch (Exception e)
+                    {
+                        throw e;
+                    }
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                    return false;
-                }
+                else if (ValidatorSalle.IsSalleActive(salle))
+                    throw new SalleActiveException();
+                else
+                    throw new SalleHaveSeanceException();
             }
             else
-            {
-                return false;
-            }
+                throw new InvalidItemException("salle");
         }
     }
 }

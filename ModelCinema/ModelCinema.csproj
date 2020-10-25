@@ -119,10 +119,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelExeption\CinemaHasSalleException.cs" />
     <Compile Include="ModelExeption\ConflictiongSeanceException.cs" />
     <Compile Include="ModelExeption\ExistingItemException.cs" />
     <Compile Include="ModelExeption\InvalidItemException.cs" />
     <Compile Include="ModelExeption\ItemNotExistException.cs" />
+    <Compile Include="ModelExeption\NullIdExecption.cs" />
+    <Compile Include="ModelExeption\SalleActiveException.cs" />
+    <Compile Include="ModelExeption\SalleHaveSeanceException.cs" />
     <Compile Include="Models\cinema.cs">
       <DependentUpon>ModelCinema.tt</DependentUpon>
     </Compile>

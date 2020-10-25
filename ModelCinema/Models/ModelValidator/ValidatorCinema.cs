@@ -21,5 +21,12 @@ namespace ModelCinema.Models.ModelValidator
             else
                 return false;
         }
+        static public bool IsCinemaContainSalle(cinema candidate)
+        {
+            if (candidate.salles.Count > 0)
+                return true;
+            else
+                return false;
+        }
     }
 }

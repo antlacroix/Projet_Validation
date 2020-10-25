@@ -17,32 +17,48 @@ namespace WebCinema.Controllers
         // GET: cinemas
         public ActionResult Index()
         {
-            ManagerCinema manager = new ManagerCinema();
-            return View(manager.GetAllCinema());
+            try
+            {
+                ManagerCinema manager = new ManagerCinema();
+                return View(manager.GetAllCinema());
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         // GET: cinemas/Details/5
         public ActionResult Details(int? id)
         {
-            ManagerCinema manager = new ManagerCinema();
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ManagerCinema manager = new ManagerCinema();
+                cinema cinema = manager.GetCinema(id);
+                return View(cinema);
             }
-            cinema cinema = manager.GetCinema(id);
-            if (cinema == null)
+            catch (Exception e)
             {
-                return HttpNotFound();
+                MessageBox.Show(e.Message);
+                return RedirectToAction("Index");
             }
-            return View(cinema);
         }
 
         // GET: cinemas/Create
         public ActionResult Create()
         {
-            ViewBag.contact_info_id = new SelectList(new ManagerContact().GetAllContact(), "id", "adresse");
-            ViewBag.responsable_user_id = new SelectList(new ManagerUser().GetAllUser(), "id", "login");
-            return View();
+            try
+            {
+                ViewBag.contact_info_id = new SelectList(new ManagerContact().GetAllContact(), "id", "adresse");
+                ViewBag.responsable_user_id = new SelectList(new ManagerUser().GetAllUser(), "id", "login");
+                return View();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return RedirectToAction("Index");
+            }
         }
 
         // POST: cinemas/Create
@@ -52,40 +68,45 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,contact_info_id,responsable_user_id")] cinema cinema)
         {
-            ManagerCinema manager = new ManagerCinema();
-            if (ModelState.IsValid)
+            try
             {
-                try
+                ManagerCinema manager = new ManagerCinema();
+                if (ModelState.IsValid)
                 {
-                if(manager.PostCinema(cinema))
-                    return RedirectToAction("Index");
+                    if (manager.PostCinema(cinema))
+                        return RedirectToAction("Index");
                 }
-                catch(Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
+
+                ViewBag.contact_info_id = new SelectList(new ManagerContact().GetAllContact(), "id", "adresse");
+                ViewBag.responsable_user_id = new SelectList(new ManagerUser().GetAllUser(), "id", "login");
             }
-            //ViewBag.contact_info_id = new SelectList(new ManagerContact().GetAllContact(), "id", "adresse");
-            //ViewBag.responsable_user_id = new SelectList(new ManagerUser().GetAllUser(), "id", "login");
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
             return View(cinema);
         }
+
 
         // GET: cinemas/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ManagerCinema manager = new ManagerCinema();
+                cinema cinema = manager.GetCinema(id);
+
+                ViewBag.contact_info_id = new SelectList(new ManagerContact().GetAllContact(), "id", "adresse");
+                ViewBag.responsable_user_id = new SelectList(new ManagerUser().GetAllUser(), "id", "login");
+
+                return View(cinema);
             }
-            ManagerCinema manager = new ManagerCinema();
-            cinema cinema = manager.GetCinema(id);
-            if (cinema == null)
+            catch (Exception e)
             {
-                return HttpNotFound();
+                MessageBox.Show(e.Message);
+                return RedirectToAction("Index");
             }
-            ViewBag.contact_info_id = new SelectList(new ManagerContact().GetAllContact(), "id", "adresse");
-            ViewBag.responsable_user_id = new SelectList(new ManagerUser().GetAllUser(), "id", "login");
-            return View(cinema);
+
         }
 
         // POST: cinemas/Edit/5
@@ -95,39 +116,40 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,contact_info_id,responsable_user_id")] cinema cinema)
         {
-            ManagerCinema manager = new ManagerCinema();
-            if (ModelState.IsValid)
+            try
             {
-                try
+                ManagerCinema manager = new ManagerCinema();
+                if (ModelState.IsValid)
                 {
                     if (manager.PutCinema(cinema))
                         return RedirectToAction("Index");
                 }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
-            }
-            ViewBag.contact_info_id = new SelectList(new ManagerContact().GetAllContact(), "id", "adresse");
-            ViewBag.responsable_user_id = new SelectList(new ManagerUser().GetAllUser(), "id", "login");
+                ViewBag.contact_info_id = new SelectList(new ManagerContact().GetAllContact(), "id", "adresse");
+                ViewBag.responsable_user_id = new SelectList(new ManagerUser().GetAllUser(), "id", "login");
 
-            return View(cinema);
+                return View(cinema);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return View(cinema);
+            }
         }
 
         // GET: cinemas/Delete/5
         public ActionResult Delete(int? id)
         {
-            ManagerCinema manager = new ManagerCinema();
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ManagerCinema manager = new ManagerCinema();
+                cinema cinema = manager.GetCinema(id);
+                return View(cinema);
             }
-            cinema cinema = manager.GetCinema(id);
-            if (cinema == null)
+            catch (Exception e)
             {
-                return HttpNotFound();
+                MessageBox.Show(e.Message);
+                return RedirectToAction("Index");
             }
-            return View(cinema);
         }
 
         // POST: cinemas/Delete/5
@@ -135,11 +157,17 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ManagerCinema manager = new ManagerCinema();
-            if(manager.DeleteCinema(id))
-                return RedirectToAction("Index");
-            // TODO
-            //Implementer un message d'erreur
+            try
+            {
+                ManagerCinema manager = new ManagerCinema();
+                if (manager.DeleteCinema(id))
+                    return RedirectToAction("Index");
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
             return View(id);
         }
 
@@ -151,31 +179,37 @@ namespace WebCinema.Controllers
         //GET: cinemas/CreateSalle
         public ActionResult CreateSalle(int id)
         {
-            ManagerSalleStatus manager = new ManagerSalleStatus();
-            Session["cineId"] = id;
-            ViewBag.status_id = new SelectList(manager.GetAllSalleStatus(), "id", "status", manager.GetSalleStatus(2));
-
-            return View();
+            try
+            {
+                ManagerSalleStatus manager = new ManagerSalleStatus();
+                Session["cineId"] = id;
+                ViewBag.status_id = new SelectList(manager.GetAllSalleStatus(), "id", "status", manager.GetSalleStatus(2));
+                return View();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return RedirectToAction("Details", new { id = id });
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateSalle([Bind(Include = "id, nbr_place, numero_salle, commentaire, status_id, cinema_id")] salle salle)
         {
-            ManagerSalle manager = new ManagerSalle();
-            salle.cinema_id = int.Parse(Session["cineId"].ToString());
-
-            if (ModelState.IsValid)
+            try
             {
-                try
+                ManagerSalle manager = new ManagerSalle();
+                salle.cinema_id = int.Parse(Session["cineId"].ToString());
+                if (ModelState.IsValid)
                 {
                     if (manager.PostSalle(salle))
                         return RedirectToAction("Details", new { id = salle.cinema_id });
                 }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
             return View(salle);
         }
@@ -183,34 +217,34 @@ namespace WebCinema.Controllers
         //GET: cinemas/DetailsSalle/5
         public ActionResult DetailsSalle(int? id)
         {
-            ManagerSalle manager = new ManagerSalle();
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ManagerSalle manager = new ManagerSalle();
+                salle salle = manager.GetSalle(id);
+                return View(salle);
             }
-            salle salle = manager.GetSalle(id);
-            if (salle == null)
+            catch (Exception e)
             {
-                return HttpNotFound();
+                MessageBox.Show(e.Message);
+                return RedirectToAction("Details", new { id = id });
             }
-            return View(salle);
         }
 
         //Get: cinemas/EditSalle/5
         public ActionResult EditSalle(int? id)
         {
-            ManagerSalle manager = new ManagerSalle();
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ManagerSalle manager = new ManagerSalle();
+                salle salle = manager.GetSalle(id);
+                ViewBag.status_id = new SelectList(new ManagerSalleStatus().GetAllSalleStatus(), "id", "status", salle.status_id);
+                return View(salle);
             }
-            salle salle = manager.GetSalle(id);
-            if (salle == null)
+            catch (Exception e)
             {
-                return HttpNotFound();
+                MessageBox.Show(e.Message);
+                return RedirectToAction("Details", new { id = id });
             }
-            ViewBag.status_id = new SelectList(new ManagerSalleStatus().GetAllSalleStatus(), "id", "status", salle.status_id);
-            return View(salle);
         }
 
         //Post cinemas/EditSalle5
@@ -218,37 +252,38 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditSalle([Bind(Include = "id,nbr_place,numero_salle,commentaire,status_id,cinema_id")] salle salle)
         {
-            ManagerSalle manager = new ManagerSalle();
-            if (ModelState.IsValid)
+            try
             {
-                try
+                ManagerSalle manager = new ManagerSalle();
+                if (ModelState.IsValid)
                 {
                     manager.PutSalle(salle);
                     return RedirectToAction("Details", new { id = salle.cinema_id });
                 }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
             ViewBag.status_id = new SelectList(new ManagerSalleStatus().GetAllSalleStatus(), "id", "status", salle.status_id);
             return View(salle);
         }
 
+
         //Get: cinemas/DeleteSalle/5
         public ActionResult DeleteSalle(int? id)
         {
-            ManagerSalle manager = new ManagerSalle();
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ManagerSalle manager = new ManagerSalle();
+                salle salle = manager.GetSalle(id);
+                return View(salle);
             }
-            salle salle = manager.GetSalle(id);
-            if (salle == null)
+            catch (Exception e)
             {
-                return HttpNotFound();
+                MessageBox.Show(e.Message);
+                return RedirectToAction("Details", new { id = id });
             }
-            return View(salle);
         }
 
         //POST: cinemas/DeleteSalle/5
@@ -256,13 +291,18 @@ namespace WebCinema.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteSalle(int id)
         {
-            ManagerSalle manager = new ManagerSalle();
-            int cineId = manager.GetSalle(id).cinema_id;
-            if (manager.DeleteSalles(id))
-                return RedirectToAction("Details", new { id = cineId });
-            // TODO
-            //Implementer un message d'erreur
-            return View(id);
+            try
+            {
+                ManagerSalle manager = new ManagerSalle();
+                int cineId = manager.GetSalle(id).cinema_id;
+                if (manager.DeleteSalles(id))
+                    return RedirectToAction("Details", new { id = cineId });
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return RedirectToAction("DeleteSalle", new { id = id });
         }
     }
 }
