@@ -1,10 +1,10 @@
 ﻿@model ModelCinema.Models.cinema
 
 @{
-    ViewBag.Title = "Create2";
+    ViewBag.Title = "Create Cinema";
 }
 
-<h2>Create2</h2>
+<h2>Create Cinema</h2>
 
 
 @using (Html.BeginForm()) 
@@ -12,11 +12,11 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>cinema</h4>
+        @*<h4>cinema</h4>*@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.contact_info_id, "contact_info_id", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.contact_info_id, "Address", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("contact_info_id", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.contact_info_id, "", new { @class = "text-danger" })
@@ -24,7 +24,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.responsable_user_id, "responsable_user_id", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.responsable_user_id, "Responsable", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("responsable_user_id", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.responsable_user_id, "", new { @class = "text-danger" })
