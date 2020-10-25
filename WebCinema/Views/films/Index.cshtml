@@ -6,14 +6,12 @@
 
 <h2>Films Index</h2>
 
+
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Importer un fichier csv", "UploadMovies")
 </p>
 <p>
-    @Html.ActionLink("DEV- Importer un fichier csv", "UploadMovies")
-</p>
-<p>
-    @Html.ActionLink("DEV- Supprimer tous les films de la bd", "FlushMovies")
+    @Html.ActionLink("Supprimer tous les films de la bd", "FlushMovies")
 </p>
 
 
@@ -56,7 +54,11 @@
             @Html.DisplayNameFor(model => model.metascore)
         </th>
 
-        <th></th>
+        <th>
+            <p>
+                @Html.ActionLink("Create New", "Create")
+            </p>
+        </th>
     </tr>
     @foreach (var item in Model)
     {
