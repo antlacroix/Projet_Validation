@@ -308,7 +308,7 @@ namespace WebCinema.Controllers
             {
                 MessageBox.Show(e.Message);
             }
-            return View(id);
+            return RedirectToAction("DeleteSalle", new { id = id });
         }
     }
 }
