@@ -4,7 +4,7 @@
     ViewBag.Title = "Details Seances";
 }
 
-    <h2>Seances Details</h2>
+<h2>Seances Details</h2>
 
 <div>
     @*<h4>seance</h4>*@
@@ -54,5 +54,5 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "BackToSalle", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) })
 </p>

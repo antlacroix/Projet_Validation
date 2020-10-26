@@ -103,14 +103,14 @@ namespace WebCinema.Controllers
             #endregion
             try
             {
-                List<cinema> tempCinema = new ManagerCinema().GetAllCinema();
-                List<SelectListItem> cinemas = new List<SelectListItem>();
-                foreach (cinema item in tempCinema)
-                {
-                    cinemas.Add(new SelectListItem() { Text = item.id.ToString(), Value = item.id.ToString() });
-                }
+                //List<cinema> tempCinema = new ManagerCinema().GetAllCinema();
+                //List<SelectListItem> cinemas = new List<SelectListItem>();
+                //foreach (cinema item in tempCinema)
+                //{
+                //    cinemas.Add(new SelectListItem() { Text = item.id.ToString(), Value = item.id.ToString() });
+                //}
 
-                ViewBag.cinemas = new SelectList(cinemas, "Value", "Text");
+                //ViewBag.cinemas = new SelectList(cinemas, "Value", "Text");
                 ManagerSeance managerSeance = new ManagerSeance();
                 return View(managerSeance.GetAllSeanceFromCinema(id));
             }
@@ -121,15 +121,15 @@ namespace WebCinema.Controllers
             }
 
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Index(FormCollection form)
-        {
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Index(FormCollection form)
+        //{
 
-            int id = int.Parse(form["cinemas"].ToString());
-            return RedirectToAction("Create", new { id = id });
+        //    int id = int.Parse(form["cinemas"].ToString());
+        //    return RedirectToAction("Create", new { id = id });
 
-        }
+        //}
 
         // GET: seances/Details/5
         public ActionResult Details(int? id)
@@ -152,17 +152,17 @@ namespace WebCinema.Controllers
         {
             try
             {
-                if (id != null)
-                    ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle().Where(S => S.cinema_id == id), "id", "commentaire");
-                else
-                    ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle(), "id", "commentaire");
-                ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
+                //if (id != null)
+                //    ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle().Where(S => S == id), "id", "commentaire");
+                //else
+                //ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle(), "id", "commentaire");
+                ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilmsFrom(null), "id", "titre");
                 return View();
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                return RedirectToAction("Index", new { id = id });
+                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
             }
 
         }
@@ -180,16 +180,16 @@ namespace WebCinema.Controllers
                 if (ModelState.IsValid)
                 {
                     if (manager.PostSeance(seance))
-                        return RedirectToAction("Index", new { id = seance.salle.cinema_id });
+                        return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
                 }
-                ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
-                ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle(), "id", "commentaire");
+                ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilmsFrom(null), "id", "titre");
+                //ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle(), "id", "commentaire");
                 return View(seance);
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                return RedirectToAction("Index", "seance", new { id = seance.salle.cinema_id });
+                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
             }
         }
 
@@ -200,8 +200,8 @@ namespace WebCinema.Controllers
             {
                 ManagerSeance manager = new ManagerSeance();
                 seance seance = manager.GetSeance(id);
-                ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre", seance.film_id);
-                ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle(), "id", "id", seance.salle_id);
+                ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilmsFrom(null), "id", "titre", seance.film_id);
+                ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle().Where(s => s.cinema_id == int.Parse(Session[SessionKeys.cinemaId].ToString())), "id", "numero_salle", seance.salle_id);
                 return View(seance);
             }
             catch (Exception e)
@@ -225,16 +225,16 @@ namespace WebCinema.Controllers
                 if (ModelState.IsValid)
                 {
                     if (managerSeance.PutSeance(seance))
-                        return RedirectToAction("Index", new { id = seance.salle.cinema_id });
+                        return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
                 }
-                ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre", seance.film_id);
-                ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle(), "id", "commentaire", seance.salle_id);
+                ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilmsFrom(null), "id", "titre", seance.film_id);
+                ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle().Where(s => s.cinema_id == int.Parse(Session[SessionKeys.cinemaId].ToString())), "id", "numero_salle", seance.salle_id);
                 return View(seance);
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                return RedirectToAction("Index", new { id = seance.salle.cinema_id });
+                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
             }
         }
 
@@ -250,7 +250,7 @@ namespace WebCinema.Controllers
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
             }
         }
 
@@ -264,13 +264,15 @@ namespace WebCinema.Controllers
                 ManagerSeance manager = new ManagerSeance();
                 seance seance = manager.GetSeance(id);
                 if (manager.DeleteSeance(id))
-                    return RedirectToAction("Index", new { id =seance.salle.cinema_id });
+                    return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
+                else
+                    throw new Exception();
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
+                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
             }
-            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)
@@ -288,6 +290,11 @@ namespace WebCinema.Controllers
             ////    db.Dispose();
             ////}
             ////base.Dispose(disposing);
+        }
+
+        public ActionResult BackToSalle(int id)
+        {
+            return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
         }
     }
 }

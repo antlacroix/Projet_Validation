@@ -12,6 +12,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="contact_info_id" Type="int" Nullable="false" />
           <Property Name="responsable_user_id" Type="int" Nullable="false" />
+          <Property Name="cinema_name" Type="nvarchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <EntityType Name="contact_info">
           <Key>
@@ -36,7 +37,7 @@
           <Property Name="duree" Type="int" Nullable="false" />
           <Property Name="rating" Type="float" Nullable="false" />
           <Property Name="revenu" Type="float" />
-          <Property Name="ranking" Type="int"/>
+          <Property Name="ranking" Type="int" />
           <Property Name="votes" Type="int" />
           <Property Name="metascore" Type="int" />
         </EntityType>
@@ -131,7 +132,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="type" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="type" Type="nvarchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <Association Name="fk_cinema_contactinfo">
           <End Role="contact_info" Type="Self.contact_info" Multiplicity="1" />
@@ -387,6 +388,7 @@
           <NavigationProperty Name="contact_info" Relationship="Self.fk_cinema_contactinfo" FromRole="cinema" ToRole="contact_info" />
           <NavigationProperty Name="user" Relationship="Self.fk_cinema_responsable" FromRole="cinema" ToRole="user" />
           <NavigationProperty Name="salles" Relationship="Self.fk_salle_cinema" FromRole="cinema" ToRole="salle" />
+          <Property Name="cinema_name" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="contact_info">
           <Key>
@@ -530,7 +532,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="type" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="users" Relationship="Self.fk_user_usertype" FromRole="user_type" ToRole="user" />
         </EntityType>
         <Association Name="fk_cinema_contactinfo">
@@ -782,6 +784,7 @@
           <EntitySetMapping Name="cinemas">
             <EntityTypeMapping TypeName="cinema_dbModel.cinema">
               <MappingFragment StoreEntitySet="cinema">
+                <ScalarProperty Name="cinema_name" ColumnName="cinema_name" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="contact_info_id" ColumnName="contact_info_id" />
                 <ScalarProperty Name="responsable_user_id" ColumnName="responsable_user_id" />

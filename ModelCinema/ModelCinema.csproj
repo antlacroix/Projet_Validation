@@ -124,6 +124,7 @@
     <Compile Include="ModelExeption\ExistingItemException.cs" />
     <Compile Include="ModelExeption\InvalidItemException.cs" />
     <Compile Include="ModelExeption\ItemNotExistException.cs" />
+    <Compile Include="ModelExeption\MovieUsedInSeanceException.cs" />
     <Compile Include="ModelExeption\NullIdExecption.cs" />
     <Compile Include="ModelExeption\SalleActiveException.cs" />
     <Compile Include="ModelExeption\SalleHaveSeanceException.cs" />

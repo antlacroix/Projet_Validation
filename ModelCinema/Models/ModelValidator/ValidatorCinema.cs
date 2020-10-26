@@ -10,6 +10,14 @@ namespace ModelCinema.Models.ModelValidator
     static public class ValidatorCinema
     {
 
+        static public bool IsCinemaValide(cinema candidate)
+        {
+            if (PropretyValidation.IsStringValide(candidate.cinema_name, 0, 25))
+                return true;
+            else
+                return false;
+        }
+
         static public bool IsCinemaExist(cinema candidate)
         {
             ManagerCinema manager = new ManagerCinema();

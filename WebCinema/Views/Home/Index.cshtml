@@ -9,12 +9,12 @@
             <h2>Acceuil</h2>
             @*@Html.ActionLink("User", "Index", "users")*@
             <br />
-            @using (Html.BeginForm())
+            @*@using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
                 <input type="submit" value="Seances" class="btn btn-default" />
                 @Html.DropDownList("cinemas", null, htmlAttributes: new { @class = "form-control" })
-            }
+            }*@
             <br />
             @Html.ActionLink("Films", "Index", "films")
             <br />

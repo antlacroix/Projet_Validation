@@ -9,6 +9,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.cinema_name)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.contact_info.adresse)
         </th>
         <th>
@@ -25,6 +28,9 @@
 
 @foreach (var item in Model) {
 <tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.cinema_name)
+    </td>
     <td>
         @Html.DisplayFor(modelItem => item.contact_info.adresse)
     </td>

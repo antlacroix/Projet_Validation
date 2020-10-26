@@ -21,10 +21,10 @@ namespace ModelCinema.Models
             this.participations = new HashSet<participation>();
             this.seances = new HashSet<seance>();
         }
-
+    
         public int id { get; set; }
         public string titre { get; set; }
-        public Nullable<int> ranking { get; set; }
+        public int ranking { get; set; }
         public string description { get; set; }
         public int annee_parution { get; set; }
         public int duree { get; set; }

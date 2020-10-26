@@ -181,7 +181,7 @@ namespace ModelCinema.Models
         public string titre { get; set; }
 
         [DisplayName("Classement")]
-        [Range(1, 1001, ErrorMessage = "Ranking")]
+        [Range(0, 1001, ErrorMessage = "Ranking")]
         public int ranking { get; set; }
 
         [DisplayName("Description")]
