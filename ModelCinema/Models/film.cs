@@ -22,22 +22,22 @@ namespace ModelCinema.Models
             this.seances = new HashSet<seance>();
         }
     
-        public int id { get; set; }
-        public string titre { get; set; }
-        public int ranking { get; set; }
-        public string description { get; set; }
-        public int annee_parution { get; set; }
-        public int duree { get; set; }
-        public double rating { get; set; }
-        public Nullable<double> revenu { get; set; }
-        public Nullable<int> votes { get; set; }
-        public Nullable<int> metascore { get; set; }
+        public int id { get; private set; }
+        public string titre { get; private set; }
+        public Nullable<int> ranking { get; private set; }
+        public string description { get; private set; }
+        public int annee_parution { get; private set; }
+        public int duree { get; private set; }
+        public Nullable<double> rating { get; private set; }
+        public Nullable<double> revenu { get; private set; }
+        public Nullable<int> votes { get; private set; }
+        public Nullable<int> metascore { get; private set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        private ICollection<genre_film> genre_film { get; set; }
+        public virtual ICollection<genre_film> genre_film { get; private set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        private ICollection<participation> participations { get; set; }
+        public virtual ICollection<participation> participations { get; private set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        private ICollection<seance> seances { get; set; }
+        public virtual ICollection<seance> seances { get; private set; }
     }
 }

@@ -39,7 +39,7 @@ namespace ModelCinema.Models.ModelValidator
             {
                 return true;
             }
-            else 
+            else
                 return false;
         }
 
@@ -47,23 +47,11 @@ namespace ModelCinema.Models.ModelValidator
         {
             ManagerSeance manager = new ManagerSeance();
 
-            List<seance> conflitingOne = manager.GetAllSeance().Where
-                (seance =>
-                    seance.salle_id == candidate.salle_id &&
-                    (
-                        (
-                            candidate.date_debut < seance.date_debut &&
-                            candidate.date_fin > seance.date_debut
-                        ) || 
-                        (
-                            candidate.date_debut < seance.date_fin &&
-                            candidate.date_fin > seance.date_fin 
-                        ) ||
-                        (
-                            candidate.date_debut > seance.date_debut &&
-                            candidate.date_fin < seance.date_fin
-                        ) 
-                    )
+            List<seance> seances = manager.GetAllSeanceFromSalle(candidate.salle_id, null);
+            List<seance> conflitingOne = seances.Where(seance => 
+                !(
+                    (candidate.date_debut < seance.date_debut && candidate.date_fin <= seance.date_debut) || 
+                    (candidate.date_debut >= seance.date_fin && candidate.date_fin > seance.date_fin))
                 ).ToList();
 
             if (conflitingOne.Count != 0)

@@ -13,7 +13,7 @@ namespace ModelCinema.Models.ModelValidator
         {
             try
             {
-                if (PropretyValidation.IsStringValide(participant.Name, participant.nameMin, participant.nameMax))
+                if (PropretyValidation.IsStringValide(participant.name, participant.nameMin, participant.nameMax))
                 {
                     return true;
                 }
@@ -32,7 +32,7 @@ namespace ModelCinema.Models.ModelValidator
         {
             ManagerParticipant manager = new ManagerParticipant();
 
-            List<participant> existingOne = manager.GetAllParticipant().Where(o => o.Name == candidate.Name).ToList();
+            List<participant> existingOne = manager.GetAllParticipant().Where(o => o.name == candidate.name).ToList();
 
             if (existingOne.Count != 0)
                 return true;

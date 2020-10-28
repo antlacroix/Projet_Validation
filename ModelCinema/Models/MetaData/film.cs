@@ -38,138 +38,7 @@ namespace ModelCinema.Models
             this.revenu = revenu;
         }
 
-        //public int Id
-        //{
-        //    get { return id; }
-        //}
-
-        //public string Title
-        //{
-        //    get { return titre; }
-        //    set
-        //    {
-        //        titre = value;
-        //    }
-        //}
-
-        //public int Ranking
-        //{
-        //    get { return ranking; }
-        //    set
-        //    {
-        //        ranking = value;
-        //    }
-        //}
-
-        //public string Description
-        //{
-        //    get { return description; }
-        //    set
-        //    {
-        //        description = value;
-        //    }
-        //}
-
-        //public int Year
-        //{
-        //    get { return annee_parution; }
-        //    set
-        //    {
-        //        annee_parution = value;
-        //    }
-        //}
-
-        //public int Duration
-        //{
-        //    get { return duree; }
-        //    set
-        //    {
-        //        duree = value;
-        //    }
-        //}
-
-        //public double Rating
-        //{
-        //    get { return rating; }
-        //    set
-        //    {
-        //        rating = value;
-        //    }
-        //}
-
-        //public double? Revenue
-        //{
-        //    get { return revenu; }
-        //    set
-        //    {
-        //        revenu = value;
-        //    }
-        //}
-
-        //public int? Votes
-        //{
-        //    get { return votes; }
-        //    set
-        //    {
-        //        votes = value;
-        //    }
-        //}
-
-        //public int? Metascore
-        //{
-        //    get { return metascore; }
-        //    set
-        //    {
-        //        metascore = value;
-        //    }
-        //}
-
-        //public ICollection<genre_film> Genres
-        //{
-        //    get { return genre_film; }
-        //    set
-        //    {
-        //        genre_film = value;
-        //    }
-        //}
-
-        //public ICollection<participation> Participations
-        //{
-        //    get { return participations; }
-        //    set
-        //    {
-        //        participations = value;
-        //    }
-        //}
-
-        //public ICollection<seance> Seances
-        //{
-        //    get { return seances; }
-        //    set
-        //    {
-        //        seances = value;
-        //    }
-        //}
-
-        //public override bool Equals(object obj)
-        //{
-        //    var movie = obj as film;
-
-        //    return Title.Equals(movie.Title) &&
-        //         Description.Equals(movie.Description) &&
-        //         Year.Equals(movie.Year) &&
-        //         Duration.Equals(movie.Duration);
-        //}
-
-        //public override int GetHashCode()
-        //{
-        //    int hashTitle = Title == null ? 0 : Title.GetHashCode();
-        //    int hashDescription = Description == null ? 0 : Description.GetHashCode();
-        //    int hashYear = Year.GetHashCode();
-        //    int hashDuration = Duration.GetHashCode();
-
-        //    return hashTitle ^ hashDescription ^ hashYear ^ hashDuration;
-        //}
+        
     }
 
     public class filmMetadata
@@ -198,7 +67,6 @@ namespace ModelCinema.Models
         [Range(film.dureeMin, film.dureeMax, ErrorMessage = "duration")]
         public int duree { get; set; }
 
-        [Required]
         [DisplayName("Rating")]
         [Range(film.ratingMin, film.ratingMax, ErrorMessage = "rating")]
         public double rating { get; set; }

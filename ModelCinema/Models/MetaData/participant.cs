@@ -15,40 +15,6 @@ namespace ModelCinema.Models
         public const int
             nameMax = 50;
 
-        public int Id
-        {
-            get { return id; }
-        }
-
-        public string Name
-        {
-            get { return name; }
-            set
-            {
-                name = value;
-            }
-        }
-
-        public ICollection<participation> Participations
-        {
-            get { return participations; }
-            set
-            {
-                participations = value;
-            }
-        }
-
-        public override bool Equals(object obj)
-        {
-            var participant = obj as participant;
-
-            return (Name == participant.Name);
-        }
-
-        public override int GetHashCode()
-        {
-            return Name == null ? 0 : Name.GetHashCode();
-        }
     }
 
     public class participantMetadata
@@ -56,6 +22,6 @@ namespace ModelCinema.Models
         [Required]
         [DisplayName("Nom")]
         [StringLength(participant.nameMax)]
-        public string Name { get; set; }
+        public string name { get; set; }
     }
 }

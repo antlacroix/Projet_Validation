@@ -35,7 +35,7 @@
           <Property Name="description" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="annee_parution" Type="int" Nullable="false" />
           <Property Name="duree" Type="int" Nullable="false" />
-          <Property Name="rating" Type="float" Nullable="false" />
+          <Property Name="rating" Type="float"/>
           <Property Name="revenu" Type="float" />
           <Property Name="ranking" Type="int" />
           <Property Name="votes" Type="int" />
@@ -408,65 +408,65 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="titre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="ranking" Type="Int32" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="annee_parution" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="duree" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="rating" Type="Double" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="revenu" Type="Double" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="genre_film" Relationship="Self.fk_genrefilm_film" FromRole="film" ToRole="genre_film" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="participations" Relationship="Self.fk_participation_film" FromRole="film" ToRole="participation" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="seances" Relationship="Self.fk_seance_film" FromRole="film" ToRole="seance" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="votes" Type="Int32" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="metascore" Type="Int32" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="titre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="ranking" Type="Int32" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" Nullable="true" />
+          <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="annee_parution" Type="Int32" Nullable="false" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="duree" Type="Int32" Nullable="false" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="rating" Type="Double" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="revenu" Type="Double" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" Nullable="true" />
+          <NavigationProperty Name="genre_film" Relationship="Self.fk_genrefilm_film" FromRole="film" ToRole="genre_film" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="participations" Relationship="Self.fk_participation_film" FromRole="film" ToRole="participation" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="seances" Relationship="Self.fk_seance_film" FromRole="film" ToRole="seance" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="votes" Type="Int32" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="metascore" Type="Int32" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" Nullable="true" />
         </EntityType>
         <EntityType Name="genre">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:GetterAccess="Private" />
-          <Property Name="genre1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:GetterAccess="Private" />
-          <NavigationProperty Name="genre_film" Relationship="Self.fk_genrefilm_genre" FromRole="genre" ToRole="genre_film" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Protected" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:GetterAccess="Public" />
+          <Property Name="genre1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:GetterAccess="Public" />
+          <NavigationProperty Name="genre_film" Relationship="Self.fk_genrefilm_genre" FromRole="genre" ToRole="genre_film" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Protected" />
         </EntityType>
         <EntityType Name="genre_film">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="genre_id" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="film_id" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="film" Relationship="Self.fk_genrefilm_film" FromRole="genre_film" ToRole="film" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="genre" Relationship="Self.fk_genrefilm_genre" FromRole="genre_film" ToRole="genre" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="genre_id" Type="Int32" Nullable="false" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="film_id" Type="Int32" Nullable="false" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="film" Relationship="Self.fk_genrefilm_film" FromRole="genre_film" ToRole="film" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="genre" Relationship="Self.fk_genrefilm_genre" FromRole="genre_film" ToRole="genre" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
         </EntityType>
         <EntityType Name="participant">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
           <NavigationProperty Name="participations" Relationship="Self.fk_participation_participant" FromRole="participant" ToRole="participation" />
         </EntityType>
         <EntityType Name="participation">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="participant_id" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="role_id" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="film_id" Type="Int32" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="film" Relationship="Self.fk_participation_film" FromRole="participation" ToRole="film" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="participant" Relationship="Self.fk_participation_participant" FromRole="participation" ToRole="participant" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="role_participant" Relationship="Self.fk_participation_role" FromRole="participation" ToRole="role_participant" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="participant_id" Type="Int32" Nullable="false" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="role_id" Type="Int32" Nullable="false" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="film_id" Type="Int32" Nullable="false" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="film" Relationship="Self.fk_participation_film" FromRole="participation" ToRole="film" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="participant" Relationship="Self.fk_participation_participant" FromRole="participation" ToRole="participant" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="role_participant" Relationship="Self.fk_participation_role" FromRole="participation" ToRole="role_participant" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
         </EntityType>
         <EntityType Name="role_participant">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
-          <NavigationProperty Name="participations" Relationship="Self.fk_participation_role" FromRole="role_participant" ToRole="participation" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="participations" Relationship="Self.fk_participation_role" FromRole="role_participant" ToRole="participation" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
         </EntityType>
         <EntityType Name="salle">
           <Key>

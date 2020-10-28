@@ -59,7 +59,20 @@ namespace ModelCinema.Models.DataManager
             }
         }
 
+        public List<seance> GetAllSeanceFromSalle(int salleId, DateTime? date)
+        {
+            if (date == null)
+                date = DateTime.Now.AddDays(-10);
+            try
+            {
+                return db.seances.Where(s => s.salle_id == salleId && (s.date_debut >= date || s.date_fin >= date)).ToList();
+            }
+            catch (Exception e)
+            {
 
+                throw e;
+            }
+        }
 
         public seance GetSeance(int? id)
         {

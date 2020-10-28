@@ -13,7 +13,7 @@ namespace ModelCinema.Models.ModelValidator
         {
             try
             {
-                if (PropretyValidation.IsStringValide(genre.Genre, genre.genreMin, genre.genreMax))
+                if (PropretyValidation.IsStringValide(genre.genre1, genre.genreMin, genre.genreMax))
                 {
                     return true;
                 }
@@ -32,7 +32,7 @@ namespace ModelCinema.Models.ModelValidator
         {
             ManagerGenre manager = new ManagerGenre();
 
-            List<genre> existingOne = manager.GetAllGenre().Where(o => o.Genre == candidate.Genre).ToList();
+            List<genre> existingOne = manager.GetAllGenre().Where(o => o.genre1 == candidate.genre1).ToList();
 
             if (existingOne.Count != 0)
                 return true;

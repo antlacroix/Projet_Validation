@@ -202,13 +202,6 @@
     <Compile Include="Models\participation.cs">
       <DependentUpon>ModelCinema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Repository\GenericRepository.cs" />
-    <Compile Include="Models\Repository\MovieGenreRepository.cs" />
-    <Compile Include="Models\Repository\GenreRepository.cs" />
-    <Compile Include="Models\Repository\MovieRepository.cs" />
-    <Compile Include="Models\Repository\ParticipantRepository.cs" />
-    <Compile Include="Models\Repository\ParticipationRepository.cs" />
-    <Compile Include="Models\Repository\RoleParticipantRepository.cs" />
     <Compile Include="Models\role_participant.cs">
       <DependentUpon>ModelCinema.tt</DependentUpon>
     </Compile>
@@ -221,7 +214,6 @@
     <Compile Include="Models\seance.cs">
       <DependentUpon>ModelCinema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\UnitOfWork\UnitOfWork.cs" />
     <Compile Include="Models\user.cs">
       <DependentUpon>ModelCinema.tt</DependentUpon>
     </Compile>
@@ -232,7 +224,6 @@
       <DependentUpon>ModelCinema.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\MovieService.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Models\ModelCinema.edmx">
