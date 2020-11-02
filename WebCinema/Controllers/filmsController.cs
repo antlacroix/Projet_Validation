@@ -168,8 +168,8 @@ namespace WebCinema.Controllers
                     if (manager.PutFilm(film))
                         return RedirectToAction("Index");
                 }
-                else
-                    throw new InvalidItemException("film");
+                //else
+                //    throw new InvalidItemException("film");
             }
             catch (Exception e)
             {
