@@ -14,6 +14,10 @@
     @Html.ActionLink("Supprimer tous les films de la bd", "FlushMovies")
 </p>
 
+@if (TempData.ContainsKey("Alert"))
+{
+    <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+}
 
 <table class="table">
     <tr>
@@ -108,7 +112,7 @@
             </td>
 
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.id }) <br />
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) <br />
                 @Html.ActionLink("Details", "Details", new { id = item.id }) <br />
                 @Html.ActionLink("Delete", "Delete", new { id = item.id })<br />
             </td>

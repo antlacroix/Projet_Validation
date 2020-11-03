@@ -28,7 +28,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -49,7 +49,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
         }
@@ -63,7 +63,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
         }
@@ -88,7 +88,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
             }
             return View(film);
         }
@@ -104,7 +104,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
         }
@@ -130,7 +130,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
             }
             return View(film);
         }
@@ -146,7 +146,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
         }
@@ -166,7 +166,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
             }
             return RedirectToAction("Index");
         }

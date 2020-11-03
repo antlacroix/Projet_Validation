@@ -7,6 +7,10 @@
 <h2>Salles Index</h2>
 
 <table class="table">
+    @if (TempData.ContainsKey("Alert"))
+    {
+        <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+    }
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.nbr_place)

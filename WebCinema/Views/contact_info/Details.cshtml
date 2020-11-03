@@ -8,6 +8,10 @@
 
 <div>
     <h4>contact_info</h4>
+    @if (TempData.ContainsKey("Alert"))
+    {
+        <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+    }
     <hr />
     <dl class="dl-horizontal">
         <dt>

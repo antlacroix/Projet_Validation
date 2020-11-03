@@ -9,6 +9,10 @@
     @Html.ActionLink("Back to Participations", "index", "participations")
 </p>
 
+@if (TempData.ContainsKey("Alert"))
+{
+    <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+}
 <table class="table">
     <tr>
         <th>

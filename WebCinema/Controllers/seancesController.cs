@@ -116,7 +116,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index", "Home");
             }
 
@@ -142,7 +142,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -161,7 +161,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
             }
 
@@ -188,7 +188,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
             }
         }
@@ -206,7 +206,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -233,7 +233,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
             }
         }
@@ -249,7 +249,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
             }
         }
@@ -270,7 +270,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
             }
         }
