@@ -26,7 +26,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index", "Home");
             }
             return View();

@@ -4,8 +4,13 @@
     ViewBag.Title = "Index Cinema";
 }
 
-    <h2>Cinema</h2>
+<h2>Cinema</h2>
 
+
+@if (TempData.ContainsKey("Alert"))
+{
+    <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+}
 <table class="table">
     <tr>
         <th>
@@ -26,25 +31,28 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.cinema_name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.contact_info.adresse)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.contact_info.tel_number)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.user.name)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-        @Html.ActionLink("Details", "Details", new { id = item.id })
-    </td>
-</tr>
-}
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.cinema_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.contact_info.adresse)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.contact_info.tel_number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.user.name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id })
+            </td>
+        </tr>
+    }
 
 </table>

@@ -8,6 +8,10 @@
 
 <div>
     <h4>salle</h4>
+    @if (TempData.ContainsKey("Alert"))
+    {
+        <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+    }
     <hr />
     <table class="table">
         <tr>
@@ -46,6 +50,8 @@
         </tr>
 
     </table>
+
+
 </div>
 
 <table class="table">

@@ -5,6 +5,11 @@
 
 <h2>Import Movies</h2>
 
+@if (TempData.ContainsKey("Alert"))
+{
+    <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+}
+
 @using (Html.BeginForm("UploadMovies", "films", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 

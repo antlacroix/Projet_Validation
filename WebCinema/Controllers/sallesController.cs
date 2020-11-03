@@ -73,7 +73,7 @@ namespace WebCinema.Controllers
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(e.Message);
+                    TempData.Add("Alert", e.Message);
                 }
             }
             ViewBag.cinema_id = new SelectList(new ManagerCinema().GetAllCinema(), "id", "id", salle.cinema_id);
@@ -117,7 +117,7 @@ namespace WebCinema.Controllers
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(e.Message);
+                    TempData.Add("Alert", e.Message);
                 }
             }
             ViewBag.cinema_id = new SelectList(new ManagerCinema().GetAllCinema(), "id", "id", salle.cinema_id);

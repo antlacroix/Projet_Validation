@@ -11,6 +11,10 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@if (TempData.ContainsKey("Alert"))
+{
+    <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+}
 <table class="table">
     <tr>
         <th>
@@ -34,32 +38,33 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.tel_number)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.code_postal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.adresse)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ville)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.province)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.pays)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.tel_number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.code_postal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.adresse)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ville)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.province)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pays)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
 
 </table>
