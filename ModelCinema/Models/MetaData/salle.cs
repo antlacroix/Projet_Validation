@@ -12,7 +12,9 @@ namespace ModelCinema.Models
         //    set { this.id = value; } }
 
         //public string SalleColor { set; get; }
-        //public int SalleGroupId { set; get; }
+        public int SalleGroupId { 
+            get {return this.cinema_id; } 
+            set {this.cinema_id = value; } }
 
         //min Length/Value for salle's proprety
         public const int

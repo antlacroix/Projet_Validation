@@ -24,58 +24,53 @@ namespace WebCinema.Controllers
             List<seance> appData = new List<seance>();
             appData.Add(new seance
             {
-                id = 1,
-                titre_seance = "Explosion of Betelgeuse Star",
-                date_debut = new DateTime(2020, 2, 11, 9, 30, 0),
-                date_fin = new DateTime(2020, 2, 11, 11, 0, 0),
+                Id = 1,
+                Subject = "Explosion of Betelgeuse Star",
+                StartTime = new DateTime(2020, 2, 11, 9, 30, 0),
+                EndTime = new DateTime(2020, 2, 11, 11, 0, 0),
 
                 //IsAllDay = false,
-                //CinemaId = 1,
-                salle_id = 1
+                salle_id = 18
             });
             appData.Add(new seance
             {
-                id = 2,
-                titre_seance = "Thule Air Crash Report",
-                date_debut = new DateTime(2020, 2, 12, 12, 0, 0),
-                date_fin = new DateTime(2020, 2, 12, 14, 0, 0),
+                Id = 2,
+                Subject = "Thule Air Crash Report",
+                StartTime = new DateTime(2020, 2, 12, 12, 0, 0),
+                EndTime = new DateTime(2020, 2, 12, 14, 0, 0),
 
                 //IsAllDay = false,
-                //CinemaId = 1,
-                salle_id = 2
+                salle_id = 18
             });
             appData.Add(new seance
             {
-                id = 3,
-                titre_seance = "Blue Moon Eclipse",
-                date_debut = new DateTime(2020, 2, 13, 9, 30, 0),
-                date_fin = new DateTime(2020, 2, 13, 11, 0, 0),
+                Id = 3,
+                Subject = "Blue Moon Eclipse",
+                StartTime = new DateTime(2020, 2, 13, 9, 30, 0),
+                EndTime = new DateTime(2020, 2, 13, 11, 0, 0),
 
                 //IsAllDay = false,
-                //CinemaId = 2,
-                salle_id = 1
+                salle_id = 19
             });
             appData.Add(new seance
             {
-                id = 4,
-                titre_seance = "Meteor Showers in 2018",
-                date_debut = new DateTime(2020, 2, 14, 13, 0, 0),
-                date_fin = new DateTime(2020, 2, 14, 14, 30, 0),
+                Id = 4,
+                Subject = "Meteor Showers in 2018",
+                StartTime = new DateTime(2020, 2, 14, 13, 0, 0),
+                EndTime = new DateTime(2020, 2, 14, 14, 30, 0),
 
                 //IsAllDay = false,
-                //CinemaId = 2,
-                salle_id = 2
+                salle_id = 19
             });
             appData.Add(new seance
             {
-                id = 5,
-                titre_seance = "Milky Way as Melting pot",
-                date_debut = new DateTime(2020, 2, 15, 12, 0, 0),
-                date_fin = new DateTime(2020, 2, 15, 14, 0, 0),
+                Id = 5,
+                Subject = "Milky Way as Melting pot",
+                StartTime = new DateTime(2020, 2, 15, 12, 0, 0),
+                EndTime = new DateTime(2020, 2, 15, 14, 0, 0),
 
                 //IsAllDay = false,
-                //CinemaId = 2,
-                salle_id = 1
+                salle_id = 19
             });
             return appData;
         }
@@ -90,13 +85,48 @@ namespace WebCinema.Controllers
             ManagerFilm managerFilm = new ManagerFilm();
             ManagerSeance managerSeance = new ManagerSeance();
 
+
+
+
+            List<seance> listeSeance = managerSeance.GetAllSeance();
+            listeSeance.ForEach(x => x.salle.cinema.salles.Clear());
+            listeSeance.ForEach(x => x.salle.salle_status.salles.Clear());
+
+            listeSeance.ForEach(x => x.salle.seances.Clear());
+
+            listeSeance.ForEach(x => x.salle.cinema.contact_info.cinemas.Clear());
+            listeSeance.ForEach(x => x.salle.cinema.user.contact_info.users.Clear());
+            listeSeance.ForEach(x => x.salle.cinema.user.cinemas.Clear());
+            listeSeance.ForEach(x => x.salle.cinema.user.user_status.users.Clear());
+            listeSeance.ForEach(x => x.salle.cinema.user.user_type.users.Clear());
+
+
             ViewBag.appointments = managerSeance.GetAllSeance();
+            //ViewBag.appointments = GetScheduleData();
 
             ViewBag.Film = managerFilm.GetAllFilms();
 
-            ViewBag.Cinema = managerCinema.GetAllCinema();
+            List<cinema> listeCinema = managerCinema.GetAllCinema();
+            listeCinema.ForEach(x => x.salles.Clear());
+            listeCinema.ForEach(x => x.contact_info = null);
+            listeCinema.ForEach(x => x.contact_info_id = 0);
+            listeCinema.ForEach(x => x.user = null);
+            listeCinema.ForEach(x => x.responsable_user_id = 0);
 
-            ViewBag.Salle = managerSalle.GetAllSalle();
+            ViewBag.Cinema = listeCinema;
+            //ViewBag.Cinema = managerCinema.GetAllCinema();
+
+            List<salle> listeSalle = managerSalle.GetAllSalle();
+            listeSalle.ForEach(x => x.salle_status.salles.Clear());
+            listeSalle.ForEach(x => x.seances.Clear());
+            listeSalle.ForEach(x => x.cinema.salles.Clear());
+            listeSalle.ForEach(x => x.cinema.contact_info = null);
+            listeSalle.ForEach(x => x.cinema.contact_info_id = 0);
+            listeSalle.ForEach(x => x.cinema.user = null);
+            listeSalle.ForEach(x => x.cinema.responsable_user_id = 0);
+            ViewBag.Salle = listeSalle;
+            //ViewBag.Salle = managerSalle.GetAllSalle();
+
 
             ViewBag.Resources = new string[] { "Cinema", "Salle" };
 

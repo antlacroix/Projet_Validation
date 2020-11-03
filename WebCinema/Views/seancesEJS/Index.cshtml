@@ -16,10 +16,10 @@
                 res
                 .AllowMultiple(true)
                 .DataSource(ViewBag.Cinema)
-                .Field("id")
+                .Field("CinemaId")
                 .Title("Owner")
                 .Name("Cinema")
-                .TextField("CinemaText")
+                .TextField("cinema_name")
                 .IdField("id")
                 //.ColorField("CinemaColor")
                 .Add();
@@ -27,13 +27,13 @@
                 res
                 .AllowMultiple(true)
                 .DataSource(ViewBag.Salle)
-                .Field("id")
+                .Field("salle_id")
                 .Title("Owner1")
                 .Name("Salle")
-                .TextField("SalleText")
+                .TextField("commentaire")
                 .IdField("id")
                 //.ColorField("SalleColor")
-                .GroupIDField("salle_id")
+                .GroupIDField("SalleGroupId")
                 .Add();
 
             })
