@@ -11,12 +11,16 @@ namespace UnitTestWebCinema
         ManagerFilm manager;
         List<film> originalList;
 
+        //private List<film> GetSimpleFilms()
+        //{
+        //    var output = new List<film>();
+        //    output.Add(new film())
+        //}
+
         [TestInitialize]
         public void Initialize()
         {
-            manager = new ManagerFilm();
-
-            originalList = manager.GetAllFilms();
+            
         }
 
         ////TO-DO

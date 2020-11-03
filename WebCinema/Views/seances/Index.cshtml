@@ -66,9 +66,9 @@
         <th>
             @Html.DisplayNameFor(model => model.date_fin)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.film_id)
-        </th>
+        </th>*@
         <th>
             @*@using (Html.BeginForm())
             {
@@ -97,9 +97,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.date_fin)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.film.titre)
-            </td>
+            </td>*@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.id }) |

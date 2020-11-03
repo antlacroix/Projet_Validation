@@ -200,7 +200,7 @@ namespace WebCinema.Controllers
             {
                 ManagerSeance manager = new ManagerSeance();
                 seance seance = manager.GetSeance(id);
-                ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilmsFrom(null), "id", "titre", seance.film_id);
+                //ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilmsFrom(null), "id", "titre", seance.film_id);
                 ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle().Where(s => s.cinema_id == int.Parse(Session[SessionKeys.cinemaId].ToString())), "id", "numero_salle", seance.salle_id);
                 return View(seance);
             }
@@ -227,7 +227,7 @@ namespace WebCinema.Controllers
                     if (managerSeance.PutSeance(seance))
                         return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
                 }
-                ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilmsFrom(null), "id", "titre", seance.film_id);
+                //ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilmsFrom(null), "id", "titre", seance.film_id);
                 ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle().Where(s => s.cinema_id == int.Parse(Session[SessionKeys.cinemaId].ToString())), "id", "numero_salle", seance.salle_id);
                 return View(seance);
             }

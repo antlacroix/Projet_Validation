@@ -15,6 +15,13 @@ namespace ModelCinema.Models
     
     public partial class cinema_dbEntities : DbContext
     {
+    
+        //I added this constructor so I could inject a db-connection into the context
+        public cinema_dbEntities(System.Data.Common.DbConnection dbConnection, bool contextOwnsConnection)
+            : base(dbConnection, contextOwnsConnection)
+        {
+        }
+    
         public cinema_dbEntities()
             : base("name=cinema_dbEntities")
         {
@@ -32,10 +39,12 @@ namespace ModelCinema.Models
         public virtual DbSet<genre_film> genre_film { get; set; }
         public virtual DbSet<participant> participants { get; set; }
         public virtual DbSet<participation> participations { get; set; }
+        public virtual DbSet<programmation> programmations { get; set; }
         public virtual DbSet<role_participant> role_participant { get; set; }
         public virtual DbSet<salle> salles { get; set; }
         public virtual DbSet<salle_status> salle_status { get; set; }
         public virtual DbSet<seance> seances { get; set; }
+        public virtual DbSet<type_film> type_film { get; set; }
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<user_status> user_status { get; set; }
         public virtual DbSet<user_type> user_type { get; set; }

@@ -12,13 +12,13 @@ namespace ModelCinema.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class genre_film
+    public partial class programmation
     {
         public int id { get; set; }
-        public int genre_id { get; set; }
-        public int film_id { get; set; }
+        public int id_seance { get; set; }
+        public Nullable<int> id_film { get; set; }
     
         public virtual film film { get; set; }
-        public virtual genre genre { get; set; }
+        public virtual seance seance { get; set; }
     }
 }

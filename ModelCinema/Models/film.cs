@@ -18,26 +18,33 @@ namespace ModelCinema.Models
         public film()
         {
             this.genre_film = new HashSet<genre_film>();
+            this.programmations = new HashSet<programmation>();
+            this.film1 = new HashSet<film>();
             this.participations = new HashSet<participation>();
-            this.seances = new HashSet<seance>();
         }
     
-        public int id { get; private set; }
-        public string titre { get; private set; }
-        public Nullable<int> ranking { get; private set; }
-        public string description { get; private set; }
-        public int annee_parution { get; private set; }
-        public int duree { get; private set; }
-        public Nullable<double> rating { get; private set; }
-        public Nullable<double> revenu { get; private set; }
-        public Nullable<int> votes { get; private set; }
-        public Nullable<int> metascore { get; private set; }
+        public int id { get; set; }
+        public string titre { get; set; }
+        public string description { get; set; }
+        public int annee_parution { get; set; }
+        public int duree { get; set; }
+        public Nullable<double> rating { get; set; }
+        public Nullable<double> revenu { get; set; }
+        public Nullable<int> ranking { get; set; }
+        public Nullable<int> votes { get; set; }
+        public Nullable<int> metascore { get; set; }
+        public Nullable<int> id_type { get; set; }
+        public Nullable<int> id_film { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<genre_film> genre_film { get; private set; }
+        public virtual ICollection<genre_film> genre_film { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<participation> participations { get; private set; }
+        public virtual ICollection<programmation> programmations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<seance> seances { get; private set; }
+        public virtual ICollection<film> film1 { get; set; }
+        public virtual film film2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<participation> participations { get; set; }
+        public virtual type_film type_film { get; set; }
     }
 }

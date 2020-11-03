@@ -12,22 +12,18 @@ namespace ModelCinema.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class seance
+    public partial class type_film
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public seance()
+        public type_film()
         {
-            this.programmations = new HashSet<programmation>();
+            this.films = new HashSet<film>();
         }
     
         public int id { get; set; }
-        public System.DateTime date_debut { get; set; }
-        public System.DateTime date_fin { get; set; }
-        public string titre_seance { get; set; }
-        public int salle_id { get; set; }
+        public string typage { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<programmation> programmations { get; set; }
-        public virtual salle salle { get; set; }
+        public virtual ICollection<film> films { get; set; }
     }
 }

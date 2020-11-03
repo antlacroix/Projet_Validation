@@ -159,7 +159,7 @@ namespace WebCinema.Controllers
             try
             {
                 ManagerFilm manager = new ManagerFilm();
-                if (new ManagerSeance().GetAllSeance().Where(s => s.film_id == id).Count() != 0)
+                if (new ManagerSeance().GetAllSeance().Count() != 0)
                     throw new MovieUsedInSeanceException();
                 if (manager.DeleteFilm(id))
                     return RedirectToAction("Index");

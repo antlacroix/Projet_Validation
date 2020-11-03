@@ -8,7 +8,5 @@ namespace ModelCinema.Models
 {
     public partial class participation
     {
-
-
     }
 }

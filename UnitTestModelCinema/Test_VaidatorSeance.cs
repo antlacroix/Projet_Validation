@@ -8,5 +8,6 @@ namespace UnitTestModelCinema
 {
     class Test_VaidatorSeance
     {
+        
     }
 }
