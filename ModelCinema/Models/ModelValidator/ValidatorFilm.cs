@@ -38,13 +38,19 @@ namespace ModelCinema.Models.ModelValidator
         static public bool IsTitleExist(film candidate)
         {
             ManagerFilm manager = new ManagerFilm();
+            try
+            {
+                List<film> existingOne = manager.GetAllFilms().Where(o => o.titre == candidate.titre).ToList();
+                if (existingOne.Count != 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
 
-            List<film> existingOne = manager.GetAllFilms().Where(o => o.titre == candidate.titre).ToList();
-
-            if (existingOne.Count != 0)
-                return true;
-            else
-                return false;
         }
 
         static public bool IsFilmExist(film candidate)
