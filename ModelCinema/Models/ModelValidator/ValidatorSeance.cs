@@ -34,7 +34,9 @@ namespace ModelCinema.Models.ModelValidator
         static public bool IsSeanceExiste(seance candidate)
         {
             ManagerSeance manager = new ManagerSeance();
-            List<seance> existingOne = manager.GetAllSeanceFromSalle(candidate.salle_id,null).Where(o => o.id == candidate.id).ToList();
+			
+            List<seance> existingOne = manager.GetAllSeanceFromSalle(candidate.salle_id, null).Where(o => o.id == candidate.id).ToList();
+
             if (existingOne.Count != 0)
             {
                 return true;

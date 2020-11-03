@@ -20,10 +20,10 @@ namespace ModelCinema.Models
             this.genre_film = new HashSet<genre_film>();
         }
     
-        public int id { get; private set; }
-        public string genre1 { get; private set; }
+        public int id { get; set; }
+        public string genre1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<genre_film> genre_film { get; protected set; }
+        public virtual ICollection<genre_film> genre_film { get; set; }
     }
 }

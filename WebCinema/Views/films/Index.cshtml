@@ -6,14 +6,6 @@
 
 <h2>Films</h2>
 
-
-<p>
-    @Html.ActionLink("Importer un fichier csv", "UploadMovies")
-</p>
-<p>
-    @Html.ActionLink("Supprimer tous les films de la bd", "FlushMovies")
-</p>
-
 @if (TempData.ContainsKey("Alert"))
 {
     <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>

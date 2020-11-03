@@ -14,14 +14,20 @@ namespace ModelCinema.Models
     
     public partial class seance
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public seance()
+        {
+            this.programmations = new HashSet<programmation>();
+        }
+    
         public int id { get; set; }
         public System.DateTime date_debut { get; set; }
         public System.DateTime date_fin { get; set; }
         public string titre_seance { get; set; }
         public int salle_id { get; set; }
-        public Nullable<int> film_id { get; set; }
     
-        public virtual film film { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<programmation> programmations { get; set; }
         public virtual salle salle { get; set; }
     }
 }

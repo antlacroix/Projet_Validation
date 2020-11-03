@@ -17,9 +17,7 @@ namespace ModelCinema.Models.ModelValidator
                     PropretyValidation.IsStringValide(film.titre, film.titreMin, film.titreMax) &&
                     PropretyValidation.IsStringValide(film.description, film.descriptionMin, film.descriptionMax) &&
                     PropretyValidation.IsNumberValide(film.annee_parution, film.anneeParutionMin, film.anneeParutionMax) &&
-                    PropretyValidation.IsNumberValide(film.duree, film.dureeMin, film.dureeMax) &&
-                    PropretyValidation.IsNumberValide(film.rating, film.ratingMin, film.ratingMax) &&
-                    PropretyValidation.IsNumberValide(film.revenu, film.revenuMin, film.revenuMax)
+                    PropretyValidation.IsNumberValide(film.duree, film.dureeMin, film.dureeMax)
                     )
                 {
                     return true;
@@ -40,13 +38,19 @@ namespace ModelCinema.Models.ModelValidator
         static public bool IsTitleExist(film candidate)
         {
             ManagerFilm manager = new ManagerFilm();
+            try
+            {
+                List<film> existingOne = manager.GetAllFilms().Where(o => o.titre == candidate.titre).ToList();
+                if (existingOne.Count != 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
 
-            List<film> existingOne = manager.GetAllFilms().Where(o => o.titre == candidate.titre).ToList();
-
-            if (existingOne.Count != 0)
-                return true;
-            else
-                return false;
         }
 
         static public bool IsFilmExist(film candidate)

@@ -12,7 +12,17 @@ namespace ModelCinema.Models.DataManager
 {
     public class ManagerFilm
     {
-        private cinema_dbEntities db = new cinema_dbEntities();
+        private cinema_dbEntities db;
+
+        public ManagerFilm()
+        {
+            db = new cinema_dbEntities();
+        }
+
+        public ManagerFilm(cinema_dbEntities dbEntities)
+        {
+            db = dbEntities;
+        }
 
         public List<film> GetAllFilms()
         {
@@ -53,7 +63,6 @@ namespace ModelCinema.Models.DataManager
             }
             catch (Exception e)
             {
-
                 throw e;
             }
         }
@@ -91,7 +100,6 @@ namespace ModelCinema.Models.DataManager
                 throw new ExistingItemException("film");
             else
                 throw new InvalidItemException("film");
-
         }
 
         public bool PutFilm(film film)

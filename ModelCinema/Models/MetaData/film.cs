@@ -37,8 +37,6 @@ namespace ModelCinema.Models
             this.rating = rating;
             this.revenu = revenu;
         }
-
-        
     }
 
     public class filmMetadata

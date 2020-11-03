@@ -14,8 +14,6 @@ namespace ModelCinema.Models
         //max Length/Value for genre's proprety
         public const int
             genreMax = 25;
-
-        
     }
 
     public class genreMetadata
