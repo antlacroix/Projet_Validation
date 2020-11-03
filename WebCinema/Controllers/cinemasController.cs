@@ -17,6 +17,7 @@ namespace WebCinema.Controllers
         // GET: cinemas
         public ActionResult Index()
         {
+            Session.Remove(SessionKeys.cinemaId);
             try
             {
                 ManagerCinema manager = new ManagerCinema();
@@ -24,7 +25,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -34,13 +35,15 @@ namespace WebCinema.Controllers
         {
             try
             {
+                Session.Remove(SessionKeys.salleId);
+                Session[SessionKeys.cinemaId] = id;
                 ManagerCinema manager = new ManagerCinema();
                 cinema cinema = manager.GetCinema(id);
                 return View(cinema);
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
         }
@@ -56,7 +59,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
         }
@@ -66,7 +69,7 @@ namespace WebCinema.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,contact_info_id,responsable_user_id")] cinema cinema)
+        public ActionResult Create([Bind(Include = "id,cinema_name,contact_info_id,responsable_user_id")] cinema cinema)
         {
             try
             {
@@ -82,7 +85,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
             }
             return View(cinema);
         }
@@ -103,7 +106,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
 
@@ -114,7 +117,7 @@ namespace WebCinema.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,contact_info_id,responsable_user_id")] cinema cinema)
+        public ActionResult Edit([Bind(Include = "id,cinema_name,contact_info_id,responsable_user_id")] cinema cinema)
         {
             try
             {
@@ -131,7 +134,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return View(cinema);
             }
         }
@@ -147,7 +150,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
         }
@@ -166,7 +169,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
             }
             return View(id);
         }
@@ -188,7 +191,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Details", new { id = id });
             }
         }
@@ -209,7 +212,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
             }
             return View(salle);
         }
@@ -217,6 +220,7 @@ namespace WebCinema.Controllers
         //GET: cinemas/DetailsSalle/5
         public ActionResult DetailsSalle(int? id)
         {
+            Session[SessionKeys.salleId] = id;
             try
             {
                 ManagerSalle manager = new ManagerSalle();
@@ -225,7 +229,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Details", new { id = id });
             }
         }
@@ -242,7 +246,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Details", new { id = id });
             }
         }
@@ -263,7 +267,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
             }
             ViewBag.status_id = new SelectList(new ManagerSalleStatus().GetAllSalleStatus(), "id", "status", salle.status_id);
             return View(salle);
@@ -281,7 +285,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Details", new { id = id });
             }
         }
@@ -300,9 +304,29 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
             }
             return RedirectToAction("DeleteSalle", new { id = id });
+        }
+
+        public ActionResult CreateSeance()
+        {
+            return RedirectToAction("Create", "seances", new { id = Session[SessionKeys.salleId] });
+        }
+
+        public ActionResult EditSeance(int id)
+        {
+            return RedirectToAction("Edit", "seances", new { id = id });
+        }
+
+        public ActionResult DetailsSeance(int id)
+        {
+            return RedirectToAction("Details", "seances", new { id = id });
+        }
+
+        public ActionResult DeleteSeance(int id)
+        {
+            return RedirectToAction("Delete", "seances", new { id = id });
         }
     }
 }

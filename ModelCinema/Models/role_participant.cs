@@ -20,10 +20,10 @@ namespace ModelCinema.Models
             this.participations = new HashSet<participation>();
         }
     
-        private int id { get; set; }
-        private string role { get; set; }
+        public int id { get; private set; }
+        public string role { get; private set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        private ICollection<participation> participations { get; set; }
+        public virtual ICollection<participation> participations { get; private set; }
     }
 }

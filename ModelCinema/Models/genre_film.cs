@@ -14,11 +14,11 @@ namespace ModelCinema.Models
     
     public partial class genre_film
     {
-        private int id { get; set; }
-        private int genre_id { get; set; }
-        private int film_id { get; set; }
+        public int id { get; private set; }
+        public int genre_id { get; private set; }
+        public int film_id { get; private set; }
     
-        private film film { get; set; }
-        private genre genre { get; set; }
+        public virtual film film { get; private set; }
+        public virtual genre genre { get; private set; }
     }
 }

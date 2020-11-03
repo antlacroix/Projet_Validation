@@ -23,6 +23,7 @@ namespace ModelCinema.Models
         public int id { get; set; }
         public int contact_info_id { get; set; }
         public int responsable_user_id { get; set; }
+        public string cinema_name { get; set; }
     
         public virtual contact_info contact_info { get; set; }
         public virtual user user { get; set; }

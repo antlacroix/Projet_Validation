@@ -43,6 +43,8 @@ namespace ModelCinema.Models.DataManager
 
         public bool PostSalle(salle salle)
         {
+            if (salle.commentaire == null)
+                salle.commentaire = "";
             if (ValidatorSalle.IsValide(salle) && !ValidatorSalle.IsSalleExist(salle))
             {
                 try
@@ -64,6 +66,8 @@ namespace ModelCinema.Models.DataManager
 
         public bool PutSalle(salle salle)
         {
+            if (salle.commentaire == null)
+                salle.commentaire = "";
             if (ValidatorSalle.IsSalleExist(salle) && ValidatorSalle.IsValide(salle) && !ValidatorSalle.IsSalleContainSeance(salle))
             {
                 try

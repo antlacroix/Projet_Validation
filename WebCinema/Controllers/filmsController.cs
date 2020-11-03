@@ -12,7 +12,6 @@ using System.Windows;
 using ModelCinema.ModelExeption;
 using ModelCinema.Models;
 using ModelCinema.Models.DataManager;
-using ModelCinema.Service;
 
 namespace WebCinema.Controllers
 {
@@ -29,55 +28,13 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index", "Home");
             }
         }
-        public ActionResult FlushMovies()
-        {
-            MovieService movieService = new MovieService();
-            movieService.FlushMovies();
-            return RedirectToAction("Index");
-        }
+       
 
-        public ActionResult UploadMovies()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult UploadMovies(HttpPostedFileBase file)
-        {
-            try
-            {
-                if (file.ContentLength > 0)
-                {
-                    //Console.WriteLine(Path.GetFileName(file.FileName));
-                    MovieService movieService = new MovieService();
-                    string _FileName = Path.GetFileName(file.FileName);
-                    string _path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), _FileName);
-
-                    file.SaveAs(_path);
-
-                    if (!string.IsNullOrEmpty(_path))
-                    {
-                        movieService.ImportCSV(_path);
-                        if (System.IO.File.Exists(_path))
-                        {
-                            System.IO.File.Delete(_path);
-                        }
-                    }
-                }
-                ViewBag.Message = "Fichier importé avec succès!";
-                return View();
-                //return RedirectToAction("Index");
-            }
-            catch
-            {
-                ViewBag.Message = "L'importation du fichier a échoué!";
-                return View();
-            }
-        }
+       
 
 
         // GET: films/Details/5
@@ -92,7 +49,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
         }
@@ -106,7 +63,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
         }
@@ -131,7 +88,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
             }
             return View(film);
         }
@@ -147,7 +104,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
         }
@@ -173,7 +130,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
             }
             return View(film);
         }
@@ -189,7 +146,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
         }
@@ -202,12 +159,14 @@ namespace WebCinema.Controllers
             try
             {
                 ManagerFilm manager = new ManagerFilm();
+                if (new ManagerSeance().GetAllSeance().Where(s => s.film_id == id).Count() != 0)
+                    throw new MovieUsedInSeanceException();
                 if (manager.DeleteFilm(id))
                     return RedirectToAction("Index");
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
             }
             return RedirectToAction("Index");
         }

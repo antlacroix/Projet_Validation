@@ -8,51 +8,94 @@
 
 <div>
     <h4>salle</h4>
+    @if (TempData.ContainsKey("Alert"))
+    {
+        <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+    }
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.nbr_place)
-        </dt>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nbr_place)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.numero_salle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.commentaire)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cinema.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.salle_status.status)
+            </th>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.nbr_place)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.numero_salle)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.commentaire)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.cinema.id)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.salle_status.status)
+            </td>
+        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.nbr_place)
-        </dd>
+    </table>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.numero_salle)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.numero_salle)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.commentaire)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.commentaire)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cinema.id)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cinema.id)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.salle_status.status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.salle_status.status)
-        </dd>
-
-    </dl>
 </div>
+
+<table class="table">
+    <tr>
+        <th>
+            Titre de la seance
+        </th>
+        <th>
+            Date de debut
+        </th>
+        <th>
+            Date de fin
+        </th>
+        <th>
+            Film
+        </th>
+        <th>
+            @Html.ActionLink("Create Seance", "CreateSeance")
+        </th>
+    </tr>
+
+    @foreach (var item in Model.seances)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.titre_seance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date_debut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date_fin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.film.titre)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditSeance", new { id = item.id }) |
+                @Html.ActionLink("Details", "DetailsSeance", new { id = item.id }) |
+                @Html.ActionLink("Delete", "DeleteSeance", new { id = item.id })
+            </td>
+        </tr>
+    }
+</table>
 <p>
-    @Html.ActionLink("Edit", "EditSalle", new { id = Model.id }) |
     @Html.ActionLink("Back to List", "Details", new { id = Model.cinema_id })
 </p>

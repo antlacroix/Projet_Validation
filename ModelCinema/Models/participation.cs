@@ -14,13 +14,13 @@ namespace ModelCinema.Models
     
     public partial class participation
     {
-        private int id { get; set; }
-        private int participant_id { get; set; }
-        private int role_id { get; set; }
-        private int film_id { get; set; }
+        public int id { get; private set; }
+        public int participant_id { get; private set; }
+        public int role_id { get; private set; }
+        public int film_id { get; private set; }
     
-        private film film { get; set; }
-        private participant participant { get; set; }
-        private role_participant role_participant { get; set; }
+        public virtual film film { get; private set; }
+        public virtual participant participant { get; private set; }
+        public virtual role_participant role_participant { get; private set; }
     }
 }
