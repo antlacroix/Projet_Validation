@@ -14,17 +14,17 @@ namespace ModelCinema.Models.DataManager
     {
         private cinema_dbEntities db = new cinema_dbEntities();
 
-        public List<seance> GetAllSeance()
-        {
-            try
-            {
-                return db.seances.ToList();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
+        //public List<seance> GetAllSeance()
+        //{
+        //    try
+        //    {
+        //        return db.seances.ToList();
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw e;
+        //    }
+        //}
 
         public List<seance> GetAllSeanceFromCinema(int cinemaId)
         {
@@ -70,6 +70,22 @@ namespace ModelCinema.Models.DataManager
             catch (Exception e)
             {
 
+                throw e;
+            }
+        }
+
+        public List<seance> GetAllSeanceFrom(DateTime? date)
+        {
+            if (date == null)
+            {
+                date = DateTime.Now.AddDays(-10);
+            }
+            try
+            {
+                return db.seances.Where(s => s.date_debut >= date || s.date_fin >= date).ToList();
+            }
+            catch (Exception e)
+            {
                 throw e;
             }
         }

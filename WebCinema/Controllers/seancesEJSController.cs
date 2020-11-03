@@ -85,10 +85,7 @@ namespace WebCinema.Controllers
             ManagerFilm managerFilm = new ManagerFilm();
             ManagerSeance managerSeance = new ManagerSeance();
 
-
-
-
-            List<seance> listeSeance = managerSeance.GetAllSeance();
+            List<seance> listeSeance = managerSeance.GetAllSeanceFrom(new DateTime(2020,10,30));
             listeSeance.ForEach(x => x.salle.cinema.salles.Clear());
             listeSeance.ForEach(x => x.salle.salle_status.salles.Clear());
 
@@ -101,7 +98,7 @@ namespace WebCinema.Controllers
             listeSeance.ForEach(x => x.salle.cinema.user.user_type.users.Clear());
 
 
-            ViewBag.appointments = managerSeance.GetAllSeance();
+            ViewBag.appointments = managerSeance.GetAllSeanceFrom(new DateTime(2020, 10, 30));
             //ViewBag.appointments = GetScheduleData();
 
             ViewBag.Film = managerFilm.GetAllFilms();
@@ -130,7 +127,7 @@ namespace WebCinema.Controllers
 
             ViewBag.Resources = new string[] { "Cinema", "Salle" };
 
-            return View(managerSeance.GetAllSeance());
+            return View(managerSeance.GetAllSeanceFrom(new DateTime(2020, 10, 30)));
         }
 
         // GET: seancesEJS/Details/5
