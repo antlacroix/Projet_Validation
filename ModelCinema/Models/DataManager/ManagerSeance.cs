@@ -14,17 +14,17 @@ namespace ModelCinema.Models.DataManager
     {
         private cinema_dbEntities db = new cinema_dbEntities();
 
-        public List<seance> GetAllSeance()
-        {
-            try
-            {
-                return db.seances.ToList();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
+        //public List<seance> GetAllSeance()
+        //{
+        //    try
+        //    {
+        //        return db.seances.ToList();
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw e;
+        //    }
+        //}
 
         public List<seance> GetAllSeanceFromCinema(int cinemaId)
         {

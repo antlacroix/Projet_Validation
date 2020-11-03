@@ -8,8 +8,6 @@ namespace UnitTestWebCinema
     [TestClass]
     public class Test_ManagerFilm
     {
-        ManagerFilm manager;
-        List<film> originalList;
 
         //private List<film> GetSimpleFilms()
         //{

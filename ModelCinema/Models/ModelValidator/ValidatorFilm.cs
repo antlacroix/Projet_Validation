@@ -17,9 +17,7 @@ namespace ModelCinema.Models.ModelValidator
                     PropretyValidation.IsStringValide(film.titre, film.titreMin, film.titreMax) &&
                     PropretyValidation.IsStringValide(film.description, film.descriptionMin, film.descriptionMax) &&
                     PropretyValidation.IsNumberValide(film.annee_parution, film.anneeParutionMin, film.anneeParutionMax) &&
-                    PropretyValidation.IsNumberValide(film.duree, film.dureeMin, film.dureeMax) &&
-                    PropretyValidation.IsNumberValide(film.rating, film.ratingMin, film.ratingMax) &&
-                    PropretyValidation.IsNumberValide(film.revenu, film.revenuMin, film.revenuMax)
+                    PropretyValidation.IsNumberValide(film.duree, film.dureeMin, film.dureeMax)
                     )
                 {
                     return true;
