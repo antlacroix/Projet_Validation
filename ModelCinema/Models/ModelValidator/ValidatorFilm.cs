@@ -1,4 +1,5 @@
-﻿using ModelCinema.Models.DataManager;
+﻿using ModelCinema.ModelExeption;
+using ModelCinema.Models.DataManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace ModelCinema.Models.ModelValidator
     {
         static public bool IsValide(film film)
         {
+            if (film == null)
+                throw new NullParametreException("IsFilmExist", "film");
             try
             {
                 if (
@@ -27,8 +30,6 @@ namespace ModelCinema.Models.ModelValidator
                     return false;
                 }
             }
-            //TO-DO
-            //Créer et implémenter une exeption 
             catch (Exception e)
             {
                 throw e;
@@ -37,6 +38,10 @@ namespace ModelCinema.Models.ModelValidator
 
         static public bool IsTitleExist(film candidate, List<film> films)
         {
+            if (candidate == null)
+                throw new NullParametreException("IsFilmExist", "candidate");
+            if (films == null)
+                throw new NullParametreException("IsFilmExist", "films");
             try
             {
                 List<film> existingOne = films.Where(o => o.titre == candidate.titre).ToList();
@@ -54,6 +59,10 @@ namespace ModelCinema.Models.ModelValidator
 
         static public bool IsFilmExist(film candidate, List<film> films)
         {
+            if (candidate == null)
+                throw new NullParametreException("IsFilmExist", "candidate");
+            if (films == null)
+                throw new NullParametreException("IsFilmExist", "films");
             List<film> existingOne = films.Where(o => o.id == candidate.id).ToList();
 
             if (existingOne.Count != 0)

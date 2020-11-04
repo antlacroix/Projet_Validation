@@ -126,6 +126,7 @@
     <Compile Include="ModelExeption\ItemNotExistException.cs" />
     <Compile Include="ModelExeption\MovieUsedInSeanceException.cs" />
     <Compile Include="ModelExeption\NullIdExecption.cs" />
+    <Compile Include="ModelExeption\NullParametreException.cs" />
     <Compile Include="ModelExeption\SalleActiveException.cs" />
     <Compile Include="ModelExeption\SalleHaveSeanceException.cs" />
     <Compile Include="Models\cinema.cs">
