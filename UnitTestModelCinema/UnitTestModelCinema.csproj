@@ -118,12 +118,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ManagerTest\Test_MangerCinema.cs" />
     <Compile Include="MockDB.cs" />
     <Compile Include="ManagerTest\Test_ManagerSeance.cs" />
     <Compile Include="ValidatiorTest\Test_ProretyValidation.cs" />
     <Compile Include="ManagerTest\Test_ManagerFilm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValidatiorTest\Test_VaidatorSeance.cs" />
+    <Compile Include="ValidatiorTest\Test_ValidatorFilm.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
