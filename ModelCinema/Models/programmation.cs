@@ -17,6 +17,7 @@ namespace ModelCinema.Models
         public int id { get; set; }
         public int id_seance { get; set; }
         public Nullable<int> id_film { get; set; }
+        public bool is_primary { get; set; }
     
         public virtual film film { get; set; }
         public virtual seance seance { get; set; }

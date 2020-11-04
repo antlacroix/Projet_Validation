@@ -14,103 +14,17 @@ namespace WebCinema.Controllers
 {
     public class seancesController : Controller
     {
-        //private cinema_dbEntities db = new cinema_dbEntities();
 
         protected void btnSave(object sender, EventArgs e)
         {
             // Sauvgardé les modif et nouveau séence
         }
-        #region
-        //public List<seance> GetScheduleData()
-        //{
-        //    List<seance> appData = new List<seance>();
-        //    appData.Add(new seance
-        //    {
-        //        Id = 1,
-        //        Subject = "Explosion of Betelgeuse Star",
-        //        StartTime = new DateTime(2020, 2, 11, 9, 30, 0),
-        //        EndTime = new DateTime(2020, 2, 11, 11, 0, 0),
-
-        //        IsAllDay = false,
-        //        CinemaId = 1,
-        //        SalleId = 1
-        //    }) ;
-        //    appData.Add(new seance
-        //    {
-        //        Id = 2,
-        //        Subject = "Thule Air Crash Report",
-        //        StartTime = new DateTime(2020, 2, 12, 12, 0, 0),
-        //        EndTime = new DateTime(2020, 2, 12, 14, 0, 0),
-
-        //        IsAllDay = false,
-        //        CinemaId = 1,
-        //        SalleId = 2
-        //    });
-        //    appData.Add(new seance
-        //    {
-        //        Id = 3,
-        //        Subject = "Blue Moon Eclipse",
-        //        StartTime = new DateTime(2020, 2, 13, 9, 30, 0),
-        //        EndTime = new DateTime(2020, 2, 13, 11, 0, 0),
-
-        //        IsAllDay = false,
-        //        CinemaId = 2,
-        //        SalleId = 1
-        //    });
-        //    appData.Add(new seance
-        //    {
-        //        Id = 4,
-        //        Subject = "Meteor Showers in 2018",
-        //        StartTime = new DateTime(2020, 2, 14, 13, 0, 0),
-        //        EndTime = new DateTime(2020, 2, 14, 14, 30, 0),
-
-        //        IsAllDay = false,
-        //        CinemaId = 2,
-        //        SalleId = 2
-        //    });
-        //    appData.Add(new seance
-        //    {
-        //        Id = 5,
-        //        Subject = "Milky Way as Melting pot",
-        //        StartTime = new DateTime(2020, 2, 15, 12, 0, 0),
-        //        EndTime = new DateTime(2020, 2, 15, 14, 0, 0),
-
-        //        IsAllDay = false,
-        //        CinemaId = 2,
-        //        SalleId = 1
-        //    });
-        //    return appData;
-        //}
-        #endregion
 
         // GET: seances
         public ActionResult Index(int id)
         {
-            #region
-            //ManagerCinema managerCinema = new ManagerCinema();
-            //ManagerSalle managerSalle = new ManagerSalle();
-            //ManagerFilm managerFilm = new ManagerFilm();
-
-            //ViewBag.appointments = managerSeance.GetAllSeance();
-
-            //ViewBag.Film = managerFilm.GetAllFilms();
-
-            //ViewBag.Cinema = managerCinema.GetAllCinema();
-
-            //ViewBag.Salle = managerSalle.GetAllSalle();
-
-            //ViewBag.Resources = new string[] { "Cinema", "Salle" };
-            #endregion
             try
             {
-                //List<cinema> tempCinema = new ManagerCinema().GetAllCinema();
-                //List<SelectListItem> cinemas = new List<SelectListItem>();
-                //foreach (cinema item in tempCinema)
-                //{
-                //    cinemas.Add(new SelectListItem() { Text = item.id.ToString(), Value = item.id.ToString() });
-                //}
-
-                //ViewBag.cinemas = new SelectList(cinemas, "Value", "Text");
                 ManagerSeance managerSeance = new ManagerSeance();
                 return View(managerSeance.GetAllSeanceFromCinema(id));
             }
@@ -121,15 +35,6 @@ namespace WebCinema.Controllers
             }
 
         }
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Index(FormCollection form)
-        //{
-
-        //    int id = int.Parse(form["cinemas"].ToString());
-        //    return RedirectToAction("Create", new { id = id });
-
-        //}
 
         // GET: seances/Details/5
         public ActionResult Details(int? id)
@@ -152,10 +57,6 @@ namespace WebCinema.Controllers
         {
             try
             {
-                //if (id != null)
-                //    ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle().Where(S => S == id), "id", "commentaire");
-                //else
-                //ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle(), "id", "commentaire");
                 ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilmsFrom(null), "id", "titre");
                 return View();
             }
@@ -183,7 +84,6 @@ namespace WebCinema.Controllers
                         return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
                 }
                 ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilmsFrom(null), "id", "titre");
-                //ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle(), "id", "commentaire");
                 return View(seance);
             }
             catch (Exception e)
@@ -200,7 +100,6 @@ namespace WebCinema.Controllers
             {
                 ManagerSeance manager = new ManagerSeance();
                 seance seance = manager.GetSeance(id);
-                //ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilmsFrom(null), "id", "titre", seance.film_id);
                 ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle().Where(s => s.cinema_id == int.Parse(Session[SessionKeys.cinemaId].ToString())), "id", "numero_salle", seance.salle_id);
                 return View(seance);
             }
@@ -227,7 +126,6 @@ namespace WebCinema.Controllers
                     if (managerSeance.PutSeance(seance))
                         return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
                 }
-                //ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilmsFrom(null), "id", "titre", seance.film_id);
                 ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle().Where(s => s.cinema_id == int.Parse(Session[SessionKeys.cinemaId].ToString())), "id", "numero_salle", seance.salle_id);
                 return View(seance);
             }
@@ -275,26 +173,57 @@ namespace WebCinema.Controllers
             }
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            //if (disposing)
-            //{
-            //ManagerSeance manager = new ManagerSeance();
-            //manager.Dispose();
-            //}
-
-            ////base.Dispose(disposing);
-
-            ////if (disposing)
-            ////{
-            ////    db.Dispose();
-            ////}
-            ////base.Dispose(disposing);
-        }
 
         public ActionResult BackToSalle(int id)
         {
             return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
         }
+
+        private bool CreateProgrammation(programmation programmation)
+        {
+            try
+            {
+                ManagerProgrammation manager = new ManagerProgrammation();
+                manager.PostProgrammation(programmation);
+                return true;
+            }
+            catch(Exception e)
+            {
+                TempData.Add("Alert", e.Message);
+                return false;
+            }
+        }
+
+        private bool EditProgramation(programmation programmation)
+        {
+            try
+            {
+                ManagerProgrammation manager = new ManagerProgrammation();
+                manager.PutProgrammation(programmation);
+                return true;
+            }
+            catch(Exception e)
+            {
+                TempData.Add("Alert", e.Message);
+                return false;
+            }
+        }
+
+        private bool DeleteProgramation(int idProgrammation)
+        {
+            try
+            {
+                ManagerProgrammation manager = new ManagerProgrammation();
+                manager.DeleteProgrammation(idProgrammation);
+                return true;
+            }
+            catch (Exception e)
+            {
+                TempData.Add("Alert", e.Message);
+                return false;
+            }
+        }
+
+        
     }
 }

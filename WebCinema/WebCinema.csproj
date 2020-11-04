@@ -157,10 +157,6 @@
     <Compile Include="SessionKeys.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\cinema_db.mdf" />
-    <Content Include="App_Data\cinema_db_log.ldf">
-      <DependentUpon>cinema_db.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -399,10 +395,7 @@
     <Content Include="Views\seancesEJS\Edit.cshtml" />
     <Content Include="Views\seancesEJS\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\UploadedFiles\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

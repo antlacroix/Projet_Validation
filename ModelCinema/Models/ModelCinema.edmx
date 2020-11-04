@@ -40,7 +40,7 @@
           <Property Name="ranking" Type="int" />
           <Property Name="votes" Type="int" />
           <Property Name="metascore" Type="int" />
-          <Property Name="id_type" Type="int" />
+          <Property Name="id_type" Type="int" Nullable="false" />
           <Property Name="id_film" Type="int" />
         </EntityType>
         <EntityType Name="genre">
@@ -81,6 +81,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_seance" Type="int" Nullable="false" />
           <Property Name="id_film" Type="int" />
+          <Property Name="is_primary" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="role_participant">
           <Key>
@@ -307,7 +308,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_type_film">
-          <End Role="type_film" Type="Self.type_film" Multiplicity="0..1" />
+          <End Role="type_film" Type="Self.type_film" Multiplicity="1" />
           <End Role="film" Type="Self.film" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="type_film">
@@ -570,7 +571,7 @@
           <Property Name="ranking" Type="Int32" />
           <Property Name="votes" Type="Int32" />
           <Property Name="metascore" Type="Int32" />
-          <Property Name="id_type" Type="Int32" />
+          <Property Name="id_type" Type="Int32" Nullable="false" />
           <Property Name="id_film" Type="Int32" />
           <NavigationProperty Name="genre_film" Relationship="cinema_dbModel.fk_genrefilm_film" FromRole="film" ToRole="genre_film" />
           <NavigationProperty Name="programmations" Relationship="cinema_dbModel.fk_id_film" FromRole="film" ToRole="programmation" />
@@ -626,6 +627,7 @@
           <Property Name="id_film" Type="Int32" />
           <NavigationProperty Name="film" Relationship="cinema_dbModel.fk_id_film" FromRole="programmation" ToRole="film" />
           <NavigationProperty Name="seance" Relationship="cinema_dbModel.fk_id_seance" FromRole="programmation" ToRole="seance" />
+          <Property Name="is_primary" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="role_participant">
           <Key>
@@ -806,7 +808,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_type_film">
-          <End Type="cinema_dbModel.type_film" Role="type_film" Multiplicity="0..1" />
+          <End Type="cinema_dbModel.type_film" Role="type_film" Multiplicity="1" />
           <End Type="cinema_dbModel.film" Role="film" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="type_film">
@@ -998,6 +1000,7 @@
           <EntitySetMapping Name="programmations">
             <EntityTypeMapping TypeName="cinema_dbModel.programmation">
               <MappingFragment StoreEntitySet="programmation">
+                <ScalarProperty Name="is_primary" ColumnName="is_primary" />
                 <ScalarProperty Name="id_film" ColumnName="id_film" />
                 <ScalarProperty Name="id_seance" ColumnName="id_seance" />
                 <ScalarProperty Name="id" ColumnName="id" />
