@@ -13,7 +13,18 @@ namespace ModelCinema.Models.DataManager
 {
     public class ManagerSalle
     {
-        private cinema_dbEntities db = new cinema_dbEntities();
+        private cinema_dbEntities db;
+
+        public ManagerSalle()
+        {
+            db = new cinema_dbEntities();
+        }
+
+        public ManagerSalle( cinema_dbEntities cinema_Db)
+        {
+            db = cinema_Db;
+        }
+
 
         public List<salle> GetAllSalle()
         {
