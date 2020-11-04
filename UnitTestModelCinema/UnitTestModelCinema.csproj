@@ -120,6 +120,7 @@
   <ItemGroup>
     <Compile Include="MockDB.cs" />
     <Compile Include="ManagerTest\Test_ManagerSeance.cs" />
+    <Compile Include="ValidatiorTest\Test_ValidateurCinema.cs" />
     <Compile Include="ValidatiorTest\Test_ProretyValidation.cs" />
     <Compile Include="ManagerTest\Test_ManagerFilm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

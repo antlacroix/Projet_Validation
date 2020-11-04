@@ -46,6 +46,7 @@ namespace UnitTestModelCinema
             output.Add(new contact_info() { id = 1, adresse = "adresse 1", code_postal = "CPTEST", tel_number = "4181234567", pays = "canada", province = "qubec", ville = "quebec" });
             output.Add(new contact_info() { id = 2, adresse = "adresse 2", code_postal = "CPTEST", tel_number = "4181234567", pays = "canada", province = "qubec", ville = "quebec" });
             output.Add(new contact_info() { id = 3, adresse = "adresse 3", code_postal = "CPTEST", tel_number = "4181234567", pays = "canada", province = "qubec", ville = "quebec" });
+            output.Add(new contact_info() { id = 4, adresse = "adresse 4", code_postal = "CPTEST", tel_number = "4181234567", pays = "canada", province = "qubec", ville = "quebec" });
             return output;
         }
         
@@ -72,6 +73,7 @@ namespace UnitTestModelCinema
             var output = new List<cinema>();
             output.Add(new cinema() { id = 1, cinema_name = "cinema test 1", contact_info_id = 1, responsable_user_id = 1 });
             output.Add(new cinema() { id = 2, cinema_name = "cinema test 2", contact_info_id = 2, responsable_user_id = 1 });
+            output.Add(new cinema() { id = 3, cinema_name = "cinema test 3", contact_info_id = 4, responsable_user_id = 1 });
             return output;
         }
 
