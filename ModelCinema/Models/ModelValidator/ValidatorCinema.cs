@@ -1,6 +1,8 @@
-﻿using ModelCinema.Models.DataManager;
+﻿using ModelCinema.ModelExeption;
+using ModelCinema.Models.DataManager;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +31,10 @@ namespace ModelCinema.Models.ModelValidator
         }
         static public bool IsCinemaContainSalle(cinema candidate)
         {
+            if(candidate == null)
+            {
+                throw new NullParametreException("IsCinemaContainSalle", "candidate");
+            }
             if (candidate.salles.Count > 0)
                 return true;
             else

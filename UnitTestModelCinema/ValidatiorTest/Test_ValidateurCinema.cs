@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ModelCinema.ModelExeption;
 using ModelCinema.Models;
 using ModelCinema.Models.DataManager;
 using ModelCinema.Models.ModelValidator;
@@ -46,5 +47,28 @@ namespace UnitTestModelCinema.ValidatiorTest
             //Assert
             Assert.IsTrue(testResult1, "un cinema contient des salle n'as pas renvoyer true");
         }
+
+        [TestMethod]
+        public void CinemaContainSalle_CinemaNull()
+        {
+            //Arrange
+            ManagerCinema manager = new ManagerCinema(_context);
+            cinema Nullcinema = null;
+
+            //Act
+            try
+            {
+                ValidatorCinema.IsCinemaContainSalle(Nullcinema);
+                Assert.Fail("an exception should have been thown");
+            }
+            catch(NullParametreException NPE)
+            {
+                Assert.AreEqual("this exception was raised because candidate in IsCinemaContainSalle was null", NPE.Message);
+            }
+            catch(Exception e)
+            {
+                Assert.Fail($"unexpected error of type{e.GetType()}​​​​ occure with a message : {e.Message}​​​​");
+            }
+        }   
     }
 }
