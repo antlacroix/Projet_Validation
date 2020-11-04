@@ -16,76 +16,87 @@ namespace ModelCinema.Models.DataManager
 
         public List<user> GetAllUser()
         {
-            return db.users.ToList();
+            try
+            {
+                return db.users.ToList();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public user GetUser(int? id)
         {
-            return db.users.Find(id);
+            try
+            {
+                return db.users.Find(id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public bool PostUser(user user)
         {
-            if (ValidatorUser.IsValide(user) && !ValidatorUser.IsUserExist(user))
+            try
             {
-                try
+                if (ValidatorUser.IsValide(user) && !ValidatorUser.IsUserExist(user, GetAllUser()))
                 {
                     db.users.Add(user);
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+                else if (ValidatorUser.IsUserExist(user, GetAllUser()))
+                    throw new ExistingItemException("user");
+                else
+                    throw new InvalidItemException("user");
             }
-            else if(ValidatorUser.IsUserExist(user))
-                throw new ExistingItemException("user");
-            else
-                throw new InvalidItemException("user");
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public bool PutUser(user user)
         {
-            if (ValidatorUser.IsUserExist(user) && ValidatorUser.IsValide(user))
+            try
             {
-                try
+                if (ValidatorUser.IsUserExist(user, GetAllUser()) && ValidatorUser.IsValide(user))
                 {
                     db.Entry(user).State = EntityState.Modified;
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+                else if (!ValidatorUser.IsUserExist(user, GetAllUser()))
+                    throw new ItemNotExistException("user");
+                else
+                    throw new InvalidItemException("user");
             }
-            else if (!ValidatorUser.IsUserExist(user))
-                throw new ItemNotExistException("user");
-            else
-                throw new InvalidItemException("user");
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public bool DeleteUser(int id)
         {
-            if (db.users.Find(id) != null)
+            try
             {
-                try
+                if (db.users.Find(id) != null)
                 {
                     user user = db.users.Find(id);
                     db.users.Remove(user);
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
+                else
                     return false;
-                }
             }
-            else
+            catch (Exception e)
             {
-                return false;
+                throw e;
             }
         }
     }

@@ -18,29 +18,20 @@ namespace ModelCinema.Models.ModelValidator
                     PropretyValidation.IsStringValide(user.password, user.passwordMin, user.passwordMax) &&
                     PropretyValidation.IsStringValide(user.name, user.nameMin, user.nameMax) 
                     )
-                {
-                    //TO-DO
-                    //vérifier si le name ne contient pas de charactere non valide
-                    //TO-DO
-                    //vérifier si password contient les charactere nécéssaire
-                    return true;
+                {return true;
                 } else
                 {
                     return false;
                 }
             }
-            //TO-DO
-            //Créer et implémenter une exeption 
             catch (Exception e)
             {
                 throw e;
             }
         }
-        static public bool IsUserExist(user candidate)
+        static public bool IsUserExist(user candidate, List<user> users)
         {
-            ManagerUser manager = new ManagerUser();
-
-            List<user> existingOne = manager.GetAllUser().Where(o => o.login == candidate.login).ToList();
+            List<user> existingOne = users.Where(o => o.login == candidate.login).ToList();
 
             if (existingOne.Count != 0)
                 return true;

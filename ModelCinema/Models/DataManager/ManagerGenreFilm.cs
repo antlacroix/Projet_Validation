@@ -9,19 +9,33 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace ModelCinema.Models.DataManager
+{
+    public class ManagerGenreFilm
     {
-        public class ManagerGenreFilm
-        {
-            private cinema_dbEntities db = new cinema_dbEntities();
+        private cinema_dbEntities db = new cinema_dbEntities();
 
-            public List<genre_film> GetAllGenreFilm()
+        public List<genre_film> GetAllGenreFilm()
+        {
+            try
             {
                 return db.genre_film.ToList();
             }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
 
-            public genre_film GetGenreFilm(int? id)
+        public genre_film GetGenreFilm(int? id)
+        {
+            try
             {
                 return db.genre_film.Find(id);
             }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
+}

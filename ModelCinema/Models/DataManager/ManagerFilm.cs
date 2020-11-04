@@ -83,44 +83,44 @@ namespace ModelCinema.Models.DataManager
 
         public bool PostFilm(film film)
         {
-            if (ValidatorFilm.IsValide(film) && !ValidatorFilm.IsTitleExist(film))
+            try
             {
-                try
+                if (ValidatorFilm.IsValide(film) && !ValidatorFilm.IsTitleExist(film, GetAllFilmsFrom(film.annee_parution)))
                 {
                     db.films.Add(film);
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+                else if (ValidatorFilm.IsTitleExist(film, GetAllFilmsFrom(film.annee_parution)))
+                    throw new ExistingItemException("film");
+                else
+                    throw new InvalidItemException("film");
             }
-            else if (ValidatorFilm.IsTitleExist(film))
-                throw new ExistingItemException("film");
-            else
-                throw new InvalidItemException("film");
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public bool PutFilm(film film)
         {
-            if (ValidatorFilm.IsFilmExist(film) && ValidatorFilm.IsValide(film))
+            try
             {
-                try
+                if (ValidatorFilm.IsFilmExist(film, GetAllFilmsFrom(film.annee_parution)) && ValidatorFilm.IsValide(film))
                 {
                     db.Entry(film).State = EntityState.Modified;
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+                else if (!ValidatorFilm.IsFilmExist(film, GetAllFilmsFrom(film.annee_parution)))
+                    throw new ItemNotExistException("film");
+                else
+                    throw new InvalidItemException("film");
             }
-            else if (!ValidatorFilm.IsFilmExist(film))
-                throw new ItemNotExistException("film");
-            else
-                throw new InvalidItemException("film");
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public bool DeleteFilm(int id)

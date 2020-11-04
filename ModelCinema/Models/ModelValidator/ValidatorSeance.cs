@@ -31,10 +31,10 @@ namespace ModelCinema.Models.ModelValidator
                 throw e;
             }
         }
-        static public bool IsSeanceExiste(seance candidate)
+        static public bool IsSeanceExiste(seance candidate, List<seance> seances)
         {
-            ManagerSeance manager = new ManagerSeance();
-            List<seance> existingOne = manager.GetAllSeanceFromSalle(candidate.salle_id, null).Where(o => o.id == candidate.id).ToList();
+            List<seance> existingOne = seances.Where(o => o.id == candidate.id).ToList();
+
             if (existingOne.Count != 0)
             {
                 return true;
@@ -43,11 +43,8 @@ namespace ModelCinema.Models.ModelValidator
                 return false;
         }
 
-        static public bool IsSeanceConflict(seance candidate)
+        static public bool IsSeanceConflict(seance candidate, List<seance> seances)
         {
-            ManagerSeance manager = new ManagerSeance();
-
-            List<seance> seances = manager.GetAllSeanceFromSalle(candidate.salle_id, null);
             List<seance> conflitingOne = seances.Where(seance => 
                 !(
                     (candidate.date_debut < seance.date_debut && candidate.date_fin <= seance.date_debut) || 

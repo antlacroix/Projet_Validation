@@ -4,7 +4,7 @@ using ModelCinema.Models.ModelValidator;
 using System;
 using System.Collections.Generic;
 
-namespace UnitTestWebCinema
+namespace UnitTestModelCinema
 {
     [TestClass]
     public class Test_ProretyValidation

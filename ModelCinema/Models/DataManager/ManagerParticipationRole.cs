@@ -16,12 +16,26 @@ namespace ModelCinema.Models.DataManager
 
         public List<role_participant> GetAllParticipationRole()
         {
-            return db.role_participant.ToList();
+            try
+            {
+                return db.role_participant.ToList();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public role_participant GetParticipationRole(int? id)
         {
-            return db.role_participant.Find(id);
+            try
+            {
+                return db.role_participant.Find(id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

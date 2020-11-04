@@ -8,6 +8,10 @@
 
 <div>
     @*<h4>film</h4>*@
+	   @if (TempData.ContainsKey("Alert"))
+        {
+            <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+        }
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -105,6 +109,7 @@
 
     </dl>
 </div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
     @Html.ActionLink("Back to List", "Index")

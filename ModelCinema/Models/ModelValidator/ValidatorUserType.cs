@@ -30,11 +30,9 @@ namespace ModelCinema.Models.ModelValidator
             }
         }
 
-        static public bool IsUSerTypeExist(user_type candidate)
+        static public bool IsUSerTypeExist(user_type candidate, List<user_type> types)
         {
-            ManagerUserType manager = new ManagerUserType();
-
-            List<user_type> existingOne = manager.GetAllUserType().Where(o => o.type == candidate.type).ToList();
+            List<user_type> existingOne = types.Where(o => o.type == candidate.type).ToList();
 
             if (existingOne.Count != 0)
                 return true;

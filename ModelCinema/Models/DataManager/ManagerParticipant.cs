@@ -16,76 +16,89 @@ namespace ModelCinema.Models.DataManager
 
         public List<participant> GetAllParticipant()
         {
-            return db.participants.ToList();
+            try
+            {
+                return db.participants.ToList();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public participant GetParticipant(int? id)
         {
-            return db.participants.Find(id);
+            try
+            {
+                return db.participants.Find(id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public bool PostParticipant(participant participant)
         {
-            if (ValidatorParticipant.IsValide(participant) && !ValidatorParticipant.IsParticipantExist(participant))
+            try
             {
-                try
+                if (ValidatorParticipant.IsValide(participant) && !ValidatorParticipant.IsParticipantExist(participant, GetAllParticipant()))
                 {
                     db.participants.Add(participant);
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+                else if (ValidatorParticipant.IsParticipantExist(participant, GetAllParticipant()))
+                    throw new ExistingItemException("participant");
+                else
+                    throw new InvalidItemException("participant");
             }
-            else if(ValidatorParticipant.IsParticipantExist(participant))
-                throw new ExistingItemException("participant");
-            else
-                throw new InvalidItemException("participant");
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public bool PutParticipant(participant participant)
         {
-            if (ValidatorParticipant.IsParticipantExist(participant) && ValidatorParticipant.IsValide(participant))
+            try
             {
-                try
+                if (ValidatorParticipant.IsParticipantExist(participant, GetAllParticipant()) && ValidatorParticipant.IsValide(participant))
                 {
                     db.Entry(participant).State = EntityState.Modified;
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+                else if (!ValidatorParticipant.IsParticipantExist(participant, GetAllParticipant()))
+                    throw new ItemNotExistException("participant");
+                else
+                    throw new InvalidItemException("participant");
             }
-            else if (!ValidatorParticipant.IsParticipantExist(participant))
-                throw new ItemNotExistException("participant");
-            else
-                throw new InvalidItemException("participant");
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public bool DeleteParticipant(int id)
         {
-            if (db.participants.Find(id) != null)
+            try
             {
-                try
+                if (db.participants.Find(id) != null)
                 {
-                    participant participant  = db.participants.Find(id);
+                    participant participant = db.participants.Find(id);
                     db.participants.Remove(participant);
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
+                else
                 {
-                    Console.WriteLine(e.Message);
                     return false;
                 }
             }
-            else
+            catch (Exception e)
             {
-                return false;
+                throw e;
             }
         }
     }

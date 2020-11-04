@@ -28,18 +28,14 @@ namespace ModelCinema.Models.ModelValidator
                     return false;
                 }
             }
-            //TO-DO
-            //Créer et implémenter une exeption 
             catch (Exception e)
             {
                 throw e;
             }
         }
-        static public bool IsSalleExist(salle candidate)
+        static public bool IsSalleExist(salle candidate, List<salle> salles)
         {
-            ManagerSalle manager = new ManagerSalle();
-
-            List<salle> existingOne = manager.GetAllSalle().Where(o => o.cinema_id == candidate.cinema_id && o.numero_salle == candidate.numero_salle).ToList();
+            List<salle> existingOne = salles.Where(o => o.cinema_id == candidate.cinema_id && o.numero_salle == candidate.numero_salle).ToList();
 
             if (existingOne.Count != 0)
                 return true;

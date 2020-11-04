@@ -4,26 +4,29 @@
 
     
 
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Acceuil</h2>
-            @*@Html.ActionLink("User", "Index", "users")*@
-            <br />
-            @*@using (Html.BeginForm())
+<div class="row">
+    <div class="col-md-4">
+        <h2>Acceuil</h2>
+        @*@Html.ActionLink("User", "Index", "users")*@
+        <br />
+        @*@using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
                 <input type="submit" value="Seances" class="btn btn-default" />
                 @Html.DropDownList("cinemas", null, htmlAttributes: new { @class = "form-control" })
-            }*@
-            <br />
-            @Html.ActionLink("Films", "Index", "films")
-            <br />
-            @Html.ActionLink("Cinemas", "Index", "cinemas")
-            <br />
-            @*@Html.ActionLink("UserType", "Index", "user_type")*@
-        </div>
 
-        @*<div>
-            @Html.EJS().Calendar("calendar").Render()
-        </div>*@
+            }*@
+			
+        <br />
+        @Html.ActionLink("Films", "Index", "films")
+        <br />
+        @Html.ActionLink("Cinemas", "Index", "cinemas")
+		<br />
+            @Html.ActionLink("seancesEJS", "Index", "seancesEJS")
     </div>
+
+    @if (TempData.ContainsKey("Alert"))
+    {
+        <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+    }
+</div>

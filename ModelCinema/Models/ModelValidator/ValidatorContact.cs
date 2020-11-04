@@ -29,19 +29,15 @@ namespace ModelCinema.Models.ModelValidator
                     return false;
                 }
             }
-            //TO-DO
-            //Créer et implémenter une exeption 
             catch (Exception e)
             {
                 throw e;
             }
         }
 
-        static public bool IsContactExist(contact_info candidate)
+        static public bool IsContactExist(contact_info candidate, List<contact_info> contacts)
         {
-            ManagerContact manager = new ManagerContact();
-
-            List<contact_info> existingOne = manager.GetAllContact().Where(o => o.id == candidate.id).ToList();
+            List<contact_info> existingOne = contacts.Where(o => o.id == candidate.id).ToList();
 
             if (existingOne.Count != 0)
                 return true;

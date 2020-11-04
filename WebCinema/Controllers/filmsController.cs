@@ -28,7 +28,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -49,7 +49,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
         }
@@ -65,7 +65,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
         }
@@ -90,7 +90,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
             }
             return View(film);
         }
@@ -108,7 +108,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
         }
@@ -129,12 +129,12 @@ namespace WebCinema.Controllers
                     if (manager.PutFilm(film))
                         return RedirectToAction("Index");
                 }
-                else
-                    throw new InvalidItemException("film");
+                //else
+                //    throw new InvalidItemException("film");
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
             }
             return View(film);
         }
@@ -150,7 +150,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
         }
@@ -163,6 +163,8 @@ namespace WebCinema.Controllers
             try
             {
                 ManagerFilm manager = new ManagerFilm();
+				
+                //if (new ManagerSeance().GetAllSeance().Where(s => s.film_id == id).Count() != 0)
                 //if (new ManagerSeance().GetAllSeance().Count() != 0)
                 //    throw new MovieUsedInSeanceException();
                 if (manager.DeleteFilm(id))
@@ -170,7 +172,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
             }
             return RedirectToAction("Index");
         }

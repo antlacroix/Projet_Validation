@@ -25,7 +25,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -43,7 +43,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
         }
@@ -59,7 +59,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
         }
@@ -85,7 +85,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
             }
             return View(cinema);
         }
@@ -106,7 +106,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
 
@@ -134,7 +134,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return View(cinema);
             }
         }
@@ -150,7 +150,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
         }
@@ -169,7 +169,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
             }
             return View(id);
         }
@@ -191,7 +191,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Details", new { id = id });
             }
         }
@@ -212,7 +212,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
             }
             return View(salle);
         }
@@ -229,7 +229,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Details", new { id = id });
             }
         }
@@ -246,7 +246,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Details", new { id = id });
             }
         }
@@ -267,7 +267,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
             }
             ViewBag.status_id = new SelectList(new ManagerSalleStatus().GetAllSalleStatus(), "id", "status", salle.status_id);
             return View(salle);
@@ -285,7 +285,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Details", new { id = id });
             }
         }
@@ -304,7 +304,7 @@ namespace WebCinema.Controllers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                TempData.Add("Alert", e.Message);
             }
             return RedirectToAction("DeleteSalle", new { id = id });
         }

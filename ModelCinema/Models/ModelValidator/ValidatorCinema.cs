@@ -18,11 +18,9 @@ namespace ModelCinema.Models.ModelValidator
                 return false;
         }
 
-        static public bool IsCinemaExist(cinema candidate)
+        static public bool IsCinemaExist(cinema candidate, List<cinema> cinemas)
         {
-            ManagerCinema manager = new ManagerCinema();
-
-            List<cinema> existingOne = manager.GetAllCinema().Where(o => o.id == candidate.id).ToList();
+            List<cinema> existingOne = cinemas.Where(o => o.id == candidate.id).ToList();
 
             if (existingOne.Count != 0)
                 return true;
