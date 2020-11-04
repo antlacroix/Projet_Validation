@@ -1,4 +1,5 @@
-﻿using ModelCinema.Models.DataManager;
+﻿using ModelCinema.ModelExeption;
+using ModelCinema.Models.DataManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,10 @@ namespace ModelCinema.Models.ModelValidator
 
         static public bool IsSalleContainSeance(salle candidate)
         {
+            if (candidate == null)
+            {
+                throw new NullIdExecption("Salle");
+            }
             if (candidate.seances.Count > 0)
                 return true;
             else
@@ -53,6 +58,10 @@ namespace ModelCinema.Models.ModelValidator
 
         static public bool IsSalleActive(salle candidate)
         {
+            if (candidate == null)
+            {
+                throw new NullIdExecption("Salle");
+            }
             if (candidate.salle_status.status.ToUpper() == "ACTIVE")
                 return true;
             else
