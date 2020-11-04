@@ -23,6 +23,12 @@
             <th>
                 @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
             </th>
+            <th>
+                @Html.LabelFor(model => model.type_film.typage, htmlAttributes: new { @class = "control-label col-md-2" })
+            </th>
+            <th>
+                @Html.LabelFor(model => model.titre, htmlAttributes: new { @class = "control-label col-md-2" })
+            </th>
         </tr>
         <tr>
             <td>
@@ -32,6 +38,12 @@
             <td>
                 @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.DropDownList("id_type", null, htmlAttributes: new { @class = "form-control" })
+            </td>
+            <td>
+                @Html.DropDownList("id_film", null, "--Select Film--", htmlAttributes: new { @class = "form-control" })
             </td>
         </tr>
     </table>

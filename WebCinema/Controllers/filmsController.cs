@@ -59,6 +59,8 @@ namespace WebCinema.Controllers
         {
             try
             {
+                ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
+                ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
                 return View();
             }
             catch (Exception e)
@@ -73,7 +75,7 @@ namespace WebCinema.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,titre,description,annee_parution,duree,rating,revenu,ranking,votes,metascore")] film film)
+        public ActionResult Create([Bind(Include = "id,titre,description,annee_parution,duree,rating,revenu,ranking,votes,metascore,id_type,id_film")] film film)
         {
             try
             {
@@ -100,6 +102,8 @@ namespace WebCinema.Controllers
             {
                 ManagerFilm manager = new ManagerFilm();
                 film film = manager.GetFilm(id);
+                ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
+                ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
                 return View(film);
             }
             catch (Exception e)
@@ -114,7 +118,7 @@ namespace WebCinema.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,titre,description,annee_parution,duree,rating,revenu,ranking,votes,metascore")] film film)
+        public ActionResult Edit([Bind(Include = "id,titre,description,annee_parution,duree,rating,revenu,ranking,votes,metascore,id_type,id_film")] film film)
         {
             try
             {

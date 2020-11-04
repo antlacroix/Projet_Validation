@@ -80,5 +80,12 @@ namespace ModelCinema.Models
         [DisplayName("Metascore")]
         [Range(0, 100, ErrorMessage = "metascore")]
         public int? metascore { get; set; }
+
+        [Required]
+        [DisplayName("Typage")]
+        public int id_type { get; set; }
+
+        [DisplayName("Titre")]
+        public int? id_film { get; set; }
     }
 }

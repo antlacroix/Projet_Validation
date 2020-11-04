@@ -16,17 +16,25 @@
             @Html.DisplayNameFor(model => model.titre)
         </th>
         @*<th>
-                @Html.DisplayNameFor(model => model.MovieGenres)
-            </th>*@
+            @Html.DisplayNameFor(model => model.MovieGenres)
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.description)
         </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.type_film.typage)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.titre)
+        </th>
         @*<th>
-                @Html.DisplayNameFor(model => model.Director)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Actors)
-            </th>*@
+            @Html.DisplayNameFor(model => model.Director)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Actors)
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.annee_parution)
         </th>
@@ -54,56 +62,64 @@
     </tr>
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ranking)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.titre)
-            </td>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.ranking)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.titre)
+    </td>
 
-            @*<td>
-                    @foreach (var child in item.MovieGenres)
-                    {
-                        @Html.DisplayFor(genre => child.Genre)<br />
-                    }
-                </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.description)
-            </td>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.Director.Name)
-                </td>*@
-            @*<td>
-                    @foreach (var child in item.Actors)
-                    {
-                        @Html.DisplayFor(actor => child.Name)<br />
-                    }
-                </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.annee_parution)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.duree)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.rating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.votes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.revenu)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.metascore)
-            </td>
+    @*<td>
+            @foreach (var child in item.MovieGenres)
+            {
+                @Html.DisplayFor(genre => child.Genre)<br />
+            }
+        </td>*@
+    <td>
+        @Html.DisplayFor(modelItem => item.description)
+    </td>
 
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.id }) <br />
-                @Html.ActionLink("Details", "Details", new { id = item.id }) <br />
-                @Html.ActionLink("Delete", "Delete", new { id = item.id })<br />
-            </td>
-        </tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.type_film.typage)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.film2.titre)
+    </td>
+    @*<td>
+            @Html.DisplayFor(modelItem => item.Director.Name)
+        </td>*@
+    @*<td>
+            @foreach (var child in item.Actors)
+            {
+                @Html.DisplayFor(actor => child.Name)<br />
+            }
+        </td>*@
+    <td>
+        @Html.DisplayFor(modelItem => item.annee_parution)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.duree)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.rating)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.votes)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.revenu)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.metascore)
+    </td>
+
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.id }) <br />
+        @Html.ActionLink("Details", "Details", new { id = item.id }) <br />
+        @Html.ActionLink("Delete", "Delete", new { id = item.id })<br />
+    </td>
+</tr>
     }
 </table>

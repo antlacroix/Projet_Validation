@@ -33,7 +33,7 @@ namespace ModelCinema.Models
         public Nullable<int> ranking { get; set; }
         public Nullable<int> votes { get; set; }
         public Nullable<int> metascore { get; set; }
-        public Nullable<int> id_type { get; set; }
+        public int id_type { get; set; }
         public Nullable<int> id_film { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

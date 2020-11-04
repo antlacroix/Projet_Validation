@@ -26,6 +26,27 @@
             @Html.DisplayFor(model => model.description)
         </dd>
 
+        <br />
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.LabelFor(model => model.type_film.typage, htmlAttributes: new { @class = "control-label col-md-2" })
+                </th>
+                <th>
+                    @Html.LabelFor(model => model.titre, htmlAttributes: new { @class = "control-label col-md-2" })
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.type_film.typage)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.film2.titre)
+                </td>
+            </tr>
+        </table>
+
         <dt>
             @Html.DisplayNameFor(model => model.annee_parution)
         </dt>

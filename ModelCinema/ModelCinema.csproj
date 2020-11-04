@@ -145,6 +145,7 @@
     <Compile Include="Models\DataManager\ManagerSalle.cs" />
     <Compile Include="Models\DataManager\ManagerSalleStatus.cs" />
     <Compile Include="Models\DataManager\ManagerSeance.cs" />
+    <Compile Include="Models\DataManager\ManagerTypeFilm.cs" />
     <Compile Include="Models\DataManager\ManagerUser.cs" />
     <Compile Include="Models\DataManager\ManagerUserStatus.cs" />
     <Compile Include="Models\DataManager\ManagerUserType.cs" />

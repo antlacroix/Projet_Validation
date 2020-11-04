@@ -20,12 +20,33 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.duree)
+            @Html.DisplayNameFor(model => model.description)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.description)
         </dd>
+
+        <br />
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.LabelFor(model => model.type_film.typage, htmlAttributes: new { @class = "control-label col-md-2" })
+                </th>
+                <th>
+                    @Html.LabelFor(model => model.titre, htmlAttributes: new { @class = "control-label col-md-2" })
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.type_film.typage)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.film2.titre)
+                </td>
+            </tr>
+        </table>
 
         <dt>
             @Html.DisplayNameFor(model => model.annee_parution)
@@ -59,9 +80,34 @@
             @Html.DisplayFor(model => model.revenu)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.ranking)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ranking)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.metascore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.metascore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.votes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.votes)
+        </dd>
+
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
