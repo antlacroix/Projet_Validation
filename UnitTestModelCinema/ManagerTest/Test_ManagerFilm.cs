@@ -25,10 +25,13 @@ namespace UnitTestModelCinema
         [TestMethod]
         public void getFilmsFrom_Test()
         {
+            //Arrange
             var managerFilm = new ManagerFilm(_context);
 
+            //Act
             var listeTest = managerFilm.GetAllFilmsFrom(2005);
 
+            //Assert
             Assert.IsTrue(listeTest.Count == 2);
         }
 

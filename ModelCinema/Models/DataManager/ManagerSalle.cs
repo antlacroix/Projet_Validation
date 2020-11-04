@@ -27,6 +27,18 @@ namespace ModelCinema.Models.DataManager
             }
         }
 
+        public List<salle> GetAllSalleFromCinema(int id)
+        {
+            try
+            {
+                return db.salles.Where(s => s.cinema_id == id).ToList();
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+        }
+
         public salle GetSalle(int? id)
         {
             try
@@ -54,13 +66,13 @@ namespace ModelCinema.Models.DataManager
             {
                 if (salle.commentaire == null)
                     salle.commentaire = "";
-                if (ValidatorSalle.IsValide(salle) && !ValidatorSalle.IsSalleExist(salle))
+                if (ValidatorSalle.IsValide(salle) && !ValidatorSalle.IsSalleExist(salle, GetAllSalleFromCinema(salle.cinema_id)))
                 {
                     db.salles.Add(salle);
                     db.SaveChanges();
                     return true;
                 }
-                else if (ValidatorSalle.IsSalleExist(salle))
+                else if (ValidatorSalle.IsSalleExist(salle, GetAllSalleFromCinema(salle.cinema_id)))
                     throw new ExistingItemException("salle");
                 else
                     throw new InvalidItemException("salle");
@@ -77,7 +89,7 @@ namespace ModelCinema.Models.DataManager
             {
                 if (salle.commentaire == null)
                     salle.commentaire = "";
-                if (ValidatorSalle.IsSalleExist(salle) && ValidatorSalle.IsValide(salle) && !ValidatorSalle.IsSalleContainSeance(salle))
+                if (ValidatorSalle.IsSalleExist(salle, GetAllSalleFromCinema(salle.cinema_id)) && ValidatorSalle.IsValide(salle) && !ValidatorSalle.IsSalleContainSeance(salle))
                 {
                     db.Entry(salle).State = EntityState.Modified;
                     db.SaveChanges();
@@ -85,7 +97,7 @@ namespace ModelCinema.Models.DataManager
                 }
                 else if (ValidatorSalle.IsSalleContainSeance(salle))
                     throw new SalleHaveSeanceException();
-                else if (!ValidatorSalle.IsSalleExist(salle))
+                else if (!ValidatorSalle.IsSalleExist(salle, GetAllSalleFromCinema(salle.cinema_id)))
                     throw new ItemNotExistException("salle");
                 else
                     throw new InvalidItemException("salle");

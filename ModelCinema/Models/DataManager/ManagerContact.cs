@@ -15,75 +15,85 @@ namespace ModelCinema.Models.DataManager
 
         public List<contact_info> GetAllContact()
         {
-            return db.contact_info.ToList();
+            try
+            {
+                return db.contact_info.ToList();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public contact_info GetContact(int? id)
         {
-            return db.contact_info.Find(id);
+            try
+            {
+                return db.contact_info.Find(id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public bool PostContact(contact_info contact_info)
         {
-            if (ValidatorContact.IsValide(contact_info))
+            try
             {
-                try
+                if (ValidatorContact.IsValide(contact_info))
                 {
                     db.contact_info.Add(contact_info);
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+                else
+                    throw new InvalidItemException("contact");
             }
-            else
+            catch (Exception e)
             {
-                throw new InvalidItemException("contact");
+                throw e;
             }
         }
 
         public bool PutContact(contact_info contact_info)
         {
-            if (ValidatorContact.IsContactExist(contact_info, GetAllContact()) && ValidatorContact.IsValide(contact_info))
+            try
             {
-                try
+                if (ValidatorContact.IsContactExist(contact_info, GetAllContact()) && ValidatorContact.IsValide(contact_info))
                 {
                     db.Entry(contact_info).State = EntityState.Modified;
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+                else if (!ValidatorContact.IsContactExist(contact_info, GetAllContact()))
+                    throw new ItemNotExistException("contact");
+                else
+                    throw new InvalidItemException("contact");
             }
-            else if (!ValidatorContact.IsContactExist(contact_info, GetAllContact()))
-                throw new ItemNotExistException("contact");
-            else
-                throw new InvalidItemException("contact");
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public bool DeleteContact(int id)
         {
-            if (db.contact_info.Find(id) != null)
+            try
             {
-                try
+                if (db.contact_info.Find(id) != null)
                 {
                     contact_info contact_info = db.contact_info.Find(id);
                     db.contact_info.Remove(contact_info);
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+                else
+                    return false;
             }
-            else
+            catch (Exception e)
             {
-                return false;
+                throw e;
             }
         }
 

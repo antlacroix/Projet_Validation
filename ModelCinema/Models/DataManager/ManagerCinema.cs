@@ -12,7 +12,17 @@ namespace ModelCinema.Models.DataManager
 {
     public class ManagerCinema
     {
-        private cinema_dbEntities db = new cinema_dbEntities();
+        private cinema_dbEntities db;
+
+        public ManagerCinema()
+        {
+            db = new cinema_dbEntities();
+        }
+
+        public ManagerCinema(cinema_dbEntities cinema_DbEntities)
+        {
+            db = cinema_DbEntities;
+        }
 
         public List<cinema> GetAllCinema()
         {
@@ -28,81 +38,89 @@ namespace ModelCinema.Models.DataManager
 
         public cinema GetCinema(int? id)
         {
-            if (id != null)
+            try
             {
-                cinema cinema = db.cinemas.Find(id);
-                if (cinema != null)
-                    return cinema;
+
+                if (id != null)
+                {
+                    cinema cinema = db.cinemas.Find(id);
+                    if (cinema != null)
+                        return cinema;
+                    else
+                        throw new ItemNotExistException("cinema");
+                }
                 else
-                    throw new ItemNotExistException("cinema");
+                    throw new NullIdExecption("cinema");
             }
-            else
-                throw new NullIdExecption("cinema");
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public bool PostCinema(cinema cinema)
         {
-            if (!ValidatorCinema.IsCinemaExist(cinema, GetAllCinema()))
+            try
             {
-                try
+                if (!ValidatorCinema.IsCinemaExist(cinema, GetAllCinema()))
                 {
                     db.cinemas.Add(cinema);
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+                else
+                    throw new ExistingItemException("cinema");
             }
-            else
-                throw new ExistingItemException("cinema");
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public bool PutCinema(cinema cinema)
         {
-            if (ValidatorCinema.IsCinemaExist(cinema, GetAllCinema()))
+            try
             {
-                try
+                if (ValidatorCinema.IsCinemaExist(cinema, GetAllCinema()))
                 {
                     db.Entry(cinema).State = EntityState.Modified;
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+                else
+                    throw new ItemNotExistException("cinema");
             }
-            else
-                throw new ItemNotExistException("cinema");
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public bool DeleteCinema(int id)
         {
-            if (db.cinemas.Find(id) != null)
+            try
             {
-                cinema cinema = db.cinemas.Find(id);
-                if (!ValidatorCinema.IsCinemaContainSalle(cinema))
+                if (db.cinemas.Find(id) != null)
                 {
-                    try
+                    cinema cinema = db.cinemas.Find(id);
+                    if (!ValidatorCinema.IsCinemaContainSalle(cinema))
                     {
                         cinema = db.cinemas.Find(id);
                         db.cinemas.Remove(cinema);
                         db.SaveChanges();
                         return true;
                     }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                        return false;
-                    }
+                    else
+                        throw new CinemaHasSalleException();
                 }
                 else
-                    throw new CinemaHasSalleException();
+                    throw new InvalidItemException("cinema");
             }
-            else
-                throw new InvalidItemException("cinema");
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
         }
     }
 }
