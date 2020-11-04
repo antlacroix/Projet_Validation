@@ -16,12 +16,26 @@ namespace ModelCinema.Models.DataManager
 
         public List<salle_status> GetAllSalleStatus()
         {
-            return db.salle_status.ToList();
+            try
+            {
+                return db.salle_status.ToList();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public salle_status GetSalleStatus(int? id)
         {
-            return db.salle_status.Find(id);
+            try
+            {
+                return db.salle_status.Find(id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

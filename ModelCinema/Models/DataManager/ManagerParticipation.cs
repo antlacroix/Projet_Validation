@@ -16,12 +16,26 @@ namespace ModelCinema.Models.DataManager
 
         public List<participation> GetAllParticipation()
         {
-            return db.participations.ToList();
+            try
+            {
+                return db.participations.ToList();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public participation GetParticipation(int? id)
         {
-            return db.participations.Find(id);
+            try
+            {
+                return db.participations.Find(id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

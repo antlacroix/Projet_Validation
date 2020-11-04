@@ -28,11 +28,9 @@ namespace ModelCinema.Models.ModelValidator
             }
         }
 
-        static public bool IsGenreExist(genre candidate)
+        static public bool IsGenreExist(genre candidate, List<genre> genres)
         {
-            ManagerGenre manager = new ManagerGenre();
-
-            List<genre> existingOne = manager.GetAllGenre().Where(o => o.genre1 == candidate.genre1).ToList();
+            List<genre> existingOne = genres.Where(o => o.genre1 == candidate.genre1).ToList();
 
             if (existingOne.Count != 0)
                 return true;

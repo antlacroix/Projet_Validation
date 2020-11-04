@@ -16,76 +16,87 @@ namespace ModelCinema.Models.DataManager
 
         public List<genre> GetAllGenre()
         {
-            return db.genres.ToList();
+            try
+            {
+                return db.genres.ToList();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public genre GetGenre(int? id)
         {
-            return db.genres.Find(id);
+            try
+            {
+                return db.genres.Find(id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public bool PostGenre(genre genre)
         {
-            if (ValidatorGenre.IsValide(genre) && !ValidatorGenre.IsGenreExist(genre))
+            try
             {
-                try
+                if (ValidatorGenre.IsValide(genre) && !ValidatorGenre.IsGenreExist(genre, GetAllGenre()))
                 {
                     db.genres.Add(genre);
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+                else if (ValidatorGenre.IsGenreExist(genre, GetAllGenre()))
+                    throw new ExistingItemException("genre");
+                else
+                    throw new InvalidItemException("genre");
             }
-            else if (ValidatorGenre.IsGenreExist(genre))
-                throw new ExistingItemException("genre");
-            else
-                throw new InvalidItemException("genre");
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public bool PutGenre(genre genre)
         {
-            if (ValidatorGenre.IsGenreExist(genre) && ValidatorGenre.IsValide(genre))
+            try
             {
-                try
+                if (ValidatorGenre.IsGenreExist(genre, GetAllGenre()) && ValidatorGenre.IsValide(genre))
                 {
                     db.Entry(genre).State = EntityState.Modified;
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+                else if (!ValidatorGenre.IsGenreExist(genre, GetAllGenre()))
+                    throw new ItemNotExistException("genre");
+                else
+                    throw new InvalidItemException("genre");
             }
-            else if (!ValidatorGenre.IsGenreExist(genre))
-                throw new ItemNotExistException("genre");
-            else
-                throw new InvalidItemException("genre");
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public bool DeleteGenre(int id)
         {
-            if (db.genres.Find(id) != null)
+            try
             {
-                try
+                if (db.genres.Find(id) != null)
                 {
                     genre genre = db.genres.Find(id);
                     db.genres.Remove(genre);
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
+                else
                     return false;
-                }
             }
-            else
+            catch (Exception e)
             {
-                return false;
+                throw e;
             }
         }
     }

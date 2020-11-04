@@ -28,8 +28,6 @@ namespace ModelCinema.Models.ModelValidator
                     return false;
                 }
             }
-            //TO-DO
-            //Créer et implémenter une exeption 
             catch (Exception e)
             {
                 throw e;

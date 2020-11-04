@@ -83,7 +83,7 @@ namespace ModelCinema.Models.DataManager
 
         public bool PostFilm(film film)
         {
-            if (ValidatorFilm.IsValide(film) && !ValidatorFilm.IsTitleExist(film))
+            if (ValidatorFilm.IsValide(film) && !ValidatorFilm.IsTitleExist(film, GetAllFilmsFrom(film.annee_parution)))
             {
                 try
                 {
@@ -96,7 +96,7 @@ namespace ModelCinema.Models.DataManager
                     throw e;
                 }
             }
-            else if (ValidatorFilm.IsTitleExist(film))
+            else if (ValidatorFilm.IsTitleExist(film, GetAllFilmsFrom(film.annee_parution)))
                 throw new ExistingItemException("film");
             else
                 throw new InvalidItemException("film");
@@ -104,7 +104,7 @@ namespace ModelCinema.Models.DataManager
 
         public bool PutFilm(film film)
         {
-            if (ValidatorFilm.IsFilmExist(film) && ValidatorFilm.IsValide(film))
+            if (ValidatorFilm.IsFilmExist(film, GetAllFilmsFrom(film.annee_parution)) && ValidatorFilm.IsValide(film))
             {
                 try
                 {
@@ -117,7 +117,7 @@ namespace ModelCinema.Models.DataManager
                     throw e;
                 }
             }
-            else if (!ValidatorFilm.IsFilmExist(film))
+            else if (!ValidatorFilm.IsFilmExist(film, GetAllFilmsFrom(film.annee_parution)))
                 throw new ItemNotExistException("film");
             else
                 throw new InvalidItemException("film");

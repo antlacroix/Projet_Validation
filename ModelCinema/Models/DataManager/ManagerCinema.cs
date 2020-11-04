@@ -42,7 +42,7 @@ namespace ModelCinema.Models.DataManager
 
         public bool PostCinema(cinema cinema)
         {
-            if (!ValidatorCinema.IsCinemaExist(cinema))
+            if (!ValidatorCinema.IsCinemaExist(cinema, GetAllCinema()))
             {
                 try
                 {
@@ -61,7 +61,7 @@ namespace ModelCinema.Models.DataManager
 
         public bool PutCinema(cinema cinema)
         {
-            if (ValidatorCinema.IsCinemaExist(cinema))
+            if (ValidatorCinema.IsCinemaExist(cinema, GetAllCinema()))
             {
                 try
                 {

@@ -18,80 +18,91 @@ namespace ModelCinema.Models.DataManager
 
         public List<user_type> GetAllUserType()
         {
-            return db.user_type.ToList();
+            try
+            {
+                return db.user_type.ToList();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public user_type GetUserType(int? id)
         {
-            if (id == null)
+            try
             {
-                return null;
+                if (id == null)
+                {
+                    return null;
+                }
+                return db.user_type.Find(id);
             }
-            return db.user_type.Find(id);
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public bool PostUserType(user_type type)
         {
-            if (type.type.Length > 0 && type.type.Length < 11)
+            try
             {
-                try
+                if (type.type.Length > 0 && type.type.Length < 11)
                 {
                     db.user_type.Add(type);
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+                else if (ValidatorUserType.IsUSerTypeExist(type, GetAllUserType()))
+                    throw new ExistingItemException("user_type");
+                else
+                    throw new InvalidItemException("user_type");
             }
-            else if (ValidatorUserType.IsUSerTypeExist(type))
-                throw new ExistingItemException("user_type");
-            else
-                throw new InvalidItemException("user_type");
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public bool PutUserType(user_type user_type)
         {
-            if (ValidatorUserType.IsUSerTypeExist(user_type))
+            try
             {
-                try
+                if (ValidatorUserType.IsUSerTypeExist(user_type, GetAllUserType()))
                 {
                     db.Entry(user_type).State = EntityState.Modified;
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+                else if (!ValidatorUserType.IsUSerTypeExist(user_type, GetAllUserType()))
+                    throw new ItemNotExistException("user_type");
+                else
+                    throw new InvalidItemException("user_type");
             }
-            else if (!ValidatorUserType.IsUSerTypeExist(user_type))
-                throw new ItemNotExistException("user_type");
-            else
-                throw new InvalidItemException("user_type");
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public bool DeleteUserType(int id)
         {
-            if (db.user_type.Find(id) != null)
+            try
             {
-                try
+                if (db.user_type.Find(id) != null)
                 {
                     user_type type = db.user_type.Find(id);
                     db.user_type.Remove(type);
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
+                else
                     return false;
-                }
             }
-            else
+            catch (Exception e)
             {
-                return false;
+                throw e;
             }
         }
     }

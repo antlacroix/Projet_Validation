@@ -46,7 +46,7 @@ namespace ModelCinema.Models.DataManager
 
         public bool PutContact(contact_info contact_info)
         {
-            if (ValidatorContact.IsContactExist(contact_info) && ValidatorContact.IsValide(contact_info))
+            if (ValidatorContact.IsContactExist(contact_info, GetAllContact()) && ValidatorContact.IsValide(contact_info))
             {
                 try
                 {
@@ -59,7 +59,7 @@ namespace ModelCinema.Models.DataManager
                     throw e;
                 }
             }
-            else if (!ValidatorContact.IsContactExist(contact_info))
+            else if (!ValidatorContact.IsContactExist(contact_info, GetAllContact()))
                 throw new ItemNotExistException("contact");
             else
                 throw new InvalidItemException("contact");
@@ -78,8 +78,7 @@ namespace ModelCinema.Models.DataManager
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
-                    return false;
+                    throw e;
                 }
             }
             else

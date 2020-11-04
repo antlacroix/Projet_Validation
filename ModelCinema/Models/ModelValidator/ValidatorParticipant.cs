@@ -28,11 +28,9 @@ namespace ModelCinema.Models.ModelValidator
             }
         }
 
-        static public bool IsParticipantExist(participant candidate)
+        static public bool IsParticipantExist(participant candidate, List<participant> participants)
         {
-            ManagerParticipant manager = new ManagerParticipant();
-
-            List<participant> existingOne = manager.GetAllParticipant().Where(o => o.name == candidate.name).ToList();
+            List<participant> existingOne = participants.Where(o => o.name == candidate.name).ToList();
 
             if (existingOne.Count != 0)
                 return true;

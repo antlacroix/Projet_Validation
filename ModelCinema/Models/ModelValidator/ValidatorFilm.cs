@@ -35,12 +35,11 @@ namespace ModelCinema.Models.ModelValidator
             }
         }
 
-        static public bool IsTitleExist(film candidate)
+        static public bool IsTitleExist(film candidate, List<film> films)
         {
-            ManagerFilm manager = new ManagerFilm();
             try
             {
-                List<film> existingOne = manager.GetAllFilms().Where(o => o.titre == candidate.titre).ToList();
+                List<film> existingOne = films.Where(o => o.titre == candidate.titre).ToList();
                 if (existingOne.Count != 0)
                     return true;
                 else
@@ -53,11 +52,9 @@ namespace ModelCinema.Models.ModelValidator
 
         }
 
-        static public bool IsFilmExist(film candidate)
+        static public bool IsFilmExist(film candidate, List<film> films)
         {
-            ManagerFilm manager = new ManagerFilm();
-
-            List<film> existingOne = manager.GetAllFilms().Where(o => o.id == candidate.id).ToList();
+            List<film> existingOne = films.Where(o => o.id == candidate.id).ToList();
 
             if (existingOne.Count != 0)
                 return true;

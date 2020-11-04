@@ -98,31 +98,31 @@ namespace UnitTestModelCinema
         private static List<seance> GetSimpleSeances()
         {
             var output = new List<seance>();
-            output.Add(new seance() { id = 1, salle_id = 1, titre_seance = "seance test 1", date_debut = new DateTime(2020, 1, 1, 10, 0, 0), date_fin = new DateTime(2020, 1, 1, 12, 0, 0) });
-            output.Add(new seance() { id = 2, salle_id = 1, titre_seance = "seance test 2", date_debut = new DateTime(2020, 1, 1, 13, 0, 0), date_fin = new DateTime(2020, 1, 1, 15, 0, 0) });
-            output.Add(new seance() { id = 3, salle_id = 1, titre_seance = "seance test 3", date_debut = new DateTime(2020, 1, 1, 16, 0, 0), date_fin = new DateTime(2020, 1, 1, 18, 0, 0) });
-            output.Add(new seance() { id = 4, salle_id = 1, titre_seance = "seance test 4", date_debut = new DateTime(2020, 1, 1, 19, 0, 0), date_fin = new DateTime(2020, 1, 1, 21, 0, 0) });
-            output.Add(new seance() { id = 5, salle_id = 1, titre_seance = "seance test 5", date_debut = new DateTime(2020, 1, 1, 22, 0, 0), date_fin = new DateTime(2020, 1, 2, 0, 0, 0) });
-            output.Add(new seance() { id = 6, salle_id = 2, titre_seance = "seance test 6", date_debut = new DateTime(2020, 1, 1, 10, 0, 0), date_fin = new DateTime(2020, 1, 1, 12, 0, 0) });
-            output.Add(new seance() { id = 7, salle_id = 2, titre_seance = "seance test 7", date_debut = new DateTime(2020, 1, 1, 13, 0, 0), date_fin = new DateTime(2020, 1, 1, 15, 0, 0) });
-            output.Add(new seance() { id = 8, salle_id = 2, titre_seance = "seance test 8", date_debut = new DateTime(2020, 1, 1, 16, 0, 0), date_fin = new DateTime(2020, 1, 1, 18, 0, 0) });
-            output.Add(new seance() { id = 9, salle_id = 2, titre_seance = "seance test 9", date_debut = new DateTime(2020, 1, 1, 19, 0, 0), date_fin = new DateTime(2020, 1, 1, 21, 0, 0) });
-            output.Add(new seance() { id = 10, salle_id = 2, titre_seance = "seance test 10", date_debut = new DateTime(2020, 1, 1, 22, 0, 0), date_fin = new DateTime(2020, 1, 2, 0, 0, 0) });
-            output.Add(new seance() { id = 11, salle_id = 3, titre_seance = "seance test 11", date_debut = new DateTime(2020, 1, 1, 10, 0, 0), date_fin = new DateTime(2020, 1, 1, 12, 0, 0) });
-            output.Add(new seance() { id = 12, salle_id = 3, titre_seance = "seance test 12", date_debut = new DateTime(2020, 1, 1, 13, 0, 0), date_fin = new DateTime(2020, 1, 1, 15, 0, 0) });
-            output.Add(new seance() { id = 13, salle_id = 3, titre_seance = "seance test 13", date_debut = new DateTime(2020, 1, 1, 16, 0, 0), date_fin = new DateTime(2020, 1, 1, 18, 0, 0) });
-            output.Add(new seance() { id = 14, salle_id = 3, titre_seance = "seance test 14", date_debut = new DateTime(2020, 1, 1, 19, 0, 0), date_fin = new DateTime(2020, 1, 1, 21, 0, 0) });
-            output.Add(new seance() { id = 15, salle_id = 3, titre_seance = "seance test 15", date_debut = new DateTime(2020, 1, 1, 22, 0, 0), date_fin = new DateTime(2020, 1, 2, 0, 0, 0) });
-            output.Add(new seance() { id = 16, salle_id = 4, titre_seance = "seance test 16", date_debut = new DateTime(2020, 1, 1, 10, 0, 0), date_fin = new DateTime(2020, 1, 1, 12, 0, 0) });
-            output.Add(new seance() { id = 17, salle_id = 4, titre_seance = "seance test 17", date_debut = new DateTime(2020, 1, 1, 13, 0, 0), date_fin = new DateTime(2020, 1, 1, 15, 0, 0) });
-            output.Add(new seance() { id = 18, salle_id = 4, titre_seance = "seance test 18", date_debut = new DateTime(2020, 1, 1, 16, 0, 0), date_fin = new DateTime(2020, 1, 1, 18, 0, 0) });
-            output.Add(new seance() { id = 19, salle_id = 4, titre_seance = "seance test 19", date_debut = new DateTime(2020, 1, 1, 19, 0, 0), date_fin = new DateTime(2020, 1, 1, 21, 0, 0) });
-            output.Add(new seance() { id = 20, salle_id = 4, titre_seance = "seance test 20", date_debut = new DateTime(2020, 1, 1, 22, 0, 0), date_fin = new DateTime(2020, 1, 2, 0, 0, 0) });
-            output.Add(new seance() { id = 21, salle_id = 5, titre_seance = "seance test 21", date_debut = new DateTime(2020, 1, 1, 10, 0, 0), date_fin = new DateTime(2020, 1, 1, 12, 0, 0) });
-            output.Add(new seance() { id = 22, salle_id = 5, titre_seance = "seance test 22", date_debut = new DateTime(2020, 1, 1, 13, 0, 0), date_fin = new DateTime(2020, 1, 1, 15, 0, 0) });
-            output.Add(new seance() { id = 23, salle_id = 5, titre_seance = "seance test 23", date_debut = new DateTime(2020, 1, 1, 16, 0, 0), date_fin = new DateTime(2020, 1, 1, 18, 0, 0) });
-            output.Add(new seance() { id = 24, salle_id = 5, titre_seance = "seance test 24", date_debut = new DateTime(2020, 1, 1, 19, 0, 0), date_fin = new DateTime(2020, 1, 1, 21, 0, 0) });
-            output.Add(new seance() { id = 25, salle_id = 5, titre_seance = "seance test 25", date_debut = new DateTime(2020, 1, 1, 22, 0, 0), date_fin = new DateTime(2020, 1, 2, 0, 0, 0) });
+            output.Add(new seance() { id = 1, salle_id = 1, titre_seance = "seance test 1", date_debut = new DateTime(2021, 1, 1, 10, 0, 0), date_fin = new DateTime(2021, 1, 1, 12, 0, 0) });
+            output.Add(new seance() { id = 2, salle_id = 1, titre_seance = "seance test 2", date_debut = new DateTime(2021, 1, 1, 13, 0, 0), date_fin = new DateTime(2021, 1, 1, 15, 0, 0) });
+            output.Add(new seance() { id = 3, salle_id = 1, titre_seance = "seance test 3", date_debut = new DateTime(2021, 1, 1, 16, 0, 0), date_fin = new DateTime(2021, 1, 1, 18, 0, 0) });
+            output.Add(new seance() { id = 4, salle_id = 1, titre_seance = "seance test 4", date_debut = new DateTime(2021, 1, 1, 19, 0, 0), date_fin = new DateTime(2021, 1, 1, 21, 0, 0) });
+            output.Add(new seance() { id = 5, salle_id = 1, titre_seance = "seance test 5", date_debut = new DateTime(2021, 1, 1, 22, 0, 0), date_fin = new DateTime(2021, 1, 2, 0, 0, 0) });
+            output.Add(new seance() { id = 6, salle_id = 2, titre_seance = "seance test 6", date_debut = new DateTime(2021, 1, 1, 10, 0, 0), date_fin = new DateTime(2021, 1, 1, 12, 0, 0) });
+            output.Add(new seance() { id = 7, salle_id = 2, titre_seance = "seance test 7", date_debut = new DateTime(2021, 1, 1, 13, 0, 0), date_fin = new DateTime(2021, 1, 1, 15, 0, 0) });
+            output.Add(new seance() { id = 8, salle_id = 2, titre_seance = "seance test 8", date_debut = new DateTime(2021, 1, 1, 16, 0, 0), date_fin = new DateTime(2021, 1, 1, 18, 0, 0) });
+            output.Add(new seance() { id = 9, salle_id = 2, titre_seance = "seance test 9", date_debut = new DateTime(2021, 1, 1, 19, 0, 0), date_fin = new DateTime(2021, 1, 1, 21, 0, 0) });
+            output.Add(new seance() { id = 10, salle_id = 2, titre_seance = "seance test 10", date_debut = new DateTime(2021, 1, 1, 22, 0, 0), date_fin = new DateTime(2021, 1, 2, 0, 0, 0) });
+            output.Add(new seance() { id = 11, salle_id = 3, titre_seance = "seance test 11", date_debut = new DateTime(2021, 1, 1, 10, 0, 0), date_fin = new DateTime(2021, 1, 1, 12, 0, 0) });
+            output.Add(new seance() { id = 12, salle_id = 3, titre_seance = "seance test 12", date_debut = new DateTime(2021, 1, 1, 13, 0, 0), date_fin = new DateTime(2021, 1, 1, 15, 0, 0) });
+            output.Add(new seance() { id = 13, salle_id = 3, titre_seance = "seance test 13", date_debut = new DateTime(2021, 1, 1, 16, 0, 0), date_fin = new DateTime(2021, 1, 1, 18, 0, 0) });
+            output.Add(new seance() { id = 14, salle_id = 3, titre_seance = "seance test 14", date_debut = new DateTime(2021, 1, 1, 19, 0, 0), date_fin = new DateTime(2021, 1, 1, 21, 0, 0) });
+            output.Add(new seance() { id = 15, salle_id = 3, titre_seance = "seance test 15", date_debut = new DateTime(2021, 1, 1, 22, 0, 0), date_fin = new DateTime(2021, 1, 2, 0, 0, 0) });
+            output.Add(new seance() { id = 16, salle_id = 4, titre_seance = "seance test 16", date_debut = new DateTime(2021, 1, 1, 10, 0, 0), date_fin = new DateTime(2021, 1, 1, 12, 0, 0) });
+            output.Add(new seance() { id = 17, salle_id = 4, titre_seance = "seance test 17", date_debut = new DateTime(2021, 1, 1, 13, 0, 0), date_fin = new DateTime(2021, 1, 1, 15, 0, 0) });
+            output.Add(new seance() { id = 18, salle_id = 4, titre_seance = "seance test 18", date_debut = new DateTime(2021, 1, 1, 16, 0, 0), date_fin = new DateTime(2021, 1, 1, 18, 0, 0) });
+            output.Add(new seance() { id = 19, salle_id = 4, titre_seance = "seance test 19", date_debut = new DateTime(2021, 1, 1, 19, 0, 0), date_fin = new DateTime(2021, 1, 1, 21, 0, 0) });
+            output.Add(new seance() { id = 20, salle_id = 4, titre_seance = "seance test 20", date_debut = new DateTime(2021, 1, 1, 22, 0, 0), date_fin = new DateTime(2021, 1, 2, 0, 0, 0) });
+            output.Add(new seance() { id = 21, salle_id = 5, titre_seance = "seance test 21", date_debut = new DateTime(2021, 1, 1, 10, 0, 0), date_fin = new DateTime(2021, 1, 1, 12, 0, 0) });
+            output.Add(new seance() { id = 22, salle_id = 5, titre_seance = "seance test 22", date_debut = new DateTime(2021, 1, 1, 13, 0, 0), date_fin = new DateTime(2021, 1, 1, 15, 0, 0) });
+            output.Add(new seance() { id = 23, salle_id = 5, titre_seance = "seance test 23", date_debut = new DateTime(2021, 1, 1, 16, 0, 0), date_fin = new DateTime(2021, 1, 1, 18, 0, 0) });
+            output.Add(new seance() { id = 24, salle_id = 5, titre_seance = "seance test 24", date_debut = new DateTime(2021, 1, 1, 19, 0, 0), date_fin = new DateTime(2021, 1, 1, 21, 0, 0) });
+            output.Add(new seance() { id = 25, salle_id = 5, titre_seance = "seance test 25", date_debut = new DateTime(2021, 1, 1, 22, 0, 0), date_fin = new DateTime(2021, 1, 2, 0, 0, 0) });
             return output;
         }
 

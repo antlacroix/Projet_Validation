@@ -16,12 +16,26 @@ namespace ModelCinema.Models.DataManager
 
         public List<user_status> GetAllUserStatus()
         {
-            return db.user_status.ToList();
+            try
+            {
+                return db.user_status.ToList();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public user_status GetUserStatus(int? id)
         {
-            return db.user_status.Find(id);
+            try
+            {
+                return db.user_status.Find(id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }
