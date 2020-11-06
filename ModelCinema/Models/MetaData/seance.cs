@@ -67,8 +67,5 @@ namespace ModelCinema.Models
 
         [DisplayName("Salle")]
         public int salle_id { get; set; }
-
-        [DisplayName("Film")]
-        public int film_id { get; set; }
     }
 }
