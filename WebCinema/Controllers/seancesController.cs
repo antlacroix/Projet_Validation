@@ -57,7 +57,12 @@ namespace WebCinema.Controllers
         {
             try
             {
-                ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilmsFrom(null), "id", "titre");
+                List<SelectListItem> tempList = new List<SelectListItem>();
+                foreach (film item in new ManagerFilm().GetAllFilmsFrom(null))
+                {
+                    tempList.Add(new SelectListItem() { Value = item.id.ToString(), Text = item.titre });
+                }
+                ViewBag.film_id = new SelectList(tempList,"Value", "Text");
                 return View();
             }
             catch (Exception e)
@@ -66,6 +71,30 @@ namespace WebCinema.Controllers
                 return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
             }
 
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateAndAddSeance([Bind(Include = "id,date_debut,date_fin,titre_seance,salle_id,film_id")] seance seance)
+        {
+            try
+            {
+                ManagerSeance manager = new ManagerSeance();
+                if (ModelState.IsValid)
+                {
+                    if (manager.PostSeance(seance))
+                    {
+                        ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilmsFrom(null), "id", "titre");
+                        return RedirectToAction("AddSeance", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
+                    }
+                }
+                return View(seance);
+            }
+            catch (Exception e)
+            {
+                TempData.Add("Alert", e.Message);
+                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
+            }
         }
 
         // POST: seances/Create
@@ -100,6 +129,7 @@ namespace WebCinema.Controllers
             {
                 ManagerSeance manager = new ManagerSeance();
                 seance seance = manager.GetSeance(id);
+                ViewBag.films_id = new SelectList(new ManagerFilm().GetAllFilmsFromTo(1995, 2020), "id", "titre");
                 ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle().Where(s => s.cinema_id == int.Parse(Session[SessionKeys.cinemaId].ToString())), "id", "numero_salle", seance.salle_id);
                 return View(seance);
             }

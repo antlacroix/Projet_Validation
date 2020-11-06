@@ -1,0 +1,34 @@
+﻿@model IEnumerable<ModelCinema.Models.programmation>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.is_primary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.film.titre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.seance.titre_seance)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.is_primary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.film.titre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.seance.titre_seance)
+        </td>
+    </tr>
+}
+
+</table>

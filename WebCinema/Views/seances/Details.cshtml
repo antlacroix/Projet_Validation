@@ -42,6 +42,21 @@
             @Html.DisplayFor(model => model.salle.commentaire)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.programmations)
+        </dt>
+
+        @foreach (var item in Model.programmations)
+        {
+            <dd>
+                <span>
+                    @Html.DisplayFor(modelItem => item.film.titre)
+                    @Html.DisplayFor(modelItem => item.is_primary)
+                </span>
+
+            </dd>
+        }
+
     </dl>
 </div>
 <p>
