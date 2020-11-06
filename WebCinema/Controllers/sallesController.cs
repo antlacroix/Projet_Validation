@@ -36,7 +36,7 @@ namespace WebCinema.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            salle salle = manager.GetSalle(id);
+            salle salle = manager.GetSalle(id, null, null);
             if (salle == null)
             {
                 return HttpNotFound();
@@ -90,7 +90,7 @@ namespace WebCinema.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            salle salle = manager.GetSalle(id);
+            salle salle = manager.GetSalle(id, null, null);
             if (salle == null)
             {
                 return HttpNotFound();
@@ -133,7 +133,7 @@ namespace WebCinema.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            salle salle = manager.GetSalle(id);
+            salle salle = manager.GetSalle(id, null, null);
             if (salle == null)
             {
                 return HttpNotFound();

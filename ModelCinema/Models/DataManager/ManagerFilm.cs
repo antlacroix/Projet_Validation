@@ -50,22 +50,22 @@ namespace ModelCinema.Models.DataManager
             }
         }
 
-        public List<film> GetAllFilmsFromTo(int? yearMin, int? yearMax)
-        {
-            if (yearMin == null)
-                yearMin = DateTime.Now.Year - 10;
-            if (yearMax == null)
-                yearMax = DateTime.Now.Year + 10;
+        //public List<film> GetAllFilmsFromTo(int? yearMin, int? yearMax)
+        //{
+        //    if (yearMin == null)
+        //        yearMin = DateTime.Now.Year - 10;
+        //    if (yearMax == null)
+        //        yearMax = DateTime.Now.Year + 10;
 
-            try
-            {
-                return db.films.Where(f => f.annee_parution >= yearMin && f.annee_parution <= yearMax).ToList();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
+        //    try
+        //    {
+        //        return db.films.Where(f => f.annee_parution >= yearMin && f.annee_parution <= yearMax).ToList();
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw e;
+        //    }
+        //}
 
         public film GetFilm(int? id)
         {
@@ -143,5 +143,51 @@ namespace ModelCinema.Models.DataManager
             }
         }
 
+        public List<film> GetFilmFiltre(string titre, DateTime? yearMin, DateTime? yearMax, int? id_type)
+        {
+            if (yearMin == null && yearMax == null)
+            {
+                yearMin = DateTime.Now.AddYears(-10);
+                yearMax = DateTime.Now.AddYears(5);
+            }
+            else if (yearMin == null && yearMax != null)
+            {
+                yearMin = yearMax.Value.AddYears(-10);
+            }
+            else if (yearMin != null && yearMax == null)
+            {
+                yearMax = yearMin.Value.AddYears(5);
+            }
+
+            if (titre != null && !String.Empty.Equals(titre))
+            {
+                try
+                {
+                    return db.films.Where(f => f.titre.Contains(titre) && f.annee_parution >= yearMin.Value.Year && f.annee_parution <= yearMax.Value.Year && f.id_type == id_type).ToList();
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+            else if (titre == null)
+            {
+                try
+                {
+                    return db.films.Where(f => f.annee_parution >= yearMin.Value.Year && f.annee_parution <= yearMax.Value.Year && f.id_type == id_type).ToList();
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+            else
+            {
+                return db.films.Where(f => f.annee_parution >= DateTime.Now.Year - 10).ToList();
+            }
+        }
     }
 }
+
+
+

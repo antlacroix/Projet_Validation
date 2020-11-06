@@ -14,6 +14,12 @@ namespace WebCinema.Controllers
 {
     public class cinemasController : Controller
     {
+        [HttpPost]
+        public ActionResult Filtre(DateTime? start, DateTime? end)
+        {
+            return RedirectToAction("DetailsSalle", new { start = start, end = end, id = int.Parse(Session[SessionKeys.salleId].ToString())});
+        }
+
         // GET: cinemas
         public ActionResult Index()
         {
@@ -218,13 +224,13 @@ namespace WebCinema.Controllers
         }
 
         //GET: cinemas/DetailsSalle/5
-        public ActionResult DetailsSalle(int? id)
+        public ActionResult DetailsSalle(int? id, DateTime? start, DateTime? end)
         {
             Session[SessionKeys.salleId] = id;
             try
             {
                 ManagerSalle manager = new ManagerSalle();
-                salle salle = manager.GetSalle(id);
+                salle salle = manager.GetSalle(id, start, end);
                 return View(salle);
             }
             catch (Exception e)
@@ -240,7 +246,7 @@ namespace WebCinema.Controllers
             try
             {
                 ManagerSalle manager = new ManagerSalle();
-                salle salle = manager.GetSalle(id);
+                salle salle = manager.GetSalle(id, null, null);
                 ViewBag.status_id = new SelectList(new ManagerSalleStatus().GetAllSalleStatus(), "id", "status", salle.status_id);
                 return View(salle);
             }
@@ -280,7 +286,7 @@ namespace WebCinema.Controllers
             try
             {
                 ManagerSalle manager = new ManagerSalle();
-                salle salle = manager.GetSalle(id);
+                salle salle = manager.GetSalle(id, null, null);
                 return View(salle);
             }
             catch (Exception e)
@@ -298,7 +304,7 @@ namespace WebCinema.Controllers
             try
             {
                 ManagerSalle manager = new ManagerSalle();
-                int cineId = manager.GetSalle(id).cinema_id;
+                int cineId = manager.GetSalle(id, null, null).cinema_id;
                 if (manager.DeleteSalles(id))
                     return RedirectToAction("Details", new { id = cineId });
             }

@@ -51,7 +51,7 @@ namespace UnitTestModelCinema.ValidatiorTest
         {
             //Arrange
             ManagerSalle manager = new ManagerSalle(_context);
-            salle ValidSalle = manager.GetSalle(1);
+            salle ValidSalle = manager.GetSalle(1, null, null);
             //Act
             try
             {
@@ -70,7 +70,7 @@ namespace UnitTestModelCinema.ValidatiorTest
         {
             //Arrange
             ManagerSalle manager = new ManagerSalle(_context);
-            salle ValidSalle = manager.GetSalle(6);
+            salle ValidSalle = manager.GetSalle(6, null, null);
             //Act
             try
             {
@@ -112,7 +112,7 @@ namespace UnitTestModelCinema.ValidatiorTest
         {
             //Arrange
             ManagerSalle manager = new ManagerSalle(_context);
-            salle ActiveSalle = manager.GetSalle(1);
+            salle ActiveSalle = manager.GetSalle(1, null, null);
             //Act
             try
             {
@@ -131,7 +131,7 @@ namespace UnitTestModelCinema.ValidatiorTest
         {
             //Arrange
             ManagerSalle manager = new ManagerSalle(_context);
-            salle InactiveSalle = manager.GetSalle(6);
+            salle InactiveSalle = manager.GetSalle(6, null, null);
             //Act
             try
             {

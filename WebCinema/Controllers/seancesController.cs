@@ -15,18 +15,34 @@ namespace WebCinema.Controllers
     public class seancesController : Controller
     {
 
-        protected void btnSave(object sender, EventArgs e)
+        [HttpPost]
+        protected void Filtre(object sender, EventArgs e)
         {
-            // Sauvgardé les modif et nouveau séence
+            RedirectToAction("Index");
         }
 
         // GET: seances
-        public ActionResult Index(int id)
+        public ActionResult Index(int id, DateTime? start, DateTime? end)
         {
             try
             {
                 ManagerSeance managerSeance = new ManagerSeance();
-                return View(managerSeance.GetAllSeanceFromCinema(id));
+
+                ViewBag.start = start;
+                ViewBag.end = end;
+                if (start != null || end != null)
+                {
+                    var orders = managerSeance.GetAllSeanceFromCinema(id)
+                        .Where(x => x.date_debut > start
+                        && x.date_fin < end)
+                        .ToList();
+                    return View(orders);
+                }
+                else
+                {
+                    var orders = managerSeance.GetAllSeanceFromCinema(id);
+                    return View(orders);
+                } 
             }
             catch (Exception e)
             {
@@ -36,6 +52,20 @@ namespace WebCinema.Controllers
 
         }
 
+        public ActionResult Filtre([Bind(Include = "id,date_debut,date_fin,titre_seance,salle_id,film_id")] seance seance)
+        {
+            try
+            {
+      
+                return View(seance);
+            }
+            catch (Exception e)
+            {
+                TempData.Add("Alert", e.Message);
+                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
+            }
+        }
+
         // GET: seances/Details/5
         public ActionResult Details(int? id)
         {
@@ -43,6 +73,7 @@ namespace WebCinema.Controllers
             {
                 ManagerSeance manager = new ManagerSeance();
                 seance seance = manager.GetSeance(id);
+                ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
                 return View(seance);
             }
             catch (Exception e)
@@ -102,7 +133,7 @@ namespace WebCinema.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,date_debut,date_fin,titre_seance,salle_id,film_id")] seance seance)
+        public ActionResult Create([Bind(Include = "id,date_debut,date_fin,titre_seance,salle_id,film_id,id_film")] seance seance)
         {
             try
             {

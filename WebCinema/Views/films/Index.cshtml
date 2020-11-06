@@ -4,12 +4,53 @@
     ViewBag.Title = "Index Films";
 }
 
-<h2>Films</h2>
+<table class="table">
+    <tr>
+        <th>
+            <h2>Films</h2>
+            @if (TempData.ContainsKey("Alert"))
+            {
+                <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+            }
+        </th>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.titre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.type_film.typage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.annee_parution)
+        </th>
+    </tr>
+    @using (Html.BeginForm("Filtre", "films", FormMethod.Post))
+    {
+        <tr>
+            <th>
+                @Html.TextBox("titre", "", new { @class = "form-control" })
+            </th>
+            <th>
+                @Html.DropDownList("id_type", null, htmlAttributes: new { @class = "form-control" })
+            </th>
+            <th>
+                @Html.TextBox("yearMin", DateTime.Now.AddYears(-10), new { @class = "form-control datepicker" })
+            </th>
+            <th>
+                @Html.TextBox("yearMax", DateTime.Now.AddYears(5), new { @class = "form-control datepicker" })
+            </th>
+            <th>
+                <p>
+                    <input type="submit" value="Filtre" class="btn btn-default" />
+                </p>
+            </th>
+        </tr>
+    }
+</table>
 
-@if (TempData.ContainsKey("Alert"))
-{
-    <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
-}
+
+
 
 <table class="table">
     <tr>
@@ -20,8 +61,8 @@
             @Html.DisplayNameFor(model => model.titre)
         </th>
         @*<th>
-            @Html.DisplayNameFor(model => model.MovieGenres)
-        </th>*@
+                @Html.DisplayNameFor(model => model.MovieGenres)
+            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.description)
         </th>
@@ -34,11 +75,11 @@
             @Html.DisplayNameFor(model => model.titre)
         </th>
         @*<th>
-            @Html.DisplayNameFor(model => model.Director)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Actors)
-        </th>*@
+                @Html.DisplayNameFor(model => model.Director)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Actors)
+            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.annee_parution)
         </th>
@@ -66,64 +107,64 @@
     </tr>
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.ranking)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.titre)
-    </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ranking)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.titre)
+            </td>
 
-    @*<td>
-            @foreach (var child in item.MovieGenres)
-            {
-                @Html.DisplayFor(genre => child.Genre)<br />
-            }
-        </td>*@
-    <td>
-        @Html.DisplayFor(modelItem => item.description)
-    </td>
+            @*<td>
+                    @foreach (var child in item.MovieGenres)
+                    {
+                        @Html.DisplayFor(genre => child.Genre)<br />
+                    }
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
 
-    <td>
-        @Html.DisplayFor(modelItem => item.type_film.typage)
-    </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.type_film.typage)
+            </td>
 
-    <td>
-        @Html.DisplayFor(modelItem => item.film2.titre)
-    </td>
-    @*<td>
-            @Html.DisplayFor(modelItem => item.Director.Name)
-        </td>*@
-    @*<td>
-            @foreach (var child in item.Actors)
-            {
-                @Html.DisplayFor(actor => child.Name)<br />
-            }
-        </td>*@
-    <td>
-        @Html.DisplayFor(modelItem => item.annee_parution)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.duree)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.rating)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.votes)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.revenu)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.metascore)
-    </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.film2.titre)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Director.Name)
+                </td>*@
+            @*<td>
+                    @foreach (var child in item.Actors)
+                    {
+                        @Html.DisplayFor(actor => child.Name)<br />
+                    }
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.annee_parution)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.duree)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.votes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.revenu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.metascore)
+            </td>
 
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.id }) <br />
-        @Html.ActionLink("Details", "Details", new { id = item.id }) <br />
-        @Html.ActionLink("Delete", "Delete", new { id = item.id })<br />
-    </td>
-</tr>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) <br />
+                @Html.ActionLink("Details", "Details", new { id = item.id }) <br />
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })<br />
+            </td>
+        </tr>
     }
 </table>
