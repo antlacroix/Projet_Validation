@@ -55,6 +55,36 @@
 </div>
 
 <table class="table">
+
+
+    @using (Html.BeginForm("Filtre", "cinemas", FormMethod.Post))
+    {
+        <tr>
+            <th>
+
+            </th>
+            <th>
+                Start
+                @Html.TextBox("start", DateTime.Now.AddDays(-10), new { @class = "form-control datepicker" })
+            </th>
+            <th>
+                End
+                @Html.TextBox("end", DateTime.Now.AddDays(10), new { @class = "form-control datepicker" })
+            </th>
+            <th>
+                <br/>
+                <input type="submit" value="Filtre" class="btn btn-default" />
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    }
+
     <tr>
         <th>
             Titre de la seance
@@ -86,7 +116,6 @@
                 @Html.DisplayFor(modelItem => item.date_fin)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.film.titre)
             </td>
             <td>
                 @Html.ActionLink("Edit", "EditSeance", new { id = item.id }) |

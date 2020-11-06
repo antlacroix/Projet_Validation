@@ -20,7 +20,7 @@ namespace ModelCinema.Models.DataManager
             db = new cinema_dbEntities();
         }
 
-        public ManagerSalle( cinema_dbEntities cinema_Db)
+        public ManagerSalle(cinema_dbEntities cinema_Db)
         {
             db = cinema_Db;
         }
@@ -44,19 +44,35 @@ namespace ModelCinema.Models.DataManager
             {
                 return db.salles.Where(s => s.cinema_id == id).ToList();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
         }
 
-        public salle GetSalle(int? id)
+        public salle GetSalle(int? id, DateTime? start, DateTime? end)
         {
+            if (start == null && end == null)
+            {
+                start = DateTime.Now.AddDays(-10);
+                end = DateTime.Now.AddDays(10);
+            }
+            else if (start == null && end != null)
+            {
+                start = end.Value.AddDays(-10);
+            }
+            else if (start != null && end == null)
+            {
+                end = start.Value.AddDays(10);
+            }
+
             try
             {
                 if (id != null)
                 {
                     salle salle = db.salles.Find(id);
+                    salle.seances = salle.seances.Where(x => x.date_debut > start && x.date_fin < end).ToList();
+
                     if (salle != null)
                         return salle;
                     else

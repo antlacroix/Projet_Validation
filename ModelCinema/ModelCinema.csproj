@@ -150,6 +150,7 @@
     <Compile Include="Models\DataManager\ManagerUser.cs" />
     <Compile Include="Models\DataManager\ManagerUserStatus.cs" />
     <Compile Include="Models\DataManager\ManagerUserType.cs" />
+    <Compile Include="Models\EditParams.cs" />
     <Compile Include="Models\film.cs">
       <DependentUpon>ModelCinema.tt</DependentUpon>
     </Compile>

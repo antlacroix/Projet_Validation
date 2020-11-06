@@ -16,9 +16,10 @@ namespace WebCinema.Controllers
     {
         //private cinema_dbEntities db = new cinema_dbEntities();
 
-        protected void btnSave(object sender, EventArgs e)
+        [HttpPost]
+        protected void Filtre(object sender, EventArgs e)
         {
-            // Sauvgardé les modif et nouveau séence
+            RedirectToAction("Index");
         }
         #region
         //public List<seance> GetScheduleData()
@@ -84,7 +85,7 @@ namespace WebCinema.Controllers
         #endregion
 
         // GET: seances
-        public ActionResult Index(int id)
+        public ActionResult Index(int id, DateTime? start, DateTime? end)
         {
             #region
             //ManagerCinema managerCinema = new ManagerCinema();
@@ -103,16 +104,23 @@ namespace WebCinema.Controllers
             #endregion
             try
             {
-                //List<cinema> tempCinema = new ManagerCinema().GetAllCinema();
-                //List<SelectListItem> cinemas = new List<SelectListItem>();
-                //foreach (cinema item in tempCinema)
-                //{
-                //    cinemas.Add(new SelectListItem() { Text = item.id.ToString(), Value = item.id.ToString() });
-                //}
-
-                //ViewBag.cinemas = new SelectList(cinemas, "Value", "Text");
                 ManagerSeance managerSeance = new ManagerSeance();
-                return View(managerSeance.GetAllSeanceFromCinema(id));
+
+                ViewBag.start = start;
+                ViewBag.end = end;
+                if (start != null || end != null)
+                {
+                    var orders = managerSeance.GetAllSeanceFromCinema(id)
+                        .Where(x => x.date_debut > start
+                        && x.date_fin < end)
+                        .ToList();
+                    return View(orders);
+                }
+                else
+                {
+                    var orders = managerSeance.GetAllSeanceFromCinema(id);
+                    return View(orders);
+                } 
             }
             catch (Exception e)
             {
@@ -121,6 +129,21 @@ namespace WebCinema.Controllers
             }
 
         }
+
+        public ActionResult Filtre([Bind(Include = "id,date_debut,date_fin,titre_seance,salle_id,film_id")] seance seance)
+        {
+            try
+            {
+      
+                return View(seance);
+            }
+            catch (Exception e)
+            {
+                TempData.Add("Alert", e.Message);
+                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
+            }
+        }
+
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public ActionResult Index(FormCollection form)

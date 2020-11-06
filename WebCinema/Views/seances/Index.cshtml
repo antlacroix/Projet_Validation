@@ -65,45 +65,72 @@
             @Html.DisplayNameFor(model => model.date_fin)
         </th>
         @*<th>
-            @Html.DisplayNameFor(model => model.film_id)
-        </th>*@
+                @Html.DisplayNameFor(model => model.film_id)
+            </th>*@
         <th>
             @*@using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
-                <input type="submit" value="Create New" class="btn btn-default" />
-                @Html.DropDownList("cinemas", null, htmlAttributes: new { @class = "form-control" })
-            }*@
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="Create New" class="btn btn-default" />
+                    @Html.DropDownList("cinemas", null, htmlAttributes: new { @class = "form-control" })
+                }*@
         </th>
     </tr>
-
-    @foreach (var item in Model)
+    @using (Html.BeginForm("Filtre", "seances", FormMethod.Post))
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.salle.cinema.contact_info.adresse)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.salle.numero_salle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.titre_seance)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.date_debut)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.date_fin)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.film.titre)
-            </td>*@
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id })
-            </td>
-        </tr>
-    }
+            <th>
 
-</table>
+            </th>
+            <th>
+
+            </th>
+            <th>
+                
+            </th>
+
+            <th>
+                Start
+                @Html.TextBox("Apres", DateTime.Now.AddDays(-10), new { @class = "form-control datepicker" })
+            </th>
+            <th>
+                End
+                @Html.TextBox("Avant", DateTime.Now.AddDays(10), new { @class = "form-control datepicker" })
+            </th>
+            <th>
+                <input type="submit" value="Filtre" class="btn btn-default" />
+               
+            </th>
+        </tr>
+     }
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.salle.cinema.contact_info.adresse)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.salle.numero_salle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.titre_seance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.date_debut)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.date_fin)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.film.titre)
+                    </td>*@
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                </td>
+            </tr>
+        }
+
+    </table>

@@ -145,6 +145,7 @@
     <Compile Include="Controllers\role_participantController.cs" />
     <Compile Include="Controllers\sallesController.cs" />
     <Compile Include="Controllers\salle_statusController.cs" />
+    <Compile Include="Controllers\SchedulerEJSController.cs" />
     <Compile Include="Controllers\seancesController.cs" />
     <Compile Include="Controllers\seancesEJSController.cs" />
     <Compile Include="Controllers\usersController.cs" />
@@ -398,6 +399,7 @@
     <Content Include="Views\seancesEJS\Details.cshtml" />
     <Content Include="Views\seancesEJS\Edit.cshtml" />
     <Content Include="Views\seancesEJS\Index.cshtml" />
+    <Content Include="Views\SchedulerEJS\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\UploadedFiles\" />
