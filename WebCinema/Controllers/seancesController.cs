@@ -161,6 +161,7 @@ namespace WebCinema.Controllers
             {
                 ManagerSeance manager = new ManagerSeance();
                 seance seance = manager.GetSeance(id);
+                ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
                 return View(seance);
             }
             catch (Exception e)
@@ -195,7 +196,7 @@ namespace WebCinema.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,date_debut,date_fin,titre_seance,salle_id,film_id")] seance seance)
+        public ActionResult Create([Bind(Include = "id,date_debut,date_fin,titre_seance,salle_id,film_id,id_film")] seance seance)
         {
             try
             {

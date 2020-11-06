@@ -17,25 +17,29 @@ namespace WebCinema.Controllers
 {
     public class filmsController : Controller
     {
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    try
+        //    {
+        //        //MovieService movieService = new MovieService();
+        //        //return View(movieService.GetMovies());
+        //        ManagerFilm manager = new ManagerFilm();
+        //        ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
+        //        ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
+        //        return View(manager.GetAllFilmsFrom(DateTime.Now.Year -10));
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        TempData.Add("Alert", e.Message);
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //}
+
+        [HttpPost]
+        public ActionResult Filtre(string titre, DateTime? yearMin, DateTime? yearMax, int? id_type)
         {
-            try
-            {
-                //MovieService movieService = new MovieService();
-                //return View(movieService.GetMovies());
-                ManagerFilm manager = new ManagerFilm();
-                return View(manager.GetAllFilmsFrom(DateTime.Now.Year -10));
-            }
-            catch (Exception e)
-            {
-                TempData.Add("Alert", e.Message);
-                return RedirectToAction("Index", "Home");
-            }
+            return RedirectToAction("Index", new { titre = titre, yearMin = yearMin, yearMax = yearMax, id_type = id_type });
         }
-       
-
-       
-
 
         // GET: films/Details/5
         public ActionResult Details(int? id)
@@ -176,6 +180,22 @@ namespace WebCinema.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public ActionResult Index(string titre, DateTime? yearMin, DateTime? yearMax, int? id_type)
+        {
+            try
+            {
+                ManagerFilm manager = new ManagerFilm();
+                ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
+                return View(manager.GetFilmFiltre(titre, yearMin, yearMax, id_type));
+            }
+            catch (Exception e)
+            {
+                TempData.Add("Alert", e.Message);
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
 
         protected override void Dispose(bool disposing)
         {
