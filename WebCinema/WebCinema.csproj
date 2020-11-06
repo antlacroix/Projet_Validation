@@ -398,12 +398,9 @@
     <Content Include="Views\seancesEJS\Details.cshtml" />
     <Content Include="Views\seancesEJS\Edit.cshtml" />
     <Content Include="Views\seancesEJS\Index.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
     <Content Include="Views\seances\Programmations.cshtml" />
-=======
     <Content Include="Views\SchedulerEJS\Index.cshtml" />
->>>>>>> 715d82f03e3fcf44751027f00c6fe3f11909d110
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
