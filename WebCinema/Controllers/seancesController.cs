@@ -84,8 +84,38 @@ namespace WebCinema.Controllers
         //}
         #endregion
 
-        // GET: seances
-        public ActionResult Index(int id, DateTime? start, DateTime? end)
+        [HttpPost]
+        public ActionResult Reccurance(int id, string recurrance, int nbrRecurrance)
+        {
+            try
+            {
+                ManagerSeance manager = new ManagerSeance();
+                manager.RecurranceSeances(id, recurrance, nbrRecurrance);
+                return RedirectToAction("Index", "Home"); 
+            }
+            catch (Exception e)
+            {
+                TempData.Add("Alert", e.Message);
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+            //public ActionResult Index(int id, string recurrance, int nbrRecurrance)
+            //{
+            //    try
+            //    {
+            //        ManagerFilm manager = new ManagerFilm();
+            //        return View(manager.GetFilmFiltre(id, recurrance, nbrRecurrance));
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        TempData.Add("Alert", e.Message);
+            //        return RedirectToAction("Index", "Home");
+            //    }
+            //}
+
+            // GET: seances
+            public ActionResult Index(int id, DateTime? start, DateTime? end)
         {
             #region
             //ManagerCinema managerCinema = new ManagerCinema();
