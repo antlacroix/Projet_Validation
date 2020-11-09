@@ -14,13 +14,8 @@ namespace WebCinema.Controllers
 {
     public class seancesController : Controller
     {
-
-        [HttpPost]
-        protected void Filtre(object sender, EventArgs e)
-        {
-            RedirectToAction("Index");
-        }
-
+        //Get methode
+        #region
         // GET: seances
         public ActionResult Index(int id, DateTime? start, DateTime? end)
         {
@@ -42,7 +37,7 @@ namespace WebCinema.Controllers
                 {
                     var orders = managerSeance.GetAllSeanceFromCinema(id);
                     return View(orders);
-                } 
+                }
             }
             catch (Exception e)
             {
@@ -51,24 +46,10 @@ namespace WebCinema.Controllers
             }
 
         }
-
-        public ActionResult Filtre([Bind(Include = "id,date_debut,date_fin,titre_seance,salle_id,film_id")] seance seance)
-        {
-            try
-            {
-      
-                return View(seance);
-            }
-            catch (Exception e)
-            {
-                TempData.Add("Alert", e.Message);
-                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
-            }
-        }
-
         // GET: seances/Details/5
         public ActionResult Details(int? id)
         {
+            Session[SessionKeys.seanceId] = id;
             try
             {
                 ManagerSeance manager = new ManagerSeance();
@@ -82,7 +63,6 @@ namespace WebCinema.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-
         // GET: seances/Create
         public ActionResult Create(int? id)
         {
@@ -93,7 +73,7 @@ namespace WebCinema.Controllers
                 {
                     tempList.Add(new SelectListItem() { Value = item.id.ToString(), Text = item.titre });
                 }
-                ViewBag.film_id = new SelectList(tempList,"Value", "Text");
+                ViewBag.film_id = new SelectList(tempList, "Value", "Text");
                 return View();
             }
             catch (Exception e)
@@ -101,24 +81,34 @@ namespace WebCinema.Controllers
                 TempData.Add("Alert", e.Message);
                 return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
             }
-
         }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateAndAddSeance([Bind(Include = "id,date_debut,date_fin,titre_seance,salle_id,film_id")] seance seance)
+        // GET: seances/Edit/5
+        public ActionResult Edit(int? id, string titre, int? yearMin, int? yearMax, int? id_type)
+        {
+            Session[SessionKeys.seanceId] = id;
+            try
+            {
+                ManagerSeance manager = new ManagerSeance();
+                seance seance = manager.GetSeance(id);
+                ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
+                ViewBag.films_id = new SelectList(new ManagerFilm().GetFilmFiltre(titre, yearMin, yearMax, id_type), "id", "titre");
+                ViewBag.filmsFiltred = new List<film>(new ManagerFilm().GetFilmFiltre(titre, yearMin, yearMax, id_type));
+                ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle().Where(s => s.cinema_id == int.Parse(Session[SessionKeys.cinemaId].ToString())), "id", "numero_salle", seance.salle_id);
+                return View(seance);
+            }
+            catch (Exception e)
+            {
+                TempData.Add("Alert", e.Message);
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        // GET: seances/Delete/5
+        public ActionResult Delete(int? id)
         {
             try
             {
                 ManagerSeance manager = new ManagerSeance();
-                if (ModelState.IsValid)
-                {
-                    if (manager.PostSeance(seance))
-                    {
-                        ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilmsFrom(null), "id", "titre");
-                        return RedirectToAction("AddSeance", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
-                    }
-                }
+                seance seance = manager.GetSeance(id);
                 return View(seance);
             }
             catch (Exception e)
@@ -127,7 +117,10 @@ namespace WebCinema.Controllers
                 return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
             }
         }
+        #endregion
 
+        //Post method
+        #region
         // POST: seances/Create
         // Pour vous protéger des attaques par survalidation, activez les propriétés spécifiques auxquelles vous souhaitez vous lier. Pour 
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -152,32 +145,19 @@ namespace WebCinema.Controllers
                 return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
             }
         }
-
-        // GET: seances/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            try
-            {
-                ManagerSeance manager = new ManagerSeance();
-                seance seance = manager.GetSeance(id);
-                ViewBag.films_id = new SelectList(new ManagerFilm().GetAllFilmsFromTo(1995, 2020), "id", "titre");
-                ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle().Where(s => s.cinema_id == int.Parse(Session[SessionKeys.cinemaId].ToString())), "id", "numero_salle", seance.salle_id);
-                return View(seance);
-            }
-            catch (Exception e)
-            {
-                TempData.Add("Alert", e.Message);
-                return RedirectToAction("Index", "Home");
-            }
-        }
-
         // POST: seances/Edit/5
         // Pour vous protéger des attaques par survalidation, activez les propriétés spécifiques auxquelles vous souhaitez vous lier. Pour 
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,date_debut,date_fin,titre_seance,salle_id,film_id")] seance seance)
+        public ActionResult Edit([Bind(Include = "id,date_debut,date_fin,titre_seance,salle_id,film_id")] seance seance, string command, string titre, int? yearMin, int? yearMax, int? id_type)
         {
+            if (command == "Filtre")
+                return RedirectToAction("Edit", new { titre = titre, yearMin = yearMin, yearMax = yearMax, id_type = id_type });
+            else if (command == "addFilm")
+                return RedirectToAction("Edit", new { titre = titre, yearMin = yearMin, yearMax = yearMax, id_type = id_type });
+
+
             try
             {
                 ManagerSeance managerSeance = new ManagerSeance();
@@ -187,8 +167,8 @@ namespace WebCinema.Controllers
                     if (managerSeance.PutSeance(seance))
                         return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
                 }
-                ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle().Where(s => s.cinema_id == int.Parse(Session[SessionKeys.cinemaId].ToString())), "id", "numero_salle", seance.salle_id);
-                return View(seance);
+                    ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle().Where(s => s.cinema_id == int.Parse(Session[SessionKeys.cinemaId].ToString())), "id", "numero_salle", seance.salle_id);
+                return RedirectToAction("Edit", new { titre = titre, yearMin = yearMin, yearMax = yearMax, id_type = id_type });
             }
             catch (Exception e)
             {
@@ -196,23 +176,6 @@ namespace WebCinema.Controllers
                 return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
             }
         }
-
-        // GET: seances/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            try
-            {
-                ManagerSeance manager = new ManagerSeance();
-                seance seance = manager.GetSeance(id);
-                return View(seance);
-            }
-            catch (Exception e)
-            {
-                TempData.Add("Alert", e.Message);
-                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
-            }
-        }
-
         // POST: seances/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -234,57 +197,67 @@ namespace WebCinema.Controllers
             }
         }
 
+        #endregion
 
+        //Navigation Action
+        #region
         public ActionResult BackToSalle(int id)
         {
             return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
         }
+        #endregion
 
-        private bool CreateProgrammation(programmation programmation)
+
+        public ActionResult CreateProgrammation(int? id, int seanceId)
         {
             try
             {
+                programmation p = new programmation()
+                {
+                    id_film = id,
+                    id_seance = int.Parse(Session[SessionKeys.seanceId].ToString())
+                };
                 ManagerProgrammation manager = new ManagerProgrammation();
-                manager.PostProgrammation(programmation);
-                return true;
+                manager.PostProgrammation(p);
+                return RedirectToAction("Edit", new { id = int.Parse(Session[SessionKeys.seanceId].ToString()) });
             }
             catch(Exception e)
             {
                 TempData.Add("Alert", e.Message);
-                return false;
+                return RedirectToAction("Details");
             }
         }
-
-        private bool EditProgramation(programmation programmation)
+        
+        public ActionResult RemoveProgrammation(int id, int seanceId)
         {
             try
             {
                 ManagerProgrammation manager = new ManagerProgrammation();
-                manager.PutProgrammation(programmation);
-                return true;
-            }
-            catch(Exception e)
-            {
-                TempData.Add("Alert", e.Message);
-                return false;
-            }
-        }
-
-        private bool DeleteProgramation(int idProgrammation)
-        {
-            try
-            {
-                ManagerProgrammation manager = new ManagerProgrammation();
-                manager.DeleteProgrammation(idProgrammation);
-                return true;
+                manager.DeleteProgrammation(id);
+                return RedirectToAction("Edit", new { id = seanceId });
             }
             catch (Exception e)
             {
                 TempData.Add("Alert", e.Message);
-                return false;
+                return RedirectToAction("Details");
             }
         }
 
-        
+        public ActionResult MakePrimary(int id, int seanceId)
+        {
+            try
+            {
+                ManagerProgrammation manager = new ManagerProgrammation();
+                if (manager.MakePrimary(id))
+                    return RedirectToAction("Edit", new { id = int.Parse(Session[SessionKeys.seanceId].ToString()) });
+                else
+                    throw new Exception("echec de lopperation");
+            }
+            catch (Exception e)
+            {
+                TempData.Add("Alert", e.Message);
+                return RedirectToAction("Details");
+            }
+        }
     }
 }

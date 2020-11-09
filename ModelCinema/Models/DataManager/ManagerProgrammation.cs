@@ -49,8 +49,15 @@ namespace ModelCinema.Models.DataManager
         {
             try
             {
-                if(new ManagerSeance().GetSeance(programmation.id_seance).programmations.Where(p => p.is_primary).ToList().Count() != 1 && 
-                    (programmation.film.type_film.typage.ToUpper() == "STANDART" || programmation.film.type_film.typage.ToUpper() == "COURT METRAGE"))
+                ManagerSeance manager = new ManagerSeance();
+                List<programmation> programmations = manager.GetSeance(programmation.id_seance).programmations.ToList();
+                film f = new ManagerFilm().GetFilm(programmation.id_film);
+
+                if (programmations.Count() == 0 && (f.type_film.typage.ToUpper() == "STANDART" || f.type_film.typage.ToUpper() == "COURT METRAGE"))
+                    programmation.is_primary = true;
+
+                else if (programmations.Where(p => p.is_primary).ToList().Count() != 1 &&
+                    (f.type_film.typage.ToUpper() == "STANDART" || f.type_film.typage.ToUpper() == "COURT METRAGE"))
                 {
                     programmation.is_primary = true;
                 }
@@ -68,16 +75,33 @@ namespace ModelCinema.Models.DataManager
         {
             try
             {
-                if (new ManagerSeance().GetSeance(programmation.id_seance).programmations.Where(p => p.is_primary).ToList().Count() != 1 &&
-                    (programmation.film.type_film.typage.ToUpper() == "STANDART" || programmation.film.type_film.typage.ToUpper() == "COURT METRAGE"))
-                {
-                    programmation.is_primary = true;
-                }
                 db.Entry(programmation).State = EntityState.Modified;
                 db.SaveChanges();
                 return true;
             }
             catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public bool MakePrimary(int id)
+        {
+            try
+            {
+                programmation programmation = GetProgrammation(id);
+                programmation.is_primary = true;
+
+                ManagerSeance manager = new ManagerSeance();
+                List<programmation> programmations = manager.GetSeance(programmation.id_seance).programmations.ToList();
+                int i = programmations.Find(prog => prog.is_primary).id;
+                programmation oldPrimary = GetProgrammation(i);
+                oldPrimary.is_primary = false;
+                PutProgrammation(oldPrimary);
+                programmations.Find(prog => prog.id == programmation.id).is_primary = true;
+                db.SaveChanges();
+                return true;
+            }catch (Exception e)
             {
                 throw e;
             }

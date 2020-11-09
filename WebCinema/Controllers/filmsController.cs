@@ -181,7 +181,7 @@ namespace WebCinema.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Index(string titre, DateTime? yearMin, DateTime? yearMax, int? id_type)
+        public ActionResult Index(string titre, int? yearMin, int? yearMax, int? id_type)
         {
             try
             {

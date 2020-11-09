@@ -1,0 +1,17 @@
+﻿@model ModelCinema.Models.film
+
+<tr>
+    @Html.HiddenFor(model => model.id)
+    <td>
+        @Html.DisplayFor(model => model.titre)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.type_film.typage)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.duree)
+    </td>
+    <td>
+        @Html.ActionLink("Add", "CreateProgrammation", "seances", new { id = Model.id, seanceId = int.Parse(Session[SessionKeys.seanceId].ToString()) }, null)
+    </td>
+</tr>

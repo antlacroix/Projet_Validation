@@ -8,6 +8,7 @@
 {
     @Html.AntiForgeryToken()
 
+
     <div>
         <h2>Seances Edit</h2>
         <input type="submit" value="Save" class="btn btn-default" />
@@ -90,8 +91,56 @@
                     @Html.DisplayFor(modelItem => item.film.duree)
                 </td>
                 <td>
-                    @Html.EditorFor(modelItem => item.is_primary)
+                    @if (item.is_primary)
+                    {
+                        <b>PRIMARY</b>
+                    }
+                    else
+                    {
+                        @Html.ActionLink("make primary", "MakePrimary", new { id = item.id, seanceId = int.Parse(Session[SessionKeys.seanceId].ToString()) })
+                    }
+                    @*@Html.EditorFor(modelItem => item.is_primary)*@
                 </td>
+                <td>
+                    @Html.ActionLink("Remove", "RemoveProgrammation", new { id = item.id, seanceId = int.Parse(Session[SessionKeys.seanceId].ToString()) })
+                </td>
+            </tr>
+        }
+    </table>
+
+    //table pour le filtre
+    <table class="table">
+        <tr>
+            <th>
+                Titre
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Annee de parution
+            </th>
+        </tr>
+        @using (Html.BeginForm("Filtre", "seances", FormMethod.Post))
+        {
+            <tr>
+                <th>
+                    @Html.TextBox("titre", "", new { @class = "form-control" })
+                </th>
+                <th>
+                    @Html.DropDownList("id_type", null, htmlAttributes: new { @class = "form-control" })
+                </th>
+                <th>
+                    @Html.TextBox("yearMin", DateTime.Now.Year - 10, new { @class = "form-control datepicker" })
+                </th>
+                <th>
+                    @Html.TextBox("yearMax", DateTime.Now.Year + 5, new { @class = "form-control datepicker" })
+                </th>
+                <th>
+                    <p>
+                        <input name="command" type="submit" value="Filtre" class="btn btn-default" />
+                    </p>
+                </th>
             </tr>
         }
     </table>
@@ -100,18 +149,25 @@
     <table class="table">
         <tr>
             <th>
-                Ajouter un film
+                Films
             </th>
             <th>
-                Principale
+                Types
+            </th>
+            <th>
+                Durees
+            </th>
+            <th>
+
             </th>
         </tr>
-        <tr>
-            <td>
-                @Html.DropDownList("films_id", null, htmlAttributes: new { @class = "form-control" })
-            </td>
-        </tr>
-
+        @if (ViewBag.filmsFiltred != null)
+        {
+            foreach (var item in ViewBag.filmsFiltred)
+            {
+                Html.RenderPartial("FilmsAdder", (ModelCinema.Models.film)item);
+            }
+        }
     </table>
 }
 
