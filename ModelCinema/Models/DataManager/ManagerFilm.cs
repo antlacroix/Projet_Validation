@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -108,7 +109,8 @@ namespace ModelCinema.Models.DataManager
             {
                 if (ValidatorFilm.IsFilmExist(film, GetAllFilmsFrom(film.annee_parution)) && ValidatorFilm.IsValide(film))
                 {
-                    db.Entry(film).State = EntityState.Modified;
+                    //db.Entry(film).State = EntityState.Modified;
+                    db.Set<film>().AddOrUpdate(film);
                     db.SaveChanges();
                     return true;
                 }

@@ -14,11 +14,7 @@ namespace WebCinema.Controllers
 {
     public class seancesController : Controller
     {
-        //Get methode
-        #region
-		#endregion
-        
-        
+        //Get methode        
 
         [HttpPost]
         public ActionResult Reccurance(int id, string recurrance, int nbrRecurrance)
@@ -27,7 +23,7 @@ namespace WebCinema.Controllers
             {
                 ManagerSeance manager = new ManagerSeance();
                 manager.RecurranceSeances(id, recurrance, nbrRecurrance);
-                return RedirectToAction("Index", "Home"); 
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception e)
             {
@@ -36,8 +32,8 @@ namespace WebCinema.Controllers
             }
         }
 
-            // GET: seances
-            public ActionResult Index(int id, DateTime? start, DateTime? end)
+        // GET: seances
+        public ActionResult Index(int id, DateTime? start, DateTime? end)
         {
             try
             {
@@ -137,7 +133,6 @@ namespace WebCinema.Controllers
                 return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
             }
         }
-        #endregion
 
         //Post method
         #region
@@ -187,7 +182,7 @@ namespace WebCinema.Controllers
                     if (managerSeance.PutSeance(seance))
                         return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
                 }
-                    ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle().Where(s => s.cinema_id == int.Parse(Session[SessionKeys.cinemaId].ToString())), "id", "numero_salle", seance.salle_id);
+                ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle().Where(s => s.cinema_id == int.Parse(Session[SessionKeys.cinemaId].ToString())), "id", "numero_salle", seance.salle_id);
                 return RedirectToAction("Edit", new { titre = titre, yearMin = yearMin, yearMax = yearMax, id_type = id_type });
             }
             catch (Exception e)
@@ -241,13 +236,13 @@ namespace WebCinema.Controllers
                 manager.PostProgrammation(p);
                 return RedirectToAction("Edit", new { id = int.Parse(Session[SessionKeys.seanceId].ToString()) });
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 TempData.Add("Alert", e.Message);
                 return RedirectToAction("Details");
             }
         }
-        
+
         public ActionResult RemoveProgrammation(int id, int seanceId)
         {
             try

@@ -48,7 +48,9 @@ namespace ModelCinema.Models.ModelValidator
             List<seance> conflitingOne = seances.Where(seance => 
                 !(
                     (candidate.date_debut < seance.date_debut && candidate.date_fin <= seance.date_debut) || 
-                    (candidate.date_debut >= seance.date_fin && candidate.date_fin > seance.date_fin))
+                    (candidate.date_debut >= seance.date_fin && candidate.date_fin > seance.date_fin)
+                ) 
+                && candidate.id != seance.id                
                 ).ToList();
 
             if (conflitingOne.Count != 0)

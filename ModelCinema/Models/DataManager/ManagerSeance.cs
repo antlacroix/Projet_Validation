@@ -3,6 +3,7 @@ using ModelCinema.Models.ModelValidator;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -146,7 +147,7 @@ namespace ModelCinema.Models.DataManager
             {
                 if (ValidatorSeance.IsSeanceExiste(seance, this.GetAllSeanceFromSalle(seance.salle_id, null)) && ValidatorSeance.IsValide(seance) && !ValidatorSeance.IsSeanceConflict(seance, GetAllSeanceFromSalle(seance.salle_id, null)))
                 {
-                    db.Entry(seance).State = EntityState.Modified;
+                    db.Set<seance>().AddOrUpdate(seance);
                     db.SaveChanges();
                     return true;
                 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -83,7 +84,8 @@ namespace ModelCinema.Models.DataManager
             {
                 if (ValidatorCinema.IsCinemaExist(cinema, GetAllCinema()))
                 {
-                    db.Entry(cinema).State = EntityState.Modified;
+                    //db.Entry(cinema).State = EntityState.Modified;
+                    db.Set<cinema>().AddOrUpdate(cinema);
                     db.SaveChanges();
                     return true;
                 }

@@ -3,6 +3,7 @@ using ModelCinema.Models.ModelValidator;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
@@ -114,11 +115,14 @@ namespace ModelCinema.Models.DataManager
         {
             try
             {
+                var salles = GetAllSalleFromCinema(salle.cinema_id);
+                var state = db.Entry(salle).State;
                 if (salle.commentaire == null)
                     salle.commentaire = "";
-                if (ValidatorSalle.IsSalleExist(salle, GetAllSalleFromCinema(salle.cinema_id)) && ValidatorSalle.IsValide(salle) && !ValidatorSalle.IsSalleContainSeance(salle))
+                if (ValidatorSalle.IsSalleExist(salle, salles) && ValidatorSalle.IsValide(salle) && !ValidatorSalle.IsSalleContainSeance(salle))
                 {
-                    db.Entry(salle).State = EntityState.Modified;
+                    db.Set<salle>().AddOrUpdate(salle);
+                    //db.Entry(salle).State = EntityState.Modified;
                     db.SaveChanges();
                     return true;
                 }
