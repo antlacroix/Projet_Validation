@@ -55,6 +55,9 @@
                 @Html.DisplayFor(model => model.salle.commentaire)
             </dd>
 
+
+
+
             <br />
 
             <table class="table">
@@ -98,10 +101,38 @@
     </div>
 
 }
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "BackToSalle", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) })
-</p>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+
+
+@using (Html.BeginForm("Reccurance", "seances", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.id)
+    <table class="table">
+        <tr>
+            <th>
+                <select class="form-control" id="recurrance" name="recurrance">
+                    <option>Daily</option>
+                    <option>Weekly</option>
+                    <option>Monthly</option>
+                    <option>Yearly</option>
+                </select>
+            </th>
+            <th>
+                <input class="form-control" id="nbrRecurrance" name="nbrRecurrance" type="number" min="1" value="1" />
+            </th>
+            <th>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create Repeat" class="btn btn-default" />
+                    </div>
+                </div>
+            </th>
+        </tr>
+    </table>
 }
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+        @Html.ActionLink("Back to List", "BackToSalle", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) })
+    </p>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

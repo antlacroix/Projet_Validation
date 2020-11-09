@@ -16,8 +16,28 @@ namespace WebCinema.Controllers
     {
         //Get methode
         #region
-        // GET: seances
-        public ActionResult Index(int id, DateTime? start, DateTime? end)
+		#endregion
+        
+        
+
+        [HttpPost]
+        public ActionResult Reccurance(int id, string recurrance, int nbrRecurrance)
+        {
+            try
+            {
+                ManagerSeance manager = new ManagerSeance();
+                manager.RecurranceSeances(id, recurrance, nbrRecurrance);
+                return RedirectToAction("Index", "Home"); 
+            }
+            catch (Exception e)
+            {
+                TempData.Add("Alert", e.Message);
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+            // GET: seances
+            public ActionResult Index(int id, DateTime? start, DateTime? end)
         {
             try
             {

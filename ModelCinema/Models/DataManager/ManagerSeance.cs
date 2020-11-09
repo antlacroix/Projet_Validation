@@ -182,5 +182,81 @@ namespace ModelCinema.Models.DataManager
                 throw e;
             }
         }
+
+        public bool RecurranceSeances(int id, string recurrance, int nbrRecurrance)
+        {
+            try
+            {
+                if(recurrance == "Yearly")
+                {
+                    seance seance = db.seances.Find(id);
+                    int counter = nbrRecurrance;
+                    while ( counter > 0)
+                    {
+                        seance.date_debut = seance.date_debut.AddYears(1);
+                        seance.date_fin = seance.date_fin.AddYears(1);
+                        
+                        int seanceid =  db.seances.Add(seance).id;
+                        foreach (var item in seance.programmations)
+                        {
+                           
+                        }
+
+
+                        db.SaveChanges();
+                        counter--;
+                    }
+                    return true;
+                }
+                else if (recurrance == "Monthly")
+                {
+                    seance seance = db.seances.Find(id);
+                    int counter = nbrRecurrance;
+                    while (counter > 0)
+                    {
+                        seance.date_debut = seance.date_debut.AddMonths(1);
+                        seance.date_fin = seance.date_fin.AddMonths(1);
+                        db.seances.Add(seance);
+                        db.SaveChanges();
+                        counter--;
+                    }
+                    return true;
+                }
+                else if (recurrance == "Daily")
+                {
+                    seance seance = db.seances.Find(id);
+                    int counter = nbrRecurrance;
+                    while (counter > 0)
+                    {
+                        seance.date_debut = seance.date_debut.AddDays(1);
+                        seance.date_fin = seance.date_fin.AddDays(1);
+                        db.seances.Add(seance);
+                        db.SaveChanges();
+                        counter--;
+                    }
+                    return true;
+                }
+                else
+                {
+                    seance seance = db.seances.Find(id);
+                    int counter = nbrRecurrance;
+                    while (counter > 0)
+                    {
+                        seance.date_debut = seance.date_debut.AddDays(7);
+                        seance.date_fin = seance.date_fin.AddDays(7);
+                        db.seances.Add(seance);
+                        db.SaveChanges();
+                        counter--;
+                    }
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+               // throw e;
+                return false;
+            }
+
+        }
     }
 }
