@@ -12,7 +12,6 @@
     @Html.AntiForgeryToken()
 
     <div>
-        @*<h4>seance</h4>*@
         <hr />
         <dl class="dl-horizontal">
             <dt>
@@ -39,14 +38,6 @@
                 @Html.DisplayFor(model => model.titre_seance)
             </dd>
 
-            @*<dt>
-                    @Html.DisplayNameFor(model => model.film.titre)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.film.titre)
-                </dd>*@
-
             <dt>
                 @Html.DisplayNameFor(model => model.salle.commentaire)
             </dt>
@@ -54,50 +45,29 @@
             <dd>
                 @Html.DisplayFor(model => model.salle.commentaire)
             </dd>
+        </dl>
 
+        <br />
 
+        <table class="table">
 
-
-            <br />
-
-            <table class="table">
+            <tr>
+                <th>
+                    Titre
+                </th>
+                <th>
+                    Film principale
+                </th>
+            </tr>
+            @foreach (var item in Model.programmations)
+            {
                 <tr>
-                    <th>
-                        @Html.DropDownList("id_film", null, "--Select Film--", htmlAttributes: new { @class = "form-control" })
-                    </th>
-                    <th>
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Create" class="btn btn-default" />
-                            </div>
-                        </div>
-                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.film.titre)
+                    </td>
                 </tr>
-            </table>
-            <br />
-
-            <table class="table">
-
-                <tr>
-                    <th>
-                        Titre
-                    </th>
-                    <th>
-                        Film principale
-                    </th>
-                </tr>
-                @foreach (var item in Model.programmations)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.film.titre)
-                        </td>
-                        @*<td>
-                            @Html.DisplayFor(modelItem => item)
-                            </td>*@
-                    </tr>
-                }
-            </table>
+            }
+        </table>
     </div>
 
 }
@@ -129,10 +99,10 @@
         </tr>
     </table>
 }
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-        @Html.ActionLink("Back to List", "BackToSalle", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) })
-    </p>
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "BackToSalle", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) })
+</p>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

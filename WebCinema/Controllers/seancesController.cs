@@ -221,8 +221,6 @@ namespace WebCinema.Controllers
             return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
         }
         #endregion
-
-
         public ActionResult CreateProgrammation(int? id, int seanceId)
         {
             try
