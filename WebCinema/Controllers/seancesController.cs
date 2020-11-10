@@ -108,7 +108,7 @@ namespace WebCinema.Controllers
                 seance seance = manager.GetSeance(id);
                 ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
                 ViewBag.films_id = new SelectList(new ManagerFilm().GetFilmFiltre(titre, yearMin, yearMax, id_type), "id", "titre");
-                ViewBag.filmsFiltred = new List<film>(new ManagerFilm().GetFilmFiltre(titre, yearMin, yearMax, id_type));
+                ViewBag.filmsFiltred = new List<film>(new ManagerFilm().GetFilmFiltre(titre, yearMin, yearMax, id_type).OrderBy(x => x.titre));
                 ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle().Where(s => s.cinema_id == int.Parse(Session[SessionKeys.cinemaId].ToString())), "id", "numero_salle", seance.salle_id);
                 return View(seance);
             }

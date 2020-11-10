@@ -100,7 +100,7 @@
         </th>
     </tr>
 
-    @foreach (var item in Model.seances)
+    @foreach (var item in Model.seances.OrderBy(x => x.date_debut))
     {
         <tr>
             <td>
