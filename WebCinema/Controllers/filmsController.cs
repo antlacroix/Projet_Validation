@@ -18,7 +18,7 @@ namespace WebCinema.Controllers
     public class filmsController : Controller
     {
         [HttpPost]
-        public ActionResult Filtre(string titre, DateTime? yearMin, DateTime? yearMax, int? id_type)
+        public ActionResult Filtre(string titre, int? yearMin, int? yearMax, int? id_type)
         {
             return RedirectToAction("Index", new { titre = titre, yearMin = yearMin, yearMax = yearMax, id_type = id_type });
         }
