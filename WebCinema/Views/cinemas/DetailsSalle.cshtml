@@ -65,11 +65,11 @@
             </th>
             <th>
                 Start
-                @Html.TextBox("start", DateTime.Now.AddDays(-10), new { @class = "form-control datepicker" })
+                @Html.TextBox("start", DateTime.Now.AddDays(-10), new { type = "datetime-local", @class = "form-control datepicker" })
             </th>
             <th>
                 End
-                @Html.TextBox("end", DateTime.Now.AddDays(10), new { @class = "form-control datepicker" })
+                @Html.TextBox("end", DateTime.Now.AddDays(10), new { type = "datetime-local", @class = "form-control datepicker" })
             </th>
             <th>
                 <br/>
