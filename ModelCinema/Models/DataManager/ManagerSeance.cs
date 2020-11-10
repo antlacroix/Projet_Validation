@@ -122,14 +122,15 @@ namespace ModelCinema.Models.DataManager
         {
             try
             {
-                if (ValidatorSeance.IsValide(seance) && !ValidatorSeance.IsSeanceConflict(seance, this.GetAllSeanceFromSalle(seance.salle_id, null)) && !ValidatorSeance.IsSeanceExiste(seance, this.GetAllSeanceFromSalle(seance.salle_id, null)))
+                List<seance> ConflictingSeances = ValidatorSeance.IsSeanceConflict(seance, this.GetAllSeanceFromSalle(seance.salle_id, null));
+                if (ValidatorSeance.IsValide(seance) && ConflictingSeances.Count == 0 && !ValidatorSeance.IsSeanceExiste(seance, this.GetAllSeanceFromSalle(seance.salle_id, null)))
                 {
                     db.seances.Add(seance);
                     db.SaveChanges();
                     return true;
                 }
-                else if (ValidatorSeance.IsSeanceConflict(seance, this.GetAllSeanceFromSalle(seance.salle_id, null)))
-                    throw new ConflictiongSeanceException();
+                else if (ConflictingSeances.Count != 0)
+                    throw new ConflictiongSeanceException(ConflictingSeances);
                 else if (ValidatorSeance.IsSeanceExiste(seance, this.GetAllSeanceFromSalle(seance.salle_id, null)))
                     throw new ExistingItemException("seance");
                 else
@@ -145,14 +146,15 @@ namespace ModelCinema.Models.DataManager
         {
             try
             {
-                if (ValidatorSeance.IsSeanceExiste(seance, this.GetAllSeanceFromSalle(seance.salle_id, null)) && ValidatorSeance.IsValide(seance) && !ValidatorSeance.IsSeanceConflict(seance, GetAllSeanceFromSalle(seance.salle_id, null)))
+                List<seance> ConflictingSeances = ValidatorSeance.IsSeanceConflict(seance, this.GetAllSeanceFromSalle(seance.salle_id, null));
+                if (ValidatorSeance.IsSeanceExiste(seance, this.GetAllSeanceFromSalle(seance.salle_id, null)) && ValidatorSeance.IsValide(seance) && ConflictingSeances.Count == 0)
                 {
                     db.Set<seance>().AddOrUpdate(seance);
                     db.SaveChanges();
                     return true;
                 }
-                else if (ValidatorSeance.IsSeanceConflict(seance, this.GetAllSeanceFromSalle(seance.salle_id, null)))
-                    throw new ConflictiongSeanceException();
+                else if (ConflictingSeances.Count == 0)
+                    throw new ConflictiongSeanceException(ConflictingSeances);
                 else if (!ValidatorSeance.IsSeanceExiste(seance, this.GetAllSeanceFromSalle(seance.salle_id, null)))
                     throw new ItemNotExistException("seance");
                 else
@@ -186,151 +188,227 @@ namespace ModelCinema.Models.DataManager
 
         public bool RecurranceSeances(int id, string recurrance, int nbrRecurrance)
         {
+            ManagerProgrammation managerProg;
+            List<seance> seanceFailed = new List<seance>();
+            Dictionary<int, List<seance>> confictingSeance = new Dictionary<int, List<seance>>();
             try
             {
-                ManagerProgrammation manager = new ManagerProgrammation();
-
-                if (recurrance == "Yearly")
+                managerProg = new ManagerProgrammation();
+                seance seance = db.seances.Find(id);
+                List<programmation> progs = managerProg.GetAllprogramtionFromSeance(id);
+                for (int i = 0; i < nbrRecurrance; i++)
                 {
-                    seance seance = db.seances.Find(id);
-                    List<programmation> progs = manager.GetAllprogramtionFromSeance(id);
-                    int counter = nbrRecurrance;
-                    while (counter > 0)
+                    seance seanceToAdd = null;
+                    switch (recurrance)
                     {
-                        seance seanceToAdd = new seance()
-                        {
-                            date_debut = seance.date_debut.AddYears(1),
-                            date_fin = seance.date_fin.AddYears(1),
-                            salle_id = seance.salle_id,
-                            titre_seance = seance.titre_seance
-                        };
-
-                        int addedSeanceId = 0;
-
+                        case "Yearly":
+                            seanceToAdd = new seance()
+                            {
+                                date_debut = seance.date_debut.AddYears(i+1),
+                                date_fin = seance.date_fin.AddYears(i+1),
+                                salle_id = seance.salle_id,
+                                titre_seance = seance.titre_seance
+                            };
+                            break;
+                        case "Monthly":
+                            seanceToAdd = new seance()
+                            {
+                                date_debut = seance.date_debut.AddMonths(i+1),
+                                date_fin = seance.date_fin.AddMonths(i+1),
+                                salle_id = seance.salle_id,
+                                titre_seance = seance.titre_seance
+                            };
+                            break;
+                        case "Daily":
+                            seanceToAdd = new seance()
+                            {
+                                date_debut = seance.date_debut.AddDays(i+1),
+                                date_fin = seance.date_fin.AddDays(i + 1),
+                                salle_id = seance.salle_id,
+                                titre_seance = seance.titre_seance
+                            };
+                            break;
+                        case "Weekly":
+                            seanceToAdd = new seance()
+                            {
+                                date_debut = seance.date_debut.AddDays(7 * (i + 1)),
+                                date_fin = seance.date_fin.AddDays(7 * (i + 1)),
+                                salle_id = seance.salle_id,
+                                titre_seance = seance.titre_seance
+                            };
+                            break;
+                        default:
+                            break;
+                    }
+                    if (seanceToAdd != null)
+                        progs = managerProg.GetAllprogramtionFromSeance(id);
+                    int addedSeanceId = 0;
+                    try
+                    {
                         if (PostSeance(seanceToAdd))
                             addedSeanceId = db.seances.Where(s => s.date_debut == seanceToAdd.date_debut && s.date_fin == seanceToAdd.date_fin && s.salle_id == seanceToAdd.salle_id).ToList()[0].id;
-
-                        foreach (var item in progs)
-                        {
-                            if (addedSeanceId != 0)
-                            {
-                                item.id_seance = addedSeanceId;
-                                manager.PostProgrammation(item);
-                            }
-                        }
-
-                        db.SaveChanges();
-                        counter--;
                     }
-                    return true;
-                }
-                else if (recurrance == "Monthly")
-                {
-                    seance seance = db.seances.Find(id);
-                    List<programmation> progs = manager.GetAllprogramtionFromSeance(id);
-                    int counter = nbrRecurrance;
-                    while (counter > 0)
+                    catch (ConflictiongSeanceException cse)
                     {
-                        seance seanceToAdd = new seance()
-                        {
-                            date_debut = seance.date_debut.AddMonths(1),
-                            date_fin = seance.date_fin.AddMonths(1),
-                            salle_id = seance.salle_id,
-                            titre_seance = seance.titre_seance
-                        };
-
-                        int addedSeanceId = 0;
-
-                        if (PostSeance(seanceToAdd))
-                            addedSeanceId = db.seances.Where(s => s.date_debut == seanceToAdd.date_debut && s.date_fin == seanceToAdd.date_fin && s.salle_id == seanceToAdd.salle_id).ToList()[0].id;
-
-                        foreach (var item in progs)
-                        {
-                            if (addedSeanceId != 0)
-                            {
-                                item.id_seance = addedSeanceId;
-                                manager.PostProgrammation(item);
-                            }
-                        }
-
-                        db.SaveChanges();
-                        counter--;
+                        seanceFailed.Add(seanceToAdd);
+                        confictingSeance[seanceToAdd.id] = (List<seance>)cse.Data[0];
                     }
-                    return true;
-                }
-                else if (recurrance == "Daily")
-                {
-                    seance seance = db.seances.Find(id);
-                    List<programmation> progs = manager.GetAllprogramtionFromSeance(id);
-                    int counter = nbrRecurrance;
-                    while (counter > 0)
+                    if (addedSeanceId != 0)
                     {
-                        seance seanceToAdd = new seance()
-                        {
-                            date_debut = seance.date_debut.AddDays(1),
-                            date_fin = seance.date_fin.AddDays(1),
-                            salle_id = seance.salle_id,
-                            titre_seance = seance.titre_seance
-                        };
-                        int addedSeanceId = 0;
-
-                        if (PostSeance(seanceToAdd))
-                            addedSeanceId = db.seances.Where(s => s.date_debut == seanceToAdd.date_debut && s.date_fin == seanceToAdd.date_fin && s.salle_id == seanceToAdd.salle_id).ToList()[0].id;
-
                         foreach (var item in progs)
                         {
-                            if (addedSeanceId != 0)
-                            {
-                                item.id_seance = addedSeanceId;
-                                manager.PostProgrammation(item);
-                            }
+                            item.id_seance = addedSeanceId;
+                            managerProg.PostProgrammation(item);
                         }
-
-                        db.SaveChanges();
-                        counter--;
                     }
-                    return true;
                 }
-                else
-                {
-                    seance seance = db.seances.Find(id);
-                    List<programmation> progs = manager.GetAllprogramtionFromSeance(id);
-                    int counter = nbrRecurrance;
-                    while (counter > 0)
-                    {
-                        seance seanceToAdd = new seance()
-                        {
-                            date_debut = seance.date_debut.AddDays(7),
-                            date_fin = seance.date_fin.AddDays(7),
-                            salle_id = seance.salle_id,
-                            titre_seance = seance.titre_seance
-                        };
-
-                        int addedSeanceId = 0;
-
-                        if (PostSeance(seanceToAdd))
-                            addedSeanceId = db.seances.Where(s => s.date_debut == seanceToAdd.date_debut && s.date_fin == seanceToAdd.date_fin && s.salle_id == seanceToAdd.salle_id).ToList()[0].id;
-
-                        foreach (var item in progs)
-                        {
-                            if (addedSeanceId != 0)
-                            {
-                                item.id_seance = addedSeanceId;
-                                manager.PostProgrammation(item);
-                            }
-                        }
-
-                        db.SaveChanges();
-                        counter--;
-                    }
-                    return true;
-                }
+                return true;
             }
             catch (Exception e)
             {
                 throw e;
             }
+            #region
+            //if (recurrance == "Yearly")
+            //    {
+            //        seance seance = db.seances.Find(id);
+            //        List<programmation> progs = managerProg.GetAllprogramtionFromSeance(id);
+            //        int counter = nbrRecurrance;
+            //        while (counter > 0)
+            //        {
+            //            seance seanceToAdd = new seance()
+            //            {
+            //                date_debut = seance.date_debut.AddYears(1),
+            //                date_fin = seance.date_fin.AddYears(1),
+            //                salle_id = seance.salle_id,
+            //                titre_seance = seance.titre_seance
+            //            };
 
+            //            int addedSeanceId = 0;
+
+            //            if (PostSeance(seanceToAdd))
+            //                addedSeanceId = db.seances.Where(s => s.date_debut == seanceToAdd.date_debut && s.date_fin == seanceToAdd.date_fin && s.salle_id == seanceToAdd.salle_id).ToList()[0].id;
+
+            //            foreach (var item in progs)
+            //            {
+            //                if (addedSeanceId != 0)
+            //                {
+            //                    item.id_seance = addedSeanceId;
+            //                    managerProg.PostProgrammation(item);
+            //                }
+            //            }
+
+            //            db.SaveChanges();
+            //            counter--;
+            //        }
+            //        return true;
+            //    }
+            //    else if (recurrance == "Monthly")
+            //    {
+            //        seance seance = db.seances.Find(id);
+            //        List<programmation> progs = managerProg.GetAllprogramtionFromSeance(id);
+            //        int counter = nbrRecurrance;
+            //        while (counter > 0)
+            //        {
+            //            seance seanceToAdd = new seance()
+            //            {
+            //                date_debut = seance.date_debut.AddMonths(1),
+            //                date_fin = seance.date_fin.AddMonths(1),
+            //                salle_id = seance.salle_id,
+            //                titre_seance = seance.titre_seance
+            //            };
+
+            //            int addedSeanceId = 0;
+
+            //            if (PostSeance(seanceToAdd))
+            //                addedSeanceId = db.seances.Where(s => s.date_debut == seanceToAdd.date_debut && s.date_fin == seanceToAdd.date_fin && s.salle_id == seanceToAdd.salle_id).ToList()[0].id;
+
+            //            foreach (var item in progs)
+            //            {
+            //                if (addedSeanceId != 0)
+            //                {
+            //                    item.id_seance = addedSeanceId;
+            //                    managerProg.PostProgrammation(item);
+            //                }
+            //            }
+
+            //            db.SaveChanges();
+            //            counter--;
+            //        }
+            //        return true;
+            //    }
+            //    else if (recurrance == "Daily")
+            //    {
+            //        seance seance = db.seances.Find(id);
+            //        List<programmation> progs = managerProg.GetAllprogramtionFromSeance(id);
+            //        int counter = nbrRecurrance;
+            //        while (counter > 0)
+            //        {
+            //            seance seanceToAdd = new seance()
+            //            {
+            //                date_debut = seance.date_debut.AddDays(1),
+            //                date_fin = seance.date_fin.AddDays(1),
+            //                salle_id = seance.salle_id,
+            //                titre_seance = seance.titre_seance
+            //            };
+            //            int addedSeanceId = 0;
+
+            //            if (PostSeance(seanceToAdd))
+            //                addedSeanceId = db.seances.Where(s => s.date_debut == seanceToAdd.date_debut && s.date_fin == seanceToAdd.date_fin && s.salle_id == seanceToAdd.salle_id).ToList()[0].id;
+
+            //            foreach (var item in progs)
+            //            {
+            //                if (addedSeanceId != 0)
+            //                {
+            //                    item.id_seance = addedSeanceId;
+            //                    managerProg.PostProgrammation(item);
+            //                }
+            //            }
+
+            //            db.SaveChanges();
+            //            counter--;
+            //        }
+            //        return true;
+            //    }
+            //    else
+            //    {
+            //        seance seance = db.seances.Find(id);
+            //        List<programmation> progs = managerProg.GetAllprogramtionFromSeance(id);
+            //        for (int i = 0; i <= nbrRecurrance; i++)
+            //        {
+            //            seance seanceToAdd = new seance()
+            //            {
+            //                date_debut = seance.date_debut.AddDays(7 * (i + 1)),
+            //                date_fin = seance.date_fin.AddDays(7 * (i + 1)),
+            //                salle_id = seance.salle_id,
+            //                titre_seance = seance.titre_seance
+            //            };
+
+            //            int addedSeanceId = 0;
+
+            //            try
+            //            {
+            //                if (PostSeance(seanceToAdd))
+            //                    addedSeanceId = db.seances.Where(s => s.date_debut == seanceToAdd.date_debut && s.date_fin == seanceToAdd.date_fin && s.salle_id == seanceToAdd.salle_id).ToList()[0].id;
+            //            }
+            //            catch (ConflictiongSeanceException cse)
+            //            {
+            //                seanceFailed.Add(seanceToAdd);
+            //                confictingSeance[seanceToAdd.id] = (List<seance>)cse.Data[0];
+            //            }
+            //            if (addedSeanceId != 0)
+            //            {
+            //                foreach (var item in progs)
+            //                {
+            //                    item.id_seance = addedSeanceId;
+            //                    managerProg.PostProgrammation(item);
+            //                }
+            //            }
+            //        }
+            //        return true;
+            //    }
+            #endregion
         }
     }
 }
+

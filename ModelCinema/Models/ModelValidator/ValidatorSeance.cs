@@ -43,7 +43,7 @@ namespace ModelCinema.Models.ModelValidator
                 return false;
         }
 
-        static public bool IsSeanceConflict(seance candidate, List<seance> seances)
+        static public List<seance> IsSeanceConflict(seance candidate, List<seance> seances)
         {
             List<seance> conflitingOne = seances.Where(seance => 
                 !(
@@ -53,10 +53,7 @@ namespace ModelCinema.Models.ModelValidator
                 && candidate.id != seance.id                
                 ).ToList();
 
-            if (conflitingOne.Count != 0)
-                return true;
-            else
-                return false;
+            return conflitingOne;
         }
     }
 }

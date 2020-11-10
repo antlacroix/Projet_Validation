@@ -17,24 +17,6 @@ namespace WebCinema.Controllers
 {
     public class filmsController : Controller
     {
-        //public ActionResult Index()
-        //{
-        //    try
-        //    {
-        //        //MovieService movieService = new MovieService();
-        //        //return View(movieService.GetMovies());
-        //        ManagerFilm manager = new ManagerFilm();
-        //        ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
-        //        ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
-        //        return View(manager.GetAllFilmsFrom(DateTime.Now.Year -10));
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        TempData.Add("Alert", e.Message);
-        //        return RedirectToAction("Index", "Home");
-        //    }
-        //}
-
         [HttpPost]
         public ActionResult Filtre(string titre, DateTime? yearMin, DateTime? yearMax, int? id_type)
         {
