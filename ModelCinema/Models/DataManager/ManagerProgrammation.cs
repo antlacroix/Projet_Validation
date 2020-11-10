@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ModelCinema.ModelExeption;
+using ModelCinema.Models.ModelValidator;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -49,21 +51,28 @@ namespace ModelCinema.Models.DataManager
         {
             try
             {
-                ManagerSeance manager = new ManagerSeance();
-                List<programmation> programmations = manager.GetSeance(programmation.id_seance).programmations.ToList();
-                film f = new ManagerFilm().GetFilm(programmation.id_film);
-
-                if (programmations.Count() == 0 && (f.type_film.typage.ToUpper() == "STANDART" || f.type_film.typage.ToUpper() == "COURT METRAGE"))
-                    programmation.is_primary = true;
-
-                else if (programmations.Where(p => p.is_primary).ToList().Count() != 1 &&
-                    (f.type_film.typage.ToUpper() == "STANDART" || f.type_film.typage.ToUpper() == "COURT METRAGE"))
+                var seance = new ManagerSeance().GetSeance(programmation.id_seance);
+                if (ValidatorSeance.IsSeanceLongEnought(seance, new ManagerProgrammation().GetAllprogramtionFromSeance(programmation.id_seance), new ManagerFilm().GetFilm(programmation.id_film).duree))
                 {
-                    programmation.is_primary = true;
+
+                    ManagerSeance manager = new ManagerSeance();
+                    List<programmation> programmations = manager.GetSeance(programmation.id_seance).programmations.ToList();
+                    film f = new ManagerFilm().GetFilm(programmation.id_film);
+
+                    if (programmations.Count() == 0 && (f.type_film.typage.ToUpper() == "STANDART" || f.type_film.typage.ToUpper() == "COURT METRAGE"))
+                        programmation.is_primary = true;
+
+                    else if (programmations.Where(p => p.is_primary).ToList().Count() != 1 &&
+                        (f.type_film.typage.ToUpper() == "STANDART" || f.type_film.typage.ToUpper() == "COURT METRAGE"))
+                    {
+                        programmation.is_primary = true;
+                    }
+                    db.programmations.Add(programmation);
+                    db.SaveChanges();
+                    return true;
                 }
-                db.programmations.Add(programmation);
-                db.SaveChanges();
-                return true;
+                else
+                    throw new SeanceToShortException();
             }
             catch (Exception e)
             {
@@ -101,7 +110,8 @@ namespace ModelCinema.Models.DataManager
                 programmations.Find(prog => prog.id == programmation.id).is_primary = true;
                 db.SaveChanges();
                 return true;
-            }catch (Exception e)
+            }
+            catch (Exception e)
             {
                 throw e;
             }

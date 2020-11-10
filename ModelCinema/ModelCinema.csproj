@@ -129,6 +129,7 @@
     <Compile Include="ModelExeption\NullParametreException.cs" />
     <Compile Include="ModelExeption\SalleActiveException.cs" />
     <Compile Include="ModelExeption\SalleHaveSeanceException.cs" />
+    <Compile Include="ModelExeption\SeanceToShortException.cs" />
     <Compile Include="Models\cinema.cs">
       <DependentUpon>ModelCinema.tt</DependentUpon>
     </Compile>
