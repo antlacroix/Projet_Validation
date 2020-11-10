@@ -1,4 +1,5 @@
-﻿using ModelCinema.Models.DataManager;
+﻿using ModelCinema.ModelExeption;
+using ModelCinema.Models.DataManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace ModelCinema.Models.ModelValidator
             try
             {
                 if (
+                    seance.date_debut < seance.date_fin &&
+                    IsSeanceLongEnought(seance) &&
                     PropretyValidation.IsDateValide(seance.date_debut, seance.dateDebutMin, seance.dateDebutMax) &&
                     PropretyValidation.IsDateValide(seance.date_debut, seance.dateFinMin, seance.dateFinMax) &&
                     PropretyValidation.IsStringValide(seance.titre_seance, seance.titreMin, seance.titreMax)
@@ -30,6 +33,34 @@ namespace ModelCinema.Models.ModelValidator
             {
                 throw e;
             }
+        }
+
+        static public bool IsSeanceLongEnought(seance candidate)
+        {
+            int time = 0;
+            foreach (var item in candidate.programmations)
+            {
+                time += item.film.duree;
+            }
+
+            if (candidate.date_debut.AddMinutes(time) <= candidate.date_fin)
+                return true;
+            else
+                throw new SeanceToShortException();
+        }
+
+        static public bool IsSeanceLongEnought(seance candidate, List<programmation> progs, int timeToAdd)
+        {
+            int time = timeToAdd;
+            foreach (var item in candidate.programmations)
+            {
+                time += item.film.duree;
+            }
+
+            if (candidate.date_debut.AddMinutes(time) <= candidate.date_fin)
+                return true;
+            else
+                throw new SeanceToShortException();
         }
         static public bool IsSeanceExiste(seance candidate, List<seance> seances)
         {

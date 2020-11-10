@@ -237,7 +237,7 @@ namespace WebCinema.Controllers
             catch (Exception e)
             {
                 TempData.Add("Alert", e.Message);
-                return RedirectToAction("Details");
+                return RedirectToAction("Edit", new { id = int.Parse(Session[SessionKeys.seanceId].ToString()) });
             }
         }
 

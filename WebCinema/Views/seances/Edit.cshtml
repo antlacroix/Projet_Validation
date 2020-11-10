@@ -11,6 +11,11 @@
 
     <div>
         <h2>Seances Edit</h2>
+
+        @if (TempData.ContainsKey("Alert"))
+        {
+            <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+        }
         <input type="submit" value="Save" class="btn btn-default" />
     </div>
     <br />
@@ -98,7 +103,7 @@
                     {
                         <b>PRIMARY</b>
                     }
-                    else if(item.film.type_film.typage != "Promotionnel")
+                    else if (item.film.type_film.typage != "Promotionnel")
                     {
                         @Html.ActionLink("make primary", "MakePrimary", new { id = item.id, seanceId = int.Parse(Session[SessionKeys.seanceId].ToString()) })
                     }
