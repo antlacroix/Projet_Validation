@@ -23,12 +23,12 @@ namespace WebCinema.Controllers
             {
                 ManagerSeance manager = new ManagerSeance();
                 manager.RecurranceSeances(id, recurrance, nbrRecurrance);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString())});
             }
             catch (Exception e)
             {
                 TempData.Add("Alert", e.Message);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
             }
         }
 
