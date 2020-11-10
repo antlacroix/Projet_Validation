@@ -39,11 +39,11 @@
 
         <tr>
             <td>
-                @Html.EditorFor(model => model.date_debut, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.date_debut, new { type = "datetime-local", @class = "form-control datepicker" })
                 @Html.ValidationMessageFor(model => model.date_debut, "", new { @class = "text-danger" })
             </td>
             <td>
-                @Html.EditorFor(model => model.date_fin, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.date_fin, new { type = "datetime-local", @class = "form-control datepicker" })
                 @Html.ValidationMessageFor(model => model.date_fin, "", new { @class = "text-danger" })
             </td>
             <td>
@@ -57,6 +57,9 @@
         </tr>
     </table>
 
+}
+@using (Html.BeginForm("Edit", "seances", FormMethod.Post))
+{
     //table pour afficher la liste des programmation de la seance
     <table class="table">
         <tr>
@@ -95,11 +98,10 @@
                     {
                         <b>PRIMARY</b>
                     }
-                    else
+                    else if(item.film.type_film.typage != "Promotionnel")
                     {
                         @Html.ActionLink("make primary", "MakePrimary", new { id = item.id, seanceId = int.Parse(Session[SessionKeys.seanceId].ToString()) })
                     }
-                    @*@Html.EditorFor(modelItem => item.is_primary)*@
                 </td>
                 <td>
                     @Html.ActionLink("Remove", "RemoveProgrammation", new { id = item.id, seanceId = int.Parse(Session[SessionKeys.seanceId].ToString()) })
@@ -107,7 +109,10 @@
             </tr>
         }
     </table>
-
+}
+@using (Html.BeginForm("Edit", "seances", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
     //table pour le filtre
     <table class="table">
         <tr>
@@ -144,7 +149,11 @@
             </tr>
         }
     </table>
+}
 
+@using (Html.BeginForm("Edit", "seances", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
     //table pour ajouter une nouvelle seance
     <table class="table">
         <tr>
