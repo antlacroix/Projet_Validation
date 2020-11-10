@@ -2,6 +2,7 @@
 using ModelCinema.Models.ModelValidator;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -172,6 +173,12 @@ namespace ModelCinema.Models.DataManager
             {
                 if (db.seances.Find(id) != null)
                 {
+                    ManagerProgrammation managerProgs = new ManagerProgrammation();
+                    List<programmation> progs = managerProgs.GetAllprogramtionFromSeance(id);
+                    for (int i = 0; i < progs.Count; i++)
+                    {
+                        managerProgs.DeleteProgrammation(progs[i].id);
+                    }
                     seance seance = db.seances.Find(id);
                     db.seances.Remove(seance);
                     db.SaveChanges();
@@ -409,6 +416,7 @@ namespace ModelCinema.Models.DataManager
             //    }
             #endregion
         }
+
     }
 }
 
