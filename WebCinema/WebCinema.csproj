@@ -357,6 +357,10 @@
     <Content Include="Views\seances\Programmations.cshtml" />
     <Content Include="Views\SchedulerEJS\Index.cshtml" />
     <Content Include="Views\seances\FilmsAdder.cshtml" />
+    <Content Include="Views\films\CreatePromo.cshtml" />
+    <Content Include="Views\films\EditPromo.cshtml" />
+    <Content Include="Views\films\DetailsPromo.cshtml" />
+    <Content Include="Views\films\DeletePromo.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

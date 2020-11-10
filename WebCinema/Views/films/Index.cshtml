@@ -3,29 +3,26 @@
     ViewBag.Title = "Index Films";
 }
 
-<table class="table">
-    <tr>
-        <th>
-            <h2>Films</h2>
-            @if (TempData.ContainsKey("Alert"))
-            {
-                <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
-            }
-        </th>
-    </tr>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.titre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.type_film.typage)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.annee_parution)
-        </th>
-    </tr>
-    @using (Html.BeginForm("Filtre", "films", FormMethod.Post))
-    {
+<h2>Films</h2>
+@if (TempData.ContainsKey("Alert"))
+{
+    <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+}
+@using (Html.BeginForm("Filtre", "films", FormMethod.Post))
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.titre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.type_film.typage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.annee_parution)
+            </th>
+            <th></th>
+        </tr>
         <tr>
             <th>
                 @Html.TextBox("titre", "", new { @class = "form-control" })
@@ -45,17 +42,11 @@
                 </p>
             </th>
         </tr>
-    }
-</table>
-
-
-
+    </table>
+}
 
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ranking)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.titre)
         </th>
@@ -65,10 +56,6 @@
 
         <th>
             @Html.DisplayNameFor(model => model.type_film.typage)
-        </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.titre)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.annee_parution)
@@ -80,9 +67,6 @@
             @Html.DisplayNameFor(model => model.rating)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.votes)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.revenu)
         </th>
         <th>
@@ -91,7 +75,8 @@
 
         <th>
             <p>
-                @Html.ActionLink("Create New", "Create")
+                @Html.ActionLink("Create New", "Create") |
+                @Html.ActionLink("Create New Promo", "CreatePromo")
             </p>
         </th>
     </tr>
@@ -99,18 +84,8 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ranking)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.titre)
             </td>
-
-            @*<td>
-                    @foreach (var child in item.MovieGenres)
-                    {
-                        @Html.DisplayFor(genre => child.Genre)<br />
-                    }
-                </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.description)
             </td>
@@ -118,19 +93,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.type_film.typage)
             </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.film2.titre)
-            </td>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.Director.Name)
-                </td>*@
-            @*<td>
-                    @foreach (var child in item.Actors)
-                    {
-                        @Html.DisplayFor(actor => child.Name)<br />
-                    }
-                </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.annee_parution)
             </td>
@@ -141,9 +103,6 @@
                 @Html.DisplayFor(modelItem => item.rating)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.votes)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.revenu)
             </td>
             <td>
@@ -151,9 +110,18 @@
             </td>
 
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }) <br />
-                @Html.ActionLink("Details", "Details", new { id = item.id }) <br />
-                @Html.ActionLink("Delete", "Delete", new { id = item.id })<br />
+                @if (item.type_film.typage.ToUpper() == "PROMOTIONNEL")
+                {
+                    @Html.ActionLink("Edit", "EditPromo", new { id = item.id }) <br />
+                    @Html.ActionLink("Details", "DetailsPromo", new { id = item.id }) <br />
+                    @Html.ActionLink("Delete", "DeletePromo", new { id = item.id })<br />
+                }
+                else
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) <br />
+                    @Html.ActionLink("Details", "Details", new { id = item.id }) <br />
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id })<br />
+                }
             </td>
         </tr>
     }

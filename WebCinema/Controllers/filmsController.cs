@@ -52,6 +52,104 @@ namespace WebCinema.Controllers
             catch (Exception e)
             {
                 TempData.Add("Alert", e.Message);
+                return View();
+            }
+        }
+
+        public ActionResult CreatePromo()
+        {
+            try
+            {
+                ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
+                return View();
+            }
+            catch (Exception e)
+            {
+                TempData.Add("Alert", e.Message);
+                return RedirectToAction("Index");
+            }
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreatePromo([Bind(Include = "id,titre,description,annee_parution,duree,id_film")] film film)
+        {
+            try
+            {
+                if(film.id_type == 0)
+                {
+                    film.id_type = new ManagerTypeFilm().GetAllType_film().Where(t => t.typage.ToUpper() == "PROMOTIONNEL").ToList()[0].id;
+                }
+                ManagerFilm manager = new ManagerFilm();
+                if (ModelState.IsValid)
+                {
+                    if (manager.PostFilm(film))
+                        return RedirectToAction("Index");
+                }
+                else
+                    throw new InvalidItemException("film");
+            }
+            catch (Exception e)
+            {
+                TempData.Add("Alert", e.Message);
+            }
+            ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
+            ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
+            return View(film);
+        }
+
+        public ActionResult EditPromo(int? id)
+        {
+            try
+            {
+                ManagerFilm manager = new ManagerFilm();
+                film film = manager.GetFilm(id);
+
+                ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
+                ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
+
+                return View(film);
+            }
+            catch (Exception e)
+            {
+                TempData.Add("Alert", e.Message);
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPromo([Bind(Include = "id,titre,description,annee_parution,duree,id_type,id_film")] film film)
+        {
+            try
+            {
+                ManagerFilm manager = new ManagerFilm();
+
+                if (ModelState.IsValid)
+                {
+                    if (manager.PutFilm(film))
+                        return RedirectToAction("Index");
+                }
+            }
+            catch (Exception e)
+            {
+                TempData.Add("Alert", e.Message);
+            }
+            return View(film);
+        }
+
+        public ActionResult DetailsPromo(int? id)
+        {
+            try
+            {
+                ManagerFilm manager = new ManagerFilm();
+                film film = manager.GetFilm(id);
+                return View(film);
+            }
+            catch (Exception e)
+            {
+                TempData.Add("Alert", e.Message);
                 return RedirectToAction("Index");
             }
         }
@@ -93,9 +191,6 @@ namespace WebCinema.Controllers
 
                 ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
                 ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
-
-                //ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
-                //ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
 
                 return View(film);
             }
@@ -146,6 +241,40 @@ namespace WebCinema.Controllers
             }
         }
 
+        public ActionResult DeletePromo(int? id)
+        {
+            try
+            {
+                ManagerFilm manager = new ManagerFilm();
+                film film = manager.GetFilm(id);
+                return View(film);
+            }
+            catch (Exception e)
+            {
+                TempData.Add("Alert", e.Message);
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletePromo(int id)
+        {
+            try
+            {
+                ManagerFilm manager = new ManagerFilm();
+
+                if (manager.DeleteFilm(id))
+                    return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                TempData.Add("Alert", e.Message);
+            }
+            return RedirectToAction("Index");
+        }
+
+
         // POST: films/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -155,9 +284,6 @@ namespace WebCinema.Controllers
             {
                 ManagerFilm manager = new ManagerFilm();
 				
-                //if (new ManagerSeance().GetAllSeance().Where(s => s.film_id == id).Count() != 0)
-                //if (new ManagerSeance().GetAllSeance().Count() != 0)
-                //    throw new MovieUsedInSeanceException();
                 if (manager.DeleteFilm(id))
                     return RedirectToAction("Index");
             }

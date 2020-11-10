@@ -196,8 +196,7 @@ namespace ModelCinema.Models.DataManager
         public bool RecurranceSeances(int id, string recurrance, int nbrRecurrance)
         {
             ManagerProgrammation managerProg;
-            List<seance> seanceFailed = new List<seance>();
-            Dictionary<int, List<seance>> confictingSeance = new Dictionary<int, List<seance>>();
+            Dictionary<seance, List<seance>> confictingSeance = new Dictionary<seance, List<seance>>();
             try
             {
                 managerProg = new ManagerProgrammation();
@@ -257,8 +256,7 @@ namespace ModelCinema.Models.DataManager
                     }
                     catch (ConflictiongSeanceException cse)
                     {
-                        seanceFailed.Add(seanceToAdd);
-                        confictingSeance[seanceToAdd.id] = (List<seance>)cse.Data[0];
+                        confictingSeance[seanceToAdd] = (List<seance>)cse.Data[0];
                     }
                     if (addedSeanceId != 0)
                     {
@@ -269,6 +267,12 @@ namespace ModelCinema.Models.DataManager
                         }
                     }
                 }
+
+                string conflictingString = RecuranceError(confictingSeance);
+
+                if (conflictingString.Length > 0)
+                    throw new Exception(conflictingString);
+
                 return true;
             }
             catch (Exception e)
@@ -417,6 +421,20 @@ namespace ModelCinema.Models.DataManager
             #endregion
         }
 
+        public string RecuranceError(Dictionary<seance, List<seance>> confictingSeance)
+        {
+            string lines = "";
+
+            foreach (var item in confictingSeance)
+            {
+                lines += ($"la seance du:{item.Key.date_debut} au:{item.Key.date_fin} n'a pas ete ajouter car elle conflict avec:\n");
+                foreach (var items in item.Value)
+                {
+                    lines += ($"---la seance: {items.id}\n");
+                }
+            }
+            return lines;
+        }
     }
 }
 

@@ -6,46 +6,6 @@
 
 
 <h2>Seances</h2>
-@*<asp:Button runat="server" id="btnSave" Text=" « SAVE » " OnClick="btnSave" />
-
-    @(Html.EJS().Schedule("schedule")
-            .Height("550px")
-            .Group(group => group.Resources(ViewBag.Resources))
-            .Resources(res => {
-                res
-                .AllowMultiple(true)
-                .DataSource(ViewBag.Cinema)
-                .Field("CinemaId")
-                .Title("Owner")
-                .Name("Cinema")
-                .TextField("CinemaText")
-                .IdField("Id")
-                .ColorField("CinemaColor")
-                .Add();
-
-                res
-                .AllowMultiple(true)
-                .DataSource(ViewBag.Salle)
-                .Field("SalleId")
-                .Title("Owner1")
-                .Name("Salle")
-                .TextField("SalleText")
-                .IdField("Id")
-                .ColorField("SalleColor")
-                .GroupIDField("SalleGroupId")
-                .Add();
-
-            })
-            .Views(view =>
-            {
-                view.Option(View.TimelineWeek).Add();
-                view.Option(View.TimelineMonth).Add();
-                view.Option(View.Agenda).Add();
-            })
-            .EventSettings(new ScheduleEventSettings { DataSource = ViewBag.appointments })
-            .SelectedDate(new DateTime(2020, 2, 15))
-            .Render()
-    )*@
 
 <table class="table">
     <tr>
@@ -64,17 +24,7 @@
         <th>
             @Html.DisplayNameFor(model => model.date_fin)
         </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.film_id)
-            </th>*@
-        <th>
-            @*@using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-                    <input type="submit" value="Create New" class="btn btn-default" />
-                    @Html.DropDownList("cinemas", null, htmlAttributes: new { @class = "form-control" })
-                }*@
-        </th>
+        <th></th>
     </tr>
     @using (Html.BeginForm("Filtre", "seances", FormMethod.Post))
     {
@@ -122,12 +72,8 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.date_fin)
                 </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.film.titre)
-                    </td>*@
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.id })
                 </td>
             </tr>
