@@ -188,21 +188,36 @@ namespace ModelCinema.Models.DataManager
         {
             try
             {
-                if(recurrance == "Yearly")
+                ManagerProgrammation manager = new ManagerProgrammation();
+
+                if (recurrance == "Yearly")
                 {
                     seance seance = db.seances.Find(id);
+                    List<programmation> progs = manager.GetAllprogramtionFromSeance(id);
                     int counter = nbrRecurrance;
-                    while ( counter > 0)
+                    while (counter > 0)
                     {
-                        seance.date_debut = seance.date_debut.AddYears(1);
-                        seance.date_fin = seance.date_fin.AddYears(1);
-                        
-                        int seanceid =  db.seances.Add(seance).id;
-                        foreach (var item in seance.programmations)
+                        seance seanceToAdd = new seance()
                         {
-                           
-                        }
+                            date_debut = seance.date_debut.AddYears(1),
+                            date_fin = seance.date_fin.AddYears(1),
+                            salle_id = seance.salle_id,
+                            titre_seance = seance.titre_seance
+                        };
 
+                        int addedSeanceId = 0;
+
+                        if (PostSeance(seanceToAdd))
+                            addedSeanceId = db.seances.Where(s => s.date_debut == seanceToAdd.date_debut && s.date_fin == seanceToAdd.date_fin && s.salle_id == seanceToAdd.salle_id).ToList()[0].id;
+
+                        foreach (var item in progs)
+                        {
+                            if (addedSeanceId != 0)
+                            {
+                                item.id_seance = addedSeanceId;
+                                manager.PostProgrammation(item);
+                            }
+                        }
 
                         db.SaveChanges();
                         counter--;
@@ -212,12 +227,32 @@ namespace ModelCinema.Models.DataManager
                 else if (recurrance == "Monthly")
                 {
                     seance seance = db.seances.Find(id);
+                    List<programmation> progs = manager.GetAllprogramtionFromSeance(id);
                     int counter = nbrRecurrance;
                     while (counter > 0)
                     {
-                        seance.date_debut = seance.date_debut.AddMonths(1);
-                        seance.date_fin = seance.date_fin.AddMonths(1);
-                        db.seances.Add(seance);
+                        seance seanceToAdd = new seance()
+                        {
+                            date_debut = seance.date_debut.AddMonths(1),
+                            date_fin = seance.date_fin.AddMonths(1),
+                            salle_id = seance.salle_id,
+                            titre_seance = seance.titre_seance
+                        };
+
+                        int addedSeanceId = 0;
+
+                        if (PostSeance(seanceToAdd))
+                            addedSeanceId = db.seances.Where(s => s.date_debut == seanceToAdd.date_debut && s.date_fin == seanceToAdd.date_fin && s.salle_id == seanceToAdd.salle_id).ToList()[0].id;
+
+                        foreach (var item in progs)
+                        {
+                            if (addedSeanceId != 0)
+                            {
+                                item.id_seance = addedSeanceId;
+                                manager.PostProgrammation(item);
+                            }
+                        }
+
                         db.SaveChanges();
                         counter--;
                     }
@@ -226,12 +261,31 @@ namespace ModelCinema.Models.DataManager
                 else if (recurrance == "Daily")
                 {
                     seance seance = db.seances.Find(id);
+                    List<programmation> progs = manager.GetAllprogramtionFromSeance(id);
                     int counter = nbrRecurrance;
                     while (counter > 0)
                     {
-                        seance.date_debut = seance.date_debut.AddDays(1);
-                        seance.date_fin = seance.date_fin.AddDays(1);
-                        db.seances.Add(seance);
+                        seance seanceToAdd = new seance()
+                        {
+                            date_debut = seance.date_debut.AddDays(1),
+                            date_fin = seance.date_fin.AddDays(1),
+                            salle_id = seance.salle_id,
+                            titre_seance = seance.titre_seance
+                        };
+                        int addedSeanceId = 0;
+
+                        if (PostSeance(seanceToAdd))
+                            addedSeanceId = db.seances.Where(s => s.date_debut == seanceToAdd.date_debut && s.date_fin == seanceToAdd.date_fin && s.salle_id == seanceToAdd.salle_id).ToList()[0].id;
+
+                        foreach (var item in progs)
+                        {
+                            if (addedSeanceId != 0)
+                            {
+                                item.id_seance = addedSeanceId;
+                                manager.PostProgrammation(item);
+                            }
+                        }
+
                         db.SaveChanges();
                         counter--;
                     }
@@ -240,12 +294,32 @@ namespace ModelCinema.Models.DataManager
                 else
                 {
                     seance seance = db.seances.Find(id);
+                    List<programmation> progs = manager.GetAllprogramtionFromSeance(id);
                     int counter = nbrRecurrance;
                     while (counter > 0)
                     {
-                        seance.date_debut = seance.date_debut.AddDays(7);
-                        seance.date_fin = seance.date_fin.AddDays(7);
-                        db.seances.Add(seance);
+                        seance seanceToAdd = new seance()
+                        {
+                            date_debut = seance.date_debut.AddDays(7),
+                            date_fin = seance.date_fin.AddDays(7),
+                            salle_id = seance.salle_id,
+                            titre_seance = seance.titre_seance
+                        };
+
+                        int addedSeanceId = 0;
+
+                        if (PostSeance(seanceToAdd))
+                            addedSeanceId = db.seances.Where(s => s.date_debut == seanceToAdd.date_debut && s.date_fin == seanceToAdd.date_fin && s.salle_id == seanceToAdd.salle_id).ToList()[0].id;
+
+                        foreach (var item in progs)
+                        {
+                            if (addedSeanceId != 0)
+                            {
+                                item.id_seance = addedSeanceId;
+                                manager.PostProgrammation(item);
+                            }
+                        }
+
                         db.SaveChanges();
                         counter--;
                     }
@@ -254,8 +328,7 @@ namespace ModelCinema.Models.DataManager
             }
             catch (Exception e)
             {
-               // throw e;
-                return false;
+                throw e;
             }
 
         }
