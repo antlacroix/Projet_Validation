@@ -44,7 +44,7 @@
                 @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
             </td>
             <td>
-                @Html.DropDownList("id_type", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("id_type", null ,"Select Type",  htmlAttributes: new { @class = "form-control" })
             </td>
             <td>
                 @Html.DropDownList("id_film", null, "--Select Film--", htmlAttributes: new { @class = "form-control" })
