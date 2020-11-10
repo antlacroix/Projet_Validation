@@ -143,6 +143,7 @@
     <Compile Include="Models\DataManager\ManagerParticipant.cs" />
     <Compile Include="Models\DataManager\ManagerParticipation.cs" />
     <Compile Include="Models\DataManager\ManagerParticipationRole.cs" />
+    <Compile Include="Models\DataManager\ManagerProgrammation.cs" />
     <Compile Include="Models\DataManager\ManagerSalle.cs" />
     <Compile Include="Models\DataManager\ManagerSalleStatus.cs" />
     <Compile Include="Models\DataManager\ManagerSeance.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="Models\MetaData\genre_film.cs" />
     <Compile Include="Models\MetaData\participant.cs" />
     <Compile Include="Models\MetaData\Participation.cs" />
+    <Compile Include="Models\MetaData\programmation.cs" />
     <Compile Include="Models\MetaData\role_participant.cs" />
     <Compile Include="Models\MetaData\salle.cs" />
     <Compile Include="Models\MetaData\salle_status.cs" />

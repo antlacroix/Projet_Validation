@@ -1,5 +1,4 @@
-﻿
-@model IEnumerable<ModelCinema.Models.film>
+﻿@model IEnumerable<ModelCinema.Models.film>
 @{
     ViewBag.Title = "Index Films";
 }
@@ -35,10 +34,10 @@
                 @Html.DropDownList("id_type", null, htmlAttributes: new { @class = "form-control" })
             </th>
             <th>
-                @Html.TextBox("yearMin", DateTime.Now.AddYears(-10), new { @class = "form-control datepicker" })
+                @Html.TextBox("yearMin", DateTime.Now.Year - 10, new { @class = "form-control datepicker" })
             </th>
             <th>
-                @Html.TextBox("yearMax", DateTime.Now.AddYears(5), new { @class = "form-control datepicker" })
+                @Html.TextBox("yearMax", DateTime.Now.Year + 5, new { @class = "form-control datepicker" })
             </th>
             <th>
                 <p>
@@ -60,9 +59,6 @@
         <th>
             @Html.DisplayNameFor(model => model.titre)
         </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.MovieGenres)
-            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.description)
         </th>
@@ -74,12 +70,6 @@
         <th>
             @Html.DisplayNameFor(model => model.titre)
         </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.Director)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Actors)
-            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.annee_parution)
         </th>

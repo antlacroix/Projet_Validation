@@ -4,65 +4,171 @@
     ViewBag.Title = "Edit Seances";
 }
 
-    <h2>Seances Edit</h2>
-
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "seances", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        @*<h4>seance</h4>*@
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.id)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.date_debut, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+
+    <div>
+        <h2>Seances Edit</h2>
+        <input type="submit" value="Save" class="btn btn-default" />
+    </div>
+    <br />
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.id)
+
+    //table pour afficher les info de la seance
+    <table class="table">
+        <tr>
+            <td>
+                <div>
+                    @Html.LabelFor(model => model.date_debut)
+                </div>
+            </td>
+            <td>
+                @Html.LabelFor(model => model.date_fin)
+            </td>
+            <td>
+                @Html.LabelFor(model => model.titre_seance)
+            </td>
+            <td>
+                @Html.LabelFor(model => model.salle_id, "Salle")
+            </td>
+        </tr>
+
+        <tr>
+            <td>
                 @Html.EditorFor(model => model.date_debut, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.date_debut, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.date_fin, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            </td>
+            <td>
                 @Html.EditorFor(model => model.date_fin, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.date_fin, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.titre_seance, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            </td>
+            <td>
                 @Html.EditorFor(model => model.titre_seance, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.titre_seance, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.salle_id, "Salle", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            </td>
+            <td>
                 @Html.DropDownList("salle_id", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.salle_id, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            </td>
+        </tr>
+    </table>
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.film_id, "Film", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("film_id", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.film_id, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+    //table pour afficher la liste des programmation de la seance
+    <table class="table">
+        <tr>
+            <th>
+                Films
+            </th>
+            <th>
+                Types
+            </th>
+            <th>
+                Durees
+            </th>
+            <th>
+                Primaire
+            </th>
+            <th>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+            </th>
+        </tr>
+
+        @foreach (var item in Model.programmations)
+        {
+            <tr>
+                @Html.HiddenFor(modelItem => item.id)
+                <td>
+                    @Html.DisplayFor(modelItem => item.film.titre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.film.type_film.typage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.film.duree)
+                </td>
+                <td>
+                    @if (item.is_primary)
+                    {
+                        <b>PRIMARY</b>
+                    }
+                    else
+                    {
+                        @Html.ActionLink("make primary", "MakePrimary", new { id = item.id, seanceId = int.Parse(Session[SessionKeys.seanceId].ToString()) })
+                    }
+                    @*@Html.EditorFor(modelItem => item.is_primary)*@
+                </td>
+                <td>
+                    @Html.ActionLink("Remove", "RemoveProgrammation", new { id = item.id, seanceId = int.Parse(Session[SessionKeys.seanceId].ToString()) })
+                </td>
+            </tr>
+        }
+    </table>
+
+    //table pour le filtre
+    <table class="table">
+        <tr>
+            <th>
+                Titre
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Annee de parution
+            </th>
+        </tr>
+        @using (Html.BeginForm("Filtre", "seances", FormMethod.Post))
+        {
+            <tr>
+                <th>
+                    @Html.TextBox("titre", "", new { @class = "form-control" })
+                </th>
+                <th>
+                    @Html.DropDownList("id_type", null, htmlAttributes: new { @class = "form-control" })
+                </th>
+                <th>
+                    @Html.TextBox("yearMin", DateTime.Now.Year - 10, new { @class = "form-control datepicker" })
+                </th>
+                <th>
+                    @Html.TextBox("yearMax", DateTime.Now.Year + 5, new { @class = "form-control datepicker" })
+                </th>
+                <th>
+                    <p>
+                        <input name="command" type="submit" value="Filtre" class="btn btn-default" />
+                    </p>
+                </th>
+            </tr>
+        }
+    </table>
+
+    //table pour ajouter une nouvelle seance
+    <table class="table">
+        <tr>
+            <th>
+                Films
+            </th>
+            <th>
+                Types
+            </th>
+            <th>
+                Durees
+            </th>
+            <th>
+
+            </th>
+        </tr>
+        @if (ViewBag.filmsFiltred != null)
+        {
+            foreach (var item in ViewBag.filmsFiltred)
+            {
+                Html.RenderPartial("FilmsAdder", (ModelCinema.Models.film)item);
+            }
+        }
+    </table>
 }
 
 <div>

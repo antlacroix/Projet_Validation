@@ -9,6 +9,7 @@ namespace WebCinema
     {
         static public string
             cinemaId = "cinemaId",
+            seanceId = "seanceId",
             salleId = "salleId";
     }
 }

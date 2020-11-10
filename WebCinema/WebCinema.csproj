@@ -48,6 +48,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BeginCollectionItem, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BeginCollectionItem.1.2.1.0\lib\net35\BeginCollectionItem.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -158,10 +161,6 @@
     <Compile Include="SessionKeys.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\cinema_db.mdf" />
-    <Content Include="App_Data\cinema_db_log.ldf">
-      <DependentUpon>cinema_db.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -307,11 +306,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\user_type\Create.cshtml" />
-    <Content Include="Views\user_type\Delete.cshtml" />
-    <Content Include="Views\user_type\Details.cshtml" />
-    <Content Include="Views\user_type\Edit.cshtml" />
-    <Content Include="Views\user_type\Index.cshtml" />
     <Content Include="Views\cinemas\Delete.cshtml" />
     <Content Include="Views\cinemas\Details.cshtml" />
     <Content Include="Views\cinemas\Edit.cshtml" />
@@ -326,56 +320,16 @@
     <Content Include="Views\films\Details.cshtml" />
     <Content Include="Views\films\Edit.cshtml" />
     <Content Include="Views\films\Index.cshtml" />
-    <Content Include="Views\genres\Create.cshtml" />
-    <Content Include="Views\genres\Delete.cshtml" />
-    <Content Include="Views\genres\Details.cshtml" />
-    <Content Include="Views\genres\Edit.cshtml" />
-    <Content Include="Views\genres\Index.cshtml" />
-    <Content Include="Views\genre_film\Create.cshtml" />
-    <Content Include="Views\genre_film\Delete.cshtml" />
-    <Content Include="Views\genre_film\Details.cshtml" />
-    <Content Include="Views\genre_film\Edit.cshtml" />
-    <Content Include="Views\genre_film\Index.cshtml" />
-    <Content Include="Views\participants\Create.cshtml" />
-    <Content Include="Views\participants\Delete.cshtml" />
-    <Content Include="Views\participants\Details.cshtml" />
-    <Content Include="Views\participants\Edit.cshtml" />
-    <Content Include="Views\participants\Index.cshtml" />
-    <Content Include="Views\participations\Create.cshtml" />
-    <Content Include="Views\participations\Delete.cshtml" />
-    <Content Include="Views\participations\Details.cshtml" />
-    <Content Include="Views\participations\Edit.cshtml" />
-    <Content Include="Views\participations\Index.cshtml" />
-    <Content Include="Views\role_participant\Create.cshtml" />
-    <Content Include="Views\role_participant\Delete.cshtml" />
-    <Content Include="Views\role_participant\Details.cshtml" />
-    <Content Include="Views\role_participant\Edit.cshtml" />
-    <Content Include="Views\role_participant\Index.cshtml" />
     <Content Include="Views\salles\Create.cshtml" />
     <Content Include="Views\salles\Delete.cshtml" />
     <Content Include="Views\salles\Details.cshtml" />
     <Content Include="Views\salles\Edit.cshtml" />
     <Content Include="Views\salles\Index.cshtml" />
-    <Content Include="Views\salle_status\Create.cshtml" />
-    <Content Include="Views\salle_status\Delete.cshtml" />
-    <Content Include="Views\salle_status\Details.cshtml" />
-    <Content Include="Views\salle_status\Edit.cshtml" />
-    <Content Include="Views\salle_status\Index.cshtml" />
     <Content Include="Views\seances\Create.cshtml" />
     <Content Include="Views\seances\Delete.cshtml" />
     <Content Include="Views\seances\Details.cshtml" />
     <Content Include="Views\seances\Edit.cshtml" />
     <Content Include="Views\seances\Index.cshtml" />
-    <Content Include="Views\users\Create.cshtml" />
-    <Content Include="Views\users\Delete.cshtml" />
-    <Content Include="Views\users\Details.cshtml" />
-    <Content Include="Views\users\Edit.cshtml" />
-    <Content Include="Views\users\Index.cshtml" />
-    <Content Include="Views\user_status\Create.cshtml" />
-    <Content Include="Views\user_status\Delete.cshtml" />
-    <Content Include="Views\user_status\Details.cshtml" />
-    <Content Include="Views\user_status\Edit.cshtml" />
-    <Content Include="Views\user_status\Index.cshtml" />
     <Content Include="Views\films\UploadMovies.cshtml" />
     <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.5.1.min.map" />
@@ -399,12 +353,12 @@
     <Content Include="Views\seancesEJS\Details.cshtml" />
     <Content Include="Views\seancesEJS\Edit.cshtml" />
     <Content Include="Views\seancesEJS\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
+    <Content Include="Views\seances\Programmations.cshtml" />
     <Content Include="Views\SchedulerEJS\Index.cshtml" />
+    <Content Include="Views\seances\FilmsAdder.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\UploadedFiles\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

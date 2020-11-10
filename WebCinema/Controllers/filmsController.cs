@@ -106,8 +106,13 @@ namespace WebCinema.Controllers
             {
                 ManagerFilm manager = new ManagerFilm();
                 film film = manager.GetFilm(id);
+
                 ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
                 ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
+
+                //ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
+                //ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
+
                 return View(film);
             }
             catch (Exception e)
@@ -133,8 +138,6 @@ namespace WebCinema.Controllers
                     if (manager.PutFilm(film))
                         return RedirectToAction("Index");
                 }
-                //else
-                //    throw new InvalidItemException("film");
             }
             catch (Exception e)
             {
@@ -181,7 +184,7 @@ namespace WebCinema.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Index(string titre, DateTime? yearMin, DateTime? yearMax, int? id_type)
+        public ActionResult Index(string titre, int? yearMin, int? yearMax, int? id_type)
         {
             try
             {

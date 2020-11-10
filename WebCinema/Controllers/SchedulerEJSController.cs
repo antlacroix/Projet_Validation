@@ -88,69 +88,69 @@ namespace WebCinema.Controllers
             public DateTime EndDate { get; set; }
         }
 
-        [HttpPost]
-        public JsonResult UpdateData(EditParams param)
-        {
-            if (param.action == "insert" || (param.action == "batch" && param.added != null)) // this block of code will execute while inserting the appointments
-            {
-                var value = (param.action == "insert") ? param.value : param.added[0];
-                int intMax = db.seances.ToList().Count > 0 ? db.seances.ToList().Max(p => p.Id) : 1;
-                DateTime startTime = Convert.ToDateTime(value.StartTime);
-                DateTime endTime = Convert.ToDateTime(value.EndTime);
-                seance appointment = new seance()
-                {
-                    Id = intMax + 1,
-                    StartTime = startTime.ToLocalTime(),
-                    EndTime = endTime.ToLocalTime(),
-                    Subject = value.Subject,
-                    IsAllDay = value.IsAllDay,
-                    RecurrenceRule = value.RecurrenceRule,
-                    RecurrenceID = value.RecurrenceID,
-                    RecurrenceException = value.RecurrenceException,
-                };
-                db.seances.Add(appointment);
-                db.SaveChanges();
-            }
-            if (param.action == "update" || (param.action == "batch" && param.changed != null)) // this block of code will execute while updating the appointment
-            {
-                var value = (param.action == "update") ? param.value : param.changed[0];
-                var filterData = db.seances.Where(c => c.Id == Convert.ToInt32(value.Id));
-                if (filterData.Count() > 0)
-                {
-                    DateTime startTime = Convert.ToDateTime(value.StartTime);
-                    DateTime endTime = Convert.ToDateTime(value.EndTime);
-                    seance appointment = db.seances.Single(A => A.Id == Convert.ToInt32(value.Id));
-                    appointment.StartTime = startTime.ToLocalTime();
-                    appointment.EndTime = endTime.ToLocalTime();;
-                    appointment.Subject = value.Subject;
-                    appointment.IsAllDay = value.IsAllDay;
-                    appointment.RecurrenceRule = value.RecurrenceRule;
-                    appointment.RecurrenceID = value.RecurrenceID;
-                    appointment.RecurrenceException = value.RecurrenceException;
-                }
-                db.SaveChanges();
-            }
-            if (param.action == "remove" || (param.action == "batch" && param.deleted != null)) // this block of code will execute while removing the appointment
-            {
-                if (param.action == "remove")
-                {
-                    int key = Convert.ToInt32(param.key);
-                    seance appointment = db.seances.Where(c => c.Id == key).FirstOrDefault();
-                    if (appointment != null) db.seances.Remove(appointment);
-                }
-                else
-                {
-                    foreach (var apps in param.deleted)
-                    {
-                        seance appointment = db.seances.Where(c => c.Id == apps.Id).FirstOrDefault();
-                        if (apps != null) db.seances.Remove(appointment);
-                    }
-                }
-                db.SaveChanges();
-            }
-            var data = db.seances.ToList();
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
+        //[HttpPost]
+        //public JsonResult UpdateData(EditParams param)
+        //{
+        //    if (param.action == "insert" || (param.action == "batch" && param.added != null)) // this block of code will execute while inserting the appointments
+        //    {
+        //        var value = (param.action == "insert") ? param.value : param.added[0];
+        //        int intMax = db.seances.ToList().Count > 0 ? db.seances.ToList().Max(p => p.Id) : 1;
+        //        DateTime startTime = Convert.ToDateTime(value.StartTime);
+        //        DateTime endTime = Convert.ToDateTime(value.EndTime);
+        //        seance appointment = new seance()
+        //        {
+        //            Id = intMax + 1,
+        //            StartTime = startTime.ToLocalTime(),
+        //            EndTime = endTime.ToLocalTime(),
+        //            Subject = value.Subject,
+        //            IsAllDay = value.IsAllDay,
+        //            RecurrenceRule = value.RecurrenceRule,
+        //            RecurrenceID = value.RecurrenceID,
+        //            RecurrenceException = value.RecurrenceException,
+        //        };
+        //        db.seances.Add(appointment);
+        //        db.SaveChanges();
+        //    }
+        //    if (param.action == "update" || (param.action == "batch" && param.changed != null)) // this block of code will execute while updating the appointment
+        //    {
+        //        var value = (param.action == "update") ? param.value : param.changed[0];
+        //        var filterData = db.seances.Where(c => c.Id == Convert.ToInt32(value.Id));
+        //        if (filterData.Count() > 0)
+        //        {
+        //            DateTime startTime = Convert.ToDateTime(value.StartTime);
+        //            DateTime endTime = Convert.ToDateTime(value.EndTime);
+        //            seance appointment = db.seances.Single(A => A.Id == Convert.ToInt32(value.Id));
+        //            appointment.StartTime = startTime.ToLocalTime();
+        //            appointment.EndTime = endTime.ToLocalTime();;
+        //            appointment.Subject = value.Subject;
+        //            appointment.IsAllDay = value.IsAllDay;
+        //            appointment.RecurrenceRule = value.RecurrenceRule;
+        //            appointment.RecurrenceID = value.RecurrenceID;
+        //            appointment.RecurrenceException = value.RecurrenceException;
+        //        }
+        //        db.SaveChanges();
+        //    }
+        //    if (param.action == "remove" || (param.action == "batch" && param.deleted != null)) // this block of code will execute while removing the appointment
+        //    {
+        //        if (param.action == "remove")
+        //        {
+        //            int key = Convert.ToInt32(param.key);
+        //            seance appointment = db.seances.Where(c => c.Id == key).FirstOrDefault();
+        //            if (appointment != null) db.seances.Remove(appointment);
+        //        }
+        //        else
+        //        {
+        //            foreach (var apps in param.deleted)
+        //            {
+        //                seance appointment = db.seances.Where(c => c.Id == apps.Id).FirstOrDefault();
+        //                if (apps != null) db.seances.Remove(appointment);
+        //            }
+        //        }
+        //        db.SaveChanges();
+        //    }
+        //    var data = db.seances.ToList();
+        //    return Json(data, JsonRequestBehavior.AllowGet);
+        //}
 
         public ActionResult About()
         {

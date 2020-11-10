@@ -26,7 +26,8 @@ REFERENCES
 CREATE TABLE [dbo].programmation(
 	[id] INT IDENTITY(1,1) NOT NULL,												
 	id_seance INT NOT NULL,
-	[id_film] INT NULL,
+	[id_film] INT NOT NULL,
+	[is_primary] BIT NOT NULL,
 	PRIMARY KEY (id),
 	CONSTRAINT fk_id_seance FOREIGN KEY (id_seance)
 	REFERENCES seance (id),

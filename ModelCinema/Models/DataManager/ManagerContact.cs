@@ -3,6 +3,7 @@ using ModelCinema.Models.ModelValidator;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,6 +64,7 @@ namespace ModelCinema.Models.DataManager
                 if (ValidatorContact.IsContactExist(contact_info, GetAllContact()) && ValidatorContact.IsValide(contact_info))
                 {
                     db.Entry(contact_info).State = EntityState.Modified;
+                    db.Set<contact_info>().AddOrUpdate(contact_info);
                     db.SaveChanges();
                     return true;
                 }

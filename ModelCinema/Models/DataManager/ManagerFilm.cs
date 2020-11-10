@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -108,7 +109,8 @@ namespace ModelCinema.Models.DataManager
             {
                 if (ValidatorFilm.IsFilmExist(film, GetAllFilmsFrom(film.annee_parution)) && ValidatorFilm.IsValide(film))
                 {
-                    db.Entry(film).State = EntityState.Modified;
+                    //db.Entry(film).State = EntityState.Modified;
+                    db.Set<film>().AddOrUpdate(film);
                     db.SaveChanges();
                     return true;
                 }
@@ -143,27 +145,30 @@ namespace ModelCinema.Models.DataManager
             }
         }
 
-        public List<film> GetFilmFiltre(string titre, DateTime? yearMin, DateTime? yearMax, int? id_type)
+        public List<film> GetFilmFiltre(string titre, int? yearMin, int? yearMax, int? id_type)
         {
             if (yearMin == null && yearMax == null)
             {
-                yearMin = DateTime.Now.AddYears(-10);
-                yearMax = DateTime.Now.AddYears(5);
+                yearMin = DateTime.Now.Year - 10;
+                yearMax = DateTime.Now.Year + 5;
             }
             else if (yearMin == null && yearMax != null)
             {
-                yearMin = yearMax.Value.AddYears(-10);
+                yearMin = yearMax - 10;
             }
             else if (yearMin != null && yearMax == null)
             {
-                yearMax = yearMin.Value.AddYears(5);
+                yearMax = yearMin + 5;
             }
 
             if (titre != null && !String.Empty.Equals(titre))
             {
                 try
                 {
-                    return db.films.Where(f => f.titre.Contains(titre) && f.annee_parution >= yearMin.Value.Year && f.annee_parution <= yearMax.Value.Year && f.id_type == id_type).ToList();
+                    if (id_type != null)
+                        return db.films.Where(f => f.titre.Contains(titre) && f.annee_parution >= yearMin && f.annee_parution <= yearMax && f.id_type == id_type).ToList();
+                    else
+                        return db.films.Where(f => f.annee_parution >= yearMin && f.annee_parution <= yearMax).ToList();
                 }
                 catch (Exception e)
                 {
@@ -174,7 +179,10 @@ namespace ModelCinema.Models.DataManager
             {
                 try
                 {
-                    return db.films.Where(f => f.annee_parution >= yearMin.Value.Year && f.annee_parution <= yearMax.Value.Year && f.id_type == id_type).ToList();
+                    if(id_type != null)
+                        return db.films.Where(f => f.annee_parution >= yearMin && f.annee_parution <= yearMax && f.id_type == id_type).ToList();
+                    else
+                        return db.films.Where(f => f.annee_parution >= yearMin && f.annee_parution <= yearMax).ToList();
                 }
                 catch (Exception e)
                 {
