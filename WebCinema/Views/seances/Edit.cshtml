@@ -22,9 +22,7 @@
     <table class="table">
         <tr>
             <td>
-                <div>
-                    @Html.LabelFor(model => model.date_debut)
-                </div>
+                @Html.LabelFor(model => model.date_debut)
             </td>
             <td>
                 @Html.LabelFor(model => model.date_fin)
@@ -39,11 +37,13 @@
 
         <tr>
             <td>
-                @Html.TextBoxFor(model => model.date_debut, new { type = "datetime-local", @class = "form-control datepicker" })
+                @Html.Label(Model.date_debut.ToString())
+                @Html.TextBoxFor(model => model.date_debut, new { type = "datetime-local", @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.date_debut, "", new { @class = "text-danger" })
             </td>
             <td>
-                @Html.TextBoxFor(model => model.date_fin, new { type = "datetime-local", @class = "form-control datepicker" })
+                @Html.Label(Model.date_debut.ToString())
+                @Html.TextBoxFor(model => model.date_fin, new { type = "datetime-local", @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.date_fin, "", new { @class = "text-danger" })
             </td>
             <td>

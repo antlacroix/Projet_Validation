@@ -147,16 +147,17 @@ namespace ModelCinema.Models.DataManager
         {
             try
             {
+                int cinemaId = new ManagerSalle().GetSalle(seance.salle_id, null, null).cinema_id;
                 List<seance> ConflictingSeances = ValidatorSeance.IsSeanceConflict(seance, this.GetAllSeanceFromSalle(seance.salle_id, null));
-                if (ValidatorSeance.IsSeanceExiste(seance, this.GetAllSeanceFromSalle(seance.salle_id, null)) && ValidatorSeance.IsValide(seance) && ConflictingSeances.Count == 0)
+                if (ValidatorSeance.IsSeanceExiste(seance, this.GetAllSeanceFromCinema(cinemaId)) && ValidatorSeance.IsValide(seance) && ConflictingSeances.Count == 0)
                 {
                     db.Set<seance>().AddOrUpdate(seance);
                     db.SaveChanges();
                     return true;
                 }
-                else if (ConflictingSeances.Count == 0)
+                else if (ConflictingSeances.Count != 0)
                     throw new ConflictiongSeanceException(ConflictingSeances);
-                else if (!ValidatorSeance.IsSeanceExiste(seance, this.GetAllSeanceFromSalle(seance.salle_id, null)))
+                else if (!ValidatorSeance.IsSeanceExiste(seance, this.GetAllSeanceFromCinema(cinemaId)))
                     throw new ItemNotExistException("seance");
                 else
                     throw new InvalidItemException("seance");
