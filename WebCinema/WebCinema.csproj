@@ -330,7 +330,6 @@
     <Content Include="Views\seances\Details.cshtml" />
     <Content Include="Views\seances\Edit.cshtml" />
     <Content Include="Views\seances\Index.cshtml" />
-    <Content Include="Views\films\UploadMovies.cshtml" />
     <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.5.1.min.map" />
     <Content Include="Scripts\umd\popper.min.js.map" />

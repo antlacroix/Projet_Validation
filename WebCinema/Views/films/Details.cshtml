@@ -4,14 +4,13 @@
     ViewBag.Title = "Details Films";
 }
 
-    <h2>Films Details</h2>
+<h2>Films Details</h2>
 
+@if (TempData.ContainsKey("Alert"))
+{
+    <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+}
 <div>
-    @*<h4>film</h4>*@
-	   @if (TempData.ContainsKey("Alert"))
-        {
-            <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
-        }
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -30,26 +29,13 @@
             @Html.DisplayFor(model => model.description)
         </dd>
 
-        <br />
+        <dt>
+            @Html.LabelFor(model => model.type_film.typage)
+        </dt>
 
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.LabelFor(model => model.type_film.typage, htmlAttributes: new { @class = "control-label col-md-2" })
-                </th>
-                <th>
-                    @Html.LabelFor(model => model.titre, htmlAttributes: new { @class = "control-label col-md-2" })
-                </th>
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => model.type_film.typage)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.film2.titre)
-                </td>
-            </tr>
-        </table>
+        <dd>
+            @Html.DisplayFor(model => model.type_film.typage)
+        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.annee_parution)

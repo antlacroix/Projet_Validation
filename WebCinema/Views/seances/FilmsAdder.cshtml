@@ -12,6 +12,6 @@
         @Html.DisplayFor(model => model.duree)
     </td>
     <td>
-        @Html.ActionLink("Add", "CreateProgrammation", "seances", new { id = Model.id, seanceId = int.Parse(Session[SessionKeys.seanceId].ToString()) }, null)
+        @Html.ActionLink("Add", "CreateProgrammation", "seances", new { id = Model.id, seanceId = int.Parse(Session[SessionKeys.seanceId].ToString()) }, htmlAttributes: new { @class = "btn btn-success" })
     </td>
 </tr>

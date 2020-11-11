@@ -19,7 +19,6 @@
 
 @using (Html.BeginForm("Edit", "seances", FormMethod.Post))
 {
-    <input type="submit" value="Save" class="btn btn-default" />
 
     @Html.AntiForgeryToken()
     //table pour afficher les info de la seance
@@ -62,7 +61,38 @@
         </tr>
     </table>
 
+    <input type="submit" value="Save" class="btn btn-default btn-success" />
 }
+
+@using (Html.BeginForm("Reccurance", "seances", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    //table pour la recurance
+    <table class="table">
+        @Html.HiddenFor(model => model.id)
+        <tr>
+            <th>
+                <select class="form-control" id="recurrance" name="recurrance">
+                    <option>Daily</option>
+                    <option>Weekly</option>
+                    <option>Monthly</option>
+                    <option>Yearly</option>
+                </select>
+            </th>
+            <th>
+                <input class="form-control" id="nbrRecurrance" name="nbrRecurrance" type="number" min="1" value="1" />
+            </th>
+            <th>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create Repeat" class="btn btn-default btn-primary" />
+                    </div>
+                </div>
+            </th>
+        </tr>
+    </table>
+}
+
 @using (Html.BeginForm("Edit", "seances", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -106,45 +136,18 @@
                     }
                     else if (item.film.type_film.typage != "Promotionnel")
                     {
-                        @Html.ActionLink("make primary", "MakePrimary", new { id = item.id, seanceId = int.Parse(Session[SessionKeys.seanceId].ToString()) })
+                        @Html.ActionLink("make primary", "MakePrimary", new { id = item.id, seanceId = int.Parse(Session[SessionKeys.seanceId].ToString()) }, htmlAttributes: new { @class = "btn btn-primary" })
                     }
                 </td>
                 <td>
-                    @Html.ActionLink("Remove", "RemoveProgrammation", new { id = item.id, seanceId = int.Parse(Session[SessionKeys.seanceId].ToString()) })
+                    @Html.ActionLink("Remove", "RemoveProgrammation", new { id = item.id, seanceId = int.Parse(Session[SessionKeys.seanceId].ToString()) }, htmlAttributes: new { @class = "btn btn-danger" })
                 </td>
             </tr>
         }
     </table>
 }
 
-@using (Html.BeginForm("Reccurance", "seances", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    //table pour la recurance
-    <table class="table">
-    @Html.HiddenFor(model => model.id)
-        <tr>
-            <th>
-                <select class="form-control" id="recurrance" name="recurrance">
-                    <option>Daily</option>
-                    <option>Weekly</option>
-                    <option>Monthly</option>
-                    <option>Yearly</option>
-                </select>
-            </th>
-            <th>
-                <input class="form-control" id="nbrRecurrance" name="nbrRecurrance" type="number" min="1" value="1" />
-            </th>
-            <th>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create Repeat" class="btn btn-default" />
-                    </div>
-                </div>
-            </th>
-        </tr>
-    </table>
-}
+
 
 @using (Html.BeginForm("Edit", "seances", FormMethod.Post))
 {
