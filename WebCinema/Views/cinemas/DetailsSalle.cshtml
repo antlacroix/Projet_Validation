@@ -4,11 +4,11 @@
     ViewBag.Title = "DetailsSalle";
 }
 
-<h2>DetailsSalle</h2>
+<h2>Details Salle</h2>
 <div class="transbox">
 
     <div>
-        <h4>salle</h4>
+        @*<h4>salle</h4>*@
         @if (TempData.ContainsKey("Alert"))
         {
             <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
@@ -120,7 +120,7 @@
         }
     </table>
     <p>
-        @Html.ActionLink("Back to List", "Details", new { id = Model.cinema_id })
+        @Html.ActionLink("Back to List", "Details", new { id = Model.cinema_id }, new { @class = "btn btn-default" })
     </p>
 
 </div>

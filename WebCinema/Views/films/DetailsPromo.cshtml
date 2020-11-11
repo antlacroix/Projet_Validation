@@ -4,12 +4,13 @@
     ViewBag.Title = "DetailsPromo";
 }
 
-<h2>DetailsPromo</h2>
+<h2>Details Promo</h2>
 
 <div>
-    <h4>film</h4>
+    @*<h4>film</h4>*@
     <hr />
     <dl class="dl-horizontal">
+        <br />
         <dt>
             @Html.DisplayNameFor(model => model.titre)
         </dt>
@@ -57,10 +58,10 @@
         <dd>
             @Html.DisplayFor(model => model.type_film.typage)
         </dd>
-
+        <br />
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "EditPromo", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
 </p>

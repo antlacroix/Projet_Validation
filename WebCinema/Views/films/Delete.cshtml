@@ -15,6 +15,8 @@
     }
     <hr />
     <dl class="dl-horizontal">
+        <br />
+
         <dt>
             @Html.DisplayNameFor(model => model.titre)
         </dt>
@@ -33,24 +35,23 @@
 
         <br />
 
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.LabelFor(model => model.type_film.typage, htmlAttributes: new { @class = "control-label col-md-2" })
-                </th>
-                <th>
-                    @Html.LabelFor(model => model.titre, htmlAttributes: new { @class = "control-label col-md-2" })
-                </th>
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => model.type_film.typage)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.film2.titre)
-                </td>
-            </tr>
-        </table>
+        <dt>
+            @Html.DisplayNameFor(model => model.type_film.typage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.type_film.typage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.titre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.film2.titre)
+        </dd>
+
+        <br />
 
         <dt>
             @Html.DisplayNameFor(model => model.annee_parution)
@@ -107,7 +108,7 @@
         <dd>
             @Html.DisplayFor(model => model.votes)
         </dd>
-
+        <br />
     </dl>
 
     @using (Html.BeginForm())
@@ -115,8 +116,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default btn-danger" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Delete" class="btn btn-default btn-danger" /> 
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
         </div>
     }
 </div>

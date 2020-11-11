@@ -28,10 +28,17 @@ body {
     background-color: #000000;
 }
 
-table, td, dl, dd, dt{
-    background-color: rgb(255, 255, 255, 0.6);
+table, dl{
+    background-color: rgb(255, 255, 255, 0.8);
 }
+
 
 th {
     background-color: rgb(200, 200, 200, 0.6);
+}
+
+h2, h3, p{
+    font-weight: bolder;
+    color:black;
+    font-style: italic;
 }

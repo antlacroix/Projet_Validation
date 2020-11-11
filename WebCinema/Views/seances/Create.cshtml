@@ -21,7 +21,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.date_debut, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.date_debut, htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
             <div class="col-md-10">
                 @Html.TextBoxFor(model => model.date_debut, new { type = "datetime-local", @class = "form-control datepicker" })
                 @Html.ValidationMessageFor(model => model.date_debut, "", new { @class = "text-danger" })
@@ -29,7 +29,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.date_fin, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.date_fin, htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
             <div class="col-md-10">
                 @Html.TextBoxFor(model => model.date_fin, new { type = "datetime-local", @class = "form-control datepicker" })
                 @Html.ValidationMessageFor(model => model.date_fin, "", new { @class = "text-danger" })
@@ -37,7 +37,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.titre_seance, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.titre_seance, htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.titre_seance, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.titre_seance, "", new { @class = "text-danger" })
@@ -50,8 +50,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "BackToSalle", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) })
-</div>
+    @Html.ActionLink("Back to List", "BackToSalle", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) }, new { @class = "btn btn-default" })
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
