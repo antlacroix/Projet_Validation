@@ -28,7 +28,7 @@ body {
     background-color: #000000;
 }
 
-table, th, td, dl, dd, dt{
+table, td, dl, dd, dt{
     background-color: rgb(255, 255, 255, 0.6);
 }
 

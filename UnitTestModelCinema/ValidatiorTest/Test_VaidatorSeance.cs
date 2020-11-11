@@ -30,7 +30,7 @@ namespace UnitTestModelCinema
             DateTime dateToLoad = new DateTime(2021, 1, 1);
 
             //Act
-            var testResult1 = ValidatorSeance.IsSeanceConflict(s1, manager.GetAllSeanceFromSalle(s1.salle_id, dateToLoad));
+            var testResult1 = ValidatorSeance.IsSeanceConflict(s1, manager.GetAllSeanceFromSalle(s1.salle_id, dateToLoad)).Count == 0;
 
             //Assert
             Assert.IsTrue(testResult1, "a seance starting before an other ended was accepted");
@@ -45,7 +45,7 @@ namespace UnitTestModelCinema
             DateTime dateToLoad = new DateTime(2021, 1, 1);
 
             //Act
-            var testResult2 = ValidatorSeance.IsSeanceConflict(s2, manager.GetAllSeanceFromSalle(s2.salle_id, dateToLoad));
+            var testResult2 = ValidatorSeance.IsSeanceConflict(s2, manager.GetAllSeanceFromSalle(s2.salle_id, dateToLoad)).Count == 0;
 
             //Assert
             Assert.IsTrue(testResult2, "a seance endind after an other started was accepted");
@@ -60,7 +60,7 @@ namespace UnitTestModelCinema
             DateTime dateToLoad = new DateTime(2021, 1, 1);
 
             //Act
-            var testResult3 = ValidatorSeance.IsSeanceConflict(s3, manager.GetAllSeanceFromSalle(s3.salle_id, dateToLoad));
+            var testResult3 = ValidatorSeance.IsSeanceConflict(s3, manager.GetAllSeanceFromSalle(s3.salle_id, dateToLoad)).Count == 0;
 
             //Assert
             Assert.IsTrue(testResult3, "a seance with the same start time was accepted ");
@@ -75,7 +75,7 @@ namespace UnitTestModelCinema
             DateTime dateToLoad = new DateTime(2021, 1, 1);
 
             //Act
-            var testResult3 = ValidatorSeance.IsSeanceConflict(s, manager.GetAllSeanceFromSalle(s.salle_id, dateToLoad));
+            var testResult3 = ValidatorSeance.IsSeanceConflict(s, manager.GetAllSeanceFromSalle(s.salle_id, dateToLoad)).Count == 0;
 
             //Assert
             Assert.IsFalse(testResult3, "a seance with the same start time was accepted ");
