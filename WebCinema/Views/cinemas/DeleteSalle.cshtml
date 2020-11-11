@@ -5,65 +5,66 @@
 }
 
 <h2>DeleteSalle</h2>
+<div class="transbox">
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>salle</h4>
+        @if (TempData.ContainsKey("Alert"))
+        {
+            <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+        }
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.nbr_place)
+            </dt>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>salle</h4>
-    @if (TempData.ContainsKey("Alert"))
-    {
-        <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
-    }
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.nbr_place)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.nbr_place)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.nbr_place)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.numero_salle)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.numero_salle)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.numero_salle)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.numero_salle)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.commentaire)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.commentaire)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.commentaire)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.commentaire)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.cinema.id)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.cinema.id)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.cinema.id)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.cinema.id)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.salle_status.status)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.salle_status.status)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.salle_status.status)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.salle_status.status)
-        </dd>
+        </dl>
 
-    </dl>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default btn-danger" /> |
-            @Html.ActionLink("Back to List", "Details", new { id = Model.cinema_id })
-        </div>
-    }
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default btn-danger" /> |
+                @Html.ActionLink("Back to List", "Details", new { id = Model.cinema_id })
+            </div>
+        }
+    </div>
 </div>

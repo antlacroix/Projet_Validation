@@ -11,48 +11,50 @@
 {
     <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
 }
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.cinema_name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.contact_info.adresse)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.contact_info.tel_number)
-        </th>
-        <th>
-            Responsable
-        </th>
-        <th>
-            @Html.ActionLink("Create Cinema", "Create")
-        </th>
-        <th></th>
-    </tr>
-
-
-
-    @foreach (var item in Model)
-    {
+<div class="transbox">
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.cinema_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.contact_info.adresse)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.contact_info.tel_number)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.user.name)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.cinema_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.contact_info.adresse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.contact_info.tel_number)
+            </th>
+            <th>
+                Responsable
+            </th>
+            <th>
+                @Html.ActionLink("Create Cinema", "Create")
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cinema_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.contact_info.adresse)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.contact_info.tel_number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user.name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

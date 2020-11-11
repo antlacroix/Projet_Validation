@@ -22,3 +22,16 @@ select,
 textarea {
     max-width: 280px;
 }
+
+body {
+    background: url(../Image/bg.jpg) no-repeat center fixed;
+    background-color: #000000;
+}
+
+table, th, td, dl, dd, dt{
+    background-color: rgb(255, 255, 255, 0.6);
+}
+
+th {
+    background-color: rgb(200, 200, 200, 0.6);
+}

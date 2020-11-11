@@ -5,101 +5,102 @@
 }
 
 <h2>Cinema Details</h2>
+<div class="transbox">
+    <div>
+        <hr />
 
-<div>
-    <hr />
-
-    @if (TempData.ContainsKey("Alert"))
-    {
-        <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
-    }
-
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.cinema_name)
-            </th>
-            <th>
-                Responsable
-            </th>
-            <th>
-                Titre
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.contact_info.tel_number)
-            </th>
-        </tr>
-
-        <tr>
-            <td>
-                @Html.DisplayFor(model => model.cinema_name)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.user.name)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.user.user_type.type)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.contact_info.tel_number)
-            </td>
-        </tr>
-    </table>
-
-    <table class="table">
-        <tr>
-            <th>
-                Numero de Salle
-            </th>
-            <th>
-                Nbr place
-            </th>
-            <th>
-                commentaire
-            </th>
-            <th>
-                status
-            </th>
-            <th>
-                @Html.ActionLink("Create Salle", "CreateSalle", new { id = Model.id })
-            </th>
-        </tr>
-
-        @foreach (var item in Model.salles)
+        @if (TempData.ContainsKey("Alert"))
         {
+            <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+        }
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.cinema_name)
+                </th>
+                <th>
+                    Responsable
+                </th>
+                <th>
+                    Titre
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.contact_info.tel_number)
+                </th>
+            </tr>
+
             <tr>
                 <td>
-                    # @Html.DisplayFor(modelItem => item.numero_salle)
+                    @Html.DisplayFor(model => model.cinema_name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.nbr_place)
+                    @Html.DisplayFor(model => model.user.name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.commentaire)
+                    @Html.DisplayFor(model => model.user.user_type.type)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.salle_status.status)
-                </td>
-                <td>
-                    @if (item.seances.Count == 0)
-                    {
-                        <span>
-                            @Html.ActionLink("Edit", "EditSalle", new { id = item.id }) |
-                        </span>
-                    }
-
-                    @Html.ActionLink("Details", "DetailsSalle", new { id = item.id })
-                    @if (item.seances.Count == 0)
-                    {
-                        <span>
-                            | @Html.ActionLink("Delete", "DeleteSalle", new { id = item.id })
-                        </span>
-                    }
+                    @Html.DisplayFor(model => model.contact_info.tel_number)
                 </td>
             </tr>
-        }
-    </table>
+        </table>
+
+        <table class="table">
+            <tr>
+                <th>
+                    Numero de Salle
+                </th>
+                <th>
+                    Nbr place
+                </th>
+                <th>
+                    commentaire
+                </th>
+                <th>
+                    status
+                </th>
+                <th>
+                    @Html.ActionLink("Create Salle", "CreateSalle", new { id = Model.id })
+                </th>
+            </tr>
+
+            @foreach (var item in Model.salles)
+            {
+                <tr>
+                    <td>
+                        # @Html.DisplayFor(modelItem => item.numero_salle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nbr_place)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.commentaire)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.salle_status.status)
+                    </td>
+                    <td>
+                        @if (item.seances.Count == 0)
+                        {
+                            <span>
+                                @Html.ActionLink("Edit", "EditSalle", new { id = item.id }) |
+                            </span>
+                        }
+
+                        @Html.ActionLink("Details", "DetailsSalle", new { id = item.id })
+                        @if (item.seances.Count == 0)
+                        {
+                            <span>
+                                | @Html.ActionLink("Delete", "DeleteSalle", new { id = item.id })
+                            </span>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
