@@ -5,6 +5,11 @@
 }
 
 <h2>Details Salle</h2>
+
+<p>
+    @Html.ActionLink("Back to List", "Details", new { id = Model.cinema_id }, new { @class = "btn btn-default" })
+</p>
+
 <div class="transbox">
 
     <div>
@@ -119,8 +124,5 @@
             </tr>
         }
     </table>
-    <p>
-        @Html.ActionLink("Back to List", "Details", new { id = Model.cinema_id }, new { @class = "btn btn-default" })
-    </p>
-
+    
 </div>

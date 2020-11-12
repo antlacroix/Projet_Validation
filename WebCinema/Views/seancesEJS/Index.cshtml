@@ -30,7 +30,7 @@
                 .Field("salle_id")
                 .Title("Owner1")
                 .Name("Salle")
-                .TextField("commentaire")
+                .TextField("numero_salle")
                 .IdField("id")
                 //.ColorField("SalleColor")
                 .GroupIDField("SalleGroupId")
@@ -54,7 +54,9 @@
                  )
                  .DataSource(ViewBag.appointments)
              )
-            .SelectedDate(new DateTime(2020, 2, 15))
+
+            .SelectedDate( DateTime.Now)
+
             .Render()
     )
 
