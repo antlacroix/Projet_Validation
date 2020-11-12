@@ -136,6 +136,8 @@ namespace WebCinema.Controllers
             {
                 TempData.Add("Alert", e.Message);
             }
+            ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
+            ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
             return View(film);
         }
 
@@ -222,6 +224,8 @@ namespace WebCinema.Controllers
             {
                 TempData.Add("Alert", e.Message);
             }
+            ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
+            ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
             return View(film);
         }
 

@@ -148,6 +148,7 @@
     <Compile Include="Controllers\role_participantController.cs" />
     <Compile Include="Controllers\sallesController.cs" />
     <Compile Include="Controllers\salle_statusController.cs" />
+    <Compile Include="Controllers\SchedulerController.cs" />
     <Compile Include="Controllers\SchedulerEJSController.cs" />
     <Compile Include="Controllers\seancesController.cs" />
     <Compile Include="Controllers\seancesEJSController.cs" />
@@ -363,6 +364,7 @@
     <Content Include="Views\films\DetailsPromo.cshtml" />
     <Content Include="Views\films\DeletePromo.cshtml" />
     <Content Include="Views\SchedulerEJS\View.cshtml" />
+    <Content Include="Views\Scheduler\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

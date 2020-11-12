@@ -46,7 +46,7 @@
                 @Html.ValidationMessageFor(model => model.date_debut, "", new { @class = "text-danger" })
             </td>
             <td>
-                @Html.Label(Model.date_debut.ToString())
+                @Html.Label(Model.date_fin.ToString())
                 @Html.TextBoxFor(model => model.date_fin, new { type = "datetime-local", @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.date_fin, "", new { @class = "text-danger" })
             </td>
@@ -62,8 +62,9 @@
     </table>
 
     <input type="submit" value="Save" class="btn btn-default btn-success" />
-}
 
+}
+ </br>
 @using (Html.BeginForm("Reccurance", "seances", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -220,7 +221,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "BackToSalle", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) })
+    @Html.ActionLink("Back to List", "BackToSalle", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) }, new { @class = "btn btn-default" })
 </div>
 
 @section Scripts {

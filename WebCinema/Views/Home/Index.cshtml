@@ -2,21 +2,27 @@
     ViewBag.Title = "Page";
 }
 
-    
+
 
 <div class="row">
     <div class="col-md-4">
         <h2>Acceuil</h2>
         <br />
-        @Html.ActionLink("Films", "Index", "films")
+        <div>
+            @Html.ActionLink("Films", "Index", "films", null, new { @class = "btn btn-default" })
+        </div>
         <br />
-        @Html.ActionLink("Cinemas", "Index", "cinemas")
+        <div>
+            @Html.ActionLink("Cinemas", "Index", "cinemas", null, new { @class = "btn btn-default" })
+        </div>
         <br />
-        @Html.ActionLink("seancesEJS", "Index", "seancesEJS")
-    </div>
+        <div>
+            @Html.ActionLink("Vue Graphique des Seances", "Index", "seancesEJS", null, new { @class = "btn btn-default" })
+        </div>
 
-    @if (TempData.ContainsKey("Alert"))
-    {
-        <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
-    }
+        @if (TempData.ContainsKey("Alert"))
+        {
+            <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+        }
+    </div>
 </div>

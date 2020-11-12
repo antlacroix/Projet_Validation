@@ -11,58 +11,56 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            @if (TempData.ContainsKey("Alert"))
-            {
-                <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
-            }
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.nbr_place, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.nbr_place, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.nbr_place, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.numero_salle, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.numero_salle, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.numero_salle, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.commentaire, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.commentaire, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.commentaire, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.status_id, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("status_id", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.status_id, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            @Html.HiddenFor(model => model.cinema_id, new { @Value = int.Parse(Session["cineId"].ToString()) })
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default btn-success" />
-                </div>
+    <div class="form-horizontal">
+        @if (TempData.ContainsKey("Alert"))
+        {
+            <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+        }
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.nbr_place, htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nbr_place, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.nbr_place, "", new { @class = "text-danger" })
             </div>
         </div>
-    }
 
-    <div>
-        @Html.ActionLink("Back to List", "Details", new { id = int.Parse(Session[SessionKeys.cinemaId].ToString()) })
+        <div class="form-group">
+            @Html.LabelFor(model => model.numero_salle, htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.numero_salle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.numero_salle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.commentaire, htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.commentaire, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.commentaire, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.status_id, "Status", htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
+            <div class="col-md-10">
+                @Html.DropDownList("status_id", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.status_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.cinema_id, new { @Value = int.Parse(Session["cineId"].ToString()) })
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Create" class="btn btn-default btn-success" />
+        @Html.ActionLink("Back to List", "Details", new { id = int.Parse(Session[SessionKeys.cinemaId].ToString()) }, new { @class = "btn btn-default" })
     </div>
+
+
+
+    </div>
+    }
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

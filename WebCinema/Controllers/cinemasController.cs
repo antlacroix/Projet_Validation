@@ -220,6 +220,7 @@ namespace WebCinema.Controllers
             {
                 TempData.Add("Alert", e.Message);
             }
+            ViewBag.status_id = new SelectList(new ManagerSalleStatus().GetAllSalleStatus(), "id", "status", new ManagerSalleStatus().GetSalleStatus(2));
             return View(salle);
         }
 
