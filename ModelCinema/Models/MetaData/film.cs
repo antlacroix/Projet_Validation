@@ -51,6 +51,7 @@ namespace ModelCinema.Models
         [Range(0, 1001, ErrorMessage = "Ranking")]
         public int ranking { get; set; }
 
+        [Required]
         [DisplayName("Description")]
         [StringLength(film.descriptionMax, ErrorMessage = "description")]
         public string description { get; set; }
