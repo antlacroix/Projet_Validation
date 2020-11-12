@@ -21,6 +21,7 @@ namespace ModelCinema.Models
             dateDebutMax = DateTime.Now.AddYears(50),
             dateFinMax = DateTime.Now.AddYears(50);
 
+        public bool IsAllDay { get { return true; } }
     }
 
     public class seanceMetaData

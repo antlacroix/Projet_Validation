@@ -362,6 +362,7 @@
     <Content Include="Views\films\EditPromo.cshtml" />
     <Content Include="Views\films\DetailsPromo.cshtml" />
     <Content Include="Views\films\DeletePromo.cshtml" />
+    <Content Include="Views\SchedulerEJS\View.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
