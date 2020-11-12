@@ -1,4 +1,4 @@
-﻿using Autofac.Extras.Moq;
+﻿//using Autofac.Extras.Moq;
 using Effort;
 using Effort.DataLoaders;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

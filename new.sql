@@ -47,4 +47,4 @@ ALTER TABLE dbo.seance DROP CONSTRAINT fk_seances;
 ALTER TABLE dbo.seance DROP COLUMN film_id;
 
 UPDATE dbo.film
-SET id_type = 2 ;
+SET id_type = select id from type_film where typage = 'standart';
