@@ -51,7 +51,7 @@ namespace UnitTestModelCinema.ValidatiorTest
         {
             //Arrange
             ManagerSalle manager = new ManagerSalle(_context);
-            salle ValidSalle = manager.GetSalle(1, null, null);
+            salle ValidSalle = manager.GetSalle(1, new DateTime(1900, 01, 01), new DateTime(2500,01,01));
             //Act
             try
             {

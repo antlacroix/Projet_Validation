@@ -50,7 +50,7 @@ namespace ModelCinema.Models.ModelValidator
             {
                 throw new NullIdExecption("Salle");
             }
-            if (candidate.seances.Count > 0)
+            if (candidate.seances.Count() > 0)
                 return true;
             else
                 return false;
