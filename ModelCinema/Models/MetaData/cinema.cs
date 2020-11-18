@@ -26,5 +26,8 @@ namespace ModelCinema.Models
 
         [DisplayName("Responsable")]
         public int responsable_user_id { get; set; }
+
+        [DisplayName("Cinema Name")]
+        public string cinema_name { get; set; }
     }
 }

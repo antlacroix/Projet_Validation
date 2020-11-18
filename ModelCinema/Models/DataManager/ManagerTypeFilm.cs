@@ -36,6 +36,17 @@ namespace ModelCinema.Models.DataManager
             }
         }
 
+        public List<type_film> GetType_film()
+        {
+            try
+            {
+                return db.type_film.Where(f => f.typage.ToUpper() != "PROMOTIONNEL").ToList();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
 
     }
 }

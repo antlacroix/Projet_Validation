@@ -45,7 +45,7 @@ namespace WebCinema.Controllers
         {
             try
             {
-                ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
+                ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetType_film(), "id", "typage");
                 ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
                 return View();
             }
@@ -94,7 +94,6 @@ namespace WebCinema.Controllers
             {
                 TempData.Add("Alert", e.Message);
             }
-            ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
             ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
             return View(film);
         }
@@ -105,8 +104,6 @@ namespace WebCinema.Controllers
             {
                 ManagerFilm manager = new ManagerFilm();
                 film film = manager.GetFilm(id);
-
-                ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
                 ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
 
                 return View(film);
@@ -136,7 +133,6 @@ namespace WebCinema.Controllers
             {
                 TempData.Add("Alert", e.Message);
             }
-            ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
             ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
             return View(film);
         }
@@ -178,7 +174,7 @@ namespace WebCinema.Controllers
             {
                 TempData.Add("Alert", e.Message);
             }
-            ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
+            ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetType_film(), "id", "typage");
             ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
             return View(film);
         }
@@ -191,7 +187,7 @@ namespace WebCinema.Controllers
                 ManagerFilm manager = new ManagerFilm();
                 film film = manager.GetFilm(id);
 
-                ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
+                ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetType_film(), "id", "typage");
                 ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
 
                 return View(film);
@@ -224,7 +220,7 @@ namespace WebCinema.Controllers
             {
                 TempData.Add("Alert", e.Message);
             }
-            ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetAllType_film(), "id", "typage");
+            ViewBag.id_type = new SelectList(new ManagerTypeFilm().GetType_film(), "id", "typage");
             ViewBag.id_film = new SelectList(new ManagerFilm().GetAllFilms(), "id", "titre");
             return View(film);
         }

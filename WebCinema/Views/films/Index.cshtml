@@ -49,6 +49,9 @@
 <table class="table">
     <tr>
         <th>
+            picture
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.titre)
         </th>
         <th>
@@ -64,18 +67,18 @@
         <th>
             @Html.DisplayNameFor(model => model.duree)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.rating)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.revenu)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.metascore)
-        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.revenu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.metascore)
+            </th>*@
 
         <th>
-            <p style=" width:150px";>
+            <p style=" width:150px" ;>
                 @Html.ActionLink("Create New", "Create") |
                 @Html.ActionLink("Create New Promo", "CreatePromo")
             </p>
@@ -84,6 +87,9 @@
     @foreach (var item in Model)
     {
         <tr>
+            <th>
+                picture
+            </th>
             <td>
                 @Html.DisplayFor(modelItem => item.titre)
             </td>
@@ -100,15 +106,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.duree)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.rating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.revenu)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.metascore)
-            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.rating)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.revenu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.metascore)
+                </td>*@
 
             <td>
                 @if (item.type_film.typage.ToUpper() == "PROMOTIONNEL")
