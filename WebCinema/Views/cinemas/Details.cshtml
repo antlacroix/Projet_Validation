@@ -66,7 +66,7 @@
                     status
                 </th>
                 <th>
-                    @Html.ActionLink("Create Salle", "CreateSalle", new { id = Model.id })
+                    <u>@Html.ActionLink("Create Salle", "CreateSalle", new { id = Model.id })</u>
                 </th>
             </tr>
 
@@ -89,15 +89,24 @@
                         @if (item.seances.Count == 0)
                         {
                             <span>
-                                @Html.ActionLink("Edit", "EditSalle", new { id = item.id }) |
+                                @Html.ActionLink("Edit", "EditSalle", new { id = item.id }, htmlAttributes: new {
+                               style = "background: url('../../Image/edit.png'); display:block; height:24px; width:24px;",
+                               @class = "text-hide"
+                           }) 
                             </span>
                         }
 
-                        @Html.ActionLink("Details", "DetailsSalle", new { id = item.id })
+                        @Html.ActionLink("Details", "DetailsSalle", new { id = item.id }, htmlAttributes: new {
+                       style = "background: url('../../Image/eye.png'); display:block; height:24px; width:24px;",
+                       @class = "text-hide"
+                   })
                         @if (item.seances.Count == 0)
                         {
                             <span>
-                                | @Html.ActionLink("Delete", "DeleteSalle", new { id = item.id })
+                                 @Html.ActionLink("Delete", "DeleteSalle", new { id = item.id }, htmlAttributes: new {
+                                style = "background: url('../../Image/delete.png'); display:block; height:24px; width:24px;",
+                                @class = "text-hide"
+                            })
                             </span>
                         }
                     </td>

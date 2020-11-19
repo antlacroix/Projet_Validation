@@ -119,15 +119,39 @@
             <td>
                 @if (item.type_film.typage.ToUpper() == "PROMOTIONNEL")
                 {
-                    @Html.ActionLink("Edit", "EditPromo", new { id = item.id }) <br />
-                    @Html.ActionLink("Details", "DetailsPromo", new { id = item.id }) <br />
-                    @Html.ActionLink("Delete", "DeletePromo", new { id = item.id })<br />
+                    @Html.ActionLink("Edit", "EditPromo", new { id = item.id }, new
+               {
+                   style = "background: url('../Image/edit.png'); display:block; height:24px; width:24px;",
+                   @class = "text-hide"
+               })
+                    @Html.ActionLink("Details", "DetailsPromo", new { id = item.id }, new
+               {
+                   style = "background: url('../Image/eye.png'); display:block; height:24px; width:24px;",
+                   @class = "text-hide"
+               })
+                    @Html.ActionLink("Delete", "DeletePromo", new { id = item.id }, new
+               {
+                   style = "background: url('../Image/delete.png'); display:block; height:24px; width:24px;",
+                   @class = "text-hide"
+               })
                 }
                 else
                 {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) <br />
-                    @Html.ActionLink("Details", "Details", new { id = item.id }) <br />
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id })<br />
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id, }, new
+               {
+                   style = "background: url('../Image/edit.png'); display:block; height:24px; width:24px;",
+                   @class = "text-hide"
+               })
+                    @Html.ActionLink("Details", "Details", new { id = item.id }, new
+               {
+                   style = "background: url('../Image/eye.png'); display:block; height:24px; width:24px;",
+                   @class = "text-hide"
+               })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id }, new
+               {
+                   style = "background: url('../Image/delete.png'); display:block; height:24px; width:24px;",
+                   @class = "text-hide"
+               })
                 }
             </td>
         </tr>
