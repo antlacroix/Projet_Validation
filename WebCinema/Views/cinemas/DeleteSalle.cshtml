@@ -6,13 +6,15 @@
 
 <h2>DeleteSalle</h2>
 <div class="transbox">
-    <h3>Are you sure you want to delete this?</h3>
+
     <div>
-        @*<h4>salle</h4>*@
         @if (TempData.ContainsKey("Alert"))
         {
             <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
         }
+    <div>
+        @Html.ActionLink("Back to List", "Details", new { id = Model.cinema_id }, new { @class = "btn btn-default" })
+    </div>
         <hr />
         <dl class="dl-horizontal">
             </br>
@@ -61,10 +63,9 @@
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-
+            <h3>Are you sure you want to delete this?</h3>
             <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default btn-danger" /> 
-                @Html.ActionLink("Back to List", "Details", new { id = Model.cinema_id }, new { @class = "btn btn-default" })
+                <input type="submit" value="Delete" class="btn btn-default" />
             </div>
         }
     </div>

@@ -12,6 +12,10 @@
         @Html.DisplayFor(model => model.duree)
     </td>
     <td>
-        @Html.ActionLink("Add", "CreateProgrammation", "seances", new { id = Model.id, seanceId = int.Parse(Session[SessionKeys.seanceId].ToString()) }, htmlAttributes: new { @class = "btn btn-success" })
+        @Html.ActionLink("Add", "CreateProgrammation", "seances", new { id = Model.id, seanceId = int.Parse(Session[SessionKeys.seanceId].ToString()) }, htmlAttributes: new
+        {
+       style = "background: url('../../Image/add.png'); display:block; height:24px; width:24px;",
+       @class = "text-hide"
+   })
     </td>
 </tr>

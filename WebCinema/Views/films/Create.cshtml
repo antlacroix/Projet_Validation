@@ -11,6 +11,10 @@
     <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
 }
 
+<div>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+</div>
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -118,8 +122,7 @@
     <hr />
 
     <div class="form-actions no-color">
-        <input type="submit" value="Create" class="btn btn-default btn-success" />
-        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+        <input type="submit" value="Create" class="btn btn-default" />
     </div>
 </div>
 }

@@ -6,10 +6,10 @@
 
 <h2>Films Details</h2>
 
-@if (TempData.ContainsKey("Alert"))
-{
-    <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
-}
+<div>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+</div>
+
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -97,7 +97,4 @@
     </dl>
 </div>
 
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }, new { @class = "btn btn-default" })    
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
-</p>
+

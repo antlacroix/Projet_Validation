@@ -11,6 +11,10 @@
     <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
 }
 
+<div>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+</div>
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -18,7 +22,6 @@
     @Html.HiddenFor(model => model.id_type, new { @Value = 3 })
 
 <div class="form-horizontal">
-    @*<h4>film</h4>*@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -79,8 +82,7 @@
     </table>
 
     <div class="form-actions no-color">
-        <input type="submit" value="Create" class="btn btn-default btn-success" />
-        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+        <input type="submit" value="Create" class="btn btn-default" />
     </div>
 
 </div>

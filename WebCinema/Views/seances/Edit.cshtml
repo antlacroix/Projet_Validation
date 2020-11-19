@@ -4,18 +4,18 @@
     ViewBag.Title = "Edit Seances";
 }
 
+<div>
+    <h2>Seances Edit</h2>
+
+    @if (TempData.ContainsKey("Alert"))
+    {
+        <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+    }
+
     <div>
-        <h2>Seances Edit</h2>
-
-        <div>
-            @Html.ActionLink("Back to List", "BackToSalle", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) }, new { @class = "btn btn-default" })
-        </div>
-
-        @if (TempData.ContainsKey("Alert"))
-        {
-            <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
-        }
+        @Html.ActionLink("Back to List", "BackToSalle", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) }, new { @class = "btn btn-default" })
     </div>
+</div>
 <br />
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -63,7 +63,7 @@
         </tr>
     </table>
 
-    <input type="submit" value="Update" class="btn btn-default btn-success" />
+    <input type="submit" value="Update" class="btn btn-default" />
 
 }
  </br>
@@ -88,7 +88,7 @@
             <th>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create Repeat" class="btn btn-default btn-primary" />
+                        <input type="submit" value="Create Repeat" class="btn btn-default" />
                     </div>
                 </div>
             </th>
@@ -139,11 +139,11 @@
                     }
                     else if (item.film.type_film.typage != "Promotionnel")
                     {
-                        @Html.ActionLink("make primary", "MakePrimary", new { id = item.id, seanceId = int.Parse(Session[SessionKeys.seanceId].ToString()) }, htmlAttributes: new { @class = "btn btn-primary" })
+                        @Html.ActionLink("make primary", "MakePrimary", new { id = item.id, seanceId = int.Parse(Session[SessionKeys.seanceId].ToString()) }, htmlAttributes: new { @class = "btn btn btn-default" })
                     }
                 </td>
                 <td>
-                    @Html.ActionLink("Remove", "RemoveProgrammation", new { id = item.id, seanceId = int.Parse(Session[SessionKeys.seanceId].ToString()) }, htmlAttributes: new { style = "background: url('../../Image/delete.png'); display: block; height: 24px; width: 24px;", @class = "text-hide" })
+                    @Html.ActionLink("Remove", "RemoveProgrammation", new { id = item.id, seanceId = int.Parse(Session[SessionKeys.seanceId].ToString()) }, htmlAttributes: new { style = "background: url('../../Image/moins.png'); display: block; height: 24px; width: 24px;", @class = "text-hide" })
                 </td>
             </tr>
         }
@@ -185,7 +185,7 @@
                 </th>
                 <th>
                     <p>
-                        <input name="command" type="submit" style="background: url('../../Image/search.png'); display: block; height: 24px; width: 24px;" class = "text-hide" />
+                        <input name="command" type="submit" style="background: url('../../Image/search.png'); display: block; height: 24px; width: 24px;" class="text-hide" />
                     </p>
                 </th>
             </tr>

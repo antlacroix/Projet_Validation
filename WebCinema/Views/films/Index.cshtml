@@ -25,23 +25,23 @@
             <th></th>
         </tr>
         <tr>
-            <th>
+            <td>
                 @Html.TextBox("titre", "", new { @class = "form-control" })
-            </th>
-            <th>
+            </td>
+            <td>
                 @Html.DropDownList("id_type", null, htmlAttributes: new { @class = "form-control" })
-            </th>
-            <th>
+            </td>
+            <td>
                 @Html.TextBox("yearMin", DateTime.Now.Year - 10, new { @class = "form-control datepicker" })
-            </th>
-            <th>
+            </td>
+            <td>
                 @Html.TextBox("yearMax", DateTime.Now.Year + 5, new { @class = "form-control datepicker" })
-            </th>
-            <th>
+            </td>
+            <td>
                 <p>
-                    <input type="submit" value="Filtre" class="btn btn-default btn-primary" />
+                    <input type="submit" style="background: url('../../Image/search.png'); display: block; height: 24px; width: 24px;" class="text-hide" />
                 </p>
-            </th>
+            </td>
         </tr>
     </table>
 }
@@ -67,20 +67,11 @@
         <th>
             @Html.DisplayNameFor(model => model.duree)
         </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.rating)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.revenu)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.metascore)
-            </th>*@
-
+  
         <th>
             <p style=" width:150px" ;>
-                @Html.ActionLink("Create New", "Create") |
-                @Html.ActionLink("Create New Promo", "CreatePromo")
+                <u>@Html.ActionLink("New Movie", "Create")</u> </br>
+                <u>@Html.ActionLink("New Trailler", "CreatePromo")</u>
             </p>
         </th>
     </tr>
@@ -106,15 +97,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.duree)
             </td>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.rating)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.revenu)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.metascore)
-                </td>*@
 
             <td>
                 @if (item.type_film.typage.ToUpper() == "PROMOTIONNEL")

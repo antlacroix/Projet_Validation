@@ -16,6 +16,9 @@
         {
             <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
         }
+    <div>
+        @Html.ActionLink("Back to List", "Details", new { id = int.Parse(Session[SessionKeys.cinemaId].ToString()) }, new { @class = "btn btn-default" })
+    </div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -53,8 +56,7 @@
         @Html.HiddenFor(model => model.cinema_id, new { @Value = int.Parse(Session["cineId"].ToString()) })
 
     <div class="form-actions no-color">
-        <input type="submit" value="Create" class="btn btn-default btn-success" />
-        @Html.ActionLink("Back to List", "Details", new { id = int.Parse(Session[SessionKeys.cinemaId].ToString()) }, new { @class = "btn btn-default" })
+        <input type="submit" value="Create" class="btn btn-default" />
     </div>
 
 
