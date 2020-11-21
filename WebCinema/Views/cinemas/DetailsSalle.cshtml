@@ -4,7 +4,57 @@
     ViewBag.Title = "DetailsSalle";
 }
 
+<div>
+        <button class="btn btn-default" data-target="#alert" data-toggle="modal">test</button>
+    </div>
+
+<div class="modal" data-keyboard="false" data-backdrop="static" id="alert">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h3 class="modal-title">Alert</h3>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <p>@TempData["Alert"]</p>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 <h2>Details Salle</h2>
+
+@*@if (TempData.ContainsKey("Alert"))
+    {
+        <div class="alert alert-danger alert-dismissable show" role="alert">
+            @TempData["Alert"]
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }*@
+
+@*<div>
+        <button class="btn btn-default" data-target="#alert" data-toggle="modal">test</button>
+    </div>*@
 
 <p>
     @Html.ActionLink("Back to List", "Details", new { id = Model.cinema_id }, new { @class = "btn btn-default" })
@@ -52,6 +102,7 @@
         </tr>
 
     </table>
+
     <table class="table">
 
 
@@ -71,7 +122,7 @@
                 </th>
                 <th>
                     <br />
-                    <input type="submit" style="background: url('../../Image/search.png'); display: block; height: 24px; width: 24px;" class = "text-hide" />
+                    <input type="submit" style="background: url('../../Image/search.png'); display: block; height: 24px; width: 24px;" class="text-hide" />
 
                 </th>
                 <th>
@@ -113,11 +164,13 @@
                 <td>
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "EditSeance", new { id = item.id }, htmlAttributes: new {
+                    @Html.ActionLink("Edit", "EditSeance", new { id = item.id }, htmlAttributes: new
+                    {
                    style = "background: url('../../Image/edit.png'); display:block; height:24px; width:24px;",
                    @class = "text-hide"
-               }) 
-                    @Html.ActionLink("Delete", "DeleteSeance", new { id = item.id }, htmlAttributes: new {
+               })
+                    @Html.ActionLink("Delete", "DeleteSeance", new { id = item.id }, htmlAttributes: new
+                    {
                    style = "background: url('../../Image/delete.png'); display:block; height:24px; width:24px;",
                    @class = "text-hide"
                })
@@ -125,5 +178,5 @@
             </tr>
         }
     </table>
-    
+
 </div>

@@ -141,23 +141,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\cinemasController.cs" />
-    <Compile Include="Controllers\contact_infoController.cs" />
     <Compile Include="Controllers\filmsController.cs" />
-    <Compile Include="Controllers\genresController.cs" />
-    <Compile Include="Controllers\genre_filmController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\participantsController.cs" />
-    <Compile Include="Controllers\participationsController.cs" />
-    <Compile Include="Controllers\role_participantController.cs" />
-    <Compile Include="Controllers\sallesController.cs" />
-    <Compile Include="Controllers\salle_statusController.cs" />
-    <Compile Include="Controllers\SchedulerController.cs" />
-    <Compile Include="Controllers\SchedulerEJSController.cs" />
     <Compile Include="Controllers\seancesController.cs" />
     <Compile Include="Controllers\seancesEJSController.cs" />
-    <Compile Include="Controllers\usersController.cs" />
-    <Compile Include="Controllers\user_statusController.cs" />
-    <Compile Include="Controllers\user_typeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -309,33 +296,19 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\cinemas\Delete.cshtml" />
     <Content Include="Views\cinemas\Details.cshtml" />
     <Content Include="Views\cinemas\Edit.cshtml" />
     <Content Include="Views\cinemas\Index.cshtml" />
-    <Content Include="Views\contact_info\Create.cshtml" />
-    <Content Include="Views\contact_info\Delete.cshtml" />
-    <Content Include="Views\contact_info\Details.cshtml" />
-    <Content Include="Views\contact_info\Edit.cshtml" />
-    <Content Include="Views\contact_info\Index.cshtml" />
     <Content Include="Views\films\Create.cshtml" />
     <Content Include="Views\films\Delete.cshtml" />
     <Content Include="Views\films\Details.cshtml" />
     <Content Include="Views\films\Edit.cshtml" />
     <Content Include="Views\films\Index.cshtml" />
-    <Content Include="Views\salles\Create.cshtml" />
-    <Content Include="Views\salles\Delete.cshtml" />
-    <Content Include="Views\salles\Details.cshtml" />
-    <Content Include="Views\salles\Edit.cshtml" />
-    <Content Include="Views\salles\Index.cshtml" />
     <Content Include="Views\seances\Create.cshtml" />
     <Content Include="Views\seances\Delete.cshtml" />
-    <Content Include="Views\seances\Details.cshtml" />
     <Content Include="Views\seances\Edit.cshtml" />
-    <Content Include="Views\seances\Index.cshtml" />
     <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.5.1.min.map" />
     <Content Include="Scripts\umd\popper.min.js.map" />
@@ -353,20 +326,15 @@
     <Content Include="Views\cinemas\DetailsSalle.cshtml" />
     <Content Include="Views\cinemas\EditSalle.cshtml" />
     <Content Include="Views\cinemas\DeleteSalle.cshtml" />
-    <Content Include="Views\seancesEJS\Create.cshtml" />
-    <Content Include="Views\seancesEJS\Delete.cshtml" />
-    <Content Include="Views\seancesEJS\Details.cshtml" />
-    <Content Include="Views\seancesEJS\Edit.cshtml" />
     <Content Include="Views\seancesEJS\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
     <Content Include="Views\seances\Programmations.cshtml" />
-    <Content Include="Views\SchedulerEJS\Index.cshtml" />
     <Content Include="Views\seances\FilmsAdder.cshtml" />
     <Content Include="Views\films\CreatePromo.cshtml" />
     <Content Include="Views\films\EditPromo.cshtml" />
     <Content Include="Views\films\DetailsPromo.cshtml" />
     <Content Include="Views\films\DeletePromo.cshtml" />
-    <Content Include="Views\Scheduler\Index.cshtml" />
+    <Content Include="Views\cinemas\alert.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

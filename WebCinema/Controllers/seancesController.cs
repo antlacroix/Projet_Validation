@@ -95,7 +95,7 @@ namespace WebCinema.Controllers
             catch (Exception e)
             {
                 TempData.Add("Alert", e.Message);
-                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
+                return RedirectToAction("alert", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
             }
         }
         // GET: seances/Edit/5
