@@ -2,6 +2,14 @@
 
 @{
     ViewBag.Title = "DetailsSalle";
+    DateTime?
+        startDate = (Session[SessionKeys.startDate] != null) ?
+            Session[SessionKeys.startDate] as DateTime? :
+            DateTime.Now.AddDays(-10);
+    DateTime?
+        endDate = (Session[SessionKeys.endDate] != null) ?
+            Session[SessionKeys.endDate] as DateTime? :
+            DateTime.Now.AddDays(+10);
 }
 
 <h2>Details Salle</h2>
@@ -75,12 +83,12 @@
                 <th>
                     Start
                     <input class="form-control" data-val="true" data-val-required="Date is required"
-                           id="startDate" name="startDate" type="date" value=@DateTime.Now.AddDays(-10) />
+                           id="startDate" name="startDate" type="date" value=@startDate />
                 </th>
                 <th>
                     End
                     <input class="form-control" data-val="true" data-val-required="Date is required"
-                           id="endDate" name="endDate" type="date" value=@DateTime.Now.AddDays(10) />
+                           id="endDate" name="endDate" type="date" value=@endDate />
                 </th>
                 <th>
                    <br />

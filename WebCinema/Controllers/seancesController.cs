@@ -39,13 +39,19 @@ namespace WebCinema.Controllers
             {
                 ManagerSeance managerSeance = new ManagerSeance();
 
+                if (Session[SessionKeys.startDate] != null)
+                    start = Session[SessionKeys.startDate] as DateTime?;
                 ViewBag.start = start;
+
+                if (Session[SessionKeys.endDate] != null)
+                    end = Session[SessionKeys.endDate] as DateTime?;
                 ViewBag.end = end;
+
                 if (start != null || end != null)
                 {
                     var orders = managerSeance.GetAllSeanceFromCinema(id)
                         .Where(x => x.date_debut > start
-                        && x.date_fin < end)
+                            && x.date_fin < end)
                         .ToList();
                     return View(orders);
                 }

@@ -17,6 +17,8 @@ namespace WebCinema.Controllers
         [HttpPost]
         public ActionResult Filtre(DateTime? startDate, DateTime? endDate)
         {
+            Session[SessionKeys.startDate] = startDate;
+            Session[SessionKeys.endDate] = endDate;
             return RedirectToAction("DetailsSalle", new { start = startDate, end = endDate, id = int.Parse(Session[SessionKeys.salleId].ToString())});
         }
 
@@ -227,6 +229,14 @@ namespace WebCinema.Controllers
         //GET: cinemas/DetailsSalle/5
         public ActionResult DetailsSalle(int? id, DateTime? start, DateTime? end)
         {
+            if (Session[SessionKeys.startDate] != null)
+                start = Session[SessionKeys.startDate] as DateTime?;
+            ViewBag.start = start;
+
+            if (Session[SessionKeys.endDate] != null)
+                end = Session[SessionKeys.endDate] as DateTime?;
+            ViewBag.end = end;
+
             Session[SessionKeys.salleId] = id;
             try
             {
