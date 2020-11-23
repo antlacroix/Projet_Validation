@@ -302,9 +302,6 @@
     <Content Include="Views\cinemas\Edit.cshtml" />
     <Content Include="Views\cinemas\Index.cshtml" />
     <Content Include="Views\films\Create.cshtml" />
-    <Content Include="Views\films\Delete.cshtml" />
-    <Content Include="Views\films\Details.cshtml" />
-    <Content Include="Views\films\Edit.cshtml" />
     <Content Include="Views\films\Index.cshtml" />
     <Content Include="Views\seances\Create.cshtml" />
     <Content Include="Views\seances\Delete.cshtml" />
@@ -331,10 +328,10 @@
     <Content Include="Views\seances\Programmations.cshtml" />
     <Content Include="Views\seances\FilmsAdder.cshtml" />
     <Content Include="Views\films\CreatePromo.cshtml" />
-    <Content Include="Views\films\EditPromo.cshtml" />
-    <Content Include="Views\films\DetailsPromo.cshtml" />
-    <Content Include="Views\films\DeletePromo.cshtml" />
     <Content Include="Views\cinemas\alert.cshtml" />
+    <Content Include="Views\films\PartialDetails.cshtml" />
+    <Content Include="Views\films\PartialDelete.cshtml" />
+    <Content Include="Views\films\PartialEdit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

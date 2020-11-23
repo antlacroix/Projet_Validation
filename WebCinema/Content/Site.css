@@ -42,3 +42,31 @@ h2, h3, p{
     color:black;
     font-style: italic;
 }
+
+.modal-backdrop {
+    background-color: rgba(0,0,0,.5) !important;
+}
+
+.btn-general {
+    height: 36px;
+    width: 36px;
+}
+.btn-Edit {
+    background: url('../Image/edit.png');
+    background-repeat: no-repeat;
+    background-size: 36px 36px;
+}
+.btn-Details {
+    background: url('../Image/eye.png');
+    background-repeat: no-repeat;
+    background-size: 36px 36px;
+}
+.btn-Delete {
+    background: url('../Image/delete.png');
+    background-repeat: no-repeat;
+    background-size: 36px 36px;
+}
+
+.col-Header {
+    background-color: rgb(200, 200, 200, 0.6);
+}

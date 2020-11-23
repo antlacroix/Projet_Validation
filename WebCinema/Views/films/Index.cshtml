@@ -4,10 +4,11 @@
 }
 
 <h2>Films</h2>
-@if (TempData.ContainsKey("Alert"))
-{
-    <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
-}
+
+@if (TempData.ContainsKey("Alert") && Session[SessionKeys.openedTab] == null)
+    {
+        <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+    }
 @using (Html.BeginForm("Filtre", "films", FormMethod.Post))
 {
     <table class="table">
@@ -47,9 +48,10 @@
 }
 
 <table class="table">
+    <!-- table head -->
     <tr>
         <th>
-            picture
+            Picture
         </th>
         <th>
             @Html.DisplayNameFor(model => model.titre)
@@ -57,7 +59,6 @@
         <th>
             @Html.DisplayNameFor(model => model.description)
         </th>
-
         <th>
             @Html.DisplayNameFor(model => model.type_film.typage)
         </th>
@@ -67,7 +68,6 @@
         <th>
             @Html.DisplayNameFor(model => model.duree)
         </th>
-  
         <th>
             <p style=" width:150px" ;>
                 <u>@Html.ActionLink("New Movie", "Create")</u> </br>
@@ -75,19 +75,20 @@
             </p>
         </th>
     </tr>
+
+    <!-- Generate an entree by movie in the model -->
     @foreach (var item in Model)
     {
         <tr>
-            <th>
+            <td>
                 picture
-            </th>
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.titre)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.description)
             </td>
-
             <td>
                 @Html.DisplayFor(modelItem => item.type_film.typage)
             </td>
@@ -97,45 +98,97 @@
             <td>
                 @Html.DisplayFor(modelItem => item.duree)
             </td>
-
+            <!-- btn -->
             <td>
-                @if (item.type_film.typage.ToUpper() == "PROMOTIONNEL")
-                {
-                    @Html.ActionLink("Edit", "EditPromo", new { id = item.id }, new
-               {
-                   style = "background: url('../Image/edit.png'); display:block; height:24px; width:24px;",
-                   @class = "text-hide"
-               })
-                    @Html.ActionLink("Details", "DetailsPromo", new { id = item.id }, new
-               {
-                   style = "background: url('../Image/eye.png'); display:block; height:24px; width:24px;",
-                   @class = "text-hide"
-               })
-                    @Html.ActionLink("Delete", "DeletePromo", new { id = item.id }, new
-               {
-                   style = "background: url('../Image/delete.png'); display:block; height:24px; width:24px;",
-                   @class = "text-hide"
-               })
-                }
-                else
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id, }, new
-               {
-                   style = "background: url('../Image/edit.png'); display:block; height:24px; width:24px;",
-                   @class = "text-hide"
-               })
-                    @Html.ActionLink("Details", "Details", new { id = item.id }, new
-               {
-                   style = "background: url('../Image/eye.png'); display:block; height:24px; width:24px;",
-                   @class = "text-hide"
-               })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id }, new
-               {
-                   style = "background: url('../Image/delete.png'); display:block; height:24px; width:24px;",
-                   @class = "text-hide"
-               })
-                }
+                <div class="d-flex align-items-center">
+                    <span>
+                        <input id="@item.id" onclick="Edit(@item.id)"
+                               class="text-hide btn-general btn-Edit" type="button" value="" />
+                    </span>
+                    <span>
+                        <input id="@item.id" onclick="Details((@item.id))"
+                               class="text-hide btn-general btn-Details" type="button" value="" />
+                    </span>
+                    <span>
+                        <input id="@item.id" onclick="Delete(@item.id)"
+                               class="text-hide btn-general btn-Delete" type="button" value="" />
+                    </span>
+                </div>
             </td>
         </tr>
     }
 </table>
+
+<div class="modal" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"></h2>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script>
+
+        $(document).ready(function () {
+            var testVar = "@Session[SessionKeys.openedTab]"
+            switch (testVar) {
+                case "Edit":
+                    Edit("@Session[SessionKeys.filmId]");
+                    break;
+                case "Details":
+                    Details("@Session[SessionKeys.filmId]");
+                    break;
+                case "Delete":
+                    Delete("@Session[SessionKeys.filmId]");
+                    break;
+                default:
+                    break;
+            }
+        })
+
+        function Details(id) {
+            $('.modal-title').html("Details");
+            $.get("@Url.Action("details","films")/" + id,
+                function (data) { $('.modal-body').html(data); })
+            $('#myModal').modal('show');
+
+            $('#myModal').on('hidden.bs.modal', function (e) {
+                $('.modal-body').html("");
+                $('.modal-title').html("");
+            })
+        }
+
+        function Delete(id) {
+            $('.modal-title').html("Delete");
+            $.get("@Url.Action("Delete", "films")/" + id,
+                function (data) { $('.modal-body').html(data); })
+            $('#myModal').modal('show');
+
+            $('#myModal').on('hidden.bs.modal', function (e) {
+                $('.modal-body').html("");
+                $('.modal-title').html("");
+            })
+        }
+
+        function Edit(id) {
+            $('.modal-title').html("Edit");
+            $.get("@Url.Action("Edit", "films")/" + id,
+                function (data) { $('.modal-body').html(data); })
+            $('#myModal').modal('show');
+
+            $('#myModal').on('hidden.bs.modal', function (e) {
+                $('.modal-body').html("");
+                $('.modal-title').html("");
+            })
+        }
+    </script>
+}

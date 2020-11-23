@@ -10,6 +10,12 @@ namespace WebCinema
         static public string
             cinemaId = "cinemaId",
             seanceId = "seanceId",
-            salleId = "salleId";
+            salleId = "salleId",
+            openedTab = "openedTab",
+            filmId = "filmId",
+            startDate = "startDate",
+            endDate = "endDate",
+            wasOnMovie = "wasOnMovie";
+            
     }
 }

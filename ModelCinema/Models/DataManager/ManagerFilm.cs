@@ -107,9 +107,8 @@ namespace ModelCinema.Models.DataManager
         {
             try
             {
-                if (ValidatorFilm.IsFilmExist(film, GetAllFilmsFrom(film.annee_parution)) && ValidatorFilm.IsValide(film))
+                if (!(ValidatorFilm.IsFilmExist(film, GetAllFilmsFrom(film.annee_parution))) && ValidatorFilm.IsValide(film))
                 {
-                    //db.Entry(film).State = EntityState.Modified;
                     db.Set<film>().AddOrUpdate(film);
                     db.SaveChanges();
                     return true;

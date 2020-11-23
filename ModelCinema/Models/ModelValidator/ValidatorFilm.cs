@@ -63,9 +63,9 @@ namespace ModelCinema.Models.ModelValidator
                 throw new NullParametreException("IsFilmExist", "candidate");
             if (films == null)
                 throw new NullParametreException("IsFilmExist", "films");
-            List<film> existingOne = films.Where(o => o.annee_parution == candidate.annee_parution).ToList();
+            List<film> existingOne = films.Where(o => o.annee_parution == candidate.annee_parution && o.titre == candidate.titre && o.id != candidate.id).ToList();
 
-            if (existingOne.Count != 0)
+            if (existingOne.Count > 0)
                 return true;
             else
                 return false;

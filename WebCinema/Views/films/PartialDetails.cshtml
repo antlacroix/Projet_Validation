@@ -1,0 +1,101 @@
+﻿@model ModelCinema.Models.film
+
+<div>
+    
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.titre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.titre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+        @if (Model.type_film.typage.ToUpper() != "PROMOTIONNEL")
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.type_film.typage)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.type_film.typage)
+            </dd>
+        }
+        <dt>
+            @Html.DisplayNameFor(model => model.annee_parution)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.annee_parution)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.duree)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.duree)
+        </dd>
+        @if (Model.type_film.typage.ToUpper() != "PROMOTIONNEL")
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.rating)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.rating)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.revenu)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.revenu)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ranking)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ranking)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.votes)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.votes)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.metascore)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.metascore)
+            </dd>
+        }
+
+        @if (Model.type_film.typage.ToUpper() == "PROMOTIONNEL")
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.film2.titre)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.film2.titre)
+            </dd>
+        }
+
+    </dl>
+</div>
