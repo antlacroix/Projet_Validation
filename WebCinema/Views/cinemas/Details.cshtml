@@ -3,118 +3,166 @@
 @{
     ViewBag.Title = "Details Cinema";
 }
-
-<h2>Cinema Details</h2>
-@if (TempData.ContainsKey("Alert"))
+<div>
+    <div>
+        <h2>Cinema Details</h2>
+    </div>
+    <div>
+        @Html.ActionLink("Back to Cinemas", "Index", null, new { @class = "btn btn-default" })
+    </div>
+</div>
+@if (TempData.ContainsKey("Alert") && Session[SessionKeys.roomTab] == null)
 {
     <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
 }
-<p>
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
-</p>
 
-<div class="transbox">
-    <div>
-        <hr />
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Responsable
+        </th>
+        <th>
+            Tile
+        </th>
+        <th>
+            Phone
+        </th>
+    </tr>
 
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.cinema_name)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.user.name)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.user.user_type.type)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.contact_info.tel_number)
+        </td>
+    </tr>
+</table>
 
+<table class="table">
+    <tr>
+        <th>
+            Room numbre
+        </th>
+        <th>
+            Place
+        </th>
+        <th>
+            Comment
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            <u>@Html.ActionLink("Create Room", "CreateSalle", new { id = Model.id })</u>
+        </th>
+    </tr>
 
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.cinema_name)
-                </th>
-                <th>
-                    Responsable
-                </th>
-                <th>
-                    Titre
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.contact_info.tel_number)
-                </th>
-            </tr>
+    @foreach (var item in Model.salles)
+    {
+        <tr>
+            <td>
+                # @Html.DisplayFor(modelItem => item.numero_salle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nbr_place)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.commentaire)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.salle_status.status)
+            </td>
+            <td>
+                @if (item.seances.Count == 0)
+                {
+                    <span>
+                        <input id="@item.id" onclick="Edit(@item.id)"
+                               class="text-hide btn-general btn-Edit" type="button" value="" />
+                    </span>
+                }
+                <span>
+                    @Html.ActionLink("Details", "DetailsSalle", new { id = item.id }, new
+                    {
+                   style = "background: url('../../Image/eye.png'); display:block; background-size: 36px 36px; height:36px; width:36px;",
+                   @class = "text-hide"
+               })
+                </span>
+                @if (item.seances.Count == 0)
+                {
+                    <span>
+                        <input id="@item.id" onclick="Delete(@item.id)"
+                               class="text-hide btn-general btn-Delete" type="button" value="" />
+                    </span>
+                }
+            </td>
+        </tr>
+    }
+</table>
 
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => model.cinema_name)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.user.name)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.user.user_type.type)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.contact_info.tel_number)
-                </td>
-            </tr>
-        </table>
-
-        <table class="table">
-            <tr>
-                <th>
-                    Numero de Salle
-                </th>
-                <th>
-                    Nbr place
-                </th>
-                <th>
-                    commentaire
-                </th>
-                <th>
-                    status
-                </th>
-                <th>
-                    <u>@Html.ActionLink("Create Salle", "CreateSalle", new { id = Model.id })</u>
-                </th>
-            </tr>
-
-            @foreach (var item in Model.salles)
-            {
-                <tr>
-                    <td>
-                        # @Html.DisplayFor(modelItem => item.numero_salle)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.nbr_place)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.commentaire)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.salle_status.status)
-                    </td>
-                    <td>
-                        @if (item.seances.Count == 0)
-                        {
-                            <span>
-                                @Html.ActionLink("Edit", "EditSalle", new { id = item.id }, htmlAttributes: new
-                                {
-                               style = "background: url('../../Image/edit.png'); display:block; height:24px; width:24px;",
-                               @class = "text-hide"
-                           })
-                            </span>
-                        }
-
-                        @Html.ActionLink("Details", "DetailsSalle", new { id = item.id }, htmlAttributes: new
-                        {
-                       style = "background: url('../../Image/eye.png'); display:block; height:24px; width:24px;",
-                       @class = "text-hide"
-                   })
-                        @if (item.seances.Count == 0)
-                        {
-                            <span>
-                                @Html.ActionLink("Delete", "DeleteSalle", new { id = item.id }, htmlAttributes: new
-                                {
-                               style = "background: url('../../Image/delete.png'); display:block; height:24px; width:24px;",
-                               @class = "text-hide"
-                           })
-                            </span>
-                        }
-                    </td>
-                </tr>
-            }
-        </table>
+<div class="modal" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"></h2>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>
+
+@section scripts {
+    <script>
+
+        $(document).ready(function () {
+            var testVar = "@Session[SessionKeys.roomTab]"
+            switch (testVar) {
+                case "Edit":
+                    Edit("@Session[SessionKeys.roomId]");
+                    break;
+                case "Delete":
+                    Delete("@Session[SessionKeys.roomId]");
+                    break;
+                default:
+                    break;
+            }
+        })
+
+        function Delete(id) {
+            $('.modal-title').html("Delete");
+            $.get("@Url.Action("DeleteSalle", "cinemas")/" + id,
+                function (data) { $('.modal-body').html(data); })
+            $('#myModal').modal('show');
+
+            $('#myModal').on('hidden.bs.modal', function (e) {
+                $('.modal-body').html("");
+                $('.modal-title').html("");
+            })
+        }
+
+        function Edit(id) {
+            $('.modal-title').html("Edit Room");
+            $.get("@Url.Action("EditSalle", "cinemas")/" + id,
+                function (data) { $('.modal-body').html(data); })
+            $('#myModal').modal('show');
+
+            $('#myModal').on('hidden.bs.modal', function (e) {
+                $('.modal-body').html("");
+                $('.modal-title').html("");
+            })
+        }
+    </script>
+}

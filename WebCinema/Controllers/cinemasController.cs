@@ -19,7 +19,7 @@ namespace WebCinema.Controllers
         {
             Session[SessionKeys.startDate] = startDate;
             Session[SessionKeys.endDate] = endDate;
-            return RedirectToAction("DetailsSalle", new { start = startDate, end = endDate, id = int.Parse(Session[SessionKeys.salleId].ToString())});
+            return RedirectToAction("DetailsSalle", new { start = startDate, end = endDate, id = int.Parse(Session[SessionKeys.salleId].ToString()) });
         }
 
         // GET: cinemas
@@ -43,7 +43,6 @@ namespace WebCinema.Controllers
         {
             try
             {
-                Session.Remove(SessionKeys.salleId);
                 Session[SessionKeys.cinemaId] = id;
                 ManagerCinema manager = new ManagerCinema();
                 cinema cinema = manager.GetCinema(id);
@@ -254,17 +253,18 @@ namespace WebCinema.Controllers
         //Get: cinemas/EditSalle/5
         public ActionResult EditSalle(int? id)
         {
+            salle salle = new salle();
             try
             {
                 ManagerSalle manager = new ManagerSalle();
-                salle salle = manager.GetSalle(id, null, null);
+                salle = manager.GetSalle(id, null, null);
                 ViewBag.status_id = new SelectList(new ManagerSalleStatus().GetAllSalleStatus(), "id", "status", salle.status_id);
-                return View(salle);
+                return PartialView("PartialEditSalle", salle);
             }
             catch (Exception e)
             {
                 TempData.Add("Alert", e.Message);
-                return RedirectToAction("Details", new { id = id });
+                return RedirectToAction("Details", new { id = salle.cinema_id });
             }
         }
 
@@ -279,15 +279,17 @@ namespace WebCinema.Controllers
                 if (ModelState.IsValid)
                 {
                     manager.PutSalle(salle);
-                    return RedirectToAction("Details", new { id = salle.cinema_id });
+                    return RedirectToAction("DetailsSalle", new { id = salle.id });
                 }
             }
             catch (Exception e)
             {
                 TempData.Add("Alert", e.Message);
             }
+            Session[SessionKeys.roomTab] = "Edit";
+            Session[SessionKeys.roomId] = salle.id;
             ViewBag.status_id = new SelectList(new ManagerSalleStatus().GetAllSalleStatus(), "id", "status", salle.status_id);
-            return View(salle);
+            return RedirectToAction("Details", new { id = salle.cinema_id });
         }
 
 
@@ -298,13 +300,14 @@ namespace WebCinema.Controllers
             {
                 ManagerSalle manager = new ManagerSalle();
                 salle salle = manager.GetSalle(id, null, null);
-                return View(salle);
+                if (salle != null)
+                    return PartialView("PartialDeleteSalle", salle);
             }
             catch (Exception e)
             {
                 TempData.Add("Alert", e.Message);
-                return RedirectToAction("Details", new { id = id });
             }
+            return RedirectToAction("Details", new { id = Session[SessionKeys.cinemaId] as int? });
         }
 
         //POST: cinemas/DeleteSalle/5
@@ -323,7 +326,9 @@ namespace WebCinema.Controllers
             {
                 TempData.Add("Alert", e.Message);
             }
-            return RedirectToAction("DeleteSalle", new { id = id });
+            Session[SessionKeys.roomTab] = "Delete";
+            Session[SessionKeys.roomId] = id;
+            return RedirectToAction("Details", new { id = Session[SessionKeys.cinemaId] as int? });
         }
 
         public ActionResult CreateSeance()

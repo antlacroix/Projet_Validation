@@ -67,6 +67,12 @@ h2, h3, p{
     background-size: 36px 36px;
 }
 
-.col-Header {
-    background-color: rgb(200, 200, 200, 0.6);
+.main-menu {
+    background-color: rgb(255, 255, 255, 0.8);
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+.main-page-title{
+    padding-top:10px;
 }

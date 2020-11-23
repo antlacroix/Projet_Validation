@@ -227,24 +227,18 @@ namespace WebCinema.Controllers
         // GET: films/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (Request.IsAjaxRequest())
+            try
             {
                 ManagerFilm m = new ManagerFilm();
                 film f = m.GetFilm(id);
                 if (f != null)
                     return PartialView("PartialDelete", f);
             }
-            try
-            {
-                ManagerFilm manager = new ManagerFilm();
-                film film = manager.GetFilm(id);
-                return View(film);
-            }
             catch (Exception e)
             {
                 TempData.Add("Alert", e.Message);
-                return RedirectToAction("Index");
             }
+            return RedirectToAction("Index");
         }
 
         // POST: films/Delete/5

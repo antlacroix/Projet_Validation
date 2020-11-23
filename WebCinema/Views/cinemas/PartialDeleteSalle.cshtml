@@ -1,0 +1,60 @@
+﻿@model ModelCinema.Models.salle
+
+@if (TempData.ContainsKey("Alert"))
+{
+    <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+}
+
+<h3>Are you sure you want to delete this?</h3>
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.nbr_place)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.nbr_place)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.numero_salle)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.numero_salle)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.commentaire)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.commentaire)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.cinema.cinema_name)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.cinema.cinema_name)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.salle_status.status)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.salle_status.status)
+    </dd>
+
+</dl>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-danger" />
+    </div>
+}
+</div>

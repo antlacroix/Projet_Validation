@@ -94,7 +94,9 @@ namespace ModelCinema.Models.DataManager
             {
                 if (salle.commentaire == null)
                     salle.commentaire = "";
-                if (ValidatorSalle.IsValide(salle) && !ValidatorSalle.IsSalleExist(salle, GetAllSalleFromCinema(salle.cinema_id)))
+                if (ValidatorSalle.IsValide(salle) && 
+                    !ValidatorSalle.IsSalleExist(salle, GetAllSalleFromCinema(salle.cinema_id)) &&
+                    !ValidatorSalle.IsSalleConflict(salle, GetAllSalleFromCinema(salle.cinema_id)))
                 {
                     db.salles.Add(salle);
                     db.SaveChanges();
@@ -119,7 +121,10 @@ namespace ModelCinema.Models.DataManager
                 var state = db.Entry(salle).State;
                 if (salle.commentaire == null)
                     salle.commentaire = "";
-                if (ValidatorSalle.IsSalleExist(salle, salles) && ValidatorSalle.IsValide(salle) && !ValidatorSalle.IsSalleContainSeance(salle))
+                if (ValidatorSalle.IsSalleExist(salle, salles) &&
+                    ValidatorSalle.IsValide(salle) &&
+                    !ValidatorSalle.IsSalleContainSeance(salle) &&
+                    !ValidatorSalle.IsSalleConflict(salle, GetAllSalleFromCinema(salle.cinema_id)))
                 {
                     db.Set<salle>().AddOrUpdate(salle);
                     //db.Entry(salle).State = EntityState.Modified;

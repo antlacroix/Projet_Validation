@@ -15,7 +15,10 @@ namespace WebCinema
             filmId = "filmId",
             startDate = "startDate",
             endDate = "endDate",
-            wasOnMovie = "wasOnMovie";
+            wasOnMovie = "wasOnMovie",
+            roomTab = "roomTab",
+            roomId = "roomId";
+            
             
     }
 }
