@@ -4,45 +4,9 @@
     ViewBag.Title = "DetailsSalle";
 }
 
-<div>
-        <button class="btn btn-default" data-target="#alert" data-toggle="modal">test</button>
-    </div>
-
-<div class="modal" data-keyboard="false" data-backdrop="static" id="alert">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;
-                </button>
-                <h3 class="modal-title">Alert</h3>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <p>@TempData["Alert"]</p>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
 <h2>Details Salle</h2>
 
-@*@if (TempData.ContainsKey("Alert"))
+@if (TempData.ContainsKey("Alert"))
     {
         <div class="alert alert-danger alert-dismissable show" role="alert">
             @TempData["Alert"]
@@ -50,11 +14,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-    }*@
-
-@*<div>
-        <button class="btn btn-default" data-target="#alert" data-toggle="modal">test</button>
-    </div>*@
+    }
 
 <p>
     @Html.ActionLink("Back to List", "Details", new { id = Model.cinema_id }, new { @class = "btn btn-default" })
@@ -114,14 +74,16 @@
                 </th>
                 <th>
                     Start
-                    @Html.TextBox("start", DateTime.Now.AddDays(-10), new { type = "datetime-local", @class = "form-control datepicker" })
+                    <input class="form-control" data-val="true" data-val-required="Date is required"
+                           id="startDate" name="startDate" type="date" value=@DateTime.Now.AddDays(-10) />
                 </th>
                 <th>
                     End
-                    @Html.TextBox("end", DateTime.Now.AddDays(10), new { type = "datetime-local", @class = "form-control datepicker" })
+                    <input class="form-control" data-val="true" data-val-required="Date is required"
+                           id="endDate" name="endDate" type="date" value=@DateTime.Now.AddDays(10) />
                 </th>
                 <th>
-                    <br />
+                   <br />
                     <input type="submit" style="background: url('../../Image/search.png'); display: block; height: 24px; width: 24px;" class="text-hide" />
 
                 </th>

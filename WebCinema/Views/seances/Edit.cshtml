@@ -44,7 +44,9 @@
         <tr>
             <td>
                 @Html.Label(Model.date_debut.ToString())
-                @Html.TextBoxFor(model => model.date_debut, new { type = "datetime-local", @class = "form-control" })
+                <input class="form-control" data-val="true" data-val-required="Date is required"
+                id="startDate" name="startDate" value=@Model.date_debut.ToString() />
+                @Html.TextBoxFor(model => model.date_debut, new { type = "datetime", @class = "form-control", @Value = @Model.date_debut.ToString() })
                 @Html.ValidationMessageFor(model => model.date_debut, "", new { @class = "text-danger" })
             </td>
             <td>

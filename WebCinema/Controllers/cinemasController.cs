@@ -15,9 +15,9 @@ namespace WebCinema.Controllers
     public class cinemasController : Controller
     {
         [HttpPost]
-        public ActionResult Filtre(DateTime? start, DateTime? end)
+        public ActionResult Filtre(DateTime? startDate, DateTime? endDate)
         {
-            return RedirectToAction("DetailsSalle", new { start = start, end = end, id = int.Parse(Session[SessionKeys.salleId].ToString())});
+            return RedirectToAction("DetailsSalle", new { start = startDate, end = endDate, id = int.Parse(Session[SessionKeys.salleId].ToString())});
         }
 
         // GET: cinemas
