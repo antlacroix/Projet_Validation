@@ -168,6 +168,7 @@
     <Compile Include="Models\MetaData\salle.cs" />
     <Compile Include="Models\MetaData\salle_status.cs" />
     <Compile Include="Models\MetaData\seance.cs" />
+    <Compile Include="Models\MetaData\type_film.cs" />
     <Compile Include="Models\MetaData\user.cs" />
     <Compile Include="Models\MetaData\user_status.cs" />
     <Compile Include="Models\MetaData\user_type.cs" />

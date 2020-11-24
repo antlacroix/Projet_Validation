@@ -12,7 +12,7 @@
             DateTime.Now.AddDays(+10);
 }
 
-<h2>Details Salle</h2>
+<h2>Room Details</h2>
 
 @if (TempData.ContainsKey("Alert"))
     {
@@ -106,16 +106,16 @@
 
         <tr>
             <th>
-                Titre de la seance
+                Session Tilte
             </th>
             <th>
-                Date de debut
+                Start Date
             </th>
             <th>
-                Date de fin
+                End Date
             </th>
             <th>
-                <u> @Html.ActionLink("Create Seance", "CreateSeance")</u>
+                <u> @Html.ActionLink("Create Session", "CreateSeance")</u>
             </th>
         </tr>
 

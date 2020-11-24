@@ -11,7 +11,7 @@ namespace ModelCinema.Models
     public class salle_statusMetaData
     {
         [Required]
-        [DisplayName("Status de la salle")]
+        [DisplayName("Status")]
         [StringLength(10)]
         public string status { get; set; }
     }

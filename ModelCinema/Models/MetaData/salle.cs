@@ -31,20 +31,20 @@ namespace ModelCinema.Models
     public class salleMetaData
     {
         [Required]
-        [DisplayName("Nombre de place")]
+        [DisplayName("Number of Places")]
         [Range(salle.nbrPlaceMin, salle.nbrPlaceMax)]
         public int nbr_place { get; set; }
 
         [Required]
-        [DisplayName("Numero de la salle")]
+        [DisplayName("Room Number")]
         [Range(salle.numSalleMin, salle.numSalleMax)]
         public int numero_salle { get; set; }
 
-        [DisplayName("Commentaire")]
+        [DisplayName("Comment")]
         [StringLength(salle.commentaireMax)]
         public string commentaire { get; set; }
 
-        [DisplayName("Status de la salle")]
+        [DisplayName("Status")]
         public int status_id { get; set; }
 
         [DisplayName("Cinema")]

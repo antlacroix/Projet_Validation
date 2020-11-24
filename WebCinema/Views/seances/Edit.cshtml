@@ -5,7 +5,7 @@
 }
 
 <div>
-    <h2>Seances Edit</h2>
+    <h2>Edit Session</h2>
 
     @if (TempData.ContainsKey("Alert"))
     {
@@ -37,16 +37,17 @@
                 @Html.LabelFor(model => model.titre_seance)
             </td>
             <td>
-                @Html.LabelFor(model => model.salle_id, "Salle")
+                @Html.LabelFor(model => model.salle_id, "Room")
             </td>
         </tr>
 
         <tr>
             <td>
                 @Html.Label(Model.date_debut.ToString())
-                <input class="form-control" data-val="true" data-val-required="Date is required"
-                id="startDate" name="startDate" value=@Model.date_debut.ToString() />
-                @Html.TextBoxFor(model => model.date_debut, new { type = "datetime", @class = "form-control", @Value = @Model.date_debut.ToString() })
+                @*@Html.EditorFor(model => model.date_debut, new { htmlAttributes = new { Value = Model.date_debut, @class = "form-control datepicker"} })*@
+                @*<input class="form-control" data-val="true" data-val-required="Date is required"
+        id="startDate" name="startDate" value=@Model.date_debut.ToString() />*@
+                @Html.TextBoxFor(model => model.date_debut, new {  @class = "form-control", @Value = Model.date_debut })
                 @Html.ValidationMessageFor(model => model.date_debut, "", new { @class = "text-danger" })
             </td>
             <td>
@@ -105,16 +106,16 @@
     <table class="table">
         <tr>
             <th>
-                Films
+                Movies
             </th>
             <th>
                 Types
             </th>
             <th>
-                Durees
+                Lenght
             </th>
             <th>
-                Primaire
+                Primary
             </th>
             <th>
 
@@ -161,13 +162,13 @@
     <table class="table">
         <tr>
             <th>
-                Titre
+                Title
             </th>
             <th>
                 Type
             </th>
             <th>
-                Annee de parution
+                Year
             </th>
         </tr>
         @using (Html.BeginForm("Filtre", "seances", FormMethod.Post))
@@ -202,13 +203,13 @@
     <table class="table">
         <tr>
             <th>
-                Films
+                Movies
             </th>
             <th>
                 Types
             </th>
             <th>
-                Durees
+                Lenght
             </th>
             <th>
 

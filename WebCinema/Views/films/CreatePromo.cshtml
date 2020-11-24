@@ -47,7 +47,7 @@
                 @Html.ValidationMessageFor(model => model.titre, "", new { @class = "text-danger" })
             </td>
             <td>
-                @Html.DropDownList("id_film", null, "--Select Film--", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("id_film", null, "--Select Movie--", htmlAttributes: new { @class = "form-control" })
             </td>
             <td>
                 @Html.EditorFor(model => model.annee_parution, new { htmlAttributes = new { @class = "form-control", style = "width:100px" } })

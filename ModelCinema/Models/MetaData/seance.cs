@@ -38,21 +38,21 @@ namespace ModelCinema.Models
     public class seanceMetaData
     {
         [Required]
-        [DisplayName("Date de debut")]
+        [DisplayName("Start Date")]
         [DataType(DataType.DateTime)]
         public System.DateTime date_debut { get; set; }
 
         [Required]
-        [DisplayName("Date de fin")]
+        [DisplayName("End Date")]
         [DataType(DataType.DateTime)]
         public System.DateTime date_fin { get; set; }
 
         [Required]
-        [DisplayName("Titre de la seance")]
+        [DisplayName("Session Title")]
         [StringLength(seance.titreMax)]
         public string titre_seance { get; set; }
 
-        [DisplayName("Salle")]
+        [DisplayName("Room")]
         public int salle_id { get; set; }
     }
 }

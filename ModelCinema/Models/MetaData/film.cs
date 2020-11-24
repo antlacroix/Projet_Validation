@@ -43,11 +43,11 @@ namespace ModelCinema.Models
     {
         // [RegularExpression(@"^\$?\d+(\.(\d{2}))?$")]
         [Required]
-        [DisplayName("Titre")]
+        [DisplayName("Title")]
         [StringLength(film.titreMax, ErrorMessage = "titre")]
         public string titre { get; set; }
 
-        [DisplayName("Classement")]
+        [DisplayName("Ranking")]
         [Range(0, 1001, ErrorMessage = "Ranking")]
         public int ranking { get; set; }
 
@@ -57,12 +57,12 @@ namespace ModelCinema.Models
         public string description { get; set; }
 
         [Required]
-        [DisplayName("Annee")]
+        [DisplayName("Year")]
         [Range(film.anneeParutionMin, film.anneeParutionMax, ErrorMessage = "annee")]
         public int annee_parution { get; set; }
 
         [Required]
-        [DisplayName("Duree")]
+        [DisplayName("Lenght")]
         [Range(film.dureeMin, film.dureeMax, ErrorMessage = "duration")]
         public int duree { get; set; }
 
@@ -70,7 +70,7 @@ namespace ModelCinema.Models
         [Range(film.ratingMin, film.ratingMax, ErrorMessage = "rating")]
         public double rating { get; set; }
 
-        [DisplayName("Revenue")]
+        [DisplayName("Profit")]
         [Range(film.revenuMin, film.revenuMax, ErrorMessage = "revenue")]
         public double? revenu { get; set; }
 
@@ -83,7 +83,7 @@ namespace ModelCinema.Models
         public int? metascore { get; set; }
 
         [Required]
-        [DisplayName("Typage")]
+        [DisplayName("Type")]
         public int id_type { get; set; }
 
         [DisplayName("Titre")]
