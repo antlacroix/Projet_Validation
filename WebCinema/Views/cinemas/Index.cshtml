@@ -52,16 +52,22 @@
                     @Html.DisplayFor(modelItem => item.user.name)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id }, new
-               {
-                   style = "background: url('../Image/edit.png'); display:block; height:24px; width:24px;",
-                   @class = "text-hide"
-               })
-                    @Html.ActionLink("Details", "Details", new { id = item.id }, new
-               {
-                   style = "background: url('../Image/eye.png'); display:block; height:24px; width:24px;",
-                   @class = "text-hide"
-               })
+                    <div class="d-flex align-items-center">
+                        <span>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.id }, new
+                       {
+                           style = "background: url('../Image/edit.png'); display:block; height:24px; width:24px;",
+                           @class = "text-hide"
+                       })
+                        </span>
+                        <span>
+                            @Html.ActionLink("Details", "Details", new { id = item.id }, new
+                       {
+                           style = "background: url('../Image/eye.png'); display:block; height:24px; width:24px;",
+                           @class = "text-hide"
+                       })
+                        </span>
+                    </div>
                 </td>
             </tr>
         }

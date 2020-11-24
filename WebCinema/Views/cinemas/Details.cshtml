@@ -83,27 +83,37 @@
                 @Html.DisplayFor(modelItem => item.salle_status.status)
             </td>
             <td>
-                @if (item.seances.Count == 0)
-                {
-                    <span>
-                        <input id="@item.id" onclick="Edit(@item.id)"
-                               class="text-hide btn-general btn-Edit" type="button" value="" />
-                    </span>
-                }
-                <span>
-                    @Html.ActionLink("Details", "DetailsSalle", new { id = item.id }, new
-                    {
-                   style = "background: url('../../Image/eye.png'); display:block; background-size: 36px 36px; height:36px; width:36px;",
-                   @class = "text-hide"
-               })
-                </span>
-                @if (item.seances.Count == 0)
-                {
-                    <span>
-                        <input id="@item.id" onclick="Delete(@item.id)"
-                               class="text-hide btn-general btn-Delete" type="button" value="" />
-                    </span>
-                }
+                <table>
+                    <tr>
+                        <td>
+                            @if (item.seances.Count == 0)
+                            {
+                                <span>
+                                    <input id="@item.id" onclick="Edit(@item.id)"
+                                           class="text-hide btn-general btn-Edit" type="button" value="" />
+                                </span>
+                            }
+                        </td>
+                        <td>
+                            <span>
+                                @Html.ActionLink("Details", "DetailsSalle", new { id = item.id }, new
+                                {
+                               style = "background: url('../../Image/eye.png'); display:block; background-size: 36px 36px; height:36px; width:36px;",
+                               @class = "text-hide"
+                           })
+                            </span>
+                        </td>
+                        <td>
+                            @if (item.seances.Count == 0)
+                            {
+                                <span>
+                                    <input id="@item.id" onclick="Delete(@item.id)"
+                                           class="text-hide btn-general btn-Delete" type="button" value="" />
+                                </span>
+                            }
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
     }
