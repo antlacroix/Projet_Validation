@@ -4,131 +4,132 @@
     ViewBag.Title = "Create Films";
 }
 
-<h2>Films Create</h2>
+<div style="height: 60px">
+    <div style="text-align: left; float: left;">
+        <h2 class="d-inline">Films Create</h2>
+    </div>
+    <div style="text-align: right; float: right; margin-top: 15px; ">
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+    </div>
+</div>
 
 @if (TempData.ContainsKey("Alert"))
 {
-    <div class="alert alert-danger" role="alert">@TempData["Alert"]
-    <button id="alertClose" value="Close" class=" btn btn-default"/>
-
- 
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+    <div class="alert alert-danger" role="alert">
+        @TempData["Alert"]
+    <button id="alertClose" value="Close" class=" btn btn-default" />
 </div>
+}
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <hr />
-    <table class="table">
-        <tr>
-            <th>
-                @Html.LabelFor(model => model.titre, htmlAttributes: new { @class = "control-label col-md-2" })
-            </th>
-            <th>
-                @Html.LabelFor(model => model.type_film.typage, htmlAttributes: new { @class = "control-label col-md-2" })
-            </th>
-            <th>
-                @Html.LabelFor(model => model.annee_parution, htmlAttributes: new { @class = "control-label col-md-2" })
-            </th>
-            <th>
-                @Html.LabelFor(model => model.duree, htmlAttributes: new { @class = "control-label col-md-2" })
-            </th>
-        </tr>
-        <tr>
-            <td>
-                @Html.EditorFor(model => model.titre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.titre, "", new { @class = "text-danger" })
-            </td>
-            <td>
-                @Html.DropDownList("id_type", null, htmlAttributes: new { @class = "form-control" })
-            </td>
-            <td>
-                @Html.EditorFor(model => model.annee_parution, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.annee_parution, "", new { @class = "text-danger" })
-            </td>
-            <td>
-                @Html.EditorFor(model => model.duree, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.duree, "", new { @class = "text-danger" })
-            </td>
-        </tr>
-    </table>
+    <div class="form-horizontal">
+        <hr />
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.LabelFor(model => model.titre, htmlAttributes: new { @class = "control-label col-md-2" })
+                </th>
+                <th>
+                    @Html.LabelFor(model => model.type_film.typage, htmlAttributes: new { @class = "control-label col-md-2" })
+                </th>
+                <th>
+                    @Html.LabelFor(model => model.annee_parution, htmlAttributes: new { @class = "control-label col-md-2" })
+                </th>
+                <th>
+                    @Html.LabelFor(model => model.duree, htmlAttributes: new { @class = "control-label col-md-2" })
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.EditorFor(model => model.titre, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.titre, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.DropDownList("id_type", null, htmlAttributes: new { @class = "form-control" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.annee_parution, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.annee_parution, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.duree, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.duree, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+        </table>
 
-    <table class="table">
-        <tr>
-            <th>
-                picture
-            </th>
-            <th>
-                @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
-            </th>
-        </tr>
-        <tr>
-            <td>
-                @Html.TextAreaFor(model => model.description, 10, 100, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-            </td>
-            <td>
-                @Html.TextAreaFor(model => model.description, 10, 100, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-            </td>
-        </tr>
-    </table>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.LabelFor(model => model.ranking, htmlAttributes: new { @class = "control-label col-md-2" })
-            </th>
-            <th>
-                @Html.LabelFor(model => model.rating, htmlAttributes: new { @class = "control-label col-md-2" })
-            </th>
-            <th>
-                @Html.LabelFor(model => model.revenu, htmlAttributes: new { @class = "control-label col-md-2" })
-            </th>
-            <th>
-                @Html.LabelFor(model => model.metascore, htmlAttributes: new { @class = "control-label col-md-2" })
-            </th>
-            <th>
-                @Html.LabelFor(model => model.votes, htmlAttributes: new { @class = "control-label col-md-2" })
-            </th>
-        </tr>
-        <tr>
-            <td>
-                @Html.EditorFor(model => model.ranking, new { htmlAttributes = new { @class = "form-control", style = "width:100px" } })
-                @Html.ValidationMessageFor(model => model.ranking, "", new { @class = "text-danger" })
-            </td>
-            <td>
-                @Html.EditorFor(model => model.rating, new { htmlAttributes = new { @class = "form-control", style = "width:100px" } })
-                @Html.ValidationMessageFor(model => model.rating, "", new { @class = "text-danger" })
-            </td>
-            <td>
-                @Html.EditorFor(model => model.revenu, new { htmlAttributes = new { @class = "form-control", style = "width:100px" } })
-                @Html.ValidationMessageFor(model => model.revenu, "", new { @class = "text-danger" })
-            </td>
-            <td>
-                @Html.EditorFor(model => model.metascore, new { htmlAttributes = new { @class = "form-control", style = "width:100px" } })
-                @Html.ValidationMessageFor(model => model.metascore, "", new { @class = "text-danger" })
-            </td>
-            <td>
-                @Html.EditorFor(model => model.votes, new { htmlAttributes = new { @class = "form-control", style = "width:100px" } })
-                @Html.ValidationMessageFor(model => model.votes, "", new { @class = "text-danger" })
-            </td>
-        </tr>
-    </table>
-    @Html.HiddenFor(model => model.ranking, new { @Value = 0 })
-    @Html.HiddenFor(model => model.metascore)
-    @Html.HiddenFor(model => model.votes)
-    <hr />
+        <table class="table">
+            <tr>
+                <th>
+                    picture
+                </th>
+                <th>
+                    @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.TextAreaFor(model => model.description, 10, 100, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.description, 10, 100, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+        </table>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.LabelFor(model => model.ranking, htmlAttributes: new { @class = "control-label col-md-2" })
+                </th>
+                <th>
+                    @Html.LabelFor(model => model.rating, htmlAttributes: new { @class = "control-label col-md-2" })
+                </th>
+                <th>
+                    @Html.LabelFor(model => model.revenu, htmlAttributes: new { @class = "control-label col-md-2" })
+                </th>
+                <th>
+                    @Html.LabelFor(model => model.metascore, htmlAttributes: new { @class = "control-label col-md-2" })
+                </th>
+                <th>
+                    @Html.LabelFor(model => model.votes, htmlAttributes: new { @class = "control-label col-md-2" })
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.EditorFor(model => model.ranking, new { htmlAttributes = new { @class = "form-control", style = "width:100px" } })
+                    @Html.ValidationMessageFor(model => model.ranking, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.rating, new { htmlAttributes = new { @class = "form-control", style = "width:100px" } })
+                    @Html.ValidationMessageFor(model => model.rating, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.revenu, new { htmlAttributes = new { @class = "form-control", style = "width:100px" } })
+                    @Html.ValidationMessageFor(model => model.revenu, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.metascore, new { htmlAttributes = new { @class = "form-control", style = "width:100px" } })
+                    @Html.ValidationMessageFor(model => model.metascore, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.votes, new { htmlAttributes = new { @class = "form-control", style = "width:100px" } })
+                    @Html.ValidationMessageFor(model => model.votes, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+        </table>
+        @Html.HiddenFor(model => model.ranking, new { @Value = 0 })
+        @Html.HiddenFor(model => model.metascore)
+        @Html.HiddenFor(model => model.votes)
 
-    <div class="form-actions no-color">
-        <input type="submit" value="Create" class="btn btn-default" />
+        <div class="form-actions no-color">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
     </div>
-</div>
 }
 
 

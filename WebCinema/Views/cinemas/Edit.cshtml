@@ -4,61 +4,63 @@
     ViewBag.Title = "Edit Cinema";
 }
 
-<h2>Cinema Edit</h2>
+<div style="height: 60px">
+    <div style="text-align: left; float: left;">
+        <h2 class="d-inline">Cinema Edit</h2>
+    </div>
+    <div style="text-align: right; float: right; margin-top: 15px; ">
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+    </div>
+</div>
 
+@if (TempData.ContainsKey("Alert"))
+{
+    <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+}
 
 @using (Html.BeginForm("Edit", "cinemas", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     <div class="transbox">
-
-
         <div class="form-horizontal">
-            @if (TempData.ContainsKey("Alert"))
-            {
-                <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
-            }
 
-        <div>
-            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
-        </div>
-            <hr />
+
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.id)
 
-        <table>
-            <div class="form-group">
-                @Html.LabelFor(model => model.contact_info_id, "Address", htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
-                <div class="col-md-10">
-                    @Html.DropDownList("contact_info_id", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.contact_info_id, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            <hr />
+            <div class="Box">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.contact_info_id, "Address", htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("contact_info_id", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.contact_info_id, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.responsable_user_id, "Responsable", htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
-                <div class="col-md-10">
-                    @Html.DropDownList("responsable_user_id", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.responsable_user_id, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.responsable_user_id, "Responsable", htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("responsable_user_id", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.responsable_user_id, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.cinema_name, "Name", htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.cinema_name, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.cinema_name, "", new { @class = "text-danger" })
-                </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.cinema_name, "Name", htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.cinema_name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.cinema_name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
             </div>
-
-          
 
             <div class="form-actions no-color">
                 <input type="submit" value="Update" class="btn btn-default" />
             </div>
 
 
-</div>
+        </div>
     </div>
 }
 
