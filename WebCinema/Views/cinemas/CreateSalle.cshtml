@@ -4,64 +4,72 @@
     ViewBag.Title = "CreateSalle";
 }
 
-<h2>Create Salle</h2>
+@if (TempData.ContainsKey("Alert"))
+{
+    <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+}
 
-<div class="transbox">
+<div>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @if (TempData.ContainsKey("Alert"))
-        {
-            <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
-        }
-    <div>
-        @Html.ActionLink("Back to List", "Details", new { id = int.Parse(Session[SessionKeys.cinemaId].ToString()) }, new { @class = "btn btn-default" })
-    </div>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.nbr_place, htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.nbr_place, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.nbr_place, "", new { @class = "text-danger" })
+        <div style="height: 60px">
+            <div style="text-align: left; float: left;">
+                <h2 class="d-inline">Create Salle</h2>
+            </div>
+            <div style="text-align: right; float: right; margin-top: 15px; ">
+                @Html.ActionLink("Back to List", "Details", new { id = int.Parse(Session[SessionKeys.cinemaId].ToString()) }, new { @class = "btn btn-default" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.numero_salle, htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.numero_salle, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.numero_salle, "", new { @class = "text-danger" })
+            <div class="form-horizontal">
+                <hr />
+                <div class="Box">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.nbr_place, htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.nbr_place, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.nbr_place, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.numero_salle, htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.numero_salle, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.numero_salle, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.commentaire, htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.commentaire, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.commentaire, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.status_id, "Status", htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("status_id", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.status_id, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+
+                @Html.HiddenFor(model => model.cinema_id, new { @Value = int.Parse(Session["cineId"].ToString()) })
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+
+
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.commentaire, htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.commentaire, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.commentaire, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.status_id, "Status", htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
-            <div class="col-md-10">
-                @Html.DropDownList("status_id", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.status_id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @Html.HiddenFor(model => model.cinema_id, new { @Value = int.Parse(Session["cineId"].ToString()) })
-
-    <div class="form-actions no-color">
-        <input type="submit" value="Create" class="btn btn-default" />
-    </div>
-
-
-
-    </div>
     }
 </div>
 @section Scripts {

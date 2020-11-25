@@ -4,16 +4,20 @@
     ViewBag.Title = "Create Promo";
 }
 
-<h2>Create Promo</h2>
+    <div style="height: 60px">
+        <div style="text-align: left; float: left;">
+            <h2 class="d-inline">Create Promo</h2>
+        </div>
+        <div style="text-align: right; float: right; margin-top: 15px; ">
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+        </div>
+    </div>
 
 @if (TempData.ContainsKey("Alert"))
 {
     <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
-</div>
 
 @using (Html.BeginForm())
 {
