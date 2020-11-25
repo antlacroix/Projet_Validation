@@ -15,13 +15,17 @@ namespace WebCinema.Controllers
     {
         public ActionResult Index()
         {
+            string Id_Cinema;
             try
             {
-                string Id_Cinema = Request.Cookies["Id_Cinema"].Value;
-                Session[SessionKeys.cinemaId] = Id_Cinema;
-                ManagerCinema manager = new ManagerCinema();
-                cinema cinema = manager.GetCinema(int.Parse(Id_Cinema));
-                return RedirectToAction("Details", "cinemas", new { id = Id_Cinema });
+                if (Request.Cookies.AllKeys.Contains("Id_Cinema"))
+                {
+                    Id_Cinema = Request.Cookies["Id_Cinema"].Value;
+                    Session[SessionKeys.cinemaId] = Id_Cinema;
+                    ManagerCinema manager = new ManagerCinema();
+                    cinema cinema = manager.GetCinema(int.Parse(Id_Cinema));
+                    return RedirectToAction("Details", "cinemas", new { id = Id_Cinema });
+                }
             }
             catch (Exception e)
             {
