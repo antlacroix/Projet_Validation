@@ -10,7 +10,7 @@
         <h2>Cinema Details</h2>
     </div>
     <div style="text-align: right; float: right; margin-top: 15px; ">
-        @Html.ActionLink("Back to Cinemas", "Index", null, new { @class = "btn btn-default" })
+        @Html.ActionLink("Back to Cinemas", "FreeCookie", null, new { @class = "btn btn-default" })
     </div>
 </div>
 @if (TempData.ContainsKey("Alert") && Session[SessionKeys.roomTab] == null)

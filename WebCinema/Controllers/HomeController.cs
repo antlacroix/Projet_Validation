@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+
 using System.Web.Mvc;
 using System.Windows;
+
 
 namespace WebCinema.Controllers
 {
@@ -13,6 +15,20 @@ namespace WebCinema.Controllers
     {
         public ActionResult Index()
         {
+            try
+            {
+                string Id_Cinema = Request.Cookies["Id_Cinema"].Value;
+                Session[SessionKeys.cinemaId] = Id_Cinema;
+                ManagerCinema manager = new ManagerCinema();
+                cinema cinema = manager.GetCinema(int.Parse(Id_Cinema));
+                return RedirectToAction("Details", "cinemas", new { id = Id_Cinema });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Le Cookie est vide");
+                Console.WriteLine(e);
+            }
+
             try
             {
                 List<cinema> tempCinema = new ManagerCinema().GetAllCinema();

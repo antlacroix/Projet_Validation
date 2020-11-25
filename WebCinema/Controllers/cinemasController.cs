@@ -14,6 +14,12 @@ namespace WebCinema.Controllers
 {
     public class cinemasController : Controller
     {
+        public ActionResult FreeCookie()
+        {
+            Response.Cookies["Id_Cinema"].Value = null;
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public ActionResult Filtre(DateTime? startDate, DateTime? endDate)
         {
@@ -43,6 +49,8 @@ namespace WebCinema.Controllers
         {
             try
             {
+                Response.Cookies["Id_Cinema"].Value = id.ToString();
+
                 Session[SessionKeys.cinemaId] = id;
                 ManagerCinema manager = new ManagerCinema();
                 cinema cinema = manager.GetCinema(id);
