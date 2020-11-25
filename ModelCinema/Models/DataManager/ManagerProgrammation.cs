@@ -80,6 +80,32 @@ namespace ModelCinema.Models.DataManager
             }
         }
 
+        public bool PostManyProgs(List<programmation> progs, ref List<int> ids)
+        {
+            try
+            {
+                for (int i = 1; i < ids.Count; i++)
+                {
+                    for(int j = 0; j < progs.Count; j++)
+                    {
+                        programmation tempProg = new programmation()
+                        {
+                            id_seance = ids[i],
+                            id_film = progs[j].id_film,
+                            is_primary = progs[j].is_primary
+                        };
+                        db.programmations.Add(tempProg);
+                    }
+                }
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public bool PutProgrammation(programmation programmation)
         {
             try

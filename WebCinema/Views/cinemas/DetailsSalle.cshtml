@@ -5,7 +5,7 @@
     DateTime?
         startDate = (Session[SessionKeys.startDate] != null) ?
             Session[SessionKeys.startDate] as DateTime? :
-            DateTime.Now.AddDays(-10);
+            DateTime.Now;
     DateTime?
         endDate = (Session[SessionKeys.endDate] != null) ?
             Session[SessionKeys.endDate] as DateTime? :
@@ -158,6 +158,10 @@
                                            class="text-hide btn-general btn-Delete" type="button" value="" />
                                 }
                             </td>
+                            <td>
+                                <input id="btnShowRepeat" onclick="ShowRepeatModal(@item.id)"
+                                       class="btn btn-Repeat btn-general" type="button" value="" />
+                            </td>
                         </tr>
                     </table>
                 </td>
@@ -187,7 +191,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-    <script>
+<script>
         var mybutton = document.getElementById("myBtn");
 
         window.onscroll = function () { scrollFunction() };
@@ -214,6 +218,26 @@
                 default:
                     break;
             }
+
+            $('body').on("change", "#recurrance", function (evt) {
+                switch ($(this).val()) {
+                    case "Daily":
+                        $('#weeklyOption').hide();
+                        break;
+                    case "Weekly":
+                        $('#weeklyOption').show();
+                        break;
+                    case "Monthly":
+                        $('#weeklyOption').hide();
+                        break;
+                    case "Yearly":
+                        $('#weeklyOption').hide();
+                        break;
+                    default:
+                        break;
+
+                }
+            })
         })
 
         function Delete(id) {
@@ -227,6 +251,23 @@
                 $('.modal-title').html("");
             })
         }
-    </script>
+
+        function ShowRepeatModal(id) {
+            $('.modal-title').html("Repeat Session");
+            $.get("@Url.Action("getRepeat","seances")/" + id,
+                function (data) { $('.modal-body').html(data); })
+            $('#myModal').modal('show');
+
+            $('#myModal').on('hidden.bs.modal', function (e) {
+                $('.modal-body').html("");
+                $('.modal-title').html("");
+            })
+        }
+
+        function Change() {
+            var select = $('#recurrance');
+            alert(select.val);
+        }
+</script>
 
 }

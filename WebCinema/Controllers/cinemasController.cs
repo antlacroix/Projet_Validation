@@ -236,6 +236,8 @@ namespace WebCinema.Controllers
         //GET: cinemas/DetailsSalle/5
         public ActionResult DetailsSalle(int? id, DateTime? start, DateTime? end)
         {
+            Session["isOnRoom"] = 1;
+
             if (Session[SessionKeys.startDate] != null)
                 start = Session[SessionKeys.startDate] as DateTime?;
             ViewBag.start = start;

@@ -15,49 +15,50 @@
     @Html.ActionLink("Back to List", "BackToSalle", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) }, new { @class = "btn btn-default" })
 </div>
 
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.date_debut, htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.date_debut, new { type = "datetime-local", @class = "form-control datepicker" })
-            @Html.ValidationMessageFor(model => model.date_debut, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.date_debut, htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
+            <div class="col-md-10">
+                <div>@Html.EJS().DatePicker("datePickerStart").Value(DateTime.Now).Min(DateTime.Now).Render()</div>
+                <div>@Html.EJS().TimePicker("timePickerStart").Value(DateTime.Now.AddHours(2)).Format("HH:mm").Step(15).Render()</div>
+                @Html.ValidationMessageFor(model => model.date_debut, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.date_fin, htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.date_fin, new { type = "datetime-local", @class = "form-control datepicker" })
-            @Html.ValidationMessageFor(model => model.date_fin, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.date_fin, htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
+            <div class="col-md-10">
+                <div>@Html.EJS().DatePicker("datePickerFin").Value(DateTime.Now).Min(DateTime.Now.AddMinutes(10)).Render()</div>
+                <div>@Html.EJS().TimePicker("timePickerfin").Value(DateTime.Now.AddHours(3)).Format("HH:mm").Step(15).Render()</div>
+                @Html.ValidationMessageFor(model => model.date_fin, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.titre_seance, htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.titre_seance, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.titre_seance, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.titre_seance, htmlAttributes: new { @class = "control-label col-md-2", @style = "font-weight: bolder; color: black;" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.titre_seance, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.titre_seance, "", new { @class = "text-danger" })
+            </div>
         </div>
+
+        @Html.HiddenFor(model => model.salle_id, new { @Value = int.Parse(Session[SessionKeys.salleId].ToString()) })
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+
     </div>
-
-    @Html.HiddenFor(model => model.salle_id, new { @Value = int.Parse(Session[SessionKeys.salleId].ToString()) })
-
-<div class="form-actions no-color">
-    <input type="submit" value="Create" class="btn btn-default" />
-</div>
-
-</div>
 }
 
 
-   
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

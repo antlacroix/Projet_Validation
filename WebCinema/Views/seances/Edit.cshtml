@@ -5,7 +5,7 @@
 }
 @using (Html.BeginForm("Edit", "seances", FormMethod.Post))
 {
-    <div>
+    <div style="height:60px">
         <div style="text-align: left; float: left;">
             <h2>Edit Session</h2>
         </div>
@@ -19,8 +19,19 @@
             float: right;
             padding: 0px;
             margin: 0px;
-            margin-top: 15px;">
+            margin-top: 15px;
+            margin-left: 10px">
             <input type="submit" value="" class="btn btn-success btn-Save btn-general" />
+        </div>
+
+        <div class="btn btn-default" style="
+            text-align: right;
+            float: right;
+            padding: 0px;
+            margin: 0px;
+            margin-top: 15px;">
+            <input id="btnShowRepeat" onclick="ShowRepeatModal(@Model.id)"
+                   class="btn btn-primary btn-Repeat btn-general" type="button" value="" />
         </div>
 
     </div>
@@ -29,8 +40,6 @@
     {
         <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
     }
-
-    <br />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
@@ -55,14 +64,14 @@
         </tr>
 
         <tr>
-            <td>
-                @Html.Label(Model.date_debut.ToString())
-                @Html.TextBoxFor(model => model.date_debut, new { @class = "form-control", @Value = Model.date_debut })
+            <td style="width: 25%">
+                <div style="text-align: left; float: left; width:50%">@Html.EJS().DatePicker("datePickerStart").Value(Model.date_debut).Min(DateTime.Now).Render()</div>
+                <div style="text-align: right; float: right; width:50%">@Html.EJS().TimePicker("timePickerStart").Value(Model.date_debut).Format("HH:mm").Step(15).Render()</div>
                 @Html.ValidationMessageFor(model => model.date_debut, "", new { @class = "text-danger" })
             </td>
-            <td>
-                @Html.Label(Model.date_fin.ToString())
-                @Html.TextBoxFor(model => model.date_fin, new { type = "datetime-local", @class = "form-control" })
+            <td style="width: 25%">
+                <div style="text-align: left; float: left; width:50%">@Html.EJS().DatePicker("datePickerFin").Value(Model.date_fin).Min(DateTime.Now.AddMinutes(10)).Render()</div>
+                <div style="text-align: right; float: right; width:50%">@Html.EJS().TimePicker("timePickerfin").Value(Model.date_fin).Format("HH:mm").Step(15).Render()</div>
                 @Html.ValidationMessageFor(model => model.date_fin, "", new { @class = "text-danger" })
             </td>
             <td>
@@ -76,49 +85,8 @@
         </tr>
     </table>
 }
-<br />
 
-@using (Html.BeginForm("Reccurance", "seances", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    //table pour la recurance
-    <table class="table">
-        @Html.HiddenFor(model => model.id)
-        <tr>
-            <th style="width:25%">
-                <h3>Repeating Session</h3>
-            </th>
-            <th></th>
-            <th></th>
-        </tr>
-        <tr>
-            <td>
-                <div style="padding-left:15px">
-                    <span>Repeat </span>
-                    <span>
-                        <input class="form-control" style="display: inline; width:75px" id="nbrRecurrance" name="nbrRecurrance" type="number" min="1" value="1" />
-                    </span>
-                    <span> times</span>
-                </div>
-            </td>
-            <td>
-                <select class="form-control" id="recurrance" name="recurrance">
-                    <option>Daily</option>
-                    <option>Weekly</option>
-                    <option>Monthly</option>
-                    <option>Yearly</option>
-                </select>
-            </td>
-            <td>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create Repeat" class="btn btn-default" />
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </table>
-}
+
 
 @using (Html.BeginForm("Edit", "seances", FormMethod.Post))
 {
@@ -173,8 +141,6 @@
         }
     </table>
 }
-
-
 
 @using (Html.BeginForm("Edit", "seances", FormMethod.Post))
 {
@@ -250,6 +216,21 @@
 
 <button onclick="topFunction()" id="myBtn" title="Go to top">Back to Top</button>
 
+<div class="modal" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Repeating session</h2>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
@@ -270,6 +251,41 @@
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
         }
+
+        function ShowRepeatModal(id) {
+            $('.modal-title').html("Repeat Session");
+            $.get("@Url.Action("getRepeat","seances")/" + id,
+                function (data) { $('.modal-body').html(data); })
+            $('#myModal').modal('show');
+
+            $('#myModal').on('hidden.bs.modal', function (e) {
+                $('.modal-body').html("");
+                $('.modal-title').html("");
+            })
+        }
+
+        $(document).ready(function () {
+            $('body').on("change", "#recurrance", function (evt) {
+                switch ($(this).val()) {
+                    case "Daily":
+                        $('#weeklyOption').hide();
+                        break;
+                    case "Weekly":
+                        $('#weeklyOption').show();
+                        break;
+                    case "Monthly":
+                        $('#weeklyOption').hide();
+                        break;
+                    case "Yearly":
+                        $('#weeklyOption').hide();
+                        break;
+                    default:
+                        break;
+
+                }
+            })
+        })
+        
     </script>
 
 }

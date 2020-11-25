@@ -1,0 +1,55 @@
+﻿@model ModelCinema.Models.seance
+
+@if (TempData.ContainsKey("Alert"))
+{
+    <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
+}
+
+@using (Html.BeginForm("Reccurance", "seances", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    //table pour la recurance
+    <table class="table">
+        @Html.HiddenFor(model => model.id)
+        <tr>
+            <td>
+                <div style="padding-left:15px">
+                    <span>Repeat </span>
+                    <span>
+                        <input class="form-control" style="display: inline; width:75px" id="nbrRecurrance" name="nbrRecurrance" type="number" min="1" value="1" />
+                    </span>
+                    <span> times</span>
+                </div>
+            </td>
+            <td>
+                <select class="form-control" id="recurrance" name="recurrance" @*onchange="Change()"*@>
+                    <option value="Daily">Daily</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Monthly">Monthly</option>
+                    <option value="Yearly">Yearly</option>
+                </select>
+            </td>
+            <td>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create Repeat" class="btn btn-default" />
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div id="weeklyOption" style="display: none">
+        <label><input type="checkbox" name="dayToRepeat[]" value="monday" /> Monday</label>
+        <label><input type="checkbox" name="dayToRepeat[]" value="tuesday" /> Tuesday</label>
+        <label><input type="checkbox" name="dayToRepeat[]" value="wednesday" /> Wednesday</label>
+        <label><input type="checkbox" name="dayToRepeat[]" value="thursday" /> Thursday</label>
+        <label><input type="checkbox" name="dayToRepeat[]" value="friday" /> Friday</label>
+        <label><input type="checkbox" name="dayToRepeat[]" value="saturday" /> Saturday</label>
+        <label><input type="checkbox" name="dayToRepeat[]" value="sunday" /> Sunday</label>
+    </div>
+}
+
+@section scripts {
+    <script>
+    </script>
+}

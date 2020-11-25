@@ -17,18 +17,26 @@ namespace WebCinema.Controllers
         //Get methode        
 
         [HttpPost]
-        public ActionResult Reccurance(int id, string recurrance, int nbrRecurrance)
+        public ActionResult Reccurance(int id, string recurrance, int nbrRecurrance, string[] dayToRepeat)
         {
             try
             {
-                ManagerSeance manager = new ManagerSeance();
-                manager.RecurranceSeances(id, recurrance, nbrRecurrance);
-                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString())});
+                List<int> ids = new List<int>();
+                List<programmation> progs = new ManagerProgrammation().GetAllprogramtionFromSeance(id);
+                new ManagerSeance().RecurranceSeances(id, recurrance, nbrRecurrance, dayToRepeat, ref ids);
+                new ManagerProgrammation().PostManyProgs(progs, ref ids);
+                if (Session["isOnRoom"] as int? == 0)
+                    return RedirectToAction("Edit", "seances", new { id = id });
+                else
+                    return RedirectToAction("DetailsSalle", "cinemas", new { id = Session[SessionKeys.salleId] as int?, start = DateTime.Now });
             }
             catch (Exception e)
             {
                 TempData.Add("Alert", e.Message);
-                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
+                if (Session["isOnRoom"] as int? == 0)
+                    return RedirectToAction("Edit", "seances", new { id = id });
+                else
+                    return RedirectToAction("DetailsSalle", "cinemas", new { id = Session[SessionKeys.salleId] as int?, start = DateTime.Now });
             }
         }
 
@@ -107,6 +115,8 @@ namespace WebCinema.Controllers
         // GET: seances/Edit/5
         public ActionResult Edit(int? id, string titre, int? yearMin, int? yearMax, int? id_type)
         {
+
+            Session["isOnRoom"] = 0;
             Session[SessionKeys.seanceId] = id;
             try
             {
@@ -136,7 +146,7 @@ namespace WebCinema.Controllers
             catch (Exception e)
             {
                 TempData.Add("Alert", e.Message);
-                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
+                return RedirectToAction("DetailsSalle", "cinemas", new { id = Session[SessionKeys.salleId] as int?, start = DateTime.Now });
             }
         }
 
@@ -147,15 +157,23 @@ namespace WebCinema.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,date_debut,date_fin,titre_seance,salle_id,film_id,id_film")] seance seance)
+        public ActionResult Create([Bind(Include = "id,date_debut,date_fin,titre_seance,salle_id,film_id,id_film")] seance seance,
+            string datePickerStart, string timePickerStart, string datePickerFin, string timePickerfin)
         {
+
+            string
+                startString = datePickerStart + " " + timePickerStart,
+                endString = datePickerFin + " " + timePickerfin;
+            seance.date_debut = DateTime.Parse(startString);
+            seance.date_fin = DateTime.Parse(endString);
+
             try
             {
                 ManagerSeance manager = new ManagerSeance();
                 if (ModelState.IsValid)
                 {
                     if (manager.PostSeance(seance))
-                        return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
+                        return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()), start = DateTime.Now });
                 }
                 ViewBag.film_id = new SelectList(new ManagerFilm().GetAllFilmsFrom(null), "id", "titre");
                 return View(seance);
@@ -163,7 +181,7 @@ namespace WebCinema.Controllers
             catch (Exception e)
             {
                 TempData.Add("Alert", e.Message);
-                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
+                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()), start = DateTime.Now });
             }
         }
         // POST: seances/Edit/5
@@ -171,8 +189,16 @@ namespace WebCinema.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,date_debut,date_fin,titre_seance,salle_id,film_id")] seance seance, string command, string titre, int? yearMin, int? yearMax, int? id_type)
+        public ActionResult Edit([Bind(Include = "id,date_debut,date_fin,titre_seance,salle_id,film_id")] seance seance,
+            string command, string titre, int? yearMin, int? yearMax, int? id_type,
+            string datePickerStart, string timePickerStart, string datePickerFin, string timePickerfin)
         {
+            string
+                startString = datePickerStart + " " + timePickerStart,
+                endString = datePickerFin + " " + timePickerfin;
+            seance.date_debut = DateTime.Parse(startString);
+            seance.date_fin = DateTime.Parse(endString);
+
             if (command == "Filtre")
                 return RedirectToAction("Edit", new { titre = titre, yearMin = yearMin, yearMax = yearMax, id_type = id_type });
             else if (command == "addFilm")
@@ -186,7 +212,7 @@ namespace WebCinema.Controllers
                 if (ModelState.IsValid)
                 {
                     if (managerSeance.PutSeance(seance))
-                        return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
+                        return RedirectToAction("Edit", new { titre = titre, yearMin = yearMin, yearMax = yearMax, id_type = id_type });
                 }
                 ViewBag.salle_id = new SelectList(new ManagerSalle().GetAllSalle().Where(s => s.cinema_id == int.Parse(Session[SessionKeys.cinemaId].ToString())), "id", "numero_salle", seance.salle_id);
                 return RedirectToAction("Edit", new { titre = titre, yearMin = yearMin, yearMax = yearMax, id_type = id_type });
@@ -194,7 +220,7 @@ namespace WebCinema.Controllers
             catch (Exception e)
             {
                 TempData.Add("Alert", e.Message);
-                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
+                return RedirectToAction("Edit", seance);
             }
         }
         // POST: seances/Delete/5
@@ -207,7 +233,7 @@ namespace WebCinema.Controllers
                 ManagerSeance manager = new ManagerSeance();
                 seance seance = manager.GetSeance(id);
                 if (manager.DeleteSeance(id))
-                    return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
+                    return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()), start = DateTime.Now });
                 else
                     throw new Exception();
             }
@@ -216,7 +242,7 @@ namespace WebCinema.Controllers
                 TempData.Add("Alert", e.Message);
                 Session[SessionKeys.seanceId] = id;
                 Session[SessionKeys.seanceTab] = "Delete";
-                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
+                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()), start = DateTime.Now });
             }
         }
 
@@ -226,9 +252,24 @@ namespace WebCinema.Controllers
         #region
         public ActionResult BackToSalle(int id)
         {
-            return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
+            return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()), start = DateTime.Now });
         }
         #endregion
+
+        public ActionResult getRepeat(int id)
+        {
+            try
+            {
+                seance s = new ManagerSeance().GetSeance(id);
+                return PartialView("PartialRepeatSession", s);
+            }
+            catch (Exception e)
+            {
+                TempData.Add("Alert", e.Message);
+                return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()), start = DateTime.Now });
+            }
+        }
+
         public ActionResult CreateProgrammation(int? id, int seanceId)
         {
             try
