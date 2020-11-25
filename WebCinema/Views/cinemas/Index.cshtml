@@ -38,6 +38,10 @@
 
         @foreach (var item in Model)
         {
+
+            char[] t = item.contact_info.tel_number.ToArray();
+            string phone = "(" + t[0] + t[1] + t[2] + ") " + t[3] + t[4] + t[5] + "-" + t[6] + t[7] + t[8] + t[9];
+
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.cinema_name)
@@ -46,31 +50,32 @@
                     @Html.DisplayFor(modelItem => item.contact_info.adresse)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.contact_info.tel_number)
+                    @phone
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.user.name)
                 </td>
                 <td>
-                    <div class="d-flex align-items-center">
-                        <span>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.id }, new
-                       {
-                           style = "background: url('../Image/edit.png'); display:block; height:24px; width:24px;",
-                           @class = "text-hide"
-                       })
-                        </span>
-                        <span>
-                            @Html.ActionLink("Details", "Details", new { id = item.id }, new
-                       {
-                           style = "background: url('../Image/eye.png'); display:block; height:24px; width:24px;",
-                           @class = "text-hide"
-                       })
-                        </span>
-                    </div>
+                    <table class="sub-table">
+                        <tr>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.id }, new
+                           {
+                               style = "background: url('../Image/edit.png'); display:block; background-size: 36px 36px; height:36px; width:36px;",
+                               @class = "text-hide"
+                           })
+                            </td>
+                            <td>
+                                @Html.ActionLink("Details", "Details", new { id = item.id }, new
+                           {
+                               style = "background: url('../Image/eye.png'); display:block; background-size: 36px 36px; height:36px; width:36px;",
+                               @class = "text-hide"
+                           })
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         }
-
     </table>
 </div>

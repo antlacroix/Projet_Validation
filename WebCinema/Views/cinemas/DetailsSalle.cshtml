@@ -12,27 +12,28 @@
             DateTime.Now.AddDays(+10);
 }
 
-<h2>Room Details</h2>
+<div>
+    <div style="text-align: left; float: left;">
+        <h2 class="d-inline">Room Details</h2>
+    </div>
+    <div style="text-align: right; float: right; margin-top: 15px; ">
+        @Html.ActionLink("Back to " + Model.cinema.cinema_name, "Details", new { id = Model.cinema_id }, new { @class = "btn btn-default" })
+    </div>
+</div>
 
 @if (TempData.ContainsKey("Alert"))
-    {
-        <div class="alert alert-danger alert-dismissable show" role="alert">
-            @TempData["Alert"]
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    }
+{
+    <div class="alert alert-danger alert-dismissable show" role="alert">
+        @TempData["Alert"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
 
-<p>
-    @Html.ActionLink("Back to List", "Details", new { id = Model.cinema_id }, new { @class = "btn btn-default" })
-</p>
+
 
 <div class="transbox">
-
-    <div>
-        <hr />
-    </div>
     <table class="table">
         <tr>
             <th>
@@ -91,14 +92,8 @@
                            id="endDate" name="endDate" type="date" value=@endDate />
                 </th>
                 <th>
-                   <br />
+                    <br />
                     <input type="submit" style="background: url('../../Image/search.png'); display: block; height: 24px; width: 24px;" class="text-hide" />
-
-                </th>
-                <th>
-
-                </th>
-                <th>
 
                 </th>
             </tr>
@@ -121,7 +116,9 @@
 
         @foreach (var item in Model.seances.OrderBy(x => x.date_debut))
         {
-            <tr>
+            <tr style="
+                @(item.date_fin < DateTime.Now? "background-color: rgb(143, 21, 0, 0.5);" : "")
+                @((item.date_debut < DateTime.Now && item.date_fin > DateTime.Now)? "background-color: rgb(218, 104, 15, 0.5);" : "")">
                 <td>
                     @Html.DisplayFor(modelItem => item.titre_seance)
                 </td>
@@ -132,21 +129,104 @@
                     @Html.DisplayFor(modelItem => item.date_fin)
                 </td>
                 <td>
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "EditSeance", new { id = item.id }, htmlAttributes: new
-                    {
-                   style = "background: url('../../Image/edit.png'); display:block; height:24px; width:24px;",
-                   @class = "text-hide"
-               })
-                    @Html.ActionLink("Delete", "DeleteSeance", new { id = item.id }, htmlAttributes: new
-                    {
-                   style = "background: url('../../Image/delete.png'); display:block; height:24px; width:24px;",
-                   @class = "text-hide"
-               })
+                    <table class="sub-table">
+                        <tr>
+                            <td class="sub-table">
+                                @if (item.date_debut > DateTime.Now.AddHours(2))
+                                {
+                                    @Html.ActionLink("Edit", "EditSeance", new { id = item.id }, htmlAttributes: new
+                                    {
+                                   style = "background: url('../../Image/edit.png'); display:block; background-size: 36px 36px; height:36px; width:36px;",
+                                   @class = "text-hide"
+                               })
+                                }
+                                else
+                                {
+                                    <div class="btn-general">
+
+                                    </div>
+                                }
+                            </td>
+                            <td class="sub-table">
+                                @if (item.date_debut < DateTime.Now && item.date_fin > DateTime.Now)
+                                {
+                                    <div class="btn-general"></div>
+                                }
+                                else
+                                {
+                                    <input id="@item.id" onclick="Delete(@item.id)"
+                                           class="text-hide btn-general btn-Delete" type="button" value="" />
+                                }
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         }
     </table>
 
 </div>
+
+<div class="modal" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"></h2>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button onclick="topFunction()" id="myBtn" title="Go to top">Back to Top</button>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        var mybutton = document.getElementById("myBtn");
+
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+
+        $(document).ready(function () {
+            var testVar = "@Session[SessionKeys.seanceTab]"
+            switch (testVar) {
+                case "Delete":
+                    Delete("@Session[SessionKeys.seanceId]");
+                    break;
+                default:
+                    break;
+            }
+        })
+
+        function Delete(id) {
+            $('.modal-title').html("Are you sure you want to delete this session?");
+            $.get("@Url.Action("Delete", "seances")/" + id,
+                function (data) { $('.modal-body').html(data); })
+            $('#myModal').modal('show');
+
+            $('#myModal').on('hidden.bs.modal', function (e) {
+                $('.modal-body').html("");
+                $('.modal-title').html("");
+            })
+        }
+    </script>
+
+}

@@ -279,7 +279,7 @@ namespace WebCinema.Controllers
                 if (ModelState.IsValid)
                 {
                     manager.PutSalle(salle);
-                    return RedirectToAction("DetailsSalle", new { id = salle.id });
+                    return RedirectToAction("Details", new { id = salle.cinema_id });
                 }
             }
             catch (Exception e)

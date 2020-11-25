@@ -2,12 +2,14 @@
 
 @{
     ViewBag.Title = "Details Cinema";
+    char[] t = Model.contact_info.tel_number.ToArray();
+    string phone = "(" + t[0] + t[1] + t[2] + ") " + t[3] + t[4] + t[5] + "-" + t[6] + t[7] + t[8] + t[9];
 }
 <div>
-    <div>
+    <div style="text-align: left; float: left;">
         <h2>Cinema Details</h2>
     </div>
-    <div>
+    <div style="text-align: right; float: right; margin-top: 15px; ">
         @Html.ActionLink("Back to Cinemas", "Index", null, new { @class = "btn btn-default" })
     </div>
 </div>
@@ -44,7 +46,7 @@
             @Html.DisplayFor(model => model.user.user_type.type)
         </td>
         <td>
-            @Html.DisplayFor(model => model.contact_info.tel_number)
+            @phone
         </td>
     </tr>
 </table>
@@ -70,7 +72,7 @@
 
     @foreach (var item in Model.salles)
     {
-        <tr>
+        <tr style="@(item.salle_status.status.ToUpper() == "INACTIVE"? "background-color: rgb(253, 165, 15, 0.5);":"")">
             <td>
                 # @Html.DisplayFor(modelItem => item.numero_salle)
             </td>
@@ -84,7 +86,7 @@
                 @Html.DisplayFor(modelItem => item.salle_status.status)
             </td>
             <td>
-                <table>
+                <table class="sub-table">
                     <tr>
                         <td>
                             @if (item.seances.Count == 0)
@@ -93,6 +95,10 @@
                                     <input id="@item.id" onclick="Edit(@item.id)"
                                            class="text-hide btn-general btn-Edit" type="button" value="" />
                                 </span>
+                            }
+                            else
+                            {
+                                <div class="btn-general"></div>
                             }
                         </td>
                         <td>
@@ -105,7 +111,7 @@
                             </span>
                         </td>
                         <td>
-                            @if (item.seances.Count == 0)
+                            @if (item.seances.Count == 0 && item.salle_status.status.ToUpper() == "INACTIVE")
                             {
                                 <span>
                                     <input id="@item.id" onclick="Delete(@item.id)"
@@ -153,7 +159,7 @@
         })
 
         function Delete(id) {
-            $('.modal-title').html("Delete");
+            $('.modal-title').html("Are you sure you want to delete this room?");
             $.get("@Url.Action("DeleteSalle", "cinemas")/" + id,
                 function (data) { $('.modal-body').html(data); })
             $('#myModal').modal('show');

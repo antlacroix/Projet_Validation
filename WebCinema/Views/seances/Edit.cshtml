@@ -3,51 +3,61 @@
 @{
     ViewBag.Title = "Edit Seances";
 }
+@using (Html.BeginForm("Edit", "seances", FormMethod.Post))
+{
+    <div>
+        <div style="text-align: left; float: left;">
+            <h2>Edit Session</h2>
+        </div>
 
-<div>
-    <h2>Edit Session</h2>
+        <div style="text-align: right; float: right; margin-top: 17px; margin-left: 10px">
+            @Html.ActionLink("Back to room #" + Model.salle.numero_salle, "BackToSalle", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) }, new { @class = "btn btn-default" })
+        </div>
 
-    @if (TempData.ContainsKey("Alert"))
+        <div class="btn btn-default" style="
+            text-align: right;
+            float: right;
+            padding: 0px;
+            margin: 0px;
+            margin-top: 15px;">
+            <input type="submit" value="" class="btn btn-success btn-Save btn-general" />
+        </div>
+
+    </div>
+
+    if (TempData.ContainsKey("Alert"))
     {
         <div class="alert alert-danger" role="alert">@TempData["Alert"]</div>
     }
 
-    <div>
-        @Html.ActionLink("Back to List", "BackToSalle", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) }, new { @class = "btn btn-default" })
-    </div>
-</div>
-<br />
-@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <br />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-@using (Html.BeginForm("Edit", "seances", FormMethod.Post))
-{
+
 
     @Html.AntiForgeryToken()
     //table pour afficher les info de la seance
     <table class="table">
         @Html.HiddenFor(model => model.id)
         <tr>
-            <td>
+            <th>
                 @Html.LabelFor(model => model.date_debut)
-            </td>
-            <td>
+            </th>
+            <th>
                 @Html.LabelFor(model => model.date_fin)
-            </td>
-            <td>
+            </th>
+            <th>
                 @Html.LabelFor(model => model.titre_seance)
-            </td>
-            <td>
+            </th>
+            <th>
                 @Html.LabelFor(model => model.salle_id, "Room")
-            </td>
+            </th>
         </tr>
 
         <tr>
             <td>
                 @Html.Label(Model.date_debut.ToString())
-                @*@Html.EditorFor(model => model.date_debut, new { htmlAttributes = new { Value = Model.date_debut, @class = "form-control datepicker"} })*@
-                @*<input class="form-control" data-val="true" data-val-required="Date is required"
-        id="startDate" name="startDate" value=@Model.date_debut.ToString() />*@
-                @Html.TextBoxFor(model => model.date_debut, new {  @class = "form-control", @Value = Model.date_debut })
+                @Html.TextBoxFor(model => model.date_debut, new { @class = "form-control", @Value = Model.date_debut })
                 @Html.ValidationMessageFor(model => model.date_debut, "", new { @class = "text-danger" })
             </td>
             <td>
@@ -65,11 +75,9 @@
             </td>
         </tr>
     </table>
-
-    <input type="submit" value="Update" class="btn btn-default" />
-
 }
- </br>
+<br />
+
 @using (Html.BeginForm("Reccurance", "seances", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -77,24 +85,37 @@
     <table class="table">
         @Html.HiddenFor(model => model.id)
         <tr>
-            <th>
+            <th style="width:25%">
+                <h3>Repeating Session</h3>
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>
+                <div style="padding-left:15px">
+                    <span>Repeat </span>
+                    <span>
+                        <input class="form-control" style="display: inline; width:75px" id="nbrRecurrance" name="nbrRecurrance" type="number" min="1" value="1" />
+                    </span>
+                    <span> times</span>
+                </div>
+            </td>
+            <td>
                 <select class="form-control" id="recurrance" name="recurrance">
                     <option>Daily</option>
                     <option>Weekly</option>
                     <option>Monthly</option>
                     <option>Yearly</option>
                 </select>
-            </th>
-            <th>
-                <input class="form-control" id="nbrRecurrance" name="nbrRecurrance" type="number" min="1" value="1" />
-            </th>
-            <th>
+            </td>
+            <td>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Create Repeat" class="btn btn-default" />
                     </div>
                 </div>
-            </th>
+            </td>
         </tr>
     </table>
 }
@@ -124,7 +145,7 @@
 
         @foreach (var item in Model.programmations)
         {
-            <tr>
+            <tr style="@(item.is_primary? "background-color: rgb(0, 165, 255, 0.5);" : "")">
                 @Html.HiddenFor(modelItem => item.id)
                 <td>
                     @Html.DisplayFor(modelItem => item.film.titre)
@@ -170,6 +191,8 @@
             <th>
                 Year
             </th>
+            <th></th>
+            <th></th>
         </tr>
         @using (Html.BeginForm("Filtre", "seances", FormMethod.Post))
         {
@@ -225,6 +248,28 @@
     </table>
 }
 
+<button onclick="topFunction()" id="myBtn" title="Go to top">Back to Top</button>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        var mybutton = document.getElementById("myBtn");
+
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+
 }

@@ -131,7 +131,7 @@ namespace WebCinema.Controllers
             {
                 ManagerSeance manager = new ManagerSeance();
                 seance seance = manager.GetSeance(id);
-                return View(seance);
+                return PartialView("PartialDeleteSeance", seance);
             }
             catch (Exception e)
             {
@@ -214,6 +214,8 @@ namespace WebCinema.Controllers
             catch (Exception e)
             {
                 TempData.Add("Alert", e.Message);
+                Session[SessionKeys.seanceId] = id;
+                Session[SessionKeys.seanceTab] = "Delete";
                 return RedirectToAction("DetailsSalle", "cinemas", new { id = int.Parse(Session[SessionKeys.salleId].ToString()) });
             }
         }

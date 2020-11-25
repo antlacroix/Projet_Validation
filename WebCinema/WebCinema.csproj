@@ -174,7 +174,13 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\add.png" />
     <Content Include="Image\bg.jpg" />
+    <Content Include="Image\delete.png" />
+    <Content Include="Image\edit.png" />
+    <Content Include="Image\eye.png" />
+    <Content Include="Image\moins.png" />
+    <Content Include="Image\search.png" />
     <Content Include="Image\white-bg.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -333,6 +339,7 @@
     <Content Include="Views\films\PartialEdit.cshtml" />
     <Content Include="Views\cinemas\PartialDeleteSalle.cshtml" />
     <Content Include="Views\cinemas\PartialEditSalle.cshtml" />
+    <Content Include="Views\seances\PartialDeleteSeance.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

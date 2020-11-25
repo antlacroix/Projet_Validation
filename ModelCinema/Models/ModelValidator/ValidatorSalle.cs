@@ -36,7 +36,7 @@ namespace ModelCinema.Models.ModelValidator
         }
         static public bool IsSalleExist(salle candidate, List<salle> salles)
         {
-            List<salle> existingOne = salles.Where(o => o.cinema_id == candidate.cinema_id).ToList();
+            List<salle> existingOne = salles.Where(o => o.id == candidate.id).ToList();
 
             if (existingOne.Count != 0)
                 return true;
@@ -45,7 +45,7 @@ namespace ModelCinema.Models.ModelValidator
         }
         static public bool IsSalleConflict(salle candidate, List<salle> salles)
         {
-            List<salle> existingOne = salles.Where(o => o.numero_salle == candidate.numero_salle).ToList();
+            List<salle> existingOne = salles.Where(o => o.numero_salle == candidate.numero_salle && o.id != candidate.id).ToList();
 
             if (existingOne.Count != 0)
                 return true;

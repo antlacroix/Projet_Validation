@@ -3,7 +3,7 @@
     ViewBag.Title = "Index Films";
 }
 
-<h2>Films</h2>
+<h2>Movies</h2>
 
 @if (TempData.ContainsKey("Alert") && Session[SessionKeys.openedTab] == null)
     {
@@ -168,7 +168,7 @@
         }
 
         function Delete(id) {
-            $('.modal-title').html("Delete");
+            $('.modal-title').html("Are you sure you want to delete this movie?");
             $.get("@Url.Action("Delete", "films")/" + id,
                 function (data) { $('.modal-body').html(data); })
             $('#myModal').modal('show');
