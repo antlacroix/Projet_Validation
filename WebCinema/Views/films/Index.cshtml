@@ -51,9 +51,6 @@
     <!-- table head -->
     <tr>
         <th>
-            Picture
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.titre)
         </th>
         <th>
@@ -80,9 +77,6 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                picture
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.titre)
             </td>

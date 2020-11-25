@@ -51,17 +51,10 @@
             <table class="table">
                 <tr>
                     <th>
-                        picture
-                    </th>
-                    <th>
                         @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
                     </th>
                 </tr>
                 <tr>
-                    <td>
-                        @Html.TextAreaFor(model => model.description, 10, 100, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-                    </td>
                     <td>
                         @Html.TextAreaFor(model => model.description, 10, 100, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
@@ -107,26 +100,7 @@
                 </tr>
             </table>
 
-            <table class="table">
-                <tr>
-                    <th>
-                        picture
-                    </th>
-                    <th>
-                        @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
-                    </th>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.TextAreaFor(model => model.description, 10, 100, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-                    </td>
-                    <td>
-                        @Html.TextAreaFor(model => model.description, 10, 100, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-                    </td>
-                </tr>
-            </table>
+
 
             <table class="table">
                 <tr>
@@ -166,6 +140,20 @@
                     <td>
                         @Html.EditorFor(model => model.votes, new { htmlAttributes = new { @class = "form-control", style = "width:100px" } })
                         @Html.ValidationMessageFor(model => model.votes, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+            </table>
+
+            <table class="table" style="width:30%">
+                <tr style="width:100% !important;">
+                    <th style="width:100% !important;">
+                        @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label" })
+                    </th>
+                </tr>
+                <tr style="width:100% !important;">
+                    <td style="width: 100% !important;">
+                        @Html.TextAreaFor(model => model.description, 10, 400, new { htmlAttributes = new { @class = "form-control form-control-full" } })
+                        @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
                     </td>
                 </tr>
             </table>
