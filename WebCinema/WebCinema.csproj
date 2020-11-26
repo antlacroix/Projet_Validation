@@ -180,6 +180,8 @@
     <Content Include="Image\edit.png" />
     <Content Include="Image\eye.png" />
     <Content Include="Image\moins.png" />
+    <Content Include="Image\repeat.png" />
+    <Content Include="Image\save.png" />
     <Content Include="Image\search.png" />
     <Content Include="Image\white-bg.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />

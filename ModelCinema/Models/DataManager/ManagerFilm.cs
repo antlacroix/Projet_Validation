@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic.FileIO;
 using ModelCinema.ModelExeption;
 using ModelCinema.Models.ModelValidator;
 using Xceed.Wpf.Toolkit;
@@ -27,6 +29,7 @@ namespace ModelCinema.Models.DataManager
 
         public List<film> GetAllFilms()
         {
+
             try
             {
                 return db.films.ToList();
@@ -70,6 +73,8 @@ namespace ModelCinema.Models.DataManager
 
         public film GetFilm(int? id)
         {
+            //List<film> f = readMovieFile();
+
             if (id != null)
             {
                 film film = db.films.Find(id);
@@ -178,7 +183,7 @@ namespace ModelCinema.Models.DataManager
             {
                 try
                 {
-                    if(id_type != null)
+                    if (id_type != null)
                         return db.films.Where(f => f.annee_parution >= yearMin && f.annee_parution <= yearMax && f.id_type == id_type).ToList();
                     else
                         return db.films.Where(f => f.annee_parution >= yearMin && f.annee_parution <= yearMax).ToList();
@@ -192,6 +197,70 @@ namespace ModelCinema.Models.DataManager
             {
                 return db.films.Where(f => f.annee_parution >= DateTime.Now.Year - 10).ToList();
             }
+        }
+
+
+        public List<film> readMovieFile()
+        {
+            List<film> films = new List<film>();
+            String[] fields;
+
+            using (StreamReader sr = new StreamReader(@"E:\Cours\Session 5\Projet validation\ProjetValidation\IMDB-Movie-Data.csv"))
+            {
+                int i = 0;
+
+                using (TextFieldParser parser = new TextFieldParser(sr))
+                {
+                    parser.HasFieldsEnclosedInQuotes = true;
+                    parser.SetDelimiters(",");
+                    while (!parser.EndOfData)
+                    {
+                        if (i == 0)
+                        {
+                            i++;
+                            fields = parser.ReadFields();
+                        }
+                        else
+                        {
+
+                            fields = parser.ReadFields();
+
+                            films.Add(new film()
+                            {
+                                titre = fields[1],
+                                description = fields[3],
+                                annee_parution = fields[6] != "" ? int.Parse(fields[6]) : 0,
+                                duree = fields[7] != "" ? int.Parse(fields[7]) : 0,
+                                votes = fields[9] != "" ? int.Parse(fields[9]) : 0,
+                                metascore = fields[11] != "" ? int.Parse(fields[11]) : 0,
+                                rating = fields[8] != "" ? double.Parse(fields[8]) : 0,
+                                revenu = fields[10] != "" ? double.Parse(fields[10].Replace('.', ',')) : 0,
+                                id_type = 2
+                            });
+                        }
+
+                    }
+                }
+
+            }
+            foreach (film film in films)
+            {
+                if (!ValidatorFilm.IsFilmExist(film, db.films.Where(f => f.annee_parution == film.annee_parution).ToList()))
+                    db.films.Add(film);
+            }
+
+            try
+            {
+                db.SaveChanges();
+
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            return films;
+
         }
     }
 }
