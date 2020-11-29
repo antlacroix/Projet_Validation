@@ -196,13 +196,17 @@ namespace WebCinema.Controllers
             string
                 startString = datePickerStart + " " + timePickerStart,
                 endString = datePickerFin + " " + timePickerfin;
-            seance.date_debut = DateTime.Parse(startString);
-            seance.date_fin = DateTime.Parse(endString);
+
 
             if (command == "Filtre")
                 return RedirectToAction("Edit", new { titre = titre, yearMin = yearMin, yearMax = yearMax, id_type = id_type });
             else if (command == "addFilm")
+            {
                 return RedirectToAction("Edit", new { titre = titre, yearMin = yearMin, yearMax = yearMax, id_type = id_type });
+            }
+
+            seance.date_debut = DateTime.Parse(startString);
+            seance.date_fin = DateTime.Parse(endString);
 
 
             try

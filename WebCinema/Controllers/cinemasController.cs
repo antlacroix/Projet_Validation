@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -21,8 +22,13 @@ namespace WebCinema.Controllers
         }
 
         [HttpPost]
-        public ActionResult Filtre(DateTime? startDate, DateTime? endDate)
+        [ValidateAntiForgeryToken]
+        public ActionResult Filtre(DateTime startDate, DateTime endDate)
         {
+            Stream req = Request.InputStream;
+            req.Seek(0, System.IO.SeekOrigin.Begin);
+            string json = new StreamReader(req).ReadToEnd();
+
             Session[SessionKeys.startDate] = startDate;
             Session[SessionKeys.endDate] = endDate;
             return RedirectToAction("DetailsSalle", new { start = startDate, end = endDate, id = int.Parse(Session[SessionKeys.salleId].ToString()) });

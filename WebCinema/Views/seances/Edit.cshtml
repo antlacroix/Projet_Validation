@@ -21,7 +21,7 @@
             margin: 0px;
             margin-top: 15px;
             margin-left: 10px">
-            <input type="submit" value="" class="btn btn-success btn-Save btn-general" />
+            <input name="command" type="submit" value="submit" class="btn btn-success btn-Save btn-general text-hide" />
         </div>
 
         <div class="btn btn-default" style="
@@ -65,13 +65,21 @@
 
         <tr>
             <td style="width: 25%">
-                <div style="text-align: left; float: left; width:50%">@Html.EJS().DatePicker("datePickerStart").Value(Model.date_debut).Min(DateTime.Now).Render()</div>
-                <div style="text-align: right; float: right; width:50%">@Html.EJS().TimePicker("timePickerStart").Value(Model.date_debut).Format("HH:mm").Step(15).Render()</div>
+                <div style="text-align: left; float: left; width:50%">
+                    @Html.EJS().DatePicker("datePickerStart").Value(Model.date_debut).Min(DateTime.Now).Render()
+                </div>
+                <div style="text-align: right; float: right; width:50%">
+                    @Html.EJS().TimePicker("timePickerStart").Value(Model.date_debut).Format("HH:mm").Step(15).Render()
+                </div>
                 @Html.ValidationMessageFor(model => model.date_debut, "", new { @class = "text-danger" })
             </td>
             <td style="width: 25%">
-                <div style="text-align: left; float: left; width:50%">@Html.EJS().DatePicker("datePickerFin").Value(Model.date_fin).Min(DateTime.Now.AddMinutes(10)).Render()</div>
-                <div style="text-align: right; float: right; width:50%">@Html.EJS().TimePicker("timePickerfin").Value(Model.date_fin).Format("HH:mm").Step(15).Render()</div>
+                <div style="text-align: left; float: left; width:50%">
+                    @Html.EJS().DatePicker("datePickerFin").Value(Model.date_fin).Min(DateTime.Now.AddMinutes(10)).Render()
+                </div>
+                <div style="text-align: right; float: right; width:50%">
+                    @Html.EJS().TimePicker("timePickerfin").Value(Model.date_fin).Format("HH:mm").Step(15).Render()
+                </div>
                 @Html.ValidationMessageFor(model => model.date_fin, "", new { @class = "text-danger" })
             </td>
             <td>
@@ -88,10 +96,10 @@
 
 
 
+@*table pour afficher la liste des programmation de la seance*@
 @using (Html.BeginForm("Edit", "seances", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    //table pour afficher la liste des programmation de la seance
     <table class="table">
         <tr>
             <th>
@@ -142,10 +150,10 @@
     </table>
 }
 
+@*//table pour le filtre*@
 @using (Html.BeginForm("Edit", "seances", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    //table pour le filtre
     <table class="table">
         <tr>
             <th>
@@ -177,7 +185,7 @@
                 </th>
                 <th>
                     <p>
-                        <input name="command" type="submit" style="background: url('../../Image/search.png'); display: block; height: 24px; width: 24px;" class="text-hide" />
+                        <input name="command" type="submit" value="Filtre" style="background: url('../../Image/search.png'); display: block; height: 24px; width: 24px;" class="text-hide" />
                     </p>
                 </th>
             </tr>
@@ -185,14 +193,17 @@
     </table>
 }
 
+@*//table pour ajouter une nouvelle seance*@
 @using (Html.BeginForm("Edit", "seances", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    //table pour ajouter une nouvelle seance
     <table class="table">
         <tr>
             <th>
                 Movies
+            </th>
+            <th>
+                Years
             </th>
             <th>
                 Types
@@ -285,7 +296,7 @@
                 }
             })
         })
-        
+
     </script>
 
 }

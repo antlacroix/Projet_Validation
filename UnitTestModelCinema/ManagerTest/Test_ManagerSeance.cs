@@ -24,30 +24,30 @@ namespace UnitTestModelCinema
         }
 
 
-        [TestMethod]
-        public void PutMultiSeanceIsGood()
-        {
-            //Arrange
-            var managerSeance = new ManagerSeance(_context);
-            var newSeance = managerSeance.GetSeance(1);
-            int count = managerSeance.GetAllSeanceFromSalle(newSeance.salle_id, newSeance.date_debut).Count;
-            string recurrance = "Daily";
-            List<seance> seances = managerSeance.GetAllSeanceFromSalle(newSeance.salle_id, newSeance.date_debut);
-            List<seance> seances2 = managerSeance.GetAllSeanceFromSalle(newSeance.salle_id, newSeance.date_debut);
+        //[TestMethod]
+        //public void PutMultiSeanceIsGood()
+        //{
+        //    //Arrange
+        //    var managerSeance = new ManagerSeance(_context);
+        //    var newSeance = managerSeance.GetSeance(1);
+        //    int count = managerSeance.GetAllSeanceFromSalle(newSeance.salle_id, newSeance.date_debut).Count;
+        //    string recurrance = "Daily";
+        //    List<seance> seances = managerSeance.GetAllSeanceFromSalle(newSeance.salle_id, newSeance.date_debut);
+        //    List<seance> seances2 = managerSeance.GetAllSeanceFromSalle(newSeance.salle_id, newSeance.date_debut);
 
-            //Act
-            try
-            {
-                managerSeance.RecurranceSeances(newSeance.id, recurrance, 4);
-            }
-            catch (Exception e)
-            {
-                Assert.Fail($"unexpected error of type {e.GetType()} occure with a message : {e.Message}");
-            }
-            //Assert
-          seances2 = managerSeance.GetAllSeanceFromSalle(newSeance.salle_id, newSeance.date_debut);
-            Assert.IsTrue(count + 4 == managerSeance.GetAllSeanceFromSalle(newSeance.salle_id, newSeance.date_debut).Count);
-        }
+        //    //Act
+        //    try
+        //    {
+        //        managerSeance.RecurranceSeances(newSeance.id, recurrance, 4);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Assert.Fail($"unexpected error of type {e.GetType()} occure with a message : {e.Message}");
+        //    }
+        //    //Assert
+        //  seances2 = managerSeance.GetAllSeanceFromSalle(newSeance.salle_id, newSeance.date_debut);
+        //    Assert.IsTrue(count + 4 == managerSeance.GetAllSeanceFromSalle(newSeance.salle_id, newSeance.date_debut).Count);
+        //}
     }
 
 }

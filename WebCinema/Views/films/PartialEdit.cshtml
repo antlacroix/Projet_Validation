@@ -144,14 +144,14 @@
                 </tr>
             </table>
 
-            <table class="table" style="width:30%">
-                <tr style="width:100% !important;">
-                    <th style="width:100% !important;">
+            <table class="table">
+                <tr>
+                    <th>
                         @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label" })
                     </th>
                 </tr>
-                <tr style="width:100% !important;">
-                    <td style="width: 100% !important;">
+                <tr>
+                    <td>
                         @Html.TextAreaFor(model => model.description, 10, 400, new { htmlAttributes = new { @class = "form-control form-control-full" } })
                         @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
                     </td>

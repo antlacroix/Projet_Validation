@@ -35,36 +35,36 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.nbr_place)
+                @Html.DisplayNameFor(model => model.cinema.cinema_name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.numero_salle)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.commentaire)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.salle_status.status)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.cinema.cinema_name)
+                @Html.DisplayNameFor(model => model.nbr_place)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.commentaire)
             </th>
         </tr>
         <tr>
             <td>
-                @Html.DisplayFor(model => model.nbr_place)
+                @Html.DisplayFor(model => model.cinema.cinema_name)
             </td>
             <td>
                 @Html.DisplayFor(model => model.numero_salle)
             </td>
             <td>
-                @Html.DisplayFor(model => model.commentaire)
-            </td>
-            <td>
                 @Html.DisplayFor(model => model.salle_status.status)
             </td>
             <td>
-                @Html.DisplayFor(model => model.cinema.cinema_name)
+                @Html.DisplayFor(model => model.nbr_place)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.commentaire)
             </td>
         </tr>
 
@@ -75,6 +75,7 @@
 
         @using (Html.BeginForm("Filtre", "cinemas", FormMethod.Post))
         {
+            @Html.AntiForgeryToken()
             <tr>
                 <th>
 
@@ -82,17 +83,15 @@
                 <th>
                     Start
                     <input class="form-control" data-val="true" data-val-required="Date is required"
-                           id="startDate" name="startDate" type="date" value=@startDate />
+                    id="startDate" name="startDate" type="date" value=@startDate />
                 </th>
                 <th>
                     End
                     <input class="form-control" data-val="true" data-val-required="Date is required"
-                           id="endDate" name="endDate" type="date" value=@endDate />
+                    id="endDate" name="endDate" type="date" value=@endDate />
                 </th>
                 <th>
-                    <br />
-                    <input type="submit" style="background: url('../../Image/search.png'); display: block; height: 24px; width: 24px;" class="text-hide" />
-
+                    <input name="command" type="submit" value="Filtre" style="background: url('../../Image/search.png'); display: block; height: 24px; width: 24px;" class="text-hide" />
                 </th>
             </tr>
         }
@@ -189,7 +188,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-<script>
+    <script>
         var mybutton = document.getElementById("myBtn");
 
         window.onscroll = function () { scrollFunction() };
@@ -266,6 +265,6 @@
             var select = $('#recurrance');
             alert(select.val);
         }
-</script>
+    </script>
 
 }
