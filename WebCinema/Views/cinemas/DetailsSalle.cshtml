@@ -115,7 +115,7 @@
         {
             <tr style="
                 @(item.date_fin < DateTime.Now? "background-color: rgb(143, 21, 0, 0.5);" : "")
-                @((item.date_debut < DateTime.Now && item.date_fin > DateTime.Now)? "background-color: rgb(218, 104, 15, 0.5);" : "")">
+                @((item.date_debut > DateTime.Now && item.date_fin > DateTime.Now)? "background-color: rgb(218, 104, 15, 0.5);" : "")">
                 <td>
                     @Html.DisplayFor(modelItem => item.titre_seance)
                 </td>
